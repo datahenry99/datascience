@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>方法论代表论文 - DataHub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="papers.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon">📊</div>
+          <span class="logo-text">DataHub</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="papers.html" class="nav-link active">方法论论文</a>
+        <a href="#" class="nav-link">技能库</a>
+        <a href="#" class="nav-link">数据集</a>
+        <a href="#" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+    </div>
+  </header>
+
+  <!-- 页面头部 -->
+  <section class="papers-hero">
+    <div class="papers-hero-bg"></div>
+    <div class="papers-hero-inner">
+      <div class="papers-hero-tag">
+        <span>📑</span> 数据科学方法论 · 代表论文精选
+      </div>
+      <h1 class="papers-hero-title">
+        方法论代表论文
+      </h1>
+      <p class="papers-hero-desc">
+        系统梳理数据科学核心方法论的里程碑论文，覆盖统计学习、深度学习、NLP、计算机视觉、因果推断等 10 大方向，助你构建完整的知识体系。
+      </p>
+      <div class="papers-nav-tags">
+        <a href="#stat-learning" class="papers-nav-tag">📐 统计学习</a>
+        <a href="#deep-learning" class="papers-nav-tag">🧠 深度学习</a>
+        <a href="#nlp" class="papers-nav-tag">💬 自然语言处理</a>
+        <a href="#cv" class="papers-nav-tag">👁️ 计算机视觉</a>
+        <a href="#rl" class="papers-nav-tag">🎮 强化学习</a>
+        <a href="#causal" class="papers-nav-tag">🔗 因果推断</a>
+        <a href="#dim-reduction" class="papers-nav-tag">📉 降维与聚类</a>
+        <a href="#bayesian" class="papers-nav-tag">🎲 贝叶斯方法</a>
+        <a href="#timeseries" class="papers-nav-tag">📈 时间序列</a>
+        <a href="#gnn" class="papers-nav-tag">🕸️ 图神经网络</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 论文内容主体 -->
+  <main class="papers-main">
+    <div class="papers-main-inner">
+
+      <!-- 侧边目录导航 -->
+      <aside class="papers-sidebar" id="papersSidebar">
+        <div class="sidebar-title">📑 目录导航</div>
+        <nav class="sidebar-nav">
+          <a href="#stat-learning" class="sidebar-link active" data-section="stat-learning">
+            <span class="sidebar-dot" style="background: #3b82f6;"></span>
+            <span>统计学习</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#deep-learning" class="sidebar-link" data-section="deep-learning">
+            <span class="sidebar-dot" style="background: #8b5cf6;"></span>
+            <span>深度学习</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#nlp" class="sidebar-link" data-section="nlp">
+            <span class="sidebar-dot" style="background: #f97316;"></span>
+            <span>自然语言处理</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#cv" class="sidebar-link" data-section="cv">
+            <span class="sidebar-dot" style="background: #22c55e;"></span>
+            <span>计算机视觉</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#rl" class="sidebar-link" data-section="rl">
+            <span class="sidebar-dot" style="background: #ec4899;"></span>
+            <span>强化学习</span>
+            <span class="sidebar-count">4</span>
+          </a>
+          <a href="#causal" class="sidebar-link" data-section="causal">
+            <span class="sidebar-dot" style="background: #0ea5e9;"></span>
+            <span>因果推断</span>
+            <span class="sidebar-count">4</span>
+          </a>
+          <a href="#dim-reduction" class="sidebar-link" data-section="dim-reduction">
+            <span class="sidebar-dot" style="background: #f59e0b;"></span>
+            <span>降维与聚类</span>
+            <span class="sidebar-count">4</span>
+          </a>
+          <a href="#bayesian" class="sidebar-link" data-section="bayesian">
+            <span class="sidebar-dot" style="background: #6366f1;"></span>
+            <span>贝叶斯方法</span>
+            <span class="sidebar-count">4</span>
+          </a>
+          <a href="#timeseries" class="sidebar-link" data-section="timeseries">
+            <span class="sidebar-dot" style="background: #14b8a6;"></span>
+            <span>时间序列</span>
+            <span class="sidebar-count">4</span>
+          </a>
+          <a href="#gnn" class="sidebar-link" data-section="gnn">
+            <span class="sidebar-dot" style="background: #a855f7;"></span>
+            <span>图神经网络</span>
+            <span class="sidebar-count">4</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- 论文内容区域 -->
+      <div class="papers-content">
+
+      <!-- ==================== 1. 统计学习 ==================== -->
+      <section class="paper-section" id="stat-learning">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">📐</div>
+          <div>
+            <h2 class="section-title">统计学习</h2>
+            <p class="section-subtitle">Statistical Learning — 从经典回归到集成方法</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://link.springer.com/article/10.1023/A:1010933404324" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2001</span>
+              <span class="paper-impact">引用 179,000+</span>
+            </div>
+            <h3 class="paper-title">Random Forests</h3>
+            <p class="paper-authors">Leo Breiman</p>
+            <p class="paper-source">Machine Learning, 45(1), 5–32</p>
+            <p class="paper-abstract">提出随机森林算法，通过 Bagging 与随机特征选择构建决策树集成模型，在分类和回归任务中表现优异，成为最广泛使用的机器学习方法之一。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">集成学习</span>
+              <span class="paper-tag green">分类/回归</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://link.springer.com/article/10.1007/BF00994018" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1995</span>
+              <span class="paper-impact">引用 81,000+</span>
+            </div>
+            <h3 class="paper-title">Support-Vector Networks</h3>
+            <p class="paper-authors">Corinna Cortes, Vladimir Vapnik</p>
+            <p class="paper-source">Machine Learning, 20(3), 273–297</p>
+            <p class="paper-abstract">提出支持向量机（SVM），通过核函数将数据映射到高维空间进行线性分离，为小样本分类问题提供了理论优雅且实用的解决方案。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">核方法</span>
+              <span class="paper-tag purple">分类</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2001</span>
+              <span class="paper-impact">引用 28,000+</span>
+            </div>
+            <h3 class="paper-title">Greedy Function Approximation: A Gradient Boosting Machine</h3>
+            <p class="paper-authors">Jerome H. Friedman</p>
+            <p class="paper-source">Annals of Statistics, 29(5), 1189–1232</p>
+            <p class="paper-abstract">提出梯度提升框架（GBDT），将提升方法推广为一般函数空间中的梯度下降，为 XGBoost、LightGBM 等现代集成方法奠定理论基础。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">Boosting</span>
+              <span class="paper-tag orange">梯度优化</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://link.springer.com/article/10.1007/BF00058655" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1996</span>
+              <span class="paper-impact">引用 24,000+</span>
+            </div>
+            <h3 class="paper-title">Bagging Predictors</h3>
+            <p class="paper-authors">Leo Breiman</p>
+            <p class="paper-source">Machine Learning, 24(2), 123–140</p>
+            <p class="paper-abstract">提出 Bootstrap Aggregating（Bagging）方法，通过对训练集进行自助采样并聚合多个模型预测结果，有效降低方差、提升稳定性。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">集成学习</span>
+              <span class="paper-tag green">方差减小</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1111/j.1467-9868.2005.00503.x" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2005</span>
+              <span class="paper-impact">引用 18,000+</span>
+            </div>
+            <h3 class="paper-title">Regularization and Variable Selection via the Elastic Net</h3>
+            <p class="paper-authors">Hui Zou, Trevor Hastie</p>
+            <p class="paper-source">Journal of the Royal Statistical Society: Series B, 67(2), 301–320</p>
+            <p class="paper-abstract">提出弹性网络正则化方法，结合 L1（Lasso）和 L2（Ridge）惩罚，在高维特征选择中兼顾稀疏性和分组效应，广泛应用于基因组学和金融建模。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">正则化</span>
+              <span class="paper-tag orange">特征选择</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1111/j.2517-6161.1996.tb02080.x" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1996</span>
+              <span class="paper-impact">引用 58,000+</span>
+            </div>
+            <h3 class="paper-title">Regression Shrinkage and Selection via the Lasso</h3>
+            <p class="paper-authors">Robert Tibshirani</p>
+            <p class="paper-source">Journal of the Royal Statistical Society: Series B, 58(1), 267–288</p>
+            <p class="paper-abstract">提出 Lasso 回归方法，通过 L1 正则化实现参数稀疏化，自动进行变量选择，成为高维统计与特征工程的核心工具。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">L1 正则化</span>
+              <span class="paper-tag green">稀疏模型</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 2. 深度学习 ==================== -->
+      <section class="paper-section" id="deep-learning">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">🧠</div>
+          <div>
+            <h2 class="section-title">深度学习</h2>
+            <p class="section-subtitle">Deep Learning — 神经网络的革命性突破</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://doi.org/10.1038/nature14539" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 90,000+</span>
+            </div>
+            <h3 class="paper-title">Deep Learning</h3>
+            <p class="paper-authors">Yann LeCun, Yoshua Bengio, Geoffrey Hinton</p>
+            <p class="paper-source">Nature, 521, 436–444</p>
+            <p class="paper-abstract">三位图灵奖得主联合撰写的深度学习综述，全面回顾了卷积网络、循环网络、表示学习等核心技术，被视为深度学习时代的宣言书。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">综述</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 312,000+</span>
+            </div>
+            <h3 class="paper-title">Deep Residual Learning for Image Recognition</h3>
+            <p class="paper-authors">Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun</p>
+            <p class="paper-source">CVPR 2016</p>
+            <p class="paper-abstract">提出残差网络（ResNet），通过跳跃连接解决深层网络训练中的退化问题，使训练超过 100 层的网络成为可能，深刻改变了深度学习架构设计范式。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">ResNet</span>
+              <span class="paper-tag orange">网络架构</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1406.2661" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 93,000+</span>
+            </div>
+            <h3 class="paper-title">Generative Adversarial Nets</h3>
+            <p class="paper-authors">Ian Goodfellow et al.</p>
+            <p class="paper-source">NeurIPS 2014</p>
+            <p class="paper-abstract">提出生成对抗网络（GAN），通过生成器与判别器的博弈实现无监督生成建模，开创了图像生成、数据增强、风格迁移等广泛应用。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">GAN</span>
+              <span class="paper-tag green">生成模型</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://jmlr.org/papers/v15/srivastava14a.html" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 61,000+</span>
+            </div>
+            <h3 class="paper-title">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</h3>
+            <p class="paper-authors">Nitish Srivastava, Geoffrey Hinton et al.</p>
+            <p class="paper-source">JMLR, 15(1), 1929–1958</p>
+            <p class="paper-abstract">提出 Dropout 正则化技术，训练时随机丢弃神经元以防止过拟合，简单有效，成为深度学习中最基础的正则化手段之一。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">正则化</span>
+              <span class="paper-tag orange">训练技巧</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1502.03167" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 67,000+</span>
+            </div>
+            <h3 class="paper-title">Batch Normalization: Accelerating Deep Network Training</h3>
+            <p class="paper-authors">Sergey Ioffe, Christian Szegedy</p>
+            <p class="paper-source">ICML 2015</p>
+            <p class="paper-abstract">提出批量归一化（BatchNorm），通过对每层输入进行标准化来缓解内部协变量偏移，大幅加速训练收敛并提升模型性能。</p>
+            <div class="paper-tags">
+              <span class="paper-tag purple">归一化</span>
+              <span class="paper-tag green">训练加速</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1412.6980" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 239,000+</span>
+            </div>
+            <h3 class="paper-title">Adam: A Method for Stochastic Optimization</h3>
+            <p class="paper-authors">Diederik P. Kingma, Jimmy Ba</p>
+            <p class="paper-source">ICLR 2015</p>
+            <p class="paper-abstract">提出 Adam 优化器，结合动量法和自适应学习率（RMSProp），实现高效稳定的随机梯度优化，成为深度学习默认优化算法。</p>
+            <div class="paper-tags">
+              <span class="paper-tag orange">优化器</span>
+              <span class="paper-tag blue">自适应学习率</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 3. 自然语言处理 ==================== -->
+      <section class="paper-section" id="nlp">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #f97316, #ef4444);">💬</div>
+          <div>
+            <h2 class="section-title">自然语言处理</h2>
+            <p class="section-subtitle">Natural Language Processing — 从词向量到大语言模型</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 170,000+</span>
+            </div>
+            <h3 class="paper-title">Attention Is All You Need</h3>
+            <p class="paper-authors">Ashish Vaswani et al.</p>
+            <p class="paper-source">NeurIPS 2017</p>
+            <p class="paper-abstract">提出 Transformer 架构，完全基于自注意力机制取代 RNN/CNN，成为 BERT、GPT 等所有现代大语言模型的基础架构，重新定义了 NLP 领域。</p>
+            <div class="paper-tags">
+              <span class="paper-tag orange">Transformer</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2018</span>
+              <span class="paper-impact">引用 120,000+</span>
+            </div>
+            <h3 class="paper-title">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</h3>
+            <p class="paper-authors">Jacob Devlin, Ming-Wei Chang et al.</p>
+            <p class="paper-source">NAACL 2019</p>
+            <p class="paper-abstract">提出 BERT 预训练模型，通过掩码语言模型和下一句预测任务进行双向预训练，在 11 项 NLP 任务上刷新记录，开启了"预训练+微调"范式。</p>
+            <div class="paper-tags">
+              <span class="paper-tag orange">预训练</span>
+              <span class="paper-tag green">NLU</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2013</span>
+              <span class="paper-impact">引用 45,000+</span>
+            </div>
+            <h3 class="paper-title">Efficient Estimation of Word Representations in Vector Space</h3>
+            <p class="paper-authors">Tomas Mikolov et al.</p>
+            <p class="paper-source">ICLR 2013 Workshop</p>
+            <p class="paper-abstract">提出 Word2Vec（CBOW 和 Skip-gram），将词语映射为稠密向量使语义相似的词在向量空间中邻近，催生了分布式表示学习的研究浪潮。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">词向量</span>
+              <span class="paper-tag purple">表示学习</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2020</span>
+              <span class="paper-impact">引用 30,000+</span>
+            </div>
+            <h3 class="paper-title">Language Models are Few-Shot Learners</h3>
+            <p class="paper-authors">Tom B. Brown et al. (OpenAI)</p>
+            <p class="paper-source">NeurIPS 2020</p>
+            <p class="paper-abstract">提出 GPT-3（175B 参数），展示了超大规模语言模型的少样本学习能力，无需微调即可通过提示完成多种 NLP 任务，开启了大模型时代。</p>
+            <div class="paper-tags">
+              <span class="paper-tag orange">GPT-3</span>
+              <span class="paper-tag purple">大模型</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://aclanthology.org/D14-1162/" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 38,000+</span>
+            </div>
+            <h3 class="paper-title">GloVe: Global Vectors for Word Representation</h3>
+            <p class="paper-authors">Jeffrey Pennington, Richard Socher, Christopher Manning</p>
+            <p class="paper-source">EMNLP 2014</p>
+            <p class="paper-abstract">提出 GloVe 词向量方法，结合全局矩阵分解和局部上下文窗口方法的优点，在词类比和命名实体识别等任务上表现出色。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">词向量</span>
+              <span class="paper-tag green">共现矩阵</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1409.3215" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 28,000+</span>
+            </div>
+            <h3 class="paper-title">Sequence to Sequence Learning with Neural Networks</h3>
+            <p class="paper-authors">Ilya Sutskever, Oriol Vinyals, Quoc V. Le</p>
+            <p class="paper-source">NeurIPS 2014</p>
+            <p class="paper-abstract">提出 Seq2Seq 编码器-解码器架构，使用 LSTM 实现端到端的序列到序列映射，奠定了机器翻译、文本摘要等生成式 NLP 的基础。</p>
+            <div class="paper-tags">
+              <span class="paper-tag orange">Seq2Seq</span>
+              <span class="paper-tag purple">编码器-解码器</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 4. 计算机视觉 ==================== -->
+      <section class="paper-section" id="cv">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">👁️</div>
+          <div>
+            <h2 class="section-title">计算机视觉</h2>
+            <p class="section-subtitle">Computer Vision — 从 CNN 到 Vision Transformer</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2012</span>
+              <span class="paper-impact">引用 160,000+</span>
+            </div>
+            <h3 class="paper-title">ImageNet Classification with Deep Convolutional Neural Networks</h3>
+            <p class="paper-authors">Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton</p>
+            <p class="paper-source">NeurIPS 2012</p>
+            <p class="paper-abstract">提出 AlexNet，在 ImageNet 竞赛中大幅超越传统方法，标志着深度学习在计算机视觉领域的突破性胜利，引发了 CNN 革命。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">AlexNet</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1409.1556" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 115,000+</span>
+            </div>
+            <h3 class="paper-title">Very Deep Convolutional Networks for Large-Scale Image Recognition</h3>
+            <p class="paper-authors">Karen Simonyan, Andrew Zisserman</p>
+            <p class="paper-source">ICLR 2015</p>
+            <p class="paper-abstract">提出 VGGNet，证明了通过增加网络深度（16–19 层）使用小卷积核（3×3）可以有效提升图像识别性能，架构简洁且特征迁移性强。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">VGGNet</span>
+              <span class="paper-tag orange">深度网络</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 75,000+</span>
+            </div>
+            <h3 class="paper-title">U-Net: Convolutional Networks for Biomedical Image Segmentation</h3>
+            <p class="paper-authors">Olaf Ronneberger, Philipp Fischer, Thomas Brox</p>
+            <p class="paper-source">MICCAI 2015</p>
+            <p class="paper-abstract">提出 U-Net 编码器-解码器架构，通过跳跃连接融合低层和高层特征，在小样本医学图像分割中表现卓越，成为分割任务的标准架构。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">U-Net</span>
+              <span class="paper-tag purple">图像分割</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 68,000+</span>
+            </div>
+            <h3 class="paper-title">Faster R-CNN: Towards Real-Time Object Detection</h3>
+            <p class="paper-authors">Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun</p>
+            <p class="paper-source">NeurIPS 2015</p>
+            <p class="paper-abstract">提出区域建议网络（RPN），与检测网络共享卷积特征，实现近实时的端到端目标检测，成为两阶段检测方法的经典范式。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">目标检测</span>
+              <span class="paper-tag blue">RPN</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/2010.11929" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2020</span>
+              <span class="paper-impact">引用 35,000+</span>
+            </div>
+            <h3 class="paper-title">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</h3>
+            <p class="paper-authors">Alexey Dosovitskiy et al. (Google Brain)</p>
+            <p class="paper-source">ICLR 2021</p>
+            <p class="paper-abstract">提出 Vision Transformer（ViT），将图像分割为 Patch 序列后直接应用 Transformer，证明了纯注意力机制在视觉任务中可超越 CNN。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">ViT</span>
+              <span class="paper-tag orange">Transformer</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1409.4842" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2014</span>
+              <span class="paper-impact">引用 65,000+</span>
+            </div>
+            <h3 class="paper-title">Going Deeper with Convolutions</h3>
+            <p class="paper-authors">Christian Szegedy et al. (Google)</p>
+            <p class="paper-source">CVPR 2015</p>
+            <p class="paper-abstract">提出 GoogLeNet/Inception 架构，引入 Inception 模块实现多尺度特征提取，在增加网络深度和宽度的同时控制计算量。</p>
+            <div class="paper-tags">
+              <span class="paper-tag green">Inception</span>
+              <span class="paper-tag purple">多尺度</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 5. 强化学习 ==================== -->
+      <section class="paper-section" id="rl">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">🎮</div>
+          <div>
+            <h2 class="section-title">强化学习</h2>
+            <p class="section-subtitle">Reinforcement Learning — 从 Q-Learning 到 AlphaGo</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://doi.org/10.1038/nature14236" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 30,000+</span>
+            </div>
+            <h3 class="paper-title">Human-level Control through Deep Reinforcement Learning</h3>
+            <p class="paper-authors">Volodymyr Mnih et al. (DeepMind)</p>
+            <p class="paper-source">Nature, 518, 529–533</p>
+            <p class="paper-abstract">提出 DQN，将深度学习与 Q-Learning 结合，使用经验回放和目标网络使 Agent 在 Atari 游戏中达到人类水平，开启深度强化学习时代。</p>
+            <div class="paper-tags">
+              <span class="paper-tag pink">DQN</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1038/nature16961" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2016</span>
+              <span class="paper-impact">引用 18,000+</span>
+            </div>
+            <h3 class="paper-title">Mastering the Game of Go with Deep Neural Networks and Tree Search</h3>
+            <p class="paper-authors">David Silver et al. (DeepMind)</p>
+            <p class="paper-source">Nature, 529, 484–489</p>
+            <p class="paper-abstract">提出 AlphaGo，结合深度卷积网络与蒙特卡洛树搜索（MCTS），首次击败人类围棋世界冠军，成为 AI 发展史上的标志性事件。</p>
+            <div class="paper-tags">
+              <span class="paper-tag pink">AlphaGo</span>
+              <span class="paper-tag green">MCTS</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1707.06347" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 15,000+</span>
+            </div>
+            <h3 class="paper-title">Proximal Policy Optimization Algorithms</h3>
+            <p class="paper-authors">John Schulman et al. (OpenAI)</p>
+            <p class="paper-source">arXiv preprint</p>
+            <p class="paper-abstract">提出 PPO 算法，通过裁剪概率比限制策略更新幅度，兼顾训练稳定性和采样效率，成为强化学习（尤其是 RLHF）中最常用的策略优化方法。</p>
+            <div class="paper-tags">
+              <span class="paper-tag pink">PPO</span>
+              <span class="paper-tag orange">策略优化</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://link.springer.com/article/10.1007/BF00992698" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1992</span>
+              <span class="paper-impact">引用 20,000+</span>
+            </div>
+            <h3 class="paper-title">Q-Learning</h3>
+            <p class="paper-authors">Christopher J.C.H. Watkins, Peter Dayan</p>
+            <p class="paper-source">Machine Learning, 8(3), 279–292</p>
+            <p class="paper-abstract">提出 Q-Learning 算法，通过离策略的时序差分学习直接逼近最优动作价值函数，不需要环境模型，是强化学习最基础的无模型方法之一。</p>
+            <div class="paper-tags">
+              <span class="paper-tag blue">Q-Learning</span>
+              <span class="paper-tag purple">值函数</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 6. 因果推断 ==================== -->
+      <section class="paper-section" id="causal">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4);">🔗</div>
+          <div>
+            <h2 class="section-title">因果推断</h2>
+            <p class="section-subtitle">Causal Inference — 从相关性到因果性</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://doi.org/10.1093/biomet/70.1.41" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1983</span>
+              <span class="paper-impact">引用 30,000+</span>
+            </div>
+            <h3 class="paper-title">The Central Role of the Propensity Score in Observational Studies for Causal Effects</h3>
+            <p class="paper-authors">Paul R. Rosenbaum, Donald B. Rubin</p>
+            <p class="paper-source">Biometrika, 70(1), 41–55</p>
+            <p class="paper-abstract">提出倾向性评分方法，通过将多维混杂因素压缩为一维评分来平衡处理组和对照组，成为观察性研究中消除选择偏差的核心工具。</p>
+            <div class="paper-tags">
+              <span class="paper-tag cyan">倾向性评分</span>
+              <span class="paper-tag green">观察性研究</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1017/CBO9780511803161" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2009</span>
+              <span class="paper-impact">引用 65,000+</span>
+            </div>
+            <h3 class="paper-title">Causality: Models, Reasoning, and Inference</h3>
+            <p class="paper-authors">Judea Pearl</p>
+            <p class="paper-source">Cambridge University Press (2nd ed.)</p>
+            <p class="paper-abstract">图灵奖得主 Judea Pearl 的经典著作，系统阐述了因果图模型（SCM）、do-演算和反事实推理的数学框架，建立了现代因果推断的理论体系。</p>
+            <div class="paper-tags">
+              <span class="paper-tag cyan">SCM</span>
+              <span class="paper-tag purple">因果图</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1037/h0037350" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1974</span>
+              <span class="paper-impact">引用 10,000+</span>
+            </div>
+            <h3 class="paper-title">Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies</h3>
+            <p class="paper-authors">Donald B. Rubin</p>
+            <p class="paper-source">Journal of Educational Psychology, 66(5), 688–701</p>
+            <p class="paper-abstract">提出 Rubin 因果模型（潜在结果框架），将因果效应定义为潜在结果的差异，建立了 ATE、ATT 等核心概念，成为统计因果推断的主流范式。</p>
+            <div class="paper-tags">
+              <span class="paper-tag cyan">潜在结果</span>
+              <span class="paper-tag orange">ATE</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1111/ectj.12097" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2019</span>
+              <span class="paper-impact">引用 5,000+</span>
+            </div>
+            <h3 class="paper-title">Double/Debiased Machine Learning for Treatment and Structural Parameters</h3>
+            <p class="paper-authors">Victor Chernozhukov et al.</p>
+            <p class="paper-source">The Econometrics Journal, 21(1), C1–C68</p>
+            <p class="paper-abstract">提出双重/去偏机器学习（DML）框架，利用交叉拟合和 Neyman 正交条件将机器学习方法引入因果推断，实现高维数据下的有效处理效应估计。</p>
+            <div class="paper-tags">
+              <span class="paper-tag cyan">DML</span>
+              <span class="paper-tag blue">高维推断</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 7. 降维与聚类 ==================== -->
+      <section class="paper-section" id="dim-reduction">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #eab308);">📉</div>
+          <div>
+            <h2 class="section-title">降维与聚类</h2>
+            <p class="section-subtitle">Dimensionality Reduction & Clustering — 发现数据的隐含结构</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://jmlr.org/papers/v9/vandermaaten08a.html" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2008</span>
+              <span class="paper-impact">引用 35,000+</span>
+            </div>
+            <h3 class="paper-title">Visualizing Data using t-SNE</h3>
+            <p class="paper-authors">Laurens van der Maaten, Geoffrey Hinton</p>
+            <p class="paper-source">JMLR, 9, 2579–2605</p>
+            <p class="paper-abstract">提出 t-SNE 降维方法，通过 Student-t 分布保持高维数据的局部邻域结构，成为高维数据可视化的标准工具，广泛用于单细胞基因组学等领域。</p>
+            <div class="paper-tags">
+              <span class="paper-tag yellow">t-SNE</span>
+              <span class="paper-tag green">可视化</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1802.03426" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2018</span>
+              <span class="paper-impact">引用 14,000+</span>
+            </div>
+            <h3 class="paper-title">UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction</h3>
+            <p class="paper-authors">Leland McInnes, John Healy, James Melville</p>
+            <p class="paper-source">arXiv preprint</p>
+            <p class="paper-abstract">提出 UMAP，基于黎曼几何和拓扑数据分析理论进行降维，速度远快于 t-SNE 且更好地保持全局结构，已成为高维数据探索的首选工具。</p>
+            <div class="paper-tags">
+              <span class="paper-tag yellow">UMAP</span>
+              <span class="paper-tag purple">流形学习</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://dl.acm.org/doi/10.5555/3001460.3001507" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1996</span>
+              <span class="paper-impact">引用 35,000+</span>
+            </div>
+            <h3 class="paper-title">A Density-Based Algorithm for Discovering Clusters (DBSCAN)</h3>
+            <p class="paper-authors">Martin Ester, Hans-Peter Kriegel et al.</p>
+            <p class="paper-source">KDD 1996</p>
+            <p class="paper-abstract">提出 DBSCAN 密度聚类算法，无需预设聚类数量，可发现任意形状的簇并自动识别噪声点，获 KDD 2014 Test of Time Award。</p>
+            <div class="paper-tags">
+              <span class="paper-tag yellow">DBSCAN</span>
+              <span class="paper-tag blue">密度聚类</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1007/s11222-007-9033-z" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2007</span>
+              <span class="paper-impact">引用 14,000+</span>
+            </div>
+            <h3 class="paper-title">A Tutorial on Spectral Clustering</h3>
+            <p class="paper-authors">Ulrike von Luxburg</p>
+            <p class="paper-source">Statistics and Computing, 17(4), 395–416</p>
+            <p class="paper-abstract">系统介绍谱聚类方法，利用图拉普拉斯矩阵的特征向量将数据嵌入低维空间再进行聚类，特别适合处理非凸形状的簇结构。</p>
+            <div class="paper-tags">
+              <span class="paper-tag yellow">谱聚类</span>
+              <span class="paper-tag orange">图方法</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 8. 贝叶斯方法 ==================== -->
+      <section class="paper-section" id="bayesian">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #6366f1, #818cf8);">🎲</div>
+          <div>
+            <h2 class="section-title">贝叶斯方法</h2>
+            <p class="section-subtitle">Bayesian Methods — 不确定性建模与概率推理</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://arxiv.org/abs/1312.6114" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2013</span>
+              <span class="paper-impact">引用 30,000+</span>
+            </div>
+            <h3 class="paper-title">Auto-Encoding Variational Bayes</h3>
+            <p class="paper-authors">Diederik P. Kingma, Max Welling</p>
+            <p class="paper-source">ICLR 2014</p>
+            <p class="paper-abstract">提出变分自编码器（VAE），通过重参数化技巧使变分推断可微，实现了深度生成模型的端到端训练，成为生成模型的两大支柱之一。</p>
+            <div class="paper-tags">
+              <span class="paper-tag indigo">VAE</span>
+              <span class="paper-tag green">生成模型</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://jmlr.org/papers/v3/blei03a.html" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2003</span>
+              <span class="paper-impact">引用 50,000+</span>
+            </div>
+            <h3 class="paper-title">Latent Dirichlet Allocation</h3>
+            <p class="paper-authors">David M. Blei, Andrew Y. Ng, Michael I. Jordan</p>
+            <p class="paper-source">JMLR, 3, 993–1022</p>
+            <p class="paper-abstract">提出 LDA 主题模型，使用 Dirichlet 先验的贝叶斯生成模型发现文档集合中的隐含主题，广泛应用于文本挖掘、推荐系统和数字人文等领域。</p>
+            <div class="paper-tags">
+              <span class="paper-tag indigo">LDA</span>
+              <span class="paper-tag orange">主题模型</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/2002.08791" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2020</span>
+              <span class="paper-impact">引用 3,000+</span>
+            </div>
+            <h3 class="paper-title">Bayesian Deep Learning and a Probabilistic Perspective of Generalization</h3>
+            <p class="paper-authors">Andrew Gordon Wilson, Pavel Izmailov</p>
+            <p class="paper-source">NeurIPS 2020</p>
+            <p class="paper-abstract">探讨贝叶斯深度学习的核心观点，阐明贝叶斯边际似然如何自动实现奥卡姆剃刀，以及贝叶斯模型平均如何提升泛化与不确定性估计。</p>
+            <div class="paper-tags">
+              <span class="paper-tag indigo">贝叶斯深度学习</span>
+              <span class="paper-tag purple">泛化理论</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1505.05770" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2015</span>
+              <span class="paper-impact">引用 5,000+</span>
+            </div>
+            <h3 class="paper-title">Variational Inference with Normalizing Flows</h3>
+            <p class="paper-authors">Danilo J. Rezende, Shakir Mohamed</p>
+            <p class="paper-source">ICML 2015</p>
+            <p class="paper-abstract">将正规化流引入变分推断，通过一系列可逆变换将简单分布转换为复杂后验分布，显著提升了变分推断的表达能力。</p>
+            <div class="paper-tags">
+              <span class="paper-tag indigo">Normalizing Flows</span>
+              <span class="paper-tag blue">变分推断</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 9. 时间序列 ==================== -->
+      <section class="paper-section" id="timeseries">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #14b8a6, #10b981);">📈</div>
+          <div>
+            <h2 class="section-title">时间序列</h2>
+            <p class="section-subtitle">Time Series Analysis — 从经典统计到深度预测</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://doi.org/10.1162/neco.1997.9.8.1735" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1997</span>
+              <span class="paper-impact">引用 100,000+</span>
+            </div>
+            <h3 class="paper-title">Long Short-Term Memory</h3>
+            <p class="paper-authors">Sepp Hochreiter, Jürgen Schmidhuber</p>
+            <p class="paper-source">Neural Computation, 9(8), 1735–1780</p>
+            <p class="paper-abstract">提出 LSTM 网络，通过门控机制（遗忘门、输入门、输出门）解决传统 RNN 的梯度消失问题，成为序列建模的基础组件。</p>
+            <div class="paper-tags">
+              <span class="paper-tag teal">LSTM</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1080/00031305.2017.1380080" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 10,000+</span>
+            </div>
+            <h3 class="paper-title">Forecasting at Scale (Prophet)</h3>
+            <p class="paper-authors">Sean J. Taylor, Benjamin Letham (Meta)</p>
+            <p class="paper-source">The American Statistician, 72(1), 37–45</p>
+            <p class="paper-abstract">提出 Prophet 时间序列预测框架，采用可分解的加法模型（趋势+季节性+假期），面向业务分析师设计，可自动处理缺失值和异常值。</p>
+            <div class="paper-tags">
+              <span class="paper-tag teal">Prophet</span>
+              <span class="paper-tag green">业务预测</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1002/9781118619193" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">1970</span>
+              <span class="paper-impact">引用 80,000+</span>
+            </div>
+            <h3 class="paper-title">Time Series Analysis: Forecasting and Control</h3>
+            <p class="paper-authors">George E.P. Box, Gwilym M. Jenkins</p>
+            <p class="paper-source">Holden-Day (Book)</p>
+            <p class="paper-abstract">奠定了 ARIMA 系列模型的理论基础，系统阐述了时间序列的辨识、估计和诊断方法论（Box-Jenkins 方法），是经典时序分析的奠基之作。</p>
+            <div class="paper-tags">
+              <span class="paper-tag teal">ARIMA</span>
+              <span class="paper-tag orange">经典方法</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/2205.13504" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2022</span>
+              <span class="paper-impact">引用 2,000+</span>
+            </div>
+            <h3 class="paper-title">Are Transformers Effective for Time Series Forecasting?</h3>
+            <p class="paper-authors">Ailing Zeng et al.</p>
+            <p class="paper-source">AAAI 2023</p>
+            <p class="paper-abstract">提出 DLinear 等简单线性模型，在多个时间序列预测基准上超越复杂 Transformer 模型，引发了 "Transformer 是否适合时序预测" 的广泛讨论。</p>
+            <div class="paper-tags">
+              <span class="paper-tag teal">DLinear</span>
+              <span class="paper-tag purple">争议性研究</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 10. 图神经网络 ==================== -->
+      <section class="paper-section" id="gnn">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #a855f7, #d946ef);">🕸️</div>
+          <div>
+            <h2 class="section-title">图神经网络</h2>
+            <p class="section-subtitle">Graph Neural Networks — 对图结构数据的深度学习</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://arxiv.org/abs/1609.02907" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2016</span>
+              <span class="paper-impact">引用 25,000+</span>
+            </div>
+            <h3 class="paper-title">Semi-Supervised Classification with Graph Convolutional Networks</h3>
+            <p class="paper-authors">Thomas N. Kipf, Max Welling</p>
+            <p class="paper-source">ICLR 2017</p>
+            <p class="paper-abstract">提出 GCN（图卷积网络），通过谱域上的一阶近似在图结构上实现高效卷积，简洁优雅地解决了半监督节点分类问题，引发了 GNN 研究热潮。</p>
+            <div class="paper-tags">
+              <span class="paper-tag fuchsia">GCN</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1710.10903" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 12,000+</span>
+            </div>
+            <h3 class="paper-title">Graph Attention Networks</h3>
+            <p class="paper-authors">Petar Veličković et al.</p>
+            <p class="paper-source">ICLR 2018</p>
+            <p class="paper-abstract">提出 GAT（图注意力网络），引入注意力机制为不同邻居节点分配不同权重，无需预知图的全局结构，可处理归纳式学习和动态图场景。</p>
+            <div class="paper-tags">
+              <span class="paper-tag fuchsia">GAT</span>
+              <span class="paper-tag orange">注意力机制</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1706.02216" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 10,000+</span>
+            </div>
+            <h3 class="paper-title">Inductive Representation Learning on Large Graphs (GraphSAGE)</h3>
+            <p class="paper-authors">William L. Hamilton, Rex Ying, Jure Leskovec</p>
+            <p class="paper-source">NeurIPS 2017</p>
+            <p class="paper-abstract">提出 GraphSAGE，通过采样邻居并聚合特征实现归纳式图表示学习，可泛化到训练时未见过的节点，支持大规模工业图的高效推理。</p>
+            <div class="paper-tags">
+              <span class="paper-tag fuchsia">GraphSAGE</span>
+              <span class="paper-tag green">归纳学习</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1810.00826" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2018</span>
+              <span class="paper-impact">引用 6,000+</span>
+            </div>
+            <h3 class="paper-title">How Powerful are Graph Neural Networks?</h3>
+            <p class="paper-authors">Keyulu Xu, Weihua Hu, Jure Leskovec, Stefanie Jegelka</p>
+            <p class="paper-source">ICLR 2019</p>
+            <p class="paper-abstract">从理论角度分析 GNN 的表达能力，证明其上界等价于 WL 图同构测试，并提出 GIN（图同构网络）达到这一上界，为 GNN 设计提供了理论指导。</p>
+            <div class="paper-tags">
+              <span class="paper-tag fuchsia">GIN</span>
+              <span class="paper-tag purple">表达能力</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      </div><!-- /.papers-content -->
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 DataHub · 数据科学技能平台</p>
+    </div>
+  </footer>
+
+  <script>
+    // 侧边目录高亮跟踪
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      const sections = document.querySelectorAll('.paper-section');
+      
+      function updateActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 160) {
+            current = section.id;
+          }
+        });
+        sidebarLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-section') === current) {
+            link.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink();
+
+      // 点击平滑滚动
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('data-section');
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

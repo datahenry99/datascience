@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataHub - 数据科学技能平台</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <div class="logo-icon">📊</div>
+        <span class="logo-text">DataHub</span>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="papers.html" class="nav-link">方法论论文</a>
+        <a href="#" class="nav-link">技能库</a>
+        <a href="#" class="nav-link">数据集</a>
+        <a href="#" class="nav-link">
+          社区
+          <span class="badge-soon">SOON</span>
+        </a>
+        <a href="#" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero 区域 -->
+  <section class="hero">
+    <div class="hero-bg-blur"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="tag-icon">🔬</span>
+          专为数据科学爱好者打造的学习平台
+        </div>
+        <h1 class="hero-title">
+          掌握数据科学，<br>
+          <span class="hero-title-gradient">驱动 AI 未来</span>
+        </h1>
+        <p class="hero-desc">
+          精选课程、实战项目、开源工具，轻松探索 DataHub 上 1.2 万个数据科学资源
+        </p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">查看精选榜单</a>
+          <a href="#" class="btn btn-outline">探索全部资源</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="card-tabs">
+            <div class="card-tab active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              我是学习者
+            </div>
+            <div class="card-tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              我是开发者
+            </div>
+          </div>
+          <p class="card-hint">将此提示发送给你的 AI Agent，以获取 DataHub 推荐资源</p>
+          <div class="card-code-block">
+            <span class="card-code-text">探索 https://datahub.example.co...</span>
+            <button class="card-copy-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              复制
+            </button>
+          </div>
+          <p class="card-hint">获取精选数据科学工具包，并自动配置开发环境</p>
+          <div class="card-code-block">
+            <span class="card-code-text">概要 https://datahub.example.co...</span>
+            <button class="card-copy-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              复制
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 精选榜单区域 -->
+  <section class="ranking">
+    <div class="ranking-inner">
+      <div class="ranking-badges">
+        <span class="ranking-badge blue">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          官方认证推荐
+        </span>
+        <span class="ranking-badge green">⚡ 高速下载</span>
+        <span class="ranking-badge gray">✓ 质量审核</span>
+      </div>
+      <h2 class="ranking-title">精选 TOP 50 数据科学工具榜单</h2>
+      <p class="ranking-desc">从 DataHub 生态中精选最值得学习的 50 个数据科学工具，国内高速镜像，一键快速安装。</p>
+
+      <div class="ranking-list">
+        <!-- 第1项 -->
+        <div class="ranking-item">
+          <div class="ranking-item-left">
+            <span class="ranking-num gold">1</span>
+            <div class="ranking-icon" style="background: #f0f0f0;">
+              <span>🐼</span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-info-top">
+                <span class="ranking-name">Pandas</span>
+                <span class="ranking-category orange">数据处理</span>
+              </div>
+              <p class="ranking-item-desc">Python 数据分析和操作工具库，提供高性能数据结构 DataFrame，支持数据清洗、转换...</p>
+            </div>
+          </div>
+          <div class="ranking-item-right">
+            <span class="ranking-stat">🔥 28.6万</span>
+            <span class="ranking-stat">⭐ 1.2k</span>
+          </div>
+        </div>
+
+        <!-- 第2项 -->
+        <div class="ranking-item">
+          <div class="ranking-item-left">
+            <span class="ranking-num silver">2</span>
+            <div class="ranking-icon" style="background: #fff3e0;">
+              <span>📈</span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-info-top">
+                <span class="ranking-name">Scikit-learn</span>
+                <span class="ranking-category blue">机器学习</span>
+              </div>
+              <p class="ranking-item-desc">简单高效的数据挖掘和数据分析工具，提供分类、回归、聚类等常用机器学习算法...</p>
+            </div>
+          </div>
+          <div class="ranking-item-right">
+            <span class="ranking-stat">🔥 22.1万</span>
+            <span class="ranking-stat">⭐ 986</span>
+          </div>
+        </div>
+
+        <!-- 第3项 -->
+        <div class="ranking-item">
+          <div class="ranking-item-left">
+            <span class="ranking-num bronze">3</span>
+            <div class="ranking-icon" style="background: #e8f5e9;">
+              <span>🧠</span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-info-top">
+                <span class="ranking-name">TensorFlow</span>
+                <span class="ranking-category purple">深度学习</span>
+              </div>
+              <p class="ranking-item-desc">开源机器学习框架，用于构建和训练神经网络模型，支持 GPU/TPU 加速训练...</p>
+            </div>
+          </div>
+          <div class="ranking-item-right">
+            <span class="ranking-stat">🔥 19.3万</span>
+            <span class="ranking-stat">⭐ 845</span>
+          </div>
+        </div>
+
+        <!-- 第4项 -->
+        <div class="ranking-item">
+          <div class="ranking-item-left">
+            <span class="ranking-num">4</span>
+            <div class="ranking-icon" style="background: #e3f2fd;">
+              <span>📊</span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-info-top">
+                <span class="ranking-name">Matplotlib</span>
+                <span class="ranking-category green">数据可视化</span>
+              </div>
+              <p class="ranking-item-desc">Python 综合可视化库，支持折线图、柱状图、散点图、热力图等多种图表类型...</p>
+            </div>
+          </div>
+          <div class="ranking-item-right">
+            <span class="ranking-stat">🔥 15.8万</span>
+            <span class="ranking-stat">⭐ 723</span>
+          </div>
+        </div>
+
+        <!-- 第5项 -->
+        <div class="ranking-item">
+          <div class="ranking-item-left">
+            <span class="ranking-num">5</span>
+            <div class="ranking-icon" style="background: #fce4ec;">
+              <span>🔥</span>
+            </div>
+            <div class="ranking-info">
+              <div class="ranking-info-top">
+                <span class="ranking-name">PyTorch</span>
+                <span class="ranking-category purple">深度学习</span>
+              </div>
+              <p class="ranking-item-desc">灵活的深度学习框架，动态计算图设计，广泛应用于学术研究和工业生产...</p>
+            </div>
+          </div>
+          <div class="ranking-item-right">
+            <span class="ranking-stat">🔥 14.2万</span>
+            <span class="ranking-stat">⭐ 698</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 DataHub · 数据科学技能平台</p>
+    </div>
+  </footer>
+
+</body>
+</html>
