@@ -18,14 +18,10 @@
         <span class="logo-text">DataHub</span>
       </div>
       <nav class="nav-links">
-        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="index.html" class="nav-link active">精选推荐</a>
         <a href="papers.html" class="nav-link">方法论论文</a>
-        <a href="#" class="nav-link">技能库</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
         <a href="#" class="nav-link">数据集</a>
-        <a href="#" class="nav-link">
-          社区
-          <span class="badge-soon">SOON</span>
-        </a>
         <a href="#" class="nav-link">关于</a>
       </nav>
       <div class="nav-search">
@@ -92,125 +88,72 @@
     </div>
   </section>
 
-  <!-- 精选榜单区域 -->
-  <section class="ranking">
-    <div class="ranking-inner">
-      <div class="ranking-badges">
-        <span class="ranking-badge blue">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          官方认证推荐
-        </span>
-        <span class="ranking-badge green">⚡ 高速下载</span>
-        <span class="ranking-badge gray">✓ 质量审核</span>
+  <!-- 探索板块入口区域 -->
+  <section class="explore-section">
+    <div class="explore-inner">
+      <div class="explore-header">
+        <span class="explore-tag">🧭 探索 DataHub</span>
+        <h2 class="explore-title">数据科学学习路线，从这里开始</h2>
+        <p class="explore-desc">精心整理的资源合集，涵盖工具、论文、数据集等各个维度，助你系统掌握数据科学技能。</p>
       </div>
-      <h2 class="ranking-title">精选 TOP 50 数据科学工具榜单</h2>
-      <p class="ranking-desc">从 DataHub 生态中精选最值得学习的 50 个数据科学工具，国内高速镜像，一键快速安装。</p>
 
-      <div class="ranking-list">
-        <!-- 第1项 -->
-        <div class="ranking-item">
-          <div class="ranking-item-left">
-            <span class="ranking-num gold">1</span>
-            <div class="ranking-icon" style="background: #f0f0f0;">
-              <span>🐼</span>
+      <div class="explore-grid">
+
+        <!-- 工具榜单卡片 -->
+        <a href="tools.html" class="explore-card explore-card-tools">
+          <div class="explore-card-glow"></div>
+          <div class="explore-card-content">
+            <div class="explore-card-icon" style="background: linear-gradient(135deg, #f97316, #ef4444);">🛠️</div>
+            <div class="explore-card-info">
+              <h3 class="explore-card-title">数据科学工具榜单</h3>
+              <p class="explore-card-subtitle">TOP 50 精选 · 8 大分类</p>
+              <p class="explore-card-desc">覆盖数据处理、机器学习、深度学习、可视化、NLP、CV、MLOps 等全流程工具。</p>
             </div>
-            <div class="ranking-info">
-              <div class="ranking-info-top">
-                <span class="ranking-name">Pandas</span>
-                <span class="ranking-category orange">数据处理</span>
-              </div>
-              <p class="ranking-item-desc">Python 数据分析和操作工具库，提供高性能数据结构 DataFrame，支持数据清洗、转换...</p>
+            <div class="explore-card-tags">
+              <span class="explore-mini-tag" style="--tag-color: #f97316;">🐼 Pandas</span>
+              <span class="explore-mini-tag" style="--tag-color: #3b82f6;">📈 Scikit-learn</span>
+              <span class="explore-mini-tag" style="--tag-color: #8b5cf6;">🧠 PyTorch</span>
+              <span class="explore-mini-tag" style="--tag-color: #22c55e;">📊 Plotly</span>
+              <span class="explore-mini-tag" style="--tag-color: #64748b;">+46 more</span>
             </div>
+            <span class="explore-card-arrow">探索全部工具 →</span>
           </div>
-          <div class="ranking-item-right">
-            <span class="ranking-stat">🔥 28.6万</span>
-            <span class="ranking-stat">⭐ 1.2k</span>
+        </a>
+
+        <!-- 方法论论文卡片 -->
+        <a href="papers.html" class="explore-card explore-card-papers">
+          <div class="explore-card-glow"></div>
+          <div class="explore-card-content">
+            <div class="explore-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">📑</div>
+            <div class="explore-card-info">
+              <h3 class="explore-card-title">方法论代表论文</h3>
+              <p class="explore-card-subtitle">48 篇里程碑论文 · 10 大方向</p>
+              <p class="explore-card-desc">系统梳理数据科学核心方法论的里程碑论文，从统计学习到图神经网络。</p>
+            </div>
+            <div class="explore-card-tags">
+              <span class="explore-mini-tag" style="--tag-color: #3b82f6;">📐 统计学习</span>
+              <span class="explore-mini-tag" style="--tag-color: #8b5cf6;">🧠 深度学习</span>
+              <span class="explore-mini-tag" style="--tag-color: #f97316;">💬 NLP</span>
+              <span class="explore-mini-tag" style="--tag-color: #22c55e;">👁️ CV</span>
+              <span class="explore-mini-tag" style="--tag-color: #64748b;">+6 more</span>
+            </div>
+            <span class="explore-card-arrow">阅读精选论文 →</span>
+          </div>
+        </a>
+
+        <!-- 数据集卡片（即将推出） -->
+        <div class="explore-card explore-card-datasets explore-card-coming">
+          <div class="explore-card-content">
+            <div class="explore-card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">📦</div>
+            <div class="explore-card-info">
+              <h3 class="explore-card-title">精选数据集</h3>
+              <p class="explore-card-subtitle">即将上线</p>
+              <p class="explore-card-desc">涵盖表格、图像、文本、时序等多种数据类型的优质公开数据集推荐。</p>
+            </div>
+            <span class="explore-card-badge-soon">COMING SOON</span>
           </div>
         </div>
 
-        <!-- 第2项 -->
-        <div class="ranking-item">
-          <div class="ranking-item-left">
-            <span class="ranking-num silver">2</span>
-            <div class="ranking-icon" style="background: #fff3e0;">
-              <span>📈</span>
-            </div>
-            <div class="ranking-info">
-              <div class="ranking-info-top">
-                <span class="ranking-name">Scikit-learn</span>
-                <span class="ranking-category blue">机器学习</span>
-              </div>
-              <p class="ranking-item-desc">简单高效的数据挖掘和数据分析工具，提供分类、回归、聚类等常用机器学习算法...</p>
-            </div>
-          </div>
-          <div class="ranking-item-right">
-            <span class="ranking-stat">🔥 22.1万</span>
-            <span class="ranking-stat">⭐ 986</span>
-          </div>
-        </div>
-
-        <!-- 第3项 -->
-        <div class="ranking-item">
-          <div class="ranking-item-left">
-            <span class="ranking-num bronze">3</span>
-            <div class="ranking-icon" style="background: #e8f5e9;">
-              <span>🧠</span>
-            </div>
-            <div class="ranking-info">
-              <div class="ranking-info-top">
-                <span class="ranking-name">TensorFlow</span>
-                <span class="ranking-category purple">深度学习</span>
-              </div>
-              <p class="ranking-item-desc">开源机器学习框架，用于构建和训练神经网络模型，支持 GPU/TPU 加速训练...</p>
-            </div>
-          </div>
-          <div class="ranking-item-right">
-            <span class="ranking-stat">🔥 19.3万</span>
-            <span class="ranking-stat">⭐ 845</span>
-          </div>
-        </div>
-
-        <!-- 第4项 -->
-        <div class="ranking-item">
-          <div class="ranking-item-left">
-            <span class="ranking-num">4</span>
-            <div class="ranking-icon" style="background: #e3f2fd;">
-              <span>📊</span>
-            </div>
-            <div class="ranking-info">
-              <div class="ranking-info-top">
-                <span class="ranking-name">Matplotlib</span>
-                <span class="ranking-category green">数据可视化</span>
-              </div>
-              <p class="ranking-item-desc">Python 综合可视化库，支持折线图、柱状图、散点图、热力图等多种图表类型...</p>
-            </div>
-          </div>
-          <div class="ranking-item-right">
-            <span class="ranking-stat">🔥 15.8万</span>
-            <span class="ranking-stat">⭐ 723</span>
-          </div>
-        </div>
-
-        <!-- 第5项 -->
-        <div class="ranking-item">
-          <div class="ranking-item-left">
-            <span class="ranking-num">5</span>
-            <div class="ranking-icon" style="background: #fce4ec;">
-              <span>🔥</span>
-            </div>
-            <div class="ranking-info">
-              <div class="ranking-info-top">
-                <span class="ranking-name">PyTorch</span>
-                <span class="ranking-category purple">深度学习</span>
-              </div>
-              <p class="ranking-item-desc">灵活的深度学习框架，动态计算图设计，广泛应用于学术研究和工业生产...</p>
-            </div>
-          </div>
-          <div class="ranking-item-right">
-            <span class="ranking-stat">🔥 14.2万</span>
-            <span class="ranking-stat">⭐ 698</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -221,6 +164,8 @@
       <p>© 2026 DataHub · 数据科学技能平台</p>
     </div>
   </footer>
+
+
 
 </body>
 </html>

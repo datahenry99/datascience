@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据科学工具榜单 - DataHub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tools.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon">📊</div>
+          <span class="logo-text">DataHub</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="papers.html" class="nav-link">方法论论文</a>
+        <a href="tools.html" class="nav-link active">工具榜单</a>
+        <a href="#" class="nav-link">数据集</a>
+        <a href="#" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+    </div>
+  </header>
+
+  <!-- 页面头部 -->
+  <section class="tools-hero">
+    <div class="tools-hero-bg"></div>
+    <div class="tools-hero-inner">
+      <div class="tools-hero-tag">
+        <span>🛠️</span> 数据科学工具 · TOP 50 精选榜单
+      </div>
+      <h1 class="tools-hero-title">
+        精选 TOP 50 数据科学工具榜单
+      </h1>
+      <p class="tools-hero-desc">
+        从 DataHub 生态中精选最值得学习的 50 个数据科学工具，按分类系统梳理，覆盖数据科学全流程。
+      </p>
+      <div class="tools-hero-badges">
+        <span class="tools-hero-badge blue">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          官方认证推荐
+        </span>
+        <span class="tools-hero-badge green">⚡ 高速下载</span>
+        <span class="tools-hero-badge gray">✓ 质量审核</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工具主体 -->
+  <section class="tools-main">
+    <div class="tools-main-inner">
+
+      <!-- 分类筛选标签 -->
+      <div class="tools-filter">
+        <button class="filter-btn active" data-filter="all">🏆 全部工具 <span class="filter-count">50</span></button>
+        <button class="filter-btn" data-filter="data-processing">🐼 数据处理 <span class="filter-count">7</span></button>
+        <button class="filter-btn" data-filter="ml">📈 机器学习 <span class="filter-count">6</span></button>
+        <button class="filter-btn" data-filter="dl">🧠 深度学习 <span class="filter-count">7</span></button>
+        <button class="filter-btn" data-filter="viz">📊 数据可视化 <span class="filter-count">6</span></button>
+        <button class="filter-btn" data-filter="nlp">💬 自然语言处理 <span class="filter-count">6</span></button>
+        <button class="filter-btn" data-filter="cv">👁️ 计算机视觉 <span class="filter-count">5</span></button>
+        <button class="filter-btn" data-filter="deploy">🚀 部署与工程 <span class="filter-count">6</span></button>
+        <button class="filter-btn" data-filter="auto">⚙️ AutoML与实验 <span class="filter-count">7</span></button>
+      </div>
+
+      <div class="tools-layout">
+        <!-- 侧边目录 -->
+        <aside class="tools-sidebar">
+          <div class="sidebar-title">📑 分类导航</div>
+          <a href="#cat-data-processing" class="sidebar-link active">
+            <span class="sidebar-dot" style="background:#f97316;"></span>
+            <span>数据处理</span>
+            <span class="sidebar-count">7</span>
+          </a>
+          <a href="#cat-ml" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#3b82f6;"></span>
+            <span>机器学习</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#cat-dl" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#8b5cf6;"></span>
+            <span>深度学习</span>
+            <span class="sidebar-count">7</span>
+          </a>
+          <a href="#cat-viz" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#22c55e;"></span>
+            <span>数据可视化</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#cat-nlp" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#ec4899;"></span>
+            <span>自然语言处理</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#cat-cv" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#06b6d4;"></span>
+            <span>计算机视觉</span>
+            <span class="sidebar-count">5</span>
+          </a>
+          <a href="#cat-deploy" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#f43f5e;"></span>
+            <span>部署与工程</span>
+            <span class="sidebar-count">6</span>
+          </a>
+          <a href="#cat-auto" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#a855f7;"></span>
+            <span>AutoML与实验</span>
+            <span class="sidebar-count">7</span>
+          </a>
+        </aside>
+
+        <!-- 工具列表主体 -->
+        <div class="tools-content">
+
+          <!-- ====== 数据处理 ====== -->
+          <div class="tools-category" id="cat-data-processing">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#f97316,#fb923c);">🐼</span>
+              <div>
+                <h3 class="category-title">数据处理</h3>
+                <p class="category-desc">数据清洗、转换、存储与管道构建</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🐼</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Pandas</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">高性能 DataFrame 数据结构，支持数据清洗、转换、聚合、合并，是数据分析的核心工具。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 44.3k</span>
+                  <span class="tool-stat">🔥 热度最高</span>
+                  <a href="https://pandas.pydata.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🔢</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">NumPy</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Python 科学计算基础库，提供高效的多维数组对象和丰富的数学函数，是几乎所有数据科学库的底层依赖。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 28.5k</span>
+                  <span class="tool-stat">🔥 基石级</span>
+                  <a href="https://numpy.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">⚡</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Polars</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">基于 Rust 的超高速 DataFrame 库，支持惰性计算和多线程，处理大数据集比 Pandas 快 10-100 倍。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 31.2k</span>
+                  <span class="tool-stat">🔥 增速最快</span>
+                  <a href="https://pola.rs" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🧮</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">SciPy</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">科学计算工具箱，包含优化、线性代数、积分、插值、统计等模块，是工程与科研的必备库。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 13.3k</span>
+                  <span class="tool-stat">📦 经典稳定</span>
+                  <a href="https://scipy.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🗄️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Dask</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">并行计算框架，兼容 Pandas/NumPy API，支持分布式处理超大数据集，无需更改代码即可扩展。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 12.9k</span>
+                  <span class="tool-stat">📦 大数据</span>
+                  <a href="https://dask.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🔀</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Apache Spark (PySpark)</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">分布式大数据处理引擎，支持 SQL、流式计算、机器学习，适合 TB/PB 级数据管道构建。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 40.3k</span>
+                  <span class="tool-stat">🔥 企业级</span>
+                  <a href="https://spark.apache.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="data-processing">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff7ed;">🏗️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Apache Airflow</span>
+                    <span class="tool-tag orange">数据处理</span>
+                  </div>
+                </div>
+                <p class="tool-desc">工作流编排平台，用 Python 定义 DAG 数据管道，支持定时调度、依赖管理和监控。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 38.1k</span>
+                  <span class="tool-stat">📦 管道编排</span>
+                  <a href="https://airflow.apache.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 机器学习 ====== -->
+          <div class="tools-category" id="cat-ml">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);">📈</span>
+              <div>
+                <h3 class="category-title">机器学习</h3>
+                <p class="category-desc">经典算法、模型训练与评估</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">📈</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Scikit-learn</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">最流行的 Python 机器学习库，提供分类、回归、聚类、降维等算法，API 简洁统一。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 60.8k</span>
+                  <span class="tool-stat">🔥 必学</span>
+                  <a href="https://scikit-learn.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">🚀</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">XGBoost</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">极致优化的梯度提升框架，Kaggle 竞赛中最受欢迎的算法之一，支持并行训练和正则化。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 26.6k</span>
+                  <span class="tool-stat">🏅 竞赛利器</span>
+                  <a href="https://xgboost.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">💡</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">LightGBM</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">微软出品的轻量级梯度提升框架，基于直方图的算法，训练速度更快，内存消耗更低。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 17.1k</span>
+                  <span class="tool-stat">⚡ 高效</span>
+                  <a href="https://lightgbm.readthedocs.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">🐱</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">CatBoost</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Yandex 开发的梯度提升库，原生支持类别特征处理，无需手动编码，开箱即用效果出色。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 8.2k</span>
+                  <span class="tool-stat">📦 开箱即用</span>
+                  <a href="https://catboost.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">📐</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Statsmodels</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">统计建模与计量经济学库，提供回归分析、时间序列分析、假设检验等经典统计方法。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 10.3k</span>
+                  <span class="tool-stat">📦 统计学</span>
+                  <a href="https://www.statsmodels.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="ml">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#eff6ff;">🎯</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Optuna</span>
+                    <span class="tool-tag blue">机器学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">自动化超参数调优框架，支持贝叶斯优化、剪枝策略，可与任何机器学习框架集成。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 11.5k</span>
+                  <span class="tool-stat">🎯 调参神器</span>
+                  <a href="https://optuna.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 深度学习 ====== -->
+          <div class="tools-category" id="cat-dl">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">🧠</span>
+              <div>
+                <h3 class="category-title">深度学习</h3>
+                <p class="category-desc">神经网络框架与模型训练</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🧠</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">TensorFlow</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Google 开源的深度学习框架，支持 GPU/TPU 加速，生态完善，适合从研究到生产部署全流程。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 187k</span>
+                  <span class="tool-stat">🔥 生态最全</span>
+                  <a href="https://tensorflow.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🔥</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">PyTorch</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Meta 开源的深度学习框架，动态计算图设计，调试友好，学术界首选，工业界快速增长。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 85.7k</span>
+                  <span class="tool-stat">🔥 学术首选</span>
+                  <a href="https://pytorch.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🤗</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Hugging Face Transformers</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">预训练模型中心，提供 BERT、GPT、T5 等数万个模型，几行代码即可加载使用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 138k</span>
+                  <span class="tool-stat">🔥 模型库</span>
+                  <a href="https://huggingface.co" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">⚡</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">PyTorch Lightning</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">PyTorch 的高级封装框架，自动处理训练循环、分布式训练、混合精度等，让研究者聚焦模型本身。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 28.6k</span>
+                  <span class="tool-stat">⚡ 高效训练</span>
+                  <a href="https://lightning.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🎹</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Keras</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">高层神经网络 API，设计简洁优雅，适合快速原型设计，已集成到 TensorFlow 中。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 62.2k</span>
+                  <span class="tool-stat">📦 入门首选</span>
+                  <a href="https://keras.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🧊</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">JAX</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Google 的高性能数值计算库，支持自动微分和 XLA 编译加速，是 NumPy 的 GPU 版升级。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 31.5k</span>
+                  <span class="tool-stat">🔥 新锐</span>
+                  <a href="https://github.com/google/jax" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="dl">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f5f3ff;">🏎️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">ONNX Runtime</span>
+                    <span class="tool-tag purple">深度学习</span>
+                  </div>
+                </div>
+                <p class="tool-desc">跨平台模型推理引擎，支持多种框架导出的 ONNX 模型，优化推理速度和内存占用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 15.2k</span>
+                  <span class="tool-stat">🏎️ 高速推理</span>
+                  <a href="https://onnxruntime.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 数据可视化 ====== -->
+          <div class="tools-category" id="cat-viz">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#22c55e,#4ade80);">📊</span>
+              <div>
+                <h3 class="category-title">数据可视化</h3>
+                <p class="category-desc">图表绑定、交互式仪表板</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">📊</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Matplotlib</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Python 可视化基石，支持折线图、柱状图、散点图、热力图等各种图表，高度可定制。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 20.7k</span>
+                  <span class="tool-stat">📦 基石级</span>
+                  <a href="https://matplotlib.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">🎨</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Seaborn</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">基于 Matplotlib 的统计可视化库，默认样式精美，特别适合统计图表和探索性数据分析。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 12.8k</span>
+                  <span class="tool-stat">🎨 最美统计图</span>
+                  <a href="https://seaborn.pydata.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">📈</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Plotly</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">交互式可视化库，支持缩放、悬停、动画等交互功能，图表可嵌入网页和 Jupyter Notebook。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 16.8k</span>
+                  <span class="tool-stat">🔥 交互式</span>
+                  <a href="https://plotly.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">🖼️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Bokeh</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">交互式 Web 可视化库，生成的图表可嵌入 Web 应用，支持流式数据和大规模数据集。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 19.5k</span>
+                  <span class="tool-stat">📦 Web原生</span>
+                  <a href="https://bokeh.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">🚀</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Streamlit</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">极简数据应用开发框架，纯 Python 代码快速构建交互式数据仪表板和 ML 演示应用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 36.9k</span>
+                  <span class="tool-stat">🔥 最火仪表板</span>
+                  <a href="https://streamlit.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="viz">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#f0fdf4;">📋</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Dash</span>
+                    <span class="tool-tag green">可视化</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Plotly 团队出品的 Web 分析应用框架，适合构建企业级数据仪表板，支持回调交互。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 22.1k</span>
+                  <span class="tool-stat">📦 企业级</span>
+                  <a href="https://dash.plotly.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 自然语言处理 ====== -->
+          <div class="tools-category" id="cat-nlp">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#ec4899,#f472b6);">💬</span>
+              <div>
+                <h3 class="category-title">自然语言处理</h3>
+                <p class="category-desc">文本分析、语言模型与对话系统</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">📝</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">NLTK</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">经典自然语言处理工具包，提供分词、词性标注、命名实体识别等功能，NLP 入门首选。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 13.8k</span>
+                  <span class="tool-stat">📦 经典教材级</span>
+                  <a href="https://nltk.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">🚀</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">spaCy</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">工业级 NLP 库，处理速度极快，内置预训练模型，支持命名实体、依存句法分析等。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 30.6k</span>
+                  <span class="tool-stat">⚡ 工业级</span>
+                  <a href="https://spacy.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">📚</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Gensim</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">主题建模与文档相似度计算库，实现了 Word2Vec、Doc2Vec、LDA 等经典算法。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 15.8k</span>
+                  <span class="tool-stat">📦 词向量</span>
+                  <a href="https://radimrehurek.com/gensim" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">🔗</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">LangChain</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">LLM 应用开发框架，支持链式调用、RAG、Agent 等模式，快速构建 AI 应用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 98.5k</span>
+                  <span class="tool-stat">🔥 最火LLM框架</span>
+                  <a href="https://langchain.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">🦙</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">LlamaIndex</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">LLM 数据连接框架，擅长构建 RAG 系统，将私有数据与大语言模型结合。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 38.2k</span>
+                  <span class="tool-stat">🔥 RAG首选</span>
+                  <a href="https://llamaindex.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="nlp">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fdf2f8;">🗣️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Sentence-Transformers</span>
+                    <span class="tool-tag pink">NLP</span>
+                  </div>
+                </div>
+                <p class="tool-desc">语义嵌入模型库，一行代码生成文本向量，广泛用于语义搜索、文本聚类和相似度计算。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 15.6k</span>
+                  <span class="tool-stat">📦 语义搜索</span>
+                  <a href="https://sbert.net" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 计算机视觉 ====== -->
+          <div class="tools-category" id="cat-cv">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee);">👁️</span>
+              <div>
+                <h3 class="category-title">计算机视觉</h3>
+                <p class="category-desc">图像处理、目标检测与图像生成</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="cv">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#ecfeff;">👁️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">OpenCV</span>
+                    <span class="tool-tag cyan">计算机视觉</span>
+                  </div>
+                </div>
+                <p class="tool-desc">最流行的计算机视觉库，提供图像处理、视频分析、特征检测等 2500+ 优化算法。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 80.1k</span>
+                  <span class="tool-stat">🔥 CV基石</span>
+                  <a href="https://opencv.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="cv">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#ecfeff;">🖼️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Pillow (PIL)</span>
+                    <span class="tool-tag cyan">计算机视觉</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Python 图像处理库，支持打开、操作和保存多种图像格式，API 简洁易用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 12.5k</span>
+                  <span class="tool-stat">📦 基础图像处理</span>
+                  <a href="https://pillow.readthedocs.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="cv">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#ecfeff;">🔍</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">YOLOv8 (Ultralytics)</span>
+                    <span class="tool-tag cyan">计算机视觉</span>
+                  </div>
+                </div>
+                <p class="tool-desc">最先进的实时目标检测模型，支持检测、分割、分类、姿态估计，部署简单效果好。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 34.7k</span>
+                  <span class="tool-stat">🔥 目标检测王者</span>
+                  <a href="https://ultralytics.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="cv">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#ecfeff;">👤</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">MediaPipe</span>
+                    <span class="tool-tag cyan">计算机视觉</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Google 的跨平台 ML 解决方案，支持人脸检测、手势识别、姿态估计，端侧实时运行。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 28.3k</span>
+                  <span class="tool-stat">📦 端侧部署</span>
+                  <a href="https://mediapipe.dev" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="cv">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#ecfeff;">🎨</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Diffusers</span>
+                    <span class="tool-tag cyan">计算机视觉</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Hugging Face 扩散模型库，支持 Stable Diffusion 等图像生成模型，文本生成图像的利器。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 27.4k</span>
+                  <span class="tool-stat">🔥 AIGC</span>
+                  <a href="https://huggingface.co/docs/diffusers" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== 部署与工程 ====== -->
+          <div class="tools-category" id="cat-deploy">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#f43f5e,#fb7185);">🚀</span>
+              <div>
+                <h3 class="category-title">部署与工程</h3>
+                <p class="category-desc">模型部署、实验追踪与 MLOps</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">📦</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">MLflow</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">开源 MLOps 平台，管理 ML 全生命周期：实验追踪、模型注册、部署和监控。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 19.3k</span>
+                  <span class="tool-stat">🔥 MLOps标准</span>
+                  <a href="https://mlflow.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">📊</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Weights & Biases</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">ML 实验追踪平台，自动记录超参数、指标和模型版本，可视化对比不同实验。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 9.2k</span>
+                  <span class="tool-stat">📦 实验追踪</span>
+                  <a href="https://wandb.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">🐳</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Docker</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">容器化平台，将 ML 模型及其依赖打包为可移植容器，确保环境一致性和部署可靠性。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 69.5k</span>
+                  <span class="tool-stat">🔥 环境一致性</span>
+                  <a href="https://docker.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">🌐</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">FastAPI</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">高性能 Python Web 框架，自动生成 API 文档，是部署 ML 模型为 REST API 的首选。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 80.5k</span>
+                  <span class="tool-stat">🔥 API首选</span>
+                  <a href="https://fastapi.tiangolo.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">🎯</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">BentoML</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">ML 模型服务化框架，将训练好的模型打包为标准化服务，一键部署到云端。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 7.3k</span>
+                  <span class="tool-stat">📦 模型服务化</span>
+                  <a href="https://bentoml.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="deploy">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fff1f2;">🗂️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">DVC</span>
+                    <span class="tool-tag red">MLOps</span>
+                  </div>
+                </div>
+                <p class="tool-desc">数据版本控制工具，像 Git 管理代码一样管理数据集和模型文件，支持远程存储。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 14.1k</span>
+                  <span class="tool-stat">📦 数据版本管理</span>
+                  <a href="https://dvc.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== AutoML与实验 ====== -->
+          <div class="tools-category" id="cat-auto">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#a855f7,#c084fc);">⚙️</span>
+              <div>
+                <h3 class="category-title">AutoML 与实验工具</h3>
+                <p class="category-desc">自动化建模、Notebook 与开发环境</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">📓</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Jupyter Notebook</span>
+                    <span class="tool-tag violet">开发环境</span>
+                  </div>
+                </div>
+                <p class="tool-desc">交互式计算笔记本，支持代码、公式、可视化和文档混排，数据科学家的标准工具。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 12.1k</span>
+                  <span class="tool-stat">🔥 标配工具</span>
+                  <a href="https://jupyter.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">🧪</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">JupyterLab</span>
+                    <span class="tool-tag violet">开发环境</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Jupyter 的下一代界面，支持多标签、文件管理、终端和扩展插件，完整的数据科学 IDE。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 14.4k</span>
+                  <span class="tool-stat">📦 新一代IDE</span>
+                  <a href="https://jupyterlab.readthedocs.io" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">🤖</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Auto-sklearn</span>
+                    <span class="tool-tag violet">AutoML</span>
+                  </div>
+                </div>
+                <p class="tool-desc">基于 Scikit-learn 的自动机器学习系统，自动选择算法和超参数，一行代码完成建模。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 7.7k</span>
+                  <span class="tool-stat">🤖 自动建模</span>
+                  <a href="https://automl.github.io/auto-sklearn" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">⚡</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">TPOT</span>
+                    <span class="tool-tag violet">AutoML</span>
+                  </div>
+                </div>
+                <p class="tool-desc">基于遗传算法的自动 ML 管道优化工具，自动探索特征工程、模型选择和超参数调优。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 9.8k</span>
+                  <span class="tool-stat">📦 管道优化</span>
+                  <a href="http://epistasislab.github.io/tpot" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">📊</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">PyCaret</span>
+                    <span class="tool-tag violet">AutoML</span>
+                  </div>
+                </div>
+                <p class="tool-desc">低代码机器学习库，几行代码完成从数据预处理到模型部署的全流程，适合快速实验。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 9.1k</span>
+                  <span class="tool-stat">📦 低代码</span>
+                  <a href="https://pycaret.org" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">🔬</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Gradio</span>
+                    <span class="tool-tag violet">开发环境</span>
+                  </div>
+                </div>
+                <p class="tool-desc">快速构建 ML 模型交互式演示界面，几行代码创建 Web UI，支持图像、音频、文本输入。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 35.3k</span>
+                  <span class="tool-stat">🔥 Demo神器</span>
+                  <a href="https://gradio.app" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="auto">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#faf5ff;">🐍</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Anaconda</span>
+                    <span class="tool-tag violet">开发环境</span>
+                  </div>
+                </div>
+                <p class="tool-desc">数据科学发行版，集成了 Python、conda 包管理器和 1500+ 科学计算包，一键搭建环境。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ —</span>
+                  <span class="tool-stat">📦 环境管理</span>
+                  <a href="https://anaconda.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /tools-content -->
+      </div><!-- /tools-layout -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 DataHub · 数据科学技能平台</p>
+    </div>
+  </footer>
+
+  <script>
+  // ===== 分类筛选 =====
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const categories = document.querySelectorAll('.tools-category');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      categories.forEach(cat => {
+        if (filter === 'all') {
+          cat.classList.remove('hidden');
+        } else {
+          const catId = cat.id.replace('cat-', '');
+          cat.classList.toggle('hidden', catId !== filter);
+        }
+      });
+
+      updateSidebarOnFilter(filter);
+    });
+  });
+
+  function updateSidebarOnFilter(filter) {
+    const sidebarLinks = document.querySelectorAll('.tools-sidebar .sidebar-link');
+    sidebarLinks.forEach(link => {
+      link.classList.remove('active');
+      if (filter === 'all') {
+        // 恢复滚动高亮模式
+      } else {
+        const href = link.getAttribute('href');
+        if (href === '#cat-' + filter) {
+          link.classList.add('active');
+        }
+      }
+    });
+  }
+
+  // ===== 侧边栏滚动高亮 =====
+  const sidebarLinks = document.querySelectorAll('.tools-sidebar .sidebar-link');
+
+  function updateSidebarHighlight() {
+    const activeFilter = document.querySelector('.filter-btn.active');
+    if (activeFilter && activeFilter.dataset.filter !== 'all') return;
+
+    let current = '';
+    categories.forEach(cat => {
+      const rect = cat.getBoundingClientRect();
+      if (rect.top <= 120) {
+        current = cat.id;
+      }
+    });
+
+    sidebarLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateSidebarHighlight);
+
+  // ===== 侧边栏点击平滑滚动 =====
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+        categories.forEach(cat => cat.classList.remove('hidden'));
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  </script>
+
+</body>
+</html>
