@@ -113,6 +113,22 @@ a {
   color: #555;
 }
 
+.nav-github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.nav-github:hover {
+  background: #e5e7eb;
+  color: #333;
+}
+
 /* ===== Hero Section ===== */
 .hero {
   position: relative;
@@ -429,6 +445,14 @@ a {
 
 .explore-card-papers .explore-card-glow {
   background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+}
+
+.explore-card-articles .explore-card-glow {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+}
+
+.explore-card-daily .explore-card-glow {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.12) 0%, transparent 70%);
 }
 
 .explore-card:hover .explore-card-glow {

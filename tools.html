@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>数据科学工具榜单 - DataHub</title>
+  <title>工具榜单 - DataHub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="tools.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,10 +22,11 @@
       </div>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">精选推荐</a>
-        <a href="papers.html" class="nav-link">方法论论文</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
         <a href="tools.html" class="nav-link active">工具榜单</a>
-        <a href="#" class="nav-link">数据集</a>
-        <a href="#" class="nav-link">关于</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="daily.html" class="nav-link">每日资讯</a>
+        <a href="about.html" class="nav-link">关于</a>
       </nav>
       <div class="nav-search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -34,6 +35,9 @@
         </svg>
         搜索
       </div>
+      <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
     </div>
   </header>
 
@@ -42,22 +46,14 @@
     <div class="tools-hero-bg"></div>
     <div class="tools-hero-inner">
       <div class="tools-hero-tag">
-        <span>🛠️</span> 数据科学工具 · TOP 50 精选榜单
+        <span>🛠️</span> 工具榜单 · 数据科学全流程
       </div>
       <h1 class="tools-hero-title">
-        精选 TOP 50 数据科学工具榜单
+        工具榜单
       </h1>
       <p class="tools-hero-desc">
-        从 DataHub 生态中精选最值得学习的 50 个数据科学工具，按分类系统梳理，覆盖数据科学全流程。
+        精选数据科学工具与 AI 产品，覆盖全流程
       </p>
-      <div class="tools-hero-badges">
-        <span class="tools-hero-badge blue">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          官方认证推荐
-        </span>
-        <span class="tools-hero-badge green">⚡ 高速下载</span>
-        <span class="tools-hero-badge gray">✓ 质量审核</span>
-      </div>
     </div>
   </section>
 
@@ -67,7 +63,7 @@
 
       <!-- 分类筛选标签 -->
       <div class="tools-filter">
-        <button class="filter-btn active" data-filter="all">🏆 全部工具 <span class="filter-count">50</span></button>
+        <button class="filter-btn active" data-filter="all">🏆 全部工具 <span class="filter-count">58</span></button>
         <button class="filter-btn" data-filter="data-processing">🐼 数据处理 <span class="filter-count">7</span></button>
         <button class="filter-btn" data-filter="ml">📈 机器学习 <span class="filter-count">6</span></button>
         <button class="filter-btn" data-filter="dl">🧠 深度学习 <span class="filter-count">7</span></button>
@@ -76,12 +72,13 @@
         <button class="filter-btn" data-filter="cv">👁️ 计算机视觉 <span class="filter-count">5</span></button>
         <button class="filter-btn" data-filter="deploy">🚀 部署与工程 <span class="filter-count">6</span></button>
         <button class="filter-btn" data-filter="auto">⚙️ AutoML与实验 <span class="filter-count">7</span></button>
+        <button class="filter-btn" data-filter="agent">🦞 AI Agent/龙虾 <span class="filter-count">8</span></button>
       </div>
 
       <div class="tools-layout">
         <!-- 侧边目录 -->
         <aside class="tools-sidebar">
-          <div class="sidebar-title">📑 分类导航</div>
+          <div class="sidebar-title">🛠️ 工具导航</div>
           <a href="#cat-data-processing" class="sidebar-link active">
             <span class="sidebar-dot" style="background:#f97316;"></span>
             <span>数据处理</span>
@@ -121,6 +118,11 @@
             <span class="sidebar-dot" style="background:#a855f7;"></span>
             <span>AutoML与实验</span>
             <span class="sidebar-count">7</span>
+          </a>
+          <a href="#cat-agent" class="sidebar-link">
+            <span class="sidebar-dot" style="background:#ef4444;"></span>
+            <span>AI Agent / 龙虾</span>
+            <span class="sidebar-count">12</span>
           </a>
         </aside>
 
@@ -976,6 +978,199 @@
                   <span class="tool-stat">⭐ —</span>
                   <span class="tool-stat">📦 环境管理</span>
                   <a href="https://anaconda.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== AI Agent / 龙虾产品 ====== -->
+          <div class="tools-category" id="cat-agent">
+            <div class="category-header">
+              <span class="category-icon" style="background:linear-gradient(135deg,#ef4444,#f97316);">🦞</span>
+              <div>
+                <h3 class="category-title">AI Agent / 龙虾产品</h3>
+                <p class="category-desc">各大厂 AI 智能体框架与平台，让 AI "能动手做事"</p>
+              </div>
+            </div>
+            <div class="tools-grid">
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🦞</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">OpenClaw</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">开源 AI 智能体框架鼻祖，本地部署，通过飞书/微信等聊天工具下达指令，自主执行文件管理、邮件处理、自动化任务。GitHub 260k+ Stars。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 260k+</span>
+                  <span class="tool-stat">🔥 现象级开源</span>
+                  <a href="https://openclaw.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🌙</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Kimi Claw</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">Moonshot AI 推出的云托管龙虾方案，一键部署 OpenClaw 到云端，内置 Kimi K2.5 模型，40GB 云存储 + 5000 技能，7×24 在线服务。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 云托管</span>
+                  <span class="tool-stat">🔥 零门槛部署</span>
+                  <a href="https://kimi.com/bot" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">⚡</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">MaxClaw</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">MiniMax 出品的云端龙虾方案，10 秒极速部署，成本仅为 Claude 3.5 的 1/10，集成 MiniMax 语音和音乐模型技能。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 极速</span>
+                  <span class="tool-stat">⚡ 低成本</span>
+                  <a href="https://www.minimaxi.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🤖</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Manus AI</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">通用型 AI Agent 先驱，多代理系统架构，自动拆解任务 + 规划 + 执行 + 验证，端到端交付市场调研、旅行规划等复杂任务。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ GAIA榜首</span>
+                  <span class="tool-stat">🔥 通用Agent</span>
+                  <a href="https://manus.im" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🧩</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">扣子空间 (Coze Space)</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">字节跳动推出的通用型 AI Agent 平台，搭载 Doubao-1.5 模型，支持任务自动化、专家 Agent 生态和 MCP 扩展集成。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 字节出品</span>
+                  <span class="tool-stat">🔥 生态丰富</span>
+                  <a href="https://space.coze.cn" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🔧</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">Dify</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">开源 LLM 应用开发平台，支持工作流编排、知识库管理、多模型接入，适合需要深度定制和私有化部署的 Agent 场景。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 60k+</span>
+                  <span class="tool-stat">📦 开源可控</span>
+                  <a href="https://dify.ai" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🖥️</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">DeskClaw</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">杭州 NoDesk AI 开发的"中国版小龙虾"，基于 OpenClaw 生态，面向个人和电商团队优化，获近亿元融资。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 国产新锐</span>
+                  <span class="tool-stat">🔥 电商优化</span>
+                  <a href="https://nodesk.co" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🪶</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">NullClaw</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">极致轻量级 AI Agent 方案，仅 678KB，专为资源受限场景设计，无需 Docker，启动秒级，是 OpenClaw "太重了" 的最佳替代。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 极简</span>
+                  <span class="tool-stat">🪶 678KB</span>
+                  <a href="https://github.com/nicepkg/nullclaw" target="_blank" class="tool-link">GitHub →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🐧</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">QClaw（腾讯）</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">腾讯基于 OpenClaw 极简封装的 AI Agent，首个实现微信互联的龙虾产品。微信小程序入口一键操控电脑，内置"灵感广场"预置常用任务，下载即用零门槛。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 腾讯出品</span>
+                  <span class="tool-stat">💬 微信互联</span>
+                  <a href="https://qclaw.qq.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🙊</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">悟空（阿里/钉钉）</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">阿里发布的全球首个企业级 AI 原生工作平台，内置于 2000 万+企业组织的钉钉中。支持 CLI 化原生操作，Agent 自动继承企业权限，打造 24h 工作的"龙虾军团"。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 阿里出品</span>
+                  <span class="tool-stat">🏢 企业级</span>
+                  <a href="https://www.dingtalk.com" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🔮</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">AutoGLM 沉思（智谱）</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">智谱 AI 推出的集深度研究与操作执行于一体的自主 Agent。搭载 GLM-Z1 系列模型，支持多轮搜索推理 + 浏览器自动操作，是全球首个"边想边干"的智能体。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 智谱出品</span>
+                  <span class="tool-stat">🧠 深度研究</span>
+                  <a href="https://chatglm.cn" target="_blank" class="tool-link">官网 →</a>
+                </div>
+              </div>
+              <div class="tool-card" data-cat="agent">
+                <div class="tool-card-header">
+                  <span class="tool-icon" style="background:#fef2f2;">🦐</span>
+                  <div class="tool-meta">
+                    <span class="tool-name">小度龙虾（百度）</span>
+                    <span class="tool-tag lobster">AI Agent</span>
+                  </div>
+                </div>
+                <p class="tool-desc">百度发布的全球首款家用 AI 智能体，将 OpenClaw 深度融入家庭场景。本地优先、隐私安全，语音唤醒即可自主执行跨设备跨应用的复杂任务，全家可用。</p>
+                <div class="tool-footer">
+                  <span class="tool-stat">⭐ 百度出品</span>
+                  <span class="tool-stat">🏠 家用场景</span>
+                  <a href="https://dumixiao.baidu.com" target="_blank" class="tool-link">官网 →</a>
                 </div>
               </div>
             </div>

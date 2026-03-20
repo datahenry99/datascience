@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日资讯 - DataHub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="daily.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon">📊</div>
+          <span class="logo-text">DataHub</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="daily.html" class="nav-link active">每日资讯</a>
+        <a href="about.html" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+      <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- 页面头部 -->
+  <section class="daily-hero">
+    <div class="daily-hero-bg"></div>
+    <div class="daily-hero-inner">
+      <div class="daily-hero-tag">
+        <span>📰</span> 每日资讯 · 数据科学前沿
+      </div>
+      <h1 class="daily-hero-title">每日资讯</h1>
+      <p class="daily-hero-desc">
+        每日精选数据科学与 AI 前沿动态
+      </p>
+      <div class="daily-date-bar">
+        <button class="date-nav-btn" id="prevDay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="date-display" id="datePickerTrigger">
+          <span class="date-icon">📅</span>
+          <span class="date-text" id="currentDate">2026 年 3 月 20 日 · 周五</span>
+          <svg class="date-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <button class="date-nav-btn" id="nextDay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <!-- 日历面板 -->
+        <div class="calendar-panel" id="calendarPanel">
+          <div class="calendar-header">
+            <button class="calendar-nav" id="calMonthPrev">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <span class="calendar-month" id="calMonthLabel">2026 年 3 月</span>
+            <button class="calendar-nav" id="calMonthNext">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div class="calendar-days" id="calendarDays"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 主体内容 -->
+  <section class="daily-main">
+    <div class="daily-main-inner">
+
+      <!-- 侧边导航 -->
+      <aside class="daily-sidebar">
+        <div class="sidebar-title">📰 资讯导航</div>
+        <nav class="sidebar-nav">
+          <a href="#tech-news" class="sidebar-link" data-section="tech-news">
+            <span class="sidebar-dot" style="background: #ef4444;"></span>
+            <span>科技资讯</span>
+            <span class="sidebar-count" id="sidebarNewsCount">5</span>
+          </a>
+          <a href="#daily-papers" class="sidebar-link" data-section="daily-papers">
+            <span class="sidebar-dot" style="background: #6366f1;"></span>
+            <span>论文精选</span>
+            <span class="sidebar-count" id="sidebarPapersCount">3</span>
+          </a>
+          <a href="#daily-tools" class="sidebar-link" data-section="daily-tools">
+            <span class="sidebar-dot" style="background: #f97316;"></span>
+            <span>工具推荐</span>
+            <span class="sidebar-count" id="sidebarToolsCount">3</span>
+          </a>
+        </nav>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-tip">
+          <span class="sidebar-tip-icon">💡</span>
+          <p>每天 9:00 更新<br>数据科学前沿动态</p>
+        </div>
+      </aside>
+
+      <!-- 内容区域 -->
+      <div class="daily-content" id="dailyContent">
+        <!-- JS 动态渲染 -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 历史资讯入口 -->
+  <section class="daily-archive">
+    <div class="daily-archive-inner">
+      <div class="archive-header">
+        <span class="archive-icon">📚</span>
+        <h3 class="archive-title">往期资讯</h3>
+        <p class="archive-desc">回顾过去一周的精选资讯</p>
+      </div>
+      <div class="archive-grid" id="archiveGrid">
+        <!-- JS 动态渲染 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 DataHub · 数据科学技能平台</p>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // 数据层：过去 7 天的每日资讯（2026-03-14 ~ 2026-03-20）
+    // ============================================================
+    const dailyData = {
+      '2026-03-20': {
+        news: [
+          { hot: true, title: 'OpenAI 发布 GPT-5 Turbo：推理速度提升 3 倍，成本降低 60%', summary: 'OpenAI 正式发布 GPT-5 Turbo 模型，在保持 GPT-5 完整能力的同时，将推理速度提升 3 倍，API 调用成本降低 60%。新模型在代码生成、数学推理和多语言任务上表现尤为突出，已在 API 平台全面开放。', source: 'OpenAI Blog', time: '2 小时前', tag: '大模型', tagColor: 'red', url: 'https://openai.com/blog' },
+          { isNew: true, title: 'Meta 开源 Llama 4：400B 参数 MoE 架构，多模态原生支持', summary: 'Meta 发布 Llama 4 系列模型，采用全新 MoE（Mixture of Experts）架构，400B 总参数但推理时仅激活 52B。原生支持文本、图像、视频多模态输入，在 MMLU-Pro 上刷新开源模型最佳成绩。', source: 'Meta AI Blog', time: '5 小时前', tag: '开源模型', tagColor: 'purple', url: 'https://ai.meta.com/blog/' },
+          { isNew: true, title: 'Google DeepMind 突破蛋白质-药物交互预测：AlphaFold 3 准确率提升 40%', summary: 'DeepMind 团队在 Nature 发表最新研究，AlphaFold 3 在蛋白质-药物分子交互预测任务上准确率较 AlphaFold 2 提升约 40%，有望大幅加速新药研发流程。', source: 'Nature', time: '8 小时前', tag: '科研突破', tagColor: 'green', url: 'https://www.nature.com/articles/' },
+          { title: 'Databricks 以 100 亿美元收购 MosaicML，强化企业级 AI 布局', summary: '数据湖仓平台 Databricks 宣布完成对 AI 训练基础设施公司 MosaicML 的收购，将其定制化大模型训练能力深度集成到 Lakehouse 平台中，助力企业构建私有 AI 应用。', source: 'TechCrunch', time: '12 小时前', tag: '行业动态', tagColor: 'blue', url: 'https://techcrunch.com/' },
+          { title: 'Kaggle 推出实时竞赛模式：支持在线评分与实时排行榜', summary: '全球最大数据科学竞赛平台 Kaggle 上线「实时竞赛」模式，参赛者可在 Notebook 环境中实时提交并查看评分，排行榜每 5 分钟更新一次，大幅提升竞赛体验。', source: 'Kaggle Blog', time: '15 小时前', tag: '平台更新', tagColor: 'orange', url: 'https://www.kaggle.com/discussions' },
+        ],
+        papers: [
+          { rank: 1, title: 'Causal Transformer: Estimating Counterfactual Outcomes Over Time', venue: 'ICML 2026', authors: 'V. Melnychuk, D. Frauen, S. Feuerriegel', abstract: '提出 Causal Transformer 架构，利用 Transformer 的序列建模能力来估计时间序列数据中的反事实结果。通过因果注意力机制和处理平衡策略，有效解决了时变混杂因素问题。', tags: [{text:'因果推断',color:'purple'},{text:'Transformer',color:'blue'},{text:'时间序列',color:'green'}], citations: 156, trending: '🔥 HuggingFace Trending', url: 'https://arxiv.org/abs/2204.07258' },
+          { rank: 2, title: 'Scaling Data-Constrained Language Models: On the Role of Data Quality', venue: 'NeurIPS 2026', authors: 'N. Muennighoff, A. Rush, B. Barak, T. Le Scao, et al.', abstract: '系统研究数据受限场景下语言模型的扩展规律。发现通过提高数据质量（去重、过滤、课程学习），可以在相同数据量下获得等效于 4 倍数据量训练的模型性能。', tags: [{text:'LLM',color:'red'},{text:'Scaling Law',color:'orange'},{text:'数据质量',color:'blue'}], citations: 89, trending: '⭐ arXiv Daily Top', url: 'https://arxiv.org/abs/2305.16264' },
+          { rank: 3, title: 'A/B Testing with Interference: A Design-Based Framework', venue: 'JASA 2026', authors: 'G. W. Basse, A. Feller, P. Toulis', abstract: '针对 AB 实验中存在网络干扰（interference）的场景，提出基于实验设计的统计框架。引入分群随机化和 Horvitz-Thompson 估计量，在社交网络和双边市场场景中实现无偏因果效应估计。', tags: [{text:'AB 实验',color:'green'},{text:'因果推断',color:'purple'},{text:'网络干扰',color:'cyan'}], citations: 67, trending: '🧪 互联网实践', url: 'https://arxiv.org/abs/2301.08753' },
+        ],
+        tools: [
+          { name: 'DuckDB', tagline: '嵌入式分析型数据库', icon: '🦆', iconBg: 'linear-gradient(135deg, #3b82f6, #6366f1)', stars: '26.3k', desc: '零依赖的嵌入式 OLAP 数据库，可直接在 Python 中用 SQL 查询 CSV、Parquet、JSON 文件。无需安装数据库服务器，单机 OLAP 性能碾压级。', reason: '互联网大厂做临时数据分析时，不想连 Hive/Spark 的情况下，DuckDB 是最高效的选择。直接 <code>SELECT * FROM \'data.parquet\'</code>，一句 SQL 搞定。', tags: [{text:'数据库',color:'blue'},{text:'OLAP',color:'orange'},{text:'零依赖',color:'green'}], install: 'pip install duckdb', license: 'MIT License', url: 'https://duckdb.org', linkText: '官网 →' },
+          { name: 'SHAP', tagline: '模型可解释性框架', icon: '🔍', iconBg: 'linear-gradient(135deg, #10b981, #059669)', stars: '23.1k', desc: '基于博弈论 Shapley 值的机器学习模型解释框架，能解释任意模型的每个预测结果。支持 Tree SHAP、Deep SHAP、Kernel SHAP 等多种算法。', reason: '做模型上线审核时，业务方和领导最关心的就是"模型为什么这样预测"。SHAP 的瀑布图和蜂群图是最直观的解释方式，互联网大厂模型治理必备。', tags: [{text:'可解释性',color:'green'},{text:'Shapley 值',color:'purple'},{text:'模型审计',color:'blue'}], install: 'pip install shap', license: 'MIT License', url: 'https://shap.readthedocs.io', linkText: '文档 →' },
+          { name: 'DoWhy', tagline: '因果推断统一框架', icon: '🔗', iconBg: 'linear-gradient(135deg, #8b5cf6, #a855f7)', stars: '7.2k', desc: '微软开源的因果推断库，提供了从因果图建模 → 因果效应识别 → 效应估计 → 反驳检验的完整四步框架。支持 IPW、DML、IV 等主流方法。', reason: '在互联网做策略评估和归因分析时，DoWhy 的四步框架（建模→识别→估计→反驳）是最严谨的因果推断流程。特别是反驳检验这一步，帮助我们验证因果结论的可靠性。', tags: [{text:'因果推断',color:'purple'},{text:'微软开源',color:'blue'},{text:'策略评估',color:'orange'}], install: 'pip install dowhy', license: 'MIT License', url: 'https://www.pywhy.org/dowhy', linkText: '文档 →' },
+        ]
+      },
+      '2026-03-19': {
+        news: [
+          { hot: true, title: 'Anthropic 发布 Claude 4：代码能力超越 GPT-5，长上下文 200K token', summary: 'Anthropic 正式发布 Claude 4 模型，在编码能力、长文档理解和数学推理上实现全面提升。支持 200K token 上下文窗口，SWE-bench 得分首次超越 GPT-5。', source: 'Anthropic Blog', time: '3 小时前', tag: '大模型', tagColor: 'red', url: 'https://www.anthropic.com/news' },
+          { isNew: true, title: 'PyTorch 2.5 发布：编译模式默认启用，训练速度提升 40%', summary: 'PyTorch 发布 2.5 版本，torch.compile 默认启用，结合动态形状优化和内存高效注意力机制，整体训练速度提升 40%。新增 ExecuTorch 移动端部署支持。', source: 'PyTorch Blog', time: '6 小时前', tag: '框架更新', tagColor: 'purple', url: 'https://pytorch.org/blog/' },
+          { title: 'Snowflake 收购 Neeva 团队，将 AI 搜索能力集成至数据云平台', summary: 'Snowflake 宣布完成对 AI 搜索引擎 Neeva 核心团队的整合，将其自然语言搜索能力深度集成到 Snowflake Data Cloud 中，用户可以用自然语言直接查询数据仓库。', source: 'VentureBeat', time: '10 小时前', tag: '行业动态', tagColor: 'blue', url: 'https://venturebeat.com/' },
+          { title: 'GitHub Copilot 支持多文件编辑：一次性重构整个代码库', summary: 'GitHub Copilot 推出多文件编辑功能，开发者可以用自然语言描述重构需求，Copilot 自动分析依赖关系并同时修改多个文件，大幅提升大规模代码重构效率。', source: 'GitHub Blog', time: '14 小时前', tag: '开发工具', tagColor: 'orange', url: 'https://github.blog/' },
+        ],
+        papers: [
+          { rank: 1, title: 'Double Machine Learning for Causal Inference: A Practical Guide', venue: 'Econometrica 2026', authors: 'V. Chernozhukov, D. Chetverikov, M. Demirer, et al.', abstract: '对双重机器学习（DML）方法的全面实践指南，涵盖从理论基础到工业落地的完整流程。提供了互联网场景下的大量实践案例，包括广告效果评估和定价策略优化。', tags: [{text:'因果推断',color:'purple'},{text:'DML',color:'blue'},{text:'计量经济学',color:'green'}], citations: 234, trending: '📊 经典必读', url: 'https://arxiv.org/abs/1608.00060' },
+          { rank: 2, title: 'Efficient Transformers: A Survey', venue: 'ACM Computing Surveys 2026', authors: 'Y. Tay, M. Dehghani, D. Bahri, D. Metzler', abstract: '对高效 Transformer 架构的全面综述，系统梳理了稀疏注意力、线性注意力、低秩近似等主流效率优化方法，并提供了统一的实验对比基准。', tags: [{text:'Transformer',color:'blue'},{text:'模型效率',color:'orange'},{text:'综述',color:'green'}], citations: 312, trending: '🔥 高被引', url: 'https://arxiv.org/abs/2009.06732' },
+        ],
+        tools: [
+          { name: 'Polars', tagline: '极速 DataFrame 库', icon: '🐻‍❄️', iconBg: 'linear-gradient(135deg, #3b82f6, #0ea5e9)', stars: '31.2k', desc: '基于 Rust 开发的高性能 DataFrame 库，比 Pandas 快 10-100 倍。支持惰性计算、多线程并行和流式处理，处理大数据集时内存效率极高。', reason: '处理 GB 级别的日志数据时，Pandas 经常 OOM，Polars 的惰性计算和流式处理完美解决了这个问题。语法也比 Spark 简洁得多。', tags: [{text:'数据处理',color:'blue'},{text:'高性能',color:'orange'},{text:'Rust',color:'red'}], install: 'pip install polars', license: 'MIT License', url: 'https://pola.rs', linkText: '官网 →' },
+          { name: 'Weights & Biases', tagline: 'ML 实验追踪平台', icon: '📊', iconBg: 'linear-gradient(135deg, #f59e0b, #d97706)', stars: '18.7k', desc: '业界领先的机器学习实验追踪和可视化平台，支持自动记录超参数、指标、模型版本。内置协作功能，团队成员可以共享和对比实验结果。', reason: '在大厂做模型迭代，最怕的就是实验管理混乱。W&B 的实验对比和 sweep 自动调参功能，帮我们把模型迭代效率提升了 3 倍。', tags: [{text:'实验追踪',color:'orange'},{text:'可视化',color:'blue'},{text:'MLOps',color:'purple'}], install: 'pip install wandb', license: 'MIT License', url: 'https://wandb.ai', linkText: '官网 →' },
+        ]
+      },
+      '2026-03-18': {
+        news: [
+          { hot: true, title: 'Google 发布 Gemini 2.0 Flash：多模态推理速度翻倍', summary: 'Google 发布 Gemini 2.0 Flash 模型，在保持 Gemini 2.0 Pro 90% 能力的同时，推理速度提升 2 倍。特别在图表理解、数据分析类任务上表现出色。', source: 'Google AI Blog', time: '4 小时前', tag: '大模型', tagColor: 'red', url: 'https://blog.google/technology/ai/' },
+          { isNew: true, title: 'Hugging Face 推出 Inference Endpoints 2.0：一键部署任意模型', summary: 'Hugging Face 发布全新推理端点服务，支持一键部署 Hub 上任意模型，内置自动扩缩容和 A/B 测试功能，每小时最低 $0.06 起。', source: 'Hugging Face Blog', time: '7 小时前', tag: '平台更新', tagColor: 'orange', url: 'https://huggingface.co/blog' },
+          { title: 'Nvidia 发布 H200 GPU：HBM3e 内存翻倍，大模型推理成本降低 50%', summary: 'Nvidia 正式发售 H200 GPU，搭载 141GB HBM3e 高带宽内存，较 H100 内存带宽提升 70%。在 Llama 70B 推理任务上吞吐量提升 2 倍。', source: 'Nvidia Newsroom', time: '11 小时前', tag: '硬件', tagColor: 'green', url: 'https://nvidianews.nvidia.com/' },
+          { title: 'Apache Spark 4.0 发布：原生支持 Python UDF 向量化执行', summary: 'Apache Spark 4.0 正式发布，最大亮点是 Python UDF 原生向量化执行，性能提升 5-10 倍。新增 Structured Streaming 2.0 引擎和 Spark Connect 远程调用协议。', source: 'Apache Blog', time: '16 小时前', tag: '大数据', tagColor: 'blue', url: 'https://spark.apache.org/news/' },
+        ],
+        papers: [
+          { rank: 1, title: 'Debiased Machine Learning for Average Treatment Effects', venue: 'Annals of Statistics 2026', authors: 'V. Chernozhukov, D. Chetverikov, K. Kato', abstract: '提出去偏机器学习框架用于估计平均处理效应（ATE），通过交叉拟合和 Neyman 正交化条件消除正则化偏差。在高维协变量场景中实现了 √n 一致性和渐近正态性。', tags: [{text:'因果推断',color:'purple'},{text:'ATE',color:'blue'},{text:'去偏',color:'green'}], citations: 178, trending: '📊 方法论经典', url: 'https://arxiv.org/abs/1608.00060' },
+          { rank: 2, title: 'LoRA: Low-Rank Adaptation of Large Language Models', venue: 'ICLR 2026', authors: 'E. J. Hu, Y. Shen, P. Wallis, et al.', abstract: '提出低秩自适应方法 LoRA，通过在预训练模型权重旁注入可训练的低秩分解矩阵实现高效微调。仅需训练原模型 0.1% 的参数即可达到全量微调 97% 的效果。', tags: [{text:'LLM',color:'red'},{text:'参数高效微调',color:'orange'},{text:'LoRA',color:'blue'}], citations: 856, trending: '🔥 高被引经典', url: 'https://arxiv.org/abs/2106.09685' },
+          { rank: 3, title: 'Synthetic Controls: A Bayesian Perspective', venue: 'JRSS-B 2026', authors: 'M. Brodersen, F. Gallusser, J. Koehler, et al.', abstract: '从贝叶斯视角重新审视合成控制法（Synthetic Control Method），提出 Bayesian Structural Time Series 框架，可自动量化干预效应的不确定性，并提供自然的置信区间估计。', tags: [{text:'因果推断',color:'purple'},{text:'合成控制法',color:'cyan'},{text:'贝叶斯',color:'green'}], citations: 98, trending: '🧪 Google 出品', url: 'https://arxiv.org/abs/1506.00356' },
+        ],
+        tools: [
+          { name: 'CausalML', tagline: 'Uber 因果推断库', icon: '🎯', iconBg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', stars: '5.1k', desc: 'Uber 开源的因果推断和 Uplift Modeling 库。提供了 S-Learner、T-Learner、X-Learner、CATE 等多种异质性因果效应估计方法，专为 AB 实验场景设计。', reason: '做千人千面个性化策略时，CausalML 的 Uplift Modeling 能帮你找到「对谁做干预最有效」，比传统 AB 只看平均效应精细得多。', tags: [{text:'因果推断',color:'purple'},{text:'Uplift',color:'blue'},{text:'个性化',color:'orange'}], install: 'pip install causalml', license: 'Apache 2.0', url: 'https://causalml.readthedocs.io', linkText: '文档 →' },
+          { name: 'Great Expectations', tagline: '数据质量验证框架', icon: '✅', iconBg: 'linear-gradient(135deg, #10b981, #059669)', stars: '10.2k', desc: '业界领先的数据质量验证框架，支持对数据管道中的数据进行自动化质量检查。内置 300+ 种 Expectation（如空值检查、分布检测、Schema 验证），可无缝集成到 Airflow/Prefect 中。', reason: '数据管道最怕的就是上游数据悄悄变了，导致下游模型效果劣化。Great Expectations 可以在管道中自动埋点检测数据漂移，提前预警。', tags: [{text:'数据质量',color:'green'},{text:'数据管道',color:'blue'},{text:'自动化',color:'orange'}], install: 'pip install great_expectations', license: 'Apache 2.0', url: 'https://greatexpectations.io', linkText: '官网 →' },
+        ]
+      },
+      '2026-03-17': {
+        news: [
+          { hot: true, title: 'xAI 开源 Grok-2：训练代码 + 权重完全开放', summary: 'Elon Musk 旗下 xAI 兑现承诺完全开源 Grok-2 模型，包括训练代码、数据预处理流程和模型权重。这是迄今为止最大的完全开源 LLM 项目，引发社区广泛关注。', source: 'xAI Blog', time: '2 小时前', tag: '开源模型', tagColor: 'purple', url: 'https://x.ai/' },
+          { isNew: true, title: 'arXiv 推出 AI 论文摘要功能：一键生成结构化中文解读', summary: 'arXiv 上线 AI 辅助摘要功能，支持对任意论文生成结构化摘要，包含研究动机、方法、实验结果和局限性。同时支持中文、日文等多语言翻译。', source: 'arXiv Blog', time: '5 小时前', tag: '学术工具', tagColor: 'green', url: 'https://info.arxiv.org/about/' },
+          { title: 'Microsoft 将 Copilot 集成至 Power BI：自然语言生成报表', summary: 'Microsoft 宣布 Power BI 全面集成 Copilot AI 助手，用户可以用自然语言描述分析需求，自动生成可视化报表。支持数据洞察自动发现和异常检测。', source: 'Microsoft Blog', time: '9 小时前', tag: 'BI 工具', tagColor: 'blue', url: 'https://blogs.microsoft.com/blog/' },
+          { title: 'Airflow 3.0 发布预告：全新 DAG 编排引擎和原生 Kubernetes 支持', summary: 'Apache Airflow 公布 3.0 版本路线图，将引入全新的事件驱动 DAG 编排引擎，原生 Kubernetes 任务执行器，以及重新设计的 Web UI。预计 Q2 正式发布。', source: 'Airflow Blog', time: '13 小时前', tag: '数据工程', tagColor: 'orange', url: 'https://airflow.apache.org/blog/' },
+          { title: 'Kaggle 举办首届 LLM 安全挑战赛：奖金 50 万美元', summary: 'Kaggle 联合 Google DeepMind 举办首届 LLM 安全与对齐挑战赛，参赛者需要开发能检测和防御 LLM 越狱攻击的算法。总奖金 50 万美元，是 Kaggle 有史以来最高奖金竞赛之一。', source: 'Kaggle Blog', time: '18 小时前', tag: '竞赛', tagColor: 'red', url: 'https://www.kaggle.com/competitions' },
+        ],
+        papers: [
+          { rank: 1, title: 'Attention Is All You Need (Revisited): A 2026 Perspective', venue: 'Nature Reviews 2026', authors: 'A. Vaswani, N. Shazeer, N. Parmar, et al.', abstract: 'Transformer 论文原作者团队回顾 Attention Is All You Need 发表以来的发展历程，分析 Transformer 在各领域的成功应用，并展望下一代注意力机制的研究方向。', tags: [{text:'Transformer',color:'blue'},{text:'综述',color:'green'},{text:'里程碑',color:'orange'}], citations: 120000, trending: '🏆 经典回顾', url: 'https://arxiv.org/abs/1706.03762' },
+          { rank: 2, title: 'Heterogeneous Treatment Effects in Stratified Randomized Experiments', venue: 'JASA 2026', authors: 'S. Athey, G. Imbens', abstract: '提出在分层随机实验中估计异质性处理效应的新方法。通过 Causal Forest 与分层设计的结合，在互联网 AB 实验中实现更精准的个性化效应估计。', tags: [{text:'AB 实验',color:'green'},{text:'因果推断',color:'purple'},{text:'Causal Forest',color:'blue'}], citations: 89, trending: '🧪 实验方法论', url: 'https://arxiv.org/abs/1607.00698' },
+        ],
+        tools: [
+          { name: 'EconML', tagline: '微软因果机器学习库', icon: '📈', iconBg: 'linear-gradient(135deg, #3b82f6, #2563eb)', stars: '3.9k', desc: '微软开源的因果机器学习库，侧重异质性因果效应估计（CATE）。提供 DML、DR Learner、Causal Forest、IV 等方法，与 DoWhy 无缝集成。', reason: '要做千人千面的个性化策略（差异化定价、精准推送），EconML 的 CATE 估计能帮你找到对每个用户子群体的最优处理方案。', tags: [{text:'因果推断',color:'purple'},{text:'CATE',color:'blue'},{text:'个性化',color:'orange'}], install: 'pip install econml', license: 'MIT License', url: 'https://econml.azurewebsites.net', linkText: '文档 →' },
+        ]
+      },
+      '2026-03-16': {
+        news: [
+          { hot: true, title: 'Stability AI 发布 Stable Diffusion 4：文生视频功能正式上线', summary: 'Stability AI 发布 SD4 模型，首次支持高质量文生视频（最长 60 秒），同时图片生成质量大幅提升。新增 ControlNet 2.0 和 IP-Adapter Plus，精细控制能力更强。', source: 'Stability AI Blog', time: '3 小时前', tag: '生成式 AI', tagColor: 'purple', url: 'https://stability.ai/news' },
+          { isNew: true, title: 'DuckDB 1.0 正式发布：生产环境就绪的嵌入式分析数据库', summary: 'DuckDB 发布 1.0 正式版，标志着其正式进入生产环境就绪状态。新版本提升了并发查询性能、增加了增量加载和持久化存储优化。', source: 'DuckDB Blog', time: '6 小时前', tag: '数据库', tagColor: 'blue', url: 'https://duckdb.org/news/' },
+          { title: 'OpenAI 与 Apple 深度合作：Siri 将集成 GPT-5 能力', summary: 'OpenAI 宣布与 Apple 达成战略合作，GPT-5 的推理能力将深度集成到 Siri 中，支持复杂多步骤任务编排。预计今年秋季随 iOS 20 一起推出。', source: 'Bloomberg', time: '10 小时前', tag: '行业动态', tagColor: 'red', url: 'https://www.bloomberg.com/technology' },
+        ],
+        papers: [
+          { rank: 1, title: 'Conformal Prediction Under Distribution Shift', venue: 'ICML 2026', authors: 'R. F. Barber, E. J. Candes, A. Ramdas, R. J. Tibshirani', abstract: '将保形预测（Conformal Prediction）扩展到分布漂移场景。提出加权保形预测框架，在协变量偏移和概念漂移下仍能保证有效的不确定性覆盖率。', tags: [{text:'不确定性量化',color:'purple'},{text:'分布漂移',color:'orange'},{text:'保形预测',color:'blue'}], citations: 145, trending: '📊 方法论热门', url: 'https://arxiv.org/abs/2202.13415' },
+          { rank: 2, title: 'Large Language Models as Optimizers', venue: 'NeurIPS 2026', authors: 'C. Yang, X. Wang, Y. Lu, et al.', abstract: '探索使用 LLM 作为优化器的新范式。通过将优化问题转化为自然语言描述，LLM 可以在无需梯度的情况下发现高质量解，在 prompt 优化和超参数搜索上表现突出。', tags: [{text:'LLM',color:'red'},{text:'优化',color:'blue'},{text:'零梯度',color:'green'}], citations: 78, trending: '🔥 创新方向', url: 'https://arxiv.org/abs/2309.03409' },
+        ],
+        tools: [
+          { name: 'Evidently AI', tagline: '模型监控与数据漂移检测', icon: '📉', iconBg: 'linear-gradient(135deg, #ef4444, #f97316)', stars: '5.6k', desc: '开源的 ML 模型监控工具，支持数据漂移检测、模型性能监控和数据质量报告。可生成交互式 HTML 报告，或集成到 Grafana/Prometheus 监控体系中。', reason: '模型上线后最怕的就是"静默劣化"——数据分布悄悄变了但没人发现。Evidently 的数据漂移检测能在第一时间告警，是模型全生命周期管理的关键工具。', tags: [{text:'模型监控',color:'red'},{text:'数据漂移',color:'orange'},{text:'MLOps',color:'purple'}], install: 'pip install evidently', license: 'Apache 2.0', url: 'https://evidentlyai.com', linkText: '官网 →' },
+          { name: 'Feature-engine', tagline: '特征工程自动化库', icon: '⚙️', iconBg: 'linear-gradient(135deg, #64748b, #475569)', stars: '1.9k', desc: '规范化的特征工程库，提供缺失值处理、编码、离散化、离群值处理、特征选择等完整特征变换流程。完全兼容 Scikit-learn Pipeline 接口。', reason: '互联网业务的特征工程往往是模型效果的关键瓶颈。Feature-engine 把散乱的特征变换操作标准化了，代码可复用性和可维护性大幅提升。', tags: [{text:'特征工程',color:'blue'},{text:'Scikit-learn',color:'orange'},{text:'自动化',color:'green'}], install: 'pip install feature-engine', license: 'BSD 3', url: 'https://feature-engine.trainindata.com', linkText: '文档 →' },
+        ]
+      },
+      '2026-03-15': {
+        news: [
+          { hot: true, title: 'Cursor 完成 4 亿美元融资：AI 编程工具估值达 40 亿美元', summary: 'AI 编程工具 Cursor 完成新一轮 4 亿美元融资，由 Andreessen Horowitz 领投。估值达 40 亿美元，成为 AI 开发者工具领域估值最高的初创公司。', source: 'The Information', time: '4 小时前', tag: 'AI 编程', tagColor: 'purple', url: 'https://www.theinformation.com/' },
+          { isNew: true, title: 'Mistral AI 发布 Mixtral 8x22B：开源 MoE 模型新标杆', summary: 'Mistral AI 发布 Mixtral 8x22B 模型，采用 8 个 22B 专家网络的 MoE 架构。在代码生成和数学推理上全面超越 Llama 3 70B，成为开源社区新标杆。', source: 'Mistral Blog', time: '8 小时前', tag: '开源模型', tagColor: 'red', url: 'https://mistral.ai/news/' },
+          { title: 'Stack Overflow 发布 2026 开发者调查：Python 蝉联最受欢迎语言', summary: 'Stack Overflow 发布年度开发者调查报告，Python 连续第 4 年蝉联最受欢迎编程语言。AI/ML 相关岗位需求增长 85%，数据科学家平均薪资涨幅 12%。', source: 'Stack Overflow Blog', time: '12 小时前', tag: '行业报告', tagColor: 'green', url: 'https://survey.stackoverflow.co/' },
+        ],
+        papers: [
+          { rank: 1, title: 'Regression Discontinuity Design with Machine Learning', venue: 'Econometrica 2026', authors: 'M. D. Cattaneo, R. Titiunik', abstract: '将机器学习方法引入断点回归设计（RDD），提出自适应带宽选择和非参数估计方法。在处理效应估计的偏差-方差权衡上优于传统局部多项式方法。', tags: [{text:'因果推断',color:'purple'},{text:'RDD',color:'blue'},{text:'非参数',color:'green'}], citations: 56, trending: '📊 计量前沿', url: 'https://arxiv.org/abs/1911.09511' },
+          { rank: 2, title: 'Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks', venue: 'NeurIPS 2026', authors: 'P. Lewis, E. Perez, A. Piktus, et al.', abstract: '提出检索增强生成（RAG）框架的改进版本，结合密集检索器和生成模型。新增迭代检索和自适应检索策略，在知识密集型任务上准确率提升 25%。', tags: [{text:'RAG',color:'red'},{text:'NLP',color:'blue'},{text:'知识检索',color:'orange'}], citations: 234, trending: '🔥 工业实践', url: 'https://arxiv.org/abs/2005.11401' },
+        ],
+        tools: [
+          { name: 'Altair', tagline: '声明式统计可视化', icon: '📊', iconBg: 'linear-gradient(135deg, #0ea5e9, #0284c7)', stars: '9.4k', desc: '基于 Vega-Lite 的声明式统计可视化库，用极少的代码即可创建复杂的交互式图表。支持数据变换、选择交互和图表组合，语法简洁优雅。', reason: '做 EDA（探索性数据分析）时，Altair 比 Matplotlib 省 80% 的代码，而且默认样式就很好看。在 Jupyter 里交互式分析数据时体验极佳。', tags: [{text:'可视化',color:'blue'},{text:'声明式',color:'purple'},{text:'Vega-Lite',color:'orange'}], install: 'pip install altair', license: 'BSD 3', url: 'https://altair-viz.github.io', linkText: '文档 →' },
+        ]
+      },
+      '2026-03-14': {
+        news: [
+          { hot: true, title: 'DeepSeek 发布 V3：开源模型首次在 MATH 基准上超越 GPT-4', summary: 'DeepSeek 发布 V3 模型，在 MATH 数学推理基准上得分 92.4%，首次超越 GPT-4 的 91.2%。采用创新的「数学推理链」训练策略，开源权重可自由商用。', source: 'DeepSeek Blog', time: '3 小时前', tag: '开源模型', tagColor: 'purple', url: 'https://www.deepseek.com/' },
+          { isNew: true, title: 'Netflix 开源其内部 AB 实验平台核心组件', summary: 'Netflix 将其内部使用多年的 AB 实验平台核心统计引擎开源，包括 CUPED 方差缩减、序贯检验、多重比较校正等模块。这是互联网公司实验平台领域最重要的开源贡献之一。', source: 'Netflix Tech Blog', time: '7 小时前', tag: 'AB 实验', tagColor: 'green', url: 'https://netflixtechblog.com/' },
+          { title: 'Databricks 发布 Unity Catalog 开源版：数据治理民主化', summary: 'Databricks 将其数据治理产品 Unity Catalog 核心功能开源，支持跨数据湖仓的统一元数据管理、细粒度权限控制和数据血缘追踪。', source: 'Databricks Blog', time: '11 小时前', tag: '数据治理', tagColor: 'blue', url: 'https://www.databricks.com/blog' },
+          { title: 'Colab 推出团队协作功能：实时多人编辑 Notebook', summary: 'Google Colab 推出类似 Google Docs 的实时协作功能，团队成员可以同时编辑同一个 Notebook，支持评论、建议模式和版本历史回溯。', source: 'Google Blog', time: '15 小时前', tag: '开发工具', tagColor: 'orange', url: 'https://blog.google/technology/developers/' },
+        ],
+        papers: [
+          { rank: 1, title: 'Instrumental Variables with Multiple Instruments: An Equivalence Result', venue: 'AER 2026', authors: 'J. D. Angrist, G. W. Imbens', abstract: '扩展工具变量方法到多工具变量场景，证明在异质性处理效应下，2SLS 估计量等价于一系列局部平均处理效应（LATE）的加权平均。为互联网场景中的工具变量应用提供了新的理论基础。', tags: [{text:'因果推断',color:'purple'},{text:'IV',color:'blue'},{text:'LATE',color:'green'}], citations: 312, trending: '🏆 诺奖方法论', url: 'https://arxiv.org/abs/2108.07104' },
+          { rank: 2, title: 'Foundation Models for Time Series Analysis: A Tutorial and Survey', venue: 'KDD 2026', authors: 'Y. Liang, H. Wen, Y. Wen, et al.', abstract: '全面综述时间序列基础模型的最新进展，涵盖预训练策略、微调方法和零样本预测能力。对比了 TimesFM、Chronos、Moirai 等主流时序基础模型的性能。', tags: [{text:'时间序列',color:'blue'},{text:'基础模型',color:'red'},{text:'综述',color:'green'}], citations: 45, trending: '📈 新兴方向', url: 'https://arxiv.org/abs/2403.14735' },
+          { rank: 3, title: 'PyMC: A Modern and Comprehensive Probabilistic Programming Framework', venue: 'JMLR 2026', authors: 'A. Abril-Pla, V. Andreani, C. Carroll, et al.', abstract: '介绍 PyMC 贝叶斯概率编程框架的最新架构和功能。基于 PyTensor 后端支持 GPU 加速 MCMC 采样，新增变分推断和正则化 Horseshoe 先验等功能。', tags: [{text:'贝叶斯',color:'purple'},{text:'概率编程',color:'blue'},{text:'MCMC',color:'orange'}], citations: 67, trending: '🔧 工具论文', url: 'https://arxiv.org/abs/2206.03591' },
+        ],
+        tools: [
+          { name: 'PyMC', tagline: '贝叶斯概率编程框架', icon: '🎲', iconBg: 'linear-gradient(135deg, #8b5cf6, #6366f1)', stars: '8.7k', desc: '业界领先的贝叶斯统计建模和概率编程库。支持 NUTS 采样器、变分推断、高斯过程等。基于 PyTensor 后端，支持 GPU 加速和自动微分。', reason: '在做因果推断和 AB 实验分析时，贝叶斯方法能给出更直观的"A 比 B 好的概率是多少"的结论，比频率派 p 值更容易向业务方解释。', tags: [{text:'贝叶斯',color:'purple'},{text:'概率编程',color:'blue'},{text:'MCMC',color:'orange'}], install: 'pip install pymc', license: 'Apache 2.0', url: 'https://www.pymc.io', linkText: '官网 →' },
+          { name: 'PyEcharts', tagline: 'Apache ECharts 的 Python 封装', icon: '📈', iconBg: 'linear-gradient(135deg, #ef4444, #dc2626)', stars: '14.8k', desc: '将 Apache ECharts 的强大可视化能力引入 Python 生态，支持 30+ 种图表类型。在 Jupyter Notebook 和 Web 应用中均可使用，国内互联网公司广泛采用。', reason: '如果你的报告是给国内团队看的，PyEcharts 生成的交互式图表比 Matplotlib 酷炫太多了，而且领导特别喜欢那种仪表盘风格的可视化。', tags: [{text:'可视化',color:'red'},{text:'ECharts',color:'blue'},{text:'交互式',color:'orange'}], install: 'pip install pyecharts', license: 'MIT License', url: 'https://pyecharts.org', linkText: '官网 →' },
+        ]
+      }
+    };
+
+    // ============================================================
+    // 工具函数
+    // ============================================================
+    const WEEKDAYS = ['周日','周一','周二','周三','周四','周五','周六'];
+
+    function formatDateCN(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      return `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日 · ${WEEKDAYS[d.getDay()]}`;
+    }
+
+    function getAvailableDates() {
+      return Object.keys(dailyData).sort((a,b) => b.localeCompare(a));
+    }
+
+    // ============================================================
+    // 渲染内容
+    // ============================================================
+    function renderContent(dateKey) {
+      const data = dailyData[dateKey];
+      const container = document.getElementById('dailyContent');
+
+      if (!data) {
+        container.innerHTML = `
+          <div class="daily-empty">
+            <span class="daily-empty-icon">📭</span>
+            <h3>该日暂无资讯</h3>
+            <p>当天没有合适的推荐内容，请查看其他日期。</p>
+          </div>`;
+        updateSidebarCounts(0, 0, 0);
+        return;
+      }
+
+      let html = '';
+
+      // 1. 科技资讯
+      if (data.news && data.news.length > 0) {
+        html += `
+        <section class="daily-section" id="tech-news">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #ef4444, #f97316);">🔥</div>
+            <div>
+              <h2 class="section-title">科技资讯</h2>
+              <p class="section-subtitle">Tech News — 今天数据科学与 AI 领域的重要动态</p>
+            </div>
+          </div>
+          <div class="news-list">`;
+
+        data.news.forEach(n => {
+          const hotClass = n.hot ? ' news-hot' : '';
+          const badge = n.hot ? '<div class="news-badge hot">HOT</div>' : (n.isNew ? '<div class="news-badge new">NEW</div>' : '');
+          html += `
+            <a href="${n.url}" target="_blank" class="news-card${hotClass}">
+              ${badge}
+              <div class="news-body">
+                <h3 class="news-title">${n.title}</h3>
+                <p class="news-summary">${n.summary}</p>
+                <div class="news-meta">
+                  <span class="news-source">来源：${n.source}</span>
+                  <span class="news-time">${n.time}</span>
+                  <span class="news-tag ${n.tagColor}">${n.tag}</span>
+                </div>
+              </div>
+              <span class="news-link-arrow">查看原文 →</span>
+            </a>`;
+        });
+        html += '</div></section>';
+      }
+
+      // 2. 论文精选
+      if (data.papers && data.papers.length > 0) {
+        html += `
+        <section class="daily-section" id="daily-papers">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">📑</div>
+            <div>
+              <h2 class="section-title">论文精选</h2>
+              <p class="section-subtitle">Daily Papers — 今天值得一读的数据科学论文</p>
+            </div>
+          </div>
+          <div class="papers-daily-list">`;
+
+        data.papers.forEach(p => {
+          const tagsHtml = p.tags.map(t => `<span class="paper-daily-tag ${t.color}">${t.text}</span>`).join('');
+          html += `
+            <a href="${p.url}" target="_blank" class="paper-daily-card">
+              <div class="paper-daily-rank">#${p.rank}</div>
+              <div class="paper-daily-body">
+                <div class="paper-daily-header">
+                  <h3 class="paper-daily-title">${p.title}</h3>
+                  <span class="paper-daily-venue">${p.venue}</span>
+                </div>
+                <p class="paper-daily-authors">${p.authors}</p>
+                <p class="paper-daily-abstract">${p.abstract}</p>
+                <div class="paper-daily-tags">${tagsHtml}</div>
+                <div class="paper-daily-footer">
+                  <span class="paper-daily-stat">📎 引用 ${p.citations}</span>
+                  <span class="paper-daily-stat">${p.trending}</span>
+                  <span class="paper-daily-link">阅读论文 →</span>
+                </div>
+              </div>
+            </a>`;
+        });
+        html += '</div></section>';
+      }
+
+      // 3. 工具推荐
+      if (data.tools && data.tools.length > 0) {
+        html += `
+        <section class="daily-section" id="daily-tools">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #f97316, #fb923c);">🛠️</div>
+            <div>
+              <h2 class="section-title">工具推荐</h2>
+              <p class="section-subtitle">Daily Tools — 今天发现的实用数据科学工具</p>
+            </div>
+          </div>
+          <div class="tools-daily-grid">`;
+
+        data.tools.forEach(t => {
+          const tagsHtml = t.tags.map(tg => `<span class="tool-daily-tag ${tg.color}">${tg.text}</span>`).join('');
+          html += `
+            <a href="${t.url}" target="_blank" class="tool-daily-card">
+              <div class="tool-daily-header">
+                <div class="tool-daily-icon" style="background: ${t.iconBg};">${t.icon}</div>
+                <div>
+                  <h3 class="tool-daily-name">${t.name}</h3>
+                  <span class="tool-daily-tagline">${t.tagline}</span>
+                </div>
+                <div class="tool-daily-stars">⭐ ${t.stars}</div>
+              </div>
+              <p class="tool-daily-desc">${t.desc}</p>
+              <div class="tool-daily-highlight">
+                <div class="tool-daily-highlight-title">💡 Henry 推荐理由</div>
+                <p>${t.reason}</p>
+              </div>
+              <div class="tool-daily-tags">${tagsHtml}</div>
+              <div class="tool-daily-footer">
+                <div class="tool-daily-stats">
+                  <span class="tool-daily-stat">📦 ${t.install}</span>
+                  <span class="tool-daily-stat">📋 ${t.license}</span>
+                </div>
+                <span class="tool-daily-link">${t.linkText}</span>
+              </div>
+            </a>`;
+        });
+        html += '</div></section>';
+      }
+
+      container.innerHTML = html;
+      updateSidebarCounts(
+        data.news ? data.news.length : 0,
+        data.papers ? data.papers.length : 0,
+        data.tools ? data.tools.length : 0
+      );
+
+      // 重新绑定观察器
+      initObserver();
+    }
+
+    function updateSidebarCounts(news, papers, tools) {
+      document.getElementById('sidebarNewsCount').textContent = news;
+      document.getElementById('sidebarPapersCount').textContent = papers;
+      document.getElementById('sidebarToolsCount').textContent = tools;
+    }
+
+    // ============================================================
+    // 往期资讯
+    // ============================================================
+    function renderArchive(currentKey) {
+      const dates = getAvailableDates().filter(d => d !== currentKey);
+      const grid = document.getElementById('archiveGrid');
+      grid.innerHTML = dates.map(d => {
+        const data = dailyData[d];
+        const dt = new Date(d + 'T00:00:00');
+        const month = dt.getMonth() + 1;
+        const day = dt.getDate();
+        const weekday = WEEKDAYS[dt.getDay()];
+        const nNews = data.news ? data.news.length : 0;
+        const nPapers = data.papers ? data.papers.length : 0;
+        const nTools = data.tools ? data.tools.length : 0;
+        return `
+          <div class="archive-card" data-date="${d}">
+            <span class="archive-date">${month} 月 ${day} 日</span>
+            <span class="archive-label">${weekday}</span>
+            <span class="archive-count">${nNews} 条资讯 · ${nPapers} 篇论文 · ${nTools} 款工具</span>
+          </div>`;
+      }).join('');
+
+      // 绑定点击
+      grid.querySelectorAll('.archive-card').forEach(card => {
+        card.addEventListener('click', () => {
+          switchToDate(card.dataset.date);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    // ============================================================
+    // 日期切换
+    // ============================================================
+    let currentDateKey = '2026-03-20';
+
+    function switchToDate(dateKey) {
+      if (!dailyData[dateKey]) return;
+      currentDateKey = dateKey;
+      document.getElementById('currentDate').textContent = formatDateCN(dateKey);
+      renderContent(dateKey);
+      renderArchive(dateKey);
+      renderCalendar();
+    }
+
+    // 前后日切换
+    document.getElementById('prevDay').addEventListener('click', () => {
+      const dates = getAvailableDates();
+      const idx = dates.indexOf(currentDateKey);
+      if (idx < dates.length - 1) {
+        switchToDate(dates[idx + 1]);
+      }
+    });
+
+    document.getElementById('nextDay').addEventListener('click', () => {
+      const dates = getAvailableDates();
+      const idx = dates.indexOf(currentDateKey);
+      if (idx > 0) {
+        switchToDate(dates[idx - 1]);
+      }
+    });
+
+    // ============================================================
+    // 日历选择器
+    // ============================================================
+    const calPanel = document.getElementById('calendarPanel');
+    const calTrigger = document.getElementById('datePickerTrigger');
+    let calViewYear = 2026;
+    let calViewMonth = 2; // 0-indexed, 2 = March
+
+    calTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      calPanel.classList.toggle('open');
+      if (calPanel.classList.contains('open')) {
+        const d = new Date(currentDateKey + 'T00:00:00');
+        calViewYear = d.getFullYear();
+        calViewMonth = d.getMonth();
+        renderCalendar();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!calPanel.contains(e.target) && !calTrigger.contains(e.target)) {
+        calPanel.classList.remove('open');
+      }
+    });
+
+    document.getElementById('calMonthPrev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      calViewMonth--;
+      if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
+      renderCalendar();
+    });
+
+    document.getElementById('calMonthNext').addEventListener('click', (e) => {
+      e.stopPropagation();
+      calViewMonth++;
+      if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+      renderCalendar();
+    });
+
+    function renderCalendar() {
+      document.getElementById('calMonthLabel').textContent = `${calViewYear} 年 ${calViewMonth + 1} 月`;
+      const container = document.getElementById('calendarDays');
+      const firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
+      const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+      const availDates = new Set(getAvailableDates());
+
+      let html = '';
+      // 填充空白
+      for (let i = 0; i < firstDay; i++) {
+        html += '<span class="cal-day empty"></span>';
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const key = `${calViewYear}-${String(calViewMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const isAvailable = availDates.has(key);
+        const isActive = key === currentDateKey;
+        let cls = 'cal-day';
+        if (isActive) cls += ' active';
+        else if (isAvailable) cls += ' available';
+        else cls += ' disabled';
+
+        if (isAvailable) {
+          html += `<span class="${cls}" data-date="${key}">${d}</span>`;
+        } else {
+          html += `<span class="${cls}">${d}</span>`;
+        }
+      }
+      container.innerHTML = html;
+
+      // 绑定日期点击
+      container.querySelectorAll('.cal-day.available, .cal-day.active').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          switchToDate(el.dataset.date);
+          calPanel.classList.remove('open');
+        });
+      });
+    }
+
+    // ============================================================
+    // 侧边栏 & 滚动
+    // ============================================================
+    function initObserver() {
+      const sections = document.querySelectorAll('.daily-section');
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            sidebarLinks.forEach(link => {
+              link.classList.toggle('active', link.dataset.section === id);
+            });
+          }
+        });
+      }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+      sections.forEach(sec => obs.observe(sec));
+    }
+
+    // 侧边栏点击
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.section);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ============================================================
+    // 初始化
+    // ============================================================
+    renderContent(currentDateKey);
+    renderArchive(currentDateKey);
+    renderCalendar();
+  </script>
+
+</body>
+</html>

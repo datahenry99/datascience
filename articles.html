@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客社区 - DataHub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="articles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon">📊</div>
+          <span class="logo-text">DataHub</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">精选推荐</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
+        <a href="articles.html" class="nav-link active">博客社区</a>
+        <a href="daily.html" class="nav-link">每日资讯</a>
+        <a href="about.html" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+      <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- 页面头部 -->
+  <section class="articles-hero">
+    <div class="articles-hero-bg"></div>
+    <div class="articles-hero-inner">
+      <div class="articles-hero-tag">
+        <span>📚</span> 博客社区 · 优质内容精选
+      </div>
+      <h1 class="articles-hero-title">
+        博客与社区
+      </h1>
+      <p class="articles-hero-desc">
+        最值得关注的数据科学公众号、博客与社区
+      </p>
+    </div>
+  </section>
+
+  <!-- 主体内容 -->
+  <section class="articles-main">
+    <div class="articles-main-inner">
+
+      <!-- 侧边导航 -->
+      <aside class="articles-sidebar">
+        <div class="sidebar-title">📚 内容导航</div>
+        <nav class="sidebar-nav">
+          <a href="#blogs" class="sidebar-link" data-section="blogs">
+            <span class="sidebar-dot" style="background: #3b82f6;"></span>
+            <span>技术博客</span>
+            <span class="sidebar-count">10</span>
+          </a>
+          <a href="#forums" class="sidebar-link" data-section="forums">
+            <span class="sidebar-dot" style="background: #f59e0b;"></span>
+            <span>论坛社区</span>
+            <span class="sidebar-count">8</span>
+          </a>
+          <a href="#wechat" class="sidebar-link" data-section="wechat">
+            <span class="sidebar-dot" style="background: #07c160;"></span>
+            <span>公众号推荐</span>
+            <span class="sidebar-count">12</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- 内容区域 -->
+      <div class="articles-content">
+
+        <!-- ==================== 1. 技术博客 ==================== -->
+        <section class="article-section" id="blogs">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">✍️</div>
+            <div>
+              <h2 class="section-title">技术博客</h2>
+              <p class="section-subtitle">Tech Blogs — 国内外数据科学领域最值得订阅的技术博客</p>
+            </div>
+          </div>
+          <div class="article-grid">
+
+            <a class="article-card" href="https://towardsdatascience.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=towardsdatascience.com&sz=64" alt="TDS" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Towards Data Science</span>
+                  <span class="article-source">Medium 专栏</span>
+                </div>
+              </div>
+              <p class="article-desc">全球最大的数据科学写作社区（Medium 专栏），汇集数万名数据科学家的原创文章。涵盖数据分析、机器学习、深度学习教程，新手友好，内容从基础到高级。</p>
+              <div class="article-tags">
+                <span class="article-tag blue">数据科学</span>
+                <span class="article-tag green">入门友好</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🌍 全球最大</span>
+                  <span class="article-stat">📝 社区投稿</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://distill.pub" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=distill.pub&sz=64" alt="Distill" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Distill</span>
+                  <span class="article-source">交互式 ML 期刊</span>
+                </div>
+              </div>
+              <p class="article-desc">机器学习领域顶级学术期刊，以卓越的可视化交互著称。每篇文章都是精心制作的"交互式教程"，将复杂的 ML 概念以直觉化方式呈现，是可视化解释的天花板。</p>
+              <div class="article-tags">
+                <span class="article-tag purple">交互可视化</span>
+                <span class="article-tag indigo">学术期刊</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🏆 殿堂级</span>
+                  <span class="article-stat">🎨 可视化天花板</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://ai.googleblog.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=ai.googleblog.com&sz=64" alt="Google AI" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Google AI Blog</span>
+                  <span class="article-source">Google Research</span>
+                </div>
+              </div>
+              <p class="article-desc">Google AI 官方博客，发布 Google 在人工智能和机器学习领域的最新研究成果。Transformer、BERT、PaLM 等里程碑工作的第一手解读均出自这里。</p>
+              <div class="article-tags">
+                <span class="article-tag orange">Google 官方</span>
+                <span class="article-tag blue">前沿研究</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🏢 Google</span>
+                  <span class="article-stat">🔬 原创研究</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://www.amazon.science" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=amazon.science&sz=64" alt="Amazon Science" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Amazon Science</span>
+                  <span class="article-source">Amazon 科学博客</span>
+                </div>
+              </div>
+              <p class="article-desc">亚马逊科学博客，涵盖 NLP、搜索推荐、因果推断、AB 实验等方向。Amazon 在实验平台和因果推断领域积累深厚，相关博文极具工业参考价值。</p>
+              <div class="article-tags">
+                <span class="article-tag orange">因果推断</span>
+                <span class="article-tag green">实验平台</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🏢 Amazon</span>
+                  <span class="article-stat">🧪 实验实践</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://blog.ml.cmu.edu" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=blog.ml.cmu.edu&sz=64" alt="ML@CMU" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">ML@CMU</span>
+                  <span class="article-source">卡内基梅隆大学</span>
+                </div>
+              </div>
+              <p class="article-desc">卡内基梅隆大学机器学习博客，由 CMU 学生、博士后和教员共同撰写。内容涵盖最新研究成果、学术观点和方法论解读，学术深度与通俗性兼备。</p>
+              <div class="article-tags">
+                <span class="article-tag red">CMU</span>
+                <span class="article-tag purple">学术研究</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🎓 顶尖学府</span>
+                  <span class="article-stat">📊 前沿研究</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://neptune.ai/blog" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=neptune.ai&sz=64" alt="Neptune.ai" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Neptune.ai Blog</span>
+                  <span class="article-source">MLOps 实践博客</span>
+                </div>
+              </div>
+              <p class="article-desc">Neptune.ai 官方博客，聚焦 MLOps、实验追踪、模型管理等工程实践。文章注重动手实操，配有代码示例，是机器学习工程化的优质学习资源。</p>
+              <div class="article-tags">
+                <span class="article-tag cyan">MLOps</span>
+                <span class="article-tag blue">实验追踪</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">⚙️ 工程实践</span>
+                  <span class="article-stat">💻 代码示例</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://machinelearningmastery.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=machinelearningmastery.com&sz=64" alt="MLM" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Machine Learning Mastery</span>
+                  <span class="article-source">Jason Brownlee</span>
+                </div>
+              </div>
+              <p class="article-desc">由 Jason Brownlee 博士创立，全球最受欢迎的机器学习实战教程博客。以"动手学 ML"为理念，用清晰的代码示例讲解从基础到进阶的 ML 技术。</p>
+              <div class="article-tags">
+                <span class="article-tag green">实战教程</span>
+                <span class="article-tag orange">入门首选</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🌍 全球热门</span>
+                  <span class="article-stat">📚 体系完整</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://lilianweng.github.io" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=lilianweng.github.io&sz=64" alt="Lil'Log" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Lil'Log</span>
+                  <span class="article-source">Lilian Weng (OpenAI)</span>
+                </div>
+              </div>
+              <p class="article-desc">OpenAI 研究员 Lilian Weng 的个人博客，以极其详尽的综述文章著称。每篇文章都是一个完整的知识体系梳理，是学习 Transformer、扩散模型、Agent 等前沿话题的最佳资源。</p>
+              <div class="article-tags">
+                <span class="article-tag purple">综述神作</span>
+                <span class="article-tag indigo">OpenAI</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🏆 业界公认</span>
+                  <span class="article-stat">📖 长文综述</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://www.analyticsvidhya.com/blog" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=analyticsvidhya.com&sz=64" alt="AV" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Analytics Vidhya</span>
+                  <span class="article-source">数据科学学习社区</span>
+                </div>
+              </div>
+              <p class="article-desc">印度最大的数据科学学习社区，提供从零开始的 ML/DL 教程、行业案例和面试准备资源。文章通俗易懂，配有大量图解和代码，非常适合初学者。</p>
+              <div class="article-tags">
+                <span class="article-tag blue">学习社区</span>
+                <span class="article-tag green">新手友好</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">👥 百万用户</span>
+                  <span class="article-stat">📖 图解教程</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://colah.github.io" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=colah.github.io&sz=64" alt="colah" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">colah's blog</span>
+                  <span class="article-source">Christopher Olah</span>
+                </div>
+              </div>
+              <p class="article-desc">前 Google Brain / Anthropic 研究员 Chris Olah 的个人博客。以直觉化理解神经网络著称，"Understanding LSTM Networks"一文影响了一代深度学习学习者。</p>
+              <div class="article-tags">
+                <span class="article-tag green">直觉解释</span>
+                <span class="article-tag purple">深度学习</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🏆 经典博客</span>
+                  <span class="article-stat">🧠 深度理解</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+          </div>
+        </section>
+
+        <!-- ==================== 2. 论坛社区 ==================== -->
+        <section class="article-section" id="forums">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">💬</div>
+            <div>
+              <h2 class="section-title">优质论坛与社区</h2>
+              <p class="section-subtitle">Forums & Communities — 与全球数据科学家交流的最佳平台</p>
+            </div>
+          </div>
+          <div class="article-grid">
+
+            <a class="article-card" href="https://www.kaggle.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=kaggle.com&sz=64" alt="Kaggle" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Kaggle</span>
+                  <span class="article-source">全球数据科学竞赛平台</span>
+                </div>
+              </div>
+              <p class="article-desc">全球最大的数据科学竞赛平台和社区，汇聚百万数据科学家。提供海量公开数据集、Notebook 环境、竞赛排名。参加 Kaggle 竞赛是提升实战能力的最佳途径。</p>
+              <div class="article-tags">
+                <span class="article-tag cyan">竞赛平台</span>
+                <span class="article-tag blue">公开数据集</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🌍 全球最大</span>
+                  <span class="article-stat">🏆 百万用户</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://stackoverflow.com/questions/tagged/machine-learning" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=64" alt="SO" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Stack Overflow</span>
+                  <span class="article-source">ML / Data Science 标签</span>
+                </div>
+              </div>
+              <p class="article-desc">全球最大的技术问答社区，ML 和 Data Science 标签下有数十万个问题和高质量回答。遇到代码问题、算法疑问首选搜索这里，解决效率极高。</p>
+              <div class="article-tags">
+                <span class="article-tag orange">技术问答</span>
+                <span class="article-tag green">问题解决</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">💡 问答之王</span>
+                  <span class="article-stat">🔧 即搜即用</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://www.reddit.com/r/MachineLearning/" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=reddit.com&sz=64" alt="Reddit" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">r/MachineLearning</span>
+                  <span class="article-source">Reddit 社区</span>
+                </div>
+              </div>
+              <p class="article-desc">Reddit 上最活跃的机器学习社区（300 万+ 成员），每日讨论最新论文、开源项目和行业新闻。[D] 讨论帖和 [R] 论文帖是获取一线信息的绝佳渠道。</p>
+              <div class="article-tags">
+                <span class="article-tag orange">论文讨论</span>
+                <span class="article-tag purple">社区活跃</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">👥 300万+</span>
+                  <span class="article-stat">📰 日更新</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://www.zhihu.com/topic/19559450" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=zhihu.com&sz=64" alt="知乎" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">知乎 · 机器学习</span>
+                  <span class="article-source">中文知识问答社区</span>
+                </div>
+              </div>
+              <p class="article-desc">中文互联网最大的知识问答平台，机器学习话题下有大量高质量回答和专栏文章。多位 AI 领域知名学者和工程师活跃其中，中文学习者的首选社区。</p>
+              <div class="article-tags">
+                <span class="article-tag blue">中文社区</span>
+                <span class="article-tag green">知识问答</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🇨🇳 中文首选</span>
+                  <span class="article-stat">🎓 专家云集</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://discuss.huggingface.co" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=huggingface.co&sz=64" alt="HF" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Hugging Face Forum</span>
+                  <span class="article-source">HF 社区论坛</span>
+                </div>
+              </div>
+              <p class="article-desc">Hugging Face 官方论坛，聚焦 NLP、LLM、Transformers 库使用。社区氛围友好，官方团队积极回复问题，是使用 HF 生态遇到问题时的最佳求助渠道。</p>
+              <div class="article-tags">
+                <span class="article-tag yellow">HuggingFace</span>
+                <span class="article-tag purple">NLP / LLM</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🤗 官方支持</span>
+                  <span class="article-stat">🔧 问题解答</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://discuss.pytorch.org" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=pytorch.org&sz=64" alt="PyTorch" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">PyTorch Forums</span>
+                  <span class="article-source">PyTorch 官方论坛</span>
+                </div>
+              </div>
+              <p class="article-desc">PyTorch 官方讨论论坛，涵盖模型训练、部署优化、分布式计算等话题。Meta 工程师经常参与讨论，是解决 PyTorch 使用问题和了解最佳实践的首选。</p>
+              <div class="article-tags">
+                <span class="article-tag red">PyTorch</span>
+                <span class="article-tag blue">深度学习</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🔥 官方论坛</span>
+                  <span class="article-stat">⚙️ 工程问题</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://stats.stackexchange.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=stats.stackexchange.com&sz=64" alt="CV" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">Cross Validated</span>
+                  <span class="article-source">Stack Exchange 统计社区</span>
+                </div>
+              </div>
+              <p class="article-desc">Stack Exchange 旗下的统计学与机器学习问答社区。在假设检验、AB 实验、因果推断、贝叶斯方法等统计学核心问题上，回答质量远超其他平台。</p>
+              <div class="article-tags">
+                <span class="article-tag green">统计学</span>
+                <span class="article-tag teal">AB 实验</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">📐 统计专精</span>
+                  <span class="article-stat">🧪 实验方法</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+            <a class="article-card" href="https://github.com" target="_blank" rel="noopener">
+              <div class="article-card-header">
+                <div class="article-avatar" style="background: #f0f0f0;"><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="GitHub" width="30" height="30" style="object-fit:contain;"></div>
+                <div class="article-meta">
+                  <span class="article-name">GitHub</span>
+                  <span class="article-source">全球最大代码托管平台</span>
+                </div>
+              </div>
+              <p class="article-desc">全球最大的开源代码托管平台，数据科学领域的宝库。搜索 "awesome-datascience"、"awesome-machine-learning" 等 Awesome 列表，获取最全面的学习资源合集。</p>
+              <div class="article-tags">
+                <span class="article-tag indigo">开源</span>
+                <span class="article-tag blue">Awesome 列表</span>
+              </div>
+              <div class="article-footer">
+                <div class="article-stats">
+                  <span class="article-stat">🐙 代码宝库</span>
+                  <span class="article-stat">⭐ 开源社区</span>
+                </div>
+                <span class="article-visit">访问 →</span>
+              </div>
+              <span class="article-link-icon">↗</span>
+            </a>
+
+          </div>
+        </section>
+
+        <!-- ==================== 3. 公众号推荐 ==================== -->
+        <section class="article-section" id="wechat">
+          <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #07c160, #06ae56);">📱</div>
+            <div>
+              <h2 class="section-title">优质公众号</h2>
+              <p class="section-subtitle">WeChat Official Accounts — 数据科学领域最值得关注的微信公众号</p>
+            </div>
+          </div>
+          <div class="article-grid wechat-grid">
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('数据派THU')"><div class="article-card-header"><div class="article-meta"><span class="article-name">数据派THU</span><span class="article-source">清华大学数据科学研究院</span></div></div><p class="article-desc">清华出品，涵盖数据科学前沿研究、行业报告、技术分享。</p><div class="article-tags"><span class="article-tag green">学术前沿</span><span class="article-tag blue">行业报告</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('大数据文摘')"><div class="article-card-header"><div class="article-meta"><span class="article-name">大数据文摘</span><span class="article-source">BigDataDigest</span></div></div><p class="article-desc">十年老牌，专注数据领域资讯、精品案例与一线技术。</p><div class="article-tags"><span class="article-tag blue">行业资讯</span><span class="article-tag orange">案例分析</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('接地气的陈老师')"><div class="article-card-header"><div class="article-meta"><span class="article-name">接地气的陈老师</span><span class="article-source">陈文</span></div></div><p class="article-desc">11 年数据总监经验，AB 实验与数据分析思维类文章极具深度。</p><div class="article-tags"><span class="article-tag green">商业分析</span><span class="article-tag purple">数据思维</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('机器之心')"><div class="article-card-header"><div class="article-meta"><span class="article-name">机器之心</span><span class="article-source">Synced</span></div></div><p class="article-desc">全球 AI 信息服务平台，专注前沿技术报道、论文解读与产业分析。</p><div class="article-tags"><span class="article-tag purple">AI 前沿</span><span class="article-tag blue">论文解读</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('量子位')"><div class="article-card-header"><div class="article-meta"><span class="article-name">量子位</span><span class="article-source">QbitAI</span></div></div><p class="article-desc">每日精选全球 AI 领域最具价值的新闻、论文与开源项目。</p><div class="article-tags"><span class="article-tag orange">AI 资讯</span><span class="article-tag green">开源项目</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('数据STUDIO')"><div class="article-card-header"><div class="article-meta"><span class="article-name">数据STUDIO</span><span class="article-source">原创硬核内容</span></div></div><p class="article-desc">以 Python 为核心，涵盖数据分析、可视化、机器学习，体系完整。</p><div class="article-tags"><span class="article-tag cyan">Python</span><span class="article-tag green">系统教程</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('美团技术团队')"><div class="article-card-header"><div class="article-meta"><span class="article-name">美团技术团队</span><span class="article-source">Meituan Tech</span></div></div><p class="article-desc">分享算法、数据挖掘、AB 实验、搜索推荐等一线实践。</p><div class="article-tags"><span class="article-tag pink">大厂实践</span><span class="article-tag green">AB 实验</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('阿里技术')"><div class="article-card-header"><div class="article-meta"><span class="article-name">阿里技术</span><span class="article-source">Alibaba Tech</span></div></div><p class="article-desc">涵盖大数据、搜索推荐、因果推断、实验平台等方向。</p><div class="article-tags"><span class="article-tag blue">大数据</span><span class="article-tag purple">因果推断</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('Python大数据分析')"><div class="article-card-header"><div class="article-meta"><span class="article-name">Python大数据分析</span><span class="article-source">Feffery</span></div></div><p class="article-desc">500+ 原创技术文章，涵盖数据分析、可视化、ML、Dash 开发。</p><div class="article-tags"><span class="article-tag green">Python</span><span class="article-tag orange">Dash</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('爱数据LoveData')"><div class="article-card-header"><div class="article-meta"><span class="article-name">爱数据LoveData</span><span class="article-source">原中国统计网</span></div></div><p class="article-desc">大数据从业者学习交流社区，涵盖数据分析、BI 工具等干货。</p><div class="article-tags"><span class="article-tag orange">数据分析</span><span class="article-tag blue">BI 工具</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('PaperWeekly')"><div class="article-card-header"><div class="article-meta"><span class="article-name">PaperWeekly</span><span class="article-source">学术论文推荐</span></div></div><p class="article-desc">国内最具影响力的 AI 学术论文推荐平台，每周精选顶会论文。</p><div class="article-tags"><span class="article-tag purple">论文推荐</span><span class="article-tag indigo">顶会追踪</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+            <div class="article-card wechat-card wechat-compact" onclick="showWechatTip('携程技术')"><div class="article-card-header"><div class="article-meta"><span class="article-name">携程技术</span><span class="article-source">Ctrip Tech</span></div></div><p class="article-desc">在 AB 实验平台建设、搜索推荐、数据治理等领域有丰富实战输出。</p><div class="article-tags"><span class="article-tag red">实验平台</span><span class="article-tag teal">搜索推荐</span></div><span class="article-link-icon wechat-badge">微信</span></div>
+          </div>
+        </section>
+
+      </div><!-- /articles-content -->
+    </div><!-- /articles-main-inner -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 DataHub · 数据科学技能平台</p>
+    </div>
+  </footer>
+
+  <!-- 微信搜索提示 Toast -->
+  <div id="wechat-toast" class="wechat-toast">
+    <div class="wechat-toast-inner">
+      <div class="wechat-toast-icon">📱</div>
+      <div class="wechat-toast-text">
+        <span class="wechat-toast-title">打开微信搜索</span>
+        <span class="wechat-toast-name" id="wechat-toast-name"></span>
+      </div>
+      <button class="wechat-toast-copy" id="wechat-toast-copy" title="复制公众号名称">📋 复制名称</button>
+      <button class="wechat-toast-close" onclick="hideWechatTip()">✕</button>
+    </div>
+  </div>
+
+  <script>
+    // 侧边栏滚动高亮
+    const sections = document.querySelectorAll('.article-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          sidebarLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.section === id);
+          });
+        }
+      });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // 点击平滑滚动
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.section);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // 微信公众号 Toast 提示
+    let toastTimer = null;
+
+    function showWechatTip(name) {
+      const toast = document.getElementById('wechat-toast');
+      const nameEl = document.getElementById('wechat-toast-name');
+      const copyBtn = document.getElementById('wechat-toast-copy');
+
+      nameEl.textContent = '「' + name + '」';
+
+      // 复制功能
+      copyBtn.onclick = function(e) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(name).then(() => {
+          copyBtn.textContent = '✅ 已复制';
+          setTimeout(() => { copyBtn.textContent = '📋 复制名称'; }, 1500);
+        }).catch(() => {
+          // fallback
+          const ta = document.createElement('textarea');
+          ta.value = name;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          copyBtn.textContent = '✅ 已复制';
+          setTimeout(() => { copyBtn.textContent = '📋 复制名称'; }, 1500);
+        });
+      };
+
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    }
+
+    function hideWechatTip() {
+      const toast = document.getElementById('wechat-toast');
+      toast.classList.remove('show');
+      clearTimeout(toastTimer);
+    }
+  </script>
+
+</body>
+</html>

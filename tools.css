@@ -64,50 +64,16 @@
   font-size: 44px;
   font-weight: 900;
   color: #0f172a;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   letter-spacing: -0.5px;
 }
 
 .tools-hero-desc {
-  font-size: 16px;
+  font-size: 15px;
   color: #64748b;
-  line-height: 1.8;
+  line-height: 1.5;
   max-width: 680px;
-  margin: 0 auto 28px;
-}
-
-.tools-hero-badges {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.tools-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 5px 14px;
-  border-radius: 20px;
-}
-
-.tools-hero-badge.blue {
-  color: #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.15);
-}
-
-.tools-hero-badge.green {
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.15);
-}
-
-.tools-hero-badge.gray {
-  color: #6b7280;
-  background: rgba(107, 114, 128, 0.08);
-  border: 1px solid rgba(107, 114, 128, 0.12);
+  margin: 0 auto 24px;
 }
 
 /* --- Main Section --- */
@@ -356,6 +322,7 @@
 .tool-tag.cyan { color: #0891b2; background: #ecfeff; }
 .tool-tag.red { color: #dc2626; background: #fff1f2; }
 .tool-tag.violet { color: #7c3aed; background: #faf5ff; }
+.tool-tag.lobster { color: #dc2626; background: #fef2f2; }
 
 .tool-desc {
   font-size: 12.5px;
@@ -443,11 +410,6 @@
 
   .tools-hero-title {
     font-size: 26px;
-  }
-
-  .tools-hero-badges {
-    flex-wrap: wrap;
-    gap: 8px;
   }
 
   .tools-main-inner {

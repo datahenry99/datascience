@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>方法论代表论文 - DataHub</title>
+  <title>论文精读 - DataHub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="papers.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,10 +22,11 @@
       </div>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">精选推荐</a>
-        <a href="papers.html" class="nav-link active">方法论论文</a>
+        <a href="papers.html" class="nav-link active">论文精读</a>
         <a href="tools.html" class="nav-link">工具榜单</a>
-        <a href="#" class="nav-link">数据集</a>
-        <a href="#" class="nav-link">关于</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="daily.html" class="nav-link">每日资讯</a>
+        <a href="about.html" class="nav-link">关于</a>
       </nav>
       <div class="nav-search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -34,6 +35,9 @@
         </svg>
         搜索
       </div>
+      <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
     </div>
   </header>
 
@@ -42,26 +46,14 @@
     <div class="papers-hero-bg"></div>
     <div class="papers-hero-inner">
       <div class="papers-hero-tag">
-        <span>📑</span> 数据科学方法论 · 代表论文精选
+        <span>📑</span> 论文精读 · 核心方法论合集
       </div>
       <h1 class="papers-hero-title">
-        方法论代表论文
+        论文精读
       </h1>
       <p class="papers-hero-desc">
-        系统梳理数据科学核心方法论的里程碑论文，覆盖统计学习、深度学习、NLP、计算机视觉、因果推断等 10 大方向，助你构建完整的知识体系。
+        数据科学核心领域的里程碑论文精选与深度解读
       </p>
-      <div class="papers-nav-tags">
-        <a href="#stat-learning" class="papers-nav-tag">📐 统计学习</a>
-        <a href="#deep-learning" class="papers-nav-tag">🧠 深度学习</a>
-        <a href="#nlp" class="papers-nav-tag">💬 自然语言处理</a>
-        <a href="#cv" class="papers-nav-tag">👁️ 计算机视觉</a>
-        <a href="#rl" class="papers-nav-tag">🎮 强化学习</a>
-        <a href="#causal" class="papers-nav-tag">🔗 因果推断</a>
-        <a href="#dim-reduction" class="papers-nav-tag">📉 降维与聚类</a>
-        <a href="#bayesian" class="papers-nav-tag">🎲 贝叶斯方法</a>
-        <a href="#timeseries" class="papers-nav-tag">📈 时间序列</a>
-        <a href="#gnn" class="papers-nav-tag">🕸️ 图神经网络</a>
-      </div>
     </div>
   </section>
 
@@ -71,7 +63,7 @@
 
       <!-- 侧边目录导航 -->
       <aside class="papers-sidebar" id="papersSidebar">
-        <div class="sidebar-title">📑 目录导航</div>
+        <div class="sidebar-title">📑 论文导航</div>
         <nav class="sidebar-nav">
           <a href="#stat-learning" class="sidebar-link active" data-section="stat-learning">
             <span class="sidebar-dot" style="background: #3b82f6;"></span>
@@ -102,6 +94,11 @@
             <span class="sidebar-dot" style="background: #0ea5e9;"></span>
             <span>因果推断</span>
             <span class="sidebar-count">4</span>
+          </a>
+          <a href="#ab-testing" class="sidebar-link" data-section="ab-testing">
+            <span class="sidebar-dot" style="background: #10b981;"></span>
+            <span>AB 实验</span>
+            <span class="sidebar-count">6</span>
           </a>
           <a href="#dim-reduction" class="sidebar-link" data-section="dim-reduction">
             <span class="sidebar-dot" style="background: #f59e0b;"></span>
@@ -725,7 +722,117 @@
         </div>
       </section>
 
-      <!-- ==================== 7. 降维与聚类 ==================== -->
+      <!-- ==================== 7. AB 实验 ==================== -->
+      <section class="paper-section" id="ab-testing">
+        <div class="section-header">
+          <div class="section-icon" style="background: linear-gradient(135deg, #10b981, #059669);">🧪</div>
+          <div>
+            <h2 class="section-title">AB 实验</h2>
+            <p class="section-subtitle">A/B Testing & Online Experimentation — 数据驱动决策的基石</p>
+          </div>
+        </div>
+        <div class="paper-grid">
+
+          <a class="paper-card" href="https://doi.org/10.1145/3097983.3098091" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2017</span>
+              <span class="paper-impact">引用 800+</span>
+            </div>
+            <h3 class="paper-title">Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing</h3>
+            <p class="paper-authors">Ron Kohavi, Diane Tang, Ya Xu</p>
+            <p class="paper-source">Cambridge University Press / KDD 2017</p>
+            <p class="paper-abstract">微软/谷歌资深实验专家的权威指南，系统阐述了在线对照实验的设计、运行、分析全流程，涵盖样本量计算、护栏指标、常见陷阱等，是工业界 AB 实验的"圣经"。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">实验设计</span>
+              <span class="paper-tag blue">里程碑</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1214/09-STS305" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2010</span>
+              <span class="paper-impact">引用 3,000+</span>
+            </div>
+            <h3 class="paper-title">CUPED: Controlled-experiment Using Pre-Experiment Data</h3>
+            <p class="paper-authors">Alex Deng, Ya Xu, Ron Kohavi, Toby Walker</p>
+            <p class="paper-source">WWW 2013 / Microsoft</p>
+            <p class="paper-abstract">提出 CUPED 方差缩减方法，利用实验前的协变量数据对实验指标进行回归调整，可在不增加样本量的情况下显著提升实验灵敏度，已成为业界标配技术。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">CUPED</span>
+              <span class="paper-tag orange">方差缩减</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://arxiv.org/abs/1710.08217" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2018</span>
+              <span class="paper-impact">引用 600+</span>
+            </div>
+            <h3 class="paper-title">Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data</h3>
+            <p class="paper-authors">Yongyi Chen et al. (LinkedIn)</p>
+            <p class="paper-source">WSDM 2018</p>
+            <p class="paper-abstract">对 CUPED 方法的重要扩展，提出使用机器学习模型预测实验前指标来进一步降低方差，同时探讨了多种协变量选择策略对灵敏度提升的影响。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">方差缩减</span>
+              <span class="paper-tag purple">ML 辅助</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1145/3292500.3330722" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2019</span>
+              <span class="paper-impact">引用 400+</span>
+            </div>
+            <h3 class="paper-title">Diagnosing Sample Ratio Mismatch in Online Controlled Experiments</h3>
+            <p class="paper-authors">Alex Deng, Ulf Knoblich, Jiannan Lu (Microsoft)</p>
+            <p class="paper-source">KDD 2019</p>
+            <p class="paper-abstract">系统研究了样本比例不匹配（SRM）问题的诊断方法，提出了多层级检测框架来定位实验中的数据质量问题，SRM 检查已成为实验平台的核心护栏机制。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">SRM</span>
+              <span class="paper-tag cyan">数据质量</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1145/3534678.3539160" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2022</span>
+              <span class="paper-impact">引用 200+</span>
+            </div>
+            <h3 class="paper-title">Switchback Experiments for Marketplace and Network Interference</h3>
+            <p class="paper-authors">Iavor Bojinov et al. (Uber/Lyft)</p>
+            <p class="paper-source">KDD 2022</p>
+            <p class="paper-abstract">针对双边市场中用户间干扰（interference）问题，提出 Switchback 实验设计，在时间维度上交替切换处理组，有效减少网络效应带来的估计偏差，被 Uber、Lyft 等广泛采用。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">Switchback</span>
+              <span class="paper-tag pink">网络干扰</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+          <a class="paper-card" href="https://doi.org/10.1145/3219819.3219919" target="_blank" rel="noopener">
+            <div class="paper-card-top">
+              <span class="paper-year">2018</span>
+              <span class="paper-impact">引用 500+</span>
+            </div>
+            <h3 class="paper-title">Applying the Delta Method in Metric Analytics: A Practical Guide with Novel Ideas</h3>
+            <p class="paper-authors">Alex Deng, Ulf Knoblich, Jiannan Lu (Microsoft)</p>
+            <p class="paper-source">KDD 2018</p>
+            <p class="paper-abstract">系统阐述了 Delta 方法在实验指标分析中的应用，包括比率指标的方差估计、分位数指标的置信区间构造等，为实验平台的统计引擎提供了实用的数学框架。</p>
+            <div class="paper-tags">
+              <span class="paper-tag emerald">Delta 方法</span>
+              <span class="paper-tag orange">指标分析</span>
+            </div>
+            <span class="paper-link-icon">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ==================== 8. 降维与聚类 ==================== -->
       <section class="paper-section" id="dim-reduction">
         <div class="section-header">
           <div class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #eab308);">📉</div>
