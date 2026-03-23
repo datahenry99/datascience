@@ -390,12 +390,24 @@
   }
 
   .tools-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     gap: 6px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tools-filter::-webkit-scrollbar {
+    display: none;
   }
 
   .filter-btn {
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
 
