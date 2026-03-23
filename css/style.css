@@ -781,43 +781,13 @@ a {
 
 /* --- 更新日志 --- */
 .home-timeline {
-  position: relative;
-  padding-left: 36px;
-}
-
-.home-timeline::before {
-  content: '';
-  position: absolute;
-  left: 14px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
-  border-radius: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .home-timeline-item {
   position: relative;
-  padding-bottom: 32px;
-}
-
-.home-timeline-item:last-child {
-  padding-bottom: 0;
-}
-
-.home-timeline-marker {
-  position: absolute;
-  left: -36px;
-  top: 0;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 1;
 }
 
 .home-timeline-content {
@@ -835,18 +805,22 @@ a {
   display: block;
 }
 
+.home-timeline-title-row {
+  margin-bottom: 8px;
+}
+
 .home-timeline-title {
   font-size: 15px;
   font-weight: 700;
   color: #0f172a;
-  margin-bottom: 8px;
+  display: inline;
 }
 
 .home-timeline-desc {
   font-size: 13px;
   color: #64748b;
   line-height: 1.7;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .home-timeline-badge {
@@ -859,6 +833,10 @@ a {
   padding: 3px 10px;
   border-radius: 20px;
   letter-spacing: 0.5px;
+  margin-left: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 
 @media (max-width: 768px) {

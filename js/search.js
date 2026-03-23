@@ -53,7 +53,7 @@
         fetch(prefix + 'data/papers.json?v=' + Date.now()),
         fetch(prefix + 'data/articles.json?v=' + Date.now())
       ]);
-      const tools = await toolsRes.json();
+      const toolsData = await toolsRes.json();
       const papers = await papersRes.json();
       const articles = await articlesRes.json();
 
@@ -61,7 +61,7 @@
       const papersPage = isSubPage ? 'papers.html' : 'pages/papers.html';
       const articlesPage = isSubPage ? 'articles.html' : 'pages/articles.html';
 
-      tools.forEach(function (t) {
+      (toolsData.tools || toolsData).forEach(function (t) {
         searchIndex.push({
           type: '🛠 工具',
           title: t.name,
