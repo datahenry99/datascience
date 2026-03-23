@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataHenry - 数据科学技能平台</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>DataHenry - 数据科学百宝箱 | 工具·论文·博客一站式导航</title>
+  <meta name="description" content="DataHenry 数据科学百宝箱，精选 60+ 数据科学工具、里程碑论文与优质博客社区，覆盖数据处理、机器学习、深度学习、NLP、CV、MLOps、AI Agent 全流程。">
+  <meta name="keywords" content="数据科学,机器学习,深度学习,Python,数据分析,AI工具,论文精读,DataHenry">
+  <meta property="og:title" content="DataHenry - 数据科学百宝箱">
+  <meta property="og:description" content="工具·论文·博客，一站式数据科学学习导航平台">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://datahenry.com">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%237c3aed'/><polyline points='20 65 35 45 55 55 80 25' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='35' cy='45' r='5' fill='white'/><circle cx='55' cy='55' r='5' fill='white'/><circle cx='80' cy='25' r='5' fill='white'/></svg>">
+  <link rel="stylesheet" href="css/style.css?v=20260324">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -14,15 +21,16 @@
   <header class="navbar">
     <div class="navbar-inner">
       <div class="logo">
-        <div class="logo-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
-        <span class="logo-text">DataHenry</span>
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+          <span class="logo-text">DataHenry</span>
+        </a>
       </div>
       <nav class="nav-links">
-        <a href="index.html" class="nav-link active">精选推荐</a>
+        <a href="index.html" class="nav-link active">首页</a>
         <a href="pages/papers.html" class="nav-link">论文精读</a>
         <a href="pages/tools.html" class="nav-link">工具榜单</a>
         <a href="pages/articles.html" class="nav-link">博客社区</a>
-        <a href="pages/daily.html" class="nav-link">每日资讯</a>
         <a href="pages/about.html" class="nav-link">关于</a>
       </nav>
       <div class="nav-search">
@@ -32,9 +40,17 @@
         </svg>
         搜索
       </div>
-      <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      </a>
+      <div class="nav-social">
+        <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" class="nav-xiaohongshu" title="小红书">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
+        </a>
+      </div>
+      <button class="nav-search-mobile" onclick="openSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
       <button class="nav-hamburger" onclick="toggleMobileMenu()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -44,19 +60,65 @@
   <!-- 移动端菜单 -->
   <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
   <div class="mobile-menu">
-    <div class="mobile-menu-header">
-      <span class="mobile-menu-title">DataHenry</span>
+    <!-- 品牌头部 -->
+    <div class="mobile-menu-brand">
+      <div class="mobile-menu-brand-left">
+        <div class="mobile-menu-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        <div>
+          <div class="mobile-menu-brand-name">DataHenry</div>
+          <div class="mobile-menu-brand-desc">数据科学导航站</div>
+        </div>
+      </div>
       <button class="mobile-menu-close" onclick="toggleMobileMenu()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+
+    <!-- 搜索 -->
+    <div class="mobile-search-btn" onclick="toggleMobileMenu();openSearch();">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>搜索本站信息</span>
+    </div>
+
+    <!-- 导航链接 -->
     <div class="mobile-menu-links">
-      <a href="index.html" class="mobile-link active"><span class="mobile-link-icon">⭐</span>精选推荐</a>
-      <a href="pages/papers.html" class="mobile-link"><span class="mobile-link-icon">📑</span>论文精读</a>
-      <a href="pages/tools.html" class="mobile-link"><span class="mobile-link-icon">🛠️</span>工具榜单</a>
-      <a href="pages/articles.html" class="mobile-link"><span class="mobile-link-icon">📚</span>博客社区</a>
-      <a href="pages/daily.html" class="mobile-link"><span class="mobile-link-icon">📰</span>每日资讯</a>
-      <a href="pages/about.html" class="mobile-link"><span class="mobile-link-icon">👋</span>关于</a>
+      <a href="index.html" class="mobile-link active">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span class="mobile-link-text">首页</span>
+      </a>
+      <a href="pages/papers.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="mobile-link-text">论文精读</span>
+      </a>
+      <a href="pages/tools.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span class="mobile-link-text">工具榜单</span>
+      </a>
+      <a href="pages/articles.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="mobile-link-text">博客社区</span>
+      </a>
+      <a href="pages/about.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+        <span class="mobile-link-text">关于</span>
+      </a>
+    </div>
+
+    <!-- 社交链接 -->
+    <div class="mobile-menu-social">
+      <a href="https://github.com/datahenry99/datascience" target="_blank" class="mobile-social-card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" class="mobile-social-card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
+      </a>
+    </div>
+
+    <!-- 底部 -->
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-footer-deco"></div>
+      <p>© 2026 DataHenry</p>
     </div>
   </div>
   <script>
@@ -70,146 +132,169 @@
   <!-- Hero 区域 -->
   <section class="hero">
     <div class="hero-bg-blur"></div>
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-tag">
-          <span class="tag-icon">🔬</span>
-          专为数据科学爱好者打造的学习平台
+    <div class="hero-inner hero-center">
+      <div class="hero-tag">
+        专为数据科学爱好者打造的学习平台
+      </div>
+      <h1 class="hero-title">
+        数据科学百宝箱
+      </h1>
+      <p class="hero-subtitle">工具 · 论文 · 博客，一站式收藏</p>
+      <div class="hero-stats-inline">
+        <div class="hero-stat-inline">
+          <span class="hero-stat-num" id="stat-tools">--</span>
+          <span class="hero-stat-txt">精选工具</span>
         </div>
-        <h1 class="hero-title">
-          掌握数据科学，<br>
-          <span class="hero-title-gradient">驱动 AI 未来</span>
-        </h1>
-        <p class="hero-desc">
-          精选课程、实战项目、开源工具，轻松探索 DataHenry 上 1.2 万个数据科学资源
-        </p>
-        <div class="hero-buttons">
-          <a href="#" class="btn btn-primary">查看精选榜单</a>
-          <a href="#" class="btn btn-outline">探索全部资源</a>
+        <span class="hero-stat-dot"></span>
+        <div class="hero-stat-inline">
+          <span class="hero-stat-num" id="stat-papers">--</span>
+          <span class="hero-stat-txt">里程碑论文</span>
+        </div>
+        <span class="hero-stat-dot"></span>
+        <div class="hero-stat-inline">
+          <span class="hero-stat-num" id="stat-articles">--</span>
+          <span class="hero-stat-txt">优秀博客</span>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="hero-card">
-          <div class="card-tabs">
-            <div class="card-tab active">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              我是学习者
-            </div>
-            <div class="card-tab">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              我是开发者
-            </div>
-          </div>
-          <p class="card-hint">将此提示发送给你的 AI Agent，以获取 DataHenry 推荐资源</p>
-          <div class="card-code-block">
-            <span class="card-code-text">探索 https://datahub.example.co...</span>
-            <button class="card-copy-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              复制
-            </button>
-          </div>
-          <p class="card-hint">获取精选数据科学工具包，并自动配置开发环境</p>
-          <div class="card-code-block">
-            <span class="card-code-text">概要 https://datahenry.com...</span>
-            <button class="card-copy-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              复制
-            </button>
-          </div>
-        </div>
+      <!-- 浮动技术标签 -->
+      <div class="hero-float-tags">
+        <span class="float-tag" style="--x:-320px;--y:-60px;--delay:0s;">🐼 Pandas</span>
+        <span class="float-tag" style="--x:300px;--y:-50px;--delay:0.3s;">🔥 PyTorch</span>
+        <span class="float-tag" style="--x:-380px;--y:40px;--delay:0.6s;">📊 Matplotlib</span>
+        <span class="float-tag" style="--x:350px;--y:50px;--delay:0.9s;">🤖 Scikit-learn</span>
+        <span class="float-tag" style="--x:-260px;--y:100px;--delay:1.2s;">🧠 TensorFlow</span>
+        <span class="float-tag" style="--x:260px;--y:110px;--delay:0.5s;">🦜 LangChain</span>
       </div>
     </div>
+    <a href="#explore" class="hero-scroll-hint">
+      <span>向下探索</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
   </section>
 
-  <!-- 探索板块入口区域 -->
-  <section class="explore-section">
-    <div class="explore-inner">
-      <div class="explore-header">
-        <span class="explore-tag">🧭 探索 DataHenry</span>
-        <h2 class="explore-title">数据科学学习路线，从这里开始</h2>
-        <p class="explore-desc">精心整理的资源合集，涵盖工具、论文、文章等各个维度，助你系统掌握数据科学技能。</p>
-      </div>
+  <script>
+  // 动态统计各板块数量，同步更新 Hero 统计和卡片副标题/标签
+  // 标签配色表
+  const tagColors = ['#3b82f6','#8b5cf6','#f97316','#10b981','#ef4444','#ec4899','#06b6d4','#f59e0b','#22c55e','#64748b'];
 
-      <div class="explore-grid">
+  function renderTags(container, names, maxShow) {
+    if (!container) return;
+    container.innerHTML = '';
+    const show = names.slice(0, maxShow);
+    const rest = names.length - maxShow;
+    show.forEach((name, i) => {
+      const span = document.createElement('span');
+      span.className = 'explore-mini-tag';
+      span.style.setProperty('--tag-color', tagColors[i % tagColors.length]);
+      span.textContent = name;
+      container.appendChild(span);
+    });
+    if (rest > 0) {
+      const more = document.createElement('span');
+      more.className = 'explore-mini-tag';
+      more.style.setProperty('--tag-color', '#64748b');
+      more.textContent = '+' + rest + ' more';
+      container.appendChild(more);
+    }
+  }
+
+  (async function loadStats() {
+    // ===== 论文 =====
+    try {
+      const papersRes = await fetch('data/papers.json');
+      const papersData = await papersRes.json();
+      const sections = papersData.sections;
+      const papersCount = sections.reduce((sum, s) => sum + s.papers.length, 0);
+      const papersCats = sections.length;
+      document.getElementById('stat-papers').textContent = papersCount;
+      document.getElementById('card-papers-subtitle').textContent = papersCount + ' 篇里程碑论文 · ' + papersCats + ' 大方向';
+      const paperNames = sections.map(s => s.icon + ' ' + s.title);
+      renderTags(document.getElementById('card-papers-tags'), paperNames, 4);
+    } catch(e) {
+      document.getElementById('stat-papers').textContent = '--';
+    }
+
+    // ===== 博客与社区 =====
+    try {
+      const articlesRes = await fetch('data/articles.json');
+      const articlesData = await articlesRes.json();
+      const aSections = articlesData.sections;
+      const articlesCount = aSections.reduce((sum, s) => sum + s.items.length, 0);
+      const articlesCats = aSections.length;
+      document.getElementById('stat-articles').textContent = articlesCount;
+      document.getElementById('card-articles-subtitle').textContent = articlesCount + ' 个精选来源 · ' + articlesCats + ' 大板块';
+      const articleNames = aSections.map(s => s.icon + ' ' + s.title);
+      renderTags(document.getElementById('card-articles-tags'), articleNames, 4);
+    } catch(e) {
+      document.getElementById('stat-articles').textContent = '--';
+    }
+
+    // ===== 工具 =====
+    try {
+      const toolsRes = await fetch('data/tools.json');
+      const toolsData = await toolsRes.json();
+      const toolsCount = toolsData.tools.length;
+      const catCount = toolsData.categories.length;
+      const catNames = toolsData.categories.map(c => c.emoji + ' ' + c.title);
+      document.getElementById('stat-tools').textContent = toolsCount;
+      document.getElementById('card-tools-subtitle').textContent = toolsCount + ' 款精选 · ' + catCount + ' 大分类';
+      renderTags(document.getElementById('card-tools-tags'), catNames, 4);
+    } catch(e) {
+      document.getElementById('stat-tools').textContent = '--';
+    }
+  })();
+  </script>
+
+  <!-- 探索板块入口区域 -->
+  <section class="explore-section" id="explore">
+    <div class="explore-inner">
+      <div class="explore-grid explore-grid-3">
+
+        <!-- 论文精读卡片 -->
+        <a href="pages/papers.html" class="explore-card explore-card-papers">
+          <div class="explore-card-glow"></div>
+          <div class="explore-card-content">
+            <div class="explore-card-header">
+              <div class="explore-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+              <div class="explore-card-info">
+                <h3 class="explore-card-title">论文精读</h3>
+                <p class="explore-card-subtitle" id="card-papers-subtitle">-- 篇里程碑论文 · -- 大方向</p>
+              </div>
+            </div>
+            <p class="explore-card-desc">系统梳理数据科学核心方法论的里程碑论文，从统计学习到图神经网络。</p>
+            <span class="explore-card-arrow">查看全部论文 →</span>
+          </div>
+        </a>
 
         <!-- 工具榜单卡片 -->
         <a href="pages/tools.html" class="explore-card explore-card-tools">
           <div class="explore-card-glow"></div>
           <div class="explore-card-content">
-            <div class="explore-card-icon" style="background: linear-gradient(135deg, #f97316, #ef4444);">🛠️</div>
-            <div class="explore-card-info">
-              <h3 class="explore-card-title">工具榜单</h3>
-              <p class="explore-card-subtitle">58 款精选 · 9 大分类</p>
-              <p class="explore-card-desc">覆盖数据处理、机器学习、深度学习、可视化、NLP、CV、MLOps、AI Agent 等全流程工具。</p>
+            <div class="explore-card-header">
+              <div class="explore-card-icon" style="background: linear-gradient(135deg, #f97316, #ef4444);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+              <div class="explore-card-info">
+                <h3 class="explore-card-title">工具榜单</h3>
+                <p class="explore-card-subtitle" id="card-tools-subtitle">-- 款精选 · -- 大分类</p>
+              </div>
             </div>
-            <div class="explore-card-tags">
-              <span class="explore-mini-tag" style="--tag-color: #f97316;">🐼 Pandas</span>
-              <span class="explore-mini-tag" style="--tag-color: #3b82f6;">📈 Scikit-learn</span>
-              <span class="explore-mini-tag" style="--tag-color: #ef4444;">🦞 OpenClaw</span>
-              <span class="explore-mini-tag" style="--tag-color: #8b5cf6;">🧠 PyTorch</span>
-              <span class="explore-mini-tag" style="--tag-color: #64748b;">+58 more</span>
-            </div>
+            <p class="explore-card-desc">覆盖数据处理、机器学习、深度学习、可视化、NLP、CV、MLOps、AI Agent 等全流程工具。</p>
             <span class="explore-card-arrow">查看全部工具 →</span>
           </div>
         </a>
 
-        <!-- 方法论论文卡片 -->
-        <a href="pages/papers.html" class="explore-card explore-card-papers">
-          <div class="explore-card-glow"></div>
-          <div class="explore-card-content">
-            <div class="explore-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">📑</div>
-            <div class="explore-card-info">
-              <h3 class="explore-card-title">论文精读</h3>
-              <p class="explore-card-subtitle">54 篇里程碑论文 · 11 大方向</p>
-              <p class="explore-card-desc">系统梳理数据科学核心方法论的里程碑论文，从统计学习到图神经网络。</p>
-            </div>
-            <div class="explore-card-tags">
-              <span class="explore-mini-tag" style="--tag-color: #3b82f6;">📐 统计学习</span>
-              <span class="explore-mini-tag" style="--tag-color: #8b5cf6;">🧠 深度学习</span>
-              <span class="explore-mini-tag" style="--tag-color: #f97316;">💬 NLP</span>
-              <span class="explore-mini-tag" style="--tag-color: #10b981;">🧪 AB 实验</span>
-              <span class="explore-mini-tag" style="--tag-color: #64748b;">+7 more</span>
-            </div>
-            <span class="explore-card-arrow">查看全部论文 →</span>
-          </div>
-        </a>
-
-        <!-- 优质文章卡片 -->
+        <!-- 博客社区卡片 -->
         <a href="pages/articles.html" class="explore-card explore-card-articles">
           <div class="explore-card-glow"></div>
           <div class="explore-card-content">
-            <div class="explore-card-icon" style="background: linear-gradient(135deg, #10b981, #059669);">📚</div>
-            <div class="explore-card-info">
-              <h3 class="explore-card-title">博客与社区</h3>
-              <p class="explore-card-subtitle">30 个精选来源 · 3 大板块</p>
-              <p class="explore-card-desc">精选公众号、技术博客和论坛社区，持续获取数据科学领域高质量内容。</p>
+            <div class="explore-card-header">
+              <div class="explore-card-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+              <div class="explore-card-info">
+                <h3 class="explore-card-title">博客社区</h3>
+                <p class="explore-card-subtitle" id="card-articles-subtitle">-- 个精选来源 · -- 大板块</p>
+              </div>
             </div>
-            <div class="explore-card-tags">
-              <span class="explore-mini-tag" style="--tag-color: #07c160;">📱 公众号</span>
-              <span class="explore-mini-tag" style="--tag-color: #3b82f6;">✍️ 博客</span>
-              <span class="explore-mini-tag" style="--tag-color: #f59e0b;">💬 论坛</span>
-              <span class="explore-mini-tag" style="--tag-color: #64748b;">+27 more</span>
-            </div>
+            <p class="explore-card-desc">精选公众号、技术博客和论坛社区，持续获取数据科学领域高质量内容。</p>
             <span class="explore-card-arrow">查看全部推荐 →</span>
-          </div>
-        </a>
-
-        <!-- 每日资讯卡片 -->
-        <a href="pages/daily.html" class="explore-card explore-card-daily">
-          <div class="explore-card-glow"></div>
-          <div class="explore-card-content">
-            <div class="explore-card-icon" style="background: linear-gradient(135deg, #ef4444, #f97316);">📰</div>
-            <div class="explore-card-info">
-              <h3 class="explore-card-title">每日资讯</h3>
-              <p class="explore-card-subtitle">每日更新 · 3 大板块</p>
-              <p class="explore-card-desc">每天精选科技动态、重要论文和实用工具，5 分钟掌握数据科学前沿脉搏。</p>
-            </div>
-            <div class="explore-card-tags">
-              <span class="explore-mini-tag" style="--tag-color: #ef4444;">🔥 科技资讯</span>
-              <span class="explore-mini-tag" style="--tag-color: #6366f1;">📑 论文精选</span>
-              <span class="explore-mini-tag" style="--tag-color: #f97316;">🛠️ 工具推荐</span>
-            </div>
-            <span class="explore-card-arrow">查看今日资讯 →</span>
           </div>
         </a>
 
@@ -217,14 +302,73 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- 贡献与反馈 -->
+  <section class="home-section" id="contribute">
+    <div class="home-section-inner">
+      <h3 class="home-section-title">贡献与反馈</h3>
+
+      <p class="home-section-desc">DataHenry 是一个开放的平台，欢迎每一位数据科学爱好者参与建设。如果你发现了优质的工具、论文或内容来源，或者对现有内容有改进建议，欢迎通过以下方式联系我：</p>
+
+      <div class="home-contribute-grid">
+        <div class="home-contribute-card">
+          <div class="home-contribute-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#181717"/>
+            </svg>
+          </div>
+          <h4 class="home-contribute-title">GitHub</h4>
+          <p class="home-contribute-desc">提交 Issue 来推荐资源、报告问题或提出功能建议。</p>
+          <a class="home-contribute-link home-contribute-link-a" href="https://github.com/datahenry/datahenry.github.io/issues" target="_blank" rel="noopener">提交 Issue →</a>
+        </div>
+
+        <div class="home-contribute-card">
+          <div class="home-contribute-icon">
+            <img src="images/xiaohongshu-app.png" alt="小红书" width="32" height="32" style="border-radius: 8px;" />
+          </div>
+          <h4 class="home-contribute-title">小红书</h4>
+          <p class="home-contribute-desc">关注我的小红书，获取更多数据科学干货与日常分享。</p>
+          <a class="home-contribute-link home-contribute-link-a" href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" rel="noopener">关注 DataHenry →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 更新日志 -->
+  <section class="home-section" id="changelog">
+    <div class="home-section-inner">
+      <h3 class="home-section-title">更新日志</h3>
+
+      <div class="home-timeline">
+        <div class="home-timeline-item">
+          <div class="home-timeline-marker">✅</div>
+          <div class="home-timeline-content">
+            <span class="home-timeline-date">2026 年 3 月</span>
+            <h4 class="home-timeline-title">🚀 DataHenry 正式上线</h4>
+            <p class="home-timeline-desc">完成首页设计与开发，包含 Hero 区域、探索板块入口卡片等核心组件，正式启动数据科学技能平台。</p>
+            <span class="home-timeline-badge">LAUNCHED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <footer class="footer">
     <div class="footer-inner">
-      <p>© 2026 DataHenry · 数据科学技能平台</p>
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        DataHenry
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">首页</a>
+        <a href="pages/papers.html">论文精读</a>
+        <a href="pages/tools.html">工具榜单</a>
+        <a href="pages/articles.html">博客社区</a>
+        <a href="pages/about.html">关于</a>
+      </nav>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 DataHenry. All Rights Reserved.</p>
     </div>
   </footer>
 
-
-
+  <script src="js/search.js"></script>
 </body>
 </html>

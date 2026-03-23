@@ -207,12 +207,15 @@
 }
 
 /* ===== Category Sections ===== */
-.tools-category {
-  margin-bottom: 48px;
-  scroll-margin-top: 80px;
+.category-anchor {
+  scroll-margin-top: 64px;
 }
 
-.tools-category:last-child {
+.tools-grid-spaced {
+  margin-bottom: 48px;
+}
+
+.tools-grid-spaced:last-child {
   margin-bottom: 0;
 }
 
@@ -221,8 +224,12 @@
   align-items: center;
   gap: 14px;
   margin-bottom: 20px;
-  padding-bottom: 16px;
+  padding: 16px 0 16px;
   border-bottom: 2px solid #f1f5f9;
+  position: sticky;
+  top: 64px;
+  background: #fff;
+  z-index: 10;
 }
 
 .category-icon {
@@ -288,6 +295,13 @@
   justify-content: center;
   font-size: 18px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.tool-icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
 
 .tool-meta {
@@ -362,15 +376,6 @@
 
 .tool-link:hover {
   color: #2563eb;
-}
-
-/* ===== Hidden class for filtering ===== */
-.tools-category.hidden {
-  display: none;
-}
-
-.tool-card.hidden {
-  display: none;
 }
 
 /* ===== Responsive ===== */

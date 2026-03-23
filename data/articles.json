@@ -1,0 +1,358 @@
+{
+  "sections": [
+    {
+      "id": "blogs",
+      "title": "技术博客",
+      "subtitle": "最值得订阅的数据科学博客",
+      "icon": "✍️",
+      "gradient": "linear-gradient(135deg, #3b82f6, #2563eb)",
+      "sidebarDot": "#3b82f6",
+      "items": [
+        {
+          "name": "Towards Data Science",
+          "source": "Medium 专栏",
+          "url": "https://towardsdatascience.com",
+          "icon": "https://towardsdatascience.com/wp-content/uploads/2025/02/cropped-Favicon-32x32.png",
+          "desc": "全球最大的数据科学写作社区（Medium 专栏），汇集数万名数据科学家的原创文章。涵盖数据分析、机器学习、深度学习教程，新手友好，内容从基础到高级。",
+          "tags": [
+            { "text": "数据科学", "color": "blue" },
+            { "text": "入门友好", "color": "green" }
+          ],
+          "stats": ["🌍 全球最大", "📝 社区投稿"]
+        },
+        {
+          "name": "Distill",
+          "source": "交互式 ML 期刊",
+          "url": "https://distill.pub",
+          "icon": "https://distill.pub/favicon.ico",
+          "desc": "机器学习领域顶级学术期刊，以卓越的可视化交互著称。每篇文章都是精心制作的「交互式教程」，将复杂的 ML 概念以直觉化方式呈现，是可视化解释的天花板。",
+          "tags": [
+            { "text": "交互可视化", "color": "purple" },
+            { "text": "学术期刊", "color": "indigo" }
+          ],
+          "stats": ["🏆 殿堂级", "🎨 可视化天花板"]
+        },
+        {
+          "name": "Google AI Blog",
+          "source": "Google Research",
+          "url": "https://ai.googleblog.com",
+          "icon": "https://avatars.githubusercontent.com/u/1342004",
+          "desc": "Google AI 官方博客，发布 Google 在人工智能和机器学习领域的最新研究成果。Transformer、BERT、PaLM 等里程碑工作的第一手解读均出自这里。",
+          "tags": [
+            { "text": "Google 官方", "color": "orange" },
+            { "text": "前沿研究", "color": "blue" }
+          ],
+          "stats": ["🏢 Google", "🔬 原创研究"]
+        },
+        {
+          "name": "Amazon Science",
+          "source": "Amazon 科学博客",
+          "url": "https://www.amazon.science",
+          "icon": "https://www.amazon.science/favicon-32x32.png",
+          "desc": "亚马逊科学博客，涵盖 NLP、搜索推荐、因果推断、AB 实验等方向。Amazon 在实验平台和因果推断领域积累深厚，相关博文极具工业参考价值。",
+          "tags": [
+            { "text": "因果推断", "color": "orange" },
+            { "text": "实验平台", "color": "green" }
+          ],
+          "stats": ["🏢 Amazon", "🧪 实验实践"]
+        },
+        {
+          "name": "ML@CMU",
+          "source": "卡内基梅隆大学",
+          "url": "https://blog.ml.cmu.edu",
+          "icon": "https://blog.ml.cmu.edu/wp-content/uploads/2018/06/favicon-80x80.png",
+          "desc": "卡内基梅隆大学机器学习博客，由 CMU 学生、博士后和教员共同撰写。内容涵盖最新研究成果、学术观点和方法论解读，学术深度与通俗性兼备。",
+          "tags": [
+            { "text": "CMU", "color": "red" },
+            { "text": "学术研究", "color": "purple" }
+          ],
+          "stats": ["🎓 顶尖学府", "📊 前沿研究"]
+        },
+        {
+          "name": "Neptune.ai Blog",
+          "source": "MLOps 实践博客",
+          "url": "https://neptune.ai/blog",
+          "icon": "https://avatars.githubusercontent.com/u/49655974",
+          "desc": "Neptune.ai 官方博客，聚焦 MLOps、实验追踪、模型管理等工程实践。文章注重动手实操，配有代码示例，是机器学习工程化的优质学习资源。",
+          "tags": [
+            { "text": "MLOps", "color": "cyan" },
+            { "text": "实验追踪", "color": "blue" }
+          ],
+          "stats": ["⚙️ 工程实践", "💻 代码示例"]
+        },
+        {
+          "name": "Machine Learning Mastery",
+          "source": "Jason Brownlee",
+          "url": "https://machinelearningmastery.com",
+          "icon": "https://machinelearningmastery.com/wp-content/uploads/2019/09/icon-16x16.png",
+          "desc": "由 Jason Brownlee 博士创立，全球最受欢迎的机器学习实战教程博客。以「动手学 ML」为理念，用清晰的代码示例讲解从基础到进阶的 ML 技术。",
+          "tags": [
+            { "text": "实战教程", "color": "green" },
+            { "text": "入门首选", "color": "orange" }
+          ],
+          "stats": ["🌍 全球热门", "📚 体系完整"]
+        },
+        {
+          "name": "Lil'Log",
+          "source": "Lilian Weng (OpenAI)",
+          "url": "https://lilianweng.github.io",
+          "icon": "https://lilianweng.github.io/favicon_wine.ico",
+          "desc": "OpenAI 研究员 Lilian Weng 的个人博客，以极其详尽的综述文章著称。每篇文章都是一个完整的知识体系梳理，是学习 Transformer、扩散模型、Agent 等前沿话题的最佳资源。",
+          "tags": [
+            { "text": "综述神作", "color": "purple" },
+            { "text": "OpenAI", "color": "indigo" }
+          ],
+          "stats": ["🏆 业界公认", "📖 长文综述"]
+        },
+        {
+          "name": "Analytics Vidhya",
+          "source": "数据科学学习社区",
+          "url": "https://www.analyticsvidhya.com/blog",
+          "icon": "https://www.analyticsvidhya.com/wp-content/uploads/2015/02/favicon.ico",
+          "desc": "印度最大的数据科学学习社区，提供从零开始的 ML/DL 教程、行业案例和面试准备资源。文章通俗易懂，配有大量图解和代码，非常适合初学者。",
+          "tags": [
+            { "text": "学习社区", "color": "blue" },
+            { "text": "新手友好", "color": "green" }
+          ],
+          "stats": ["👥 百万用户", "📖 图解教程"]
+        },
+        {
+          "name": "colah's blog",
+          "source": "Christopher Olah",
+          "url": "https://colah.github.io",
+          "icon": "https://avatars.githubusercontent.com/u/207380",
+          "desc": "前 Google Brain / Anthropic 研究员 Chris Olah 的个人博客。以直觉化理解神经网络著称，「Understanding LSTM Networks」一文影响了一代深度学习学习者。",
+          "tags": [
+            { "text": "直觉解释", "color": "green" },
+            { "text": "深度学习", "color": "purple" }
+          ],
+          "stats": ["🏆 经典博客", "🧠 深度理解"]
+        }
+      ]
+    },
+    {
+      "id": "forums",
+      "title": "优质论坛与社区",
+      "subtitle": "与全球数据科学家交流的平台",
+      "icon": "💬",
+      "gradient": "linear-gradient(135deg, #f59e0b, #d97706)",
+      "sidebarDot": "#f59e0b",
+      "items": [
+        {
+          "name": "Kaggle",
+          "source": "全球数据科学竞赛平台",
+          "url": "https://www.kaggle.com",
+          "icon": "https://avatars.githubusercontent.com/u/1336944",
+          "desc": "全球最大的数据科学竞赛平台和社区，汇聚百万数据科学家。提供海量公开数据集、Notebook 环境、竞赛排名。参加 Kaggle 竞赛是提升实战能力的最佳途径。",
+          "tags": [
+            { "text": "竞赛平台", "color": "cyan" },
+            { "text": "公开数据集", "color": "blue" }
+          ],
+          "stats": ["🌍 全球最大", "🏆 百万用户"]
+        },
+        {
+          "name": "Stack Overflow",
+          "source": "ML / Data Science 标签",
+          "url": "https://stackoverflow.com/questions/tagged/machine-learning",
+          "icon": "https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png",
+          "desc": "全球最大的技术问答社区，ML 和 Data Science 标签下有数十万个问题和高质量回答。遇到代码问题、算法疑问首选搜索这里，解决效率极高。",
+          "tags": [
+            { "text": "技术问答", "color": "orange" },
+            { "text": "问题解决", "color": "green" }
+          ],
+          "stats": ["💡 问答之王", "🔧 即搜即用"]
+        },
+        {
+          "name": "r/MachineLearning",
+          "source": "Reddit 社区",
+          "url": "https://www.reddit.com/r/MachineLearning/",
+          "icon": "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png",
+          "desc": "Reddit 上最活跃的机器学习社区（300 万+ 成员），每日讨论最新论文、开源项目和行业新闻。[D] 讨论帖和 [R] 论文帖是获取一线信息的绝佳渠道。",
+          "tags": [
+            { "text": "论文讨论", "color": "orange" },
+            { "text": "社区活跃", "color": "purple" }
+          ],
+          "stats": ["👥 300万+", "📰 日更新"]
+        },
+        {
+          "name": "知乎 · 机器学习",
+          "source": "中文知识问答社区",
+          "url": "https://www.zhihu.com/topic/19559450",
+          "icon": "https://static.zhihu.com/heifetz/favicon.ico",
+          "desc": "中文互联网最大的知识问答平台，机器学习话题下有大量高质量回答和专栏文章。多位 AI 领域知名学者和工程师活跃其中，中文学习者的首选社区。",
+          "tags": [
+            { "text": "中文社区", "color": "blue" },
+            { "text": "知识问答", "color": "green" }
+          ],
+          "stats": ["🇨🇳 中文首选", "🎓 专家云集"]
+        },
+        {
+          "name": "Hugging Face Forum",
+          "source": "HF 社区论坛",
+          "url": "https://discuss.huggingface.co",
+          "icon": "https://avatars.githubusercontent.com/u/25720743",
+          "desc": "Hugging Face 官方论坛，聚焦 NLP、LLM、Transformers 库使用。社区氛围友好，官方团队积极回复问题，是使用 HF 生态遇到问题时的最佳求助渠道。",
+          "tags": [
+            { "text": "HuggingFace", "color": "yellow" },
+            { "text": "NLP / LLM", "color": "purple" }
+          ],
+          "stats": ["🤗 官方支持", "🔧 问题解答"]
+        },
+        {
+          "name": "PyTorch Forums",
+          "source": "PyTorch 官方论坛",
+          "url": "https://discuss.pytorch.org",
+          "icon": "https://pytorch.org/favicon.ico",
+          "desc": "PyTorch 官方讨论论坛，涵盖模型训练、部署优化、分布式计算等话题。Meta 工程师经常参与讨论，是解决 PyTorch 使用问题和了解最佳实践的首选。",
+          "tags": [
+            { "text": "PyTorch", "color": "red" },
+            { "text": "深度学习", "color": "blue" }
+          ],
+          "stats": ["🔥 官方论坛", "⚙️ 工程问题"]
+        },
+        {
+          "name": "Cross Validated",
+          "source": "Stack Exchange 统计社区",
+          "url": "https://stats.stackexchange.com",
+          "icon": "https://cdn.sstatic.net/Sites/stats/Img/apple-touch-icon.png",
+          "desc": "Stack Exchange 旗下的统计学与机器学习问答社区。在假设检验、AB 实验、因果推断、贝叶斯方法等统计学核心问题上，回答质量远超其他平台。",
+          "tags": [
+            { "text": "统计学", "color": "green" },
+            { "text": "AB 实验", "color": "teal" }
+          ],
+          "stats": ["📐 统计专精", "🧪 实验方法"]
+        },
+        {
+          "name": "GitHub",
+          "source": "全球最大代码托管平台",
+          "url": "https://github.com",
+          "icon": "https://github.githubassets.com/favicons/favicon.svg",
+          "desc": "全球最大的开源代码托管平台，数据科学领域的宝库。搜索「awesome-datascience」、「awesome-machine-learning」等 Awesome 列表，获取最全面的学习资源合集。",
+          "tags": [
+            { "text": "开源", "color": "indigo" },
+            { "text": "Awesome 列表", "color": "blue" }
+          ],
+          "stats": ["🐙 代码宝库", "⭐ 开源社区"]
+        }
+      ]
+    },
+    {
+      "id": "wechat",
+      "title": "优质公众号",
+      "subtitle": "最值得关注的数据科学公众号",
+      "icon": "📱",
+      "gradient": "linear-gradient(135deg, #07c160, #06ae56)",
+      "sidebarDot": "#07c160",
+      "items": [
+        {
+          "name": "数据派THU",
+          "source": "清华大学数据科学研究院",
+          "desc": "清华出品，涵盖数据科学前沿研究、行业报告、技术分享。",
+          "tags": [
+            { "text": "学术前沿", "color": "green" },
+            { "text": "行业报告", "color": "blue" }
+          ]
+        },
+        {
+          "name": "大数据文摘",
+          "source": "BigDataDigest",
+          "desc": "十年老牌，专注数据领域资讯、精品案例与一线技术。",
+          "tags": [
+            { "text": "行业资讯", "color": "blue" },
+            { "text": "案例分析", "color": "orange" }
+          ]
+        },
+        {
+          "name": "接地气的陈老师",
+          "source": "陈文",
+          "desc": "11 年数据总监经验，AB 实验与数据分析思维类文章极具深度。",
+          "tags": [
+            { "text": "商业分析", "color": "green" },
+            { "text": "数据思维", "color": "purple" }
+          ]
+        },
+        {
+          "name": "机器之心",
+          "source": "Synced",
+          "desc": "全球 AI 信息服务平台，专注前沿技术报道、论文解读与产业分析。",
+          "tags": [
+            { "text": "AI 前沿", "color": "purple" },
+            { "text": "论文解读", "color": "blue" }
+          ]
+        },
+        {
+          "name": "量子位",
+          "source": "QbitAI",
+          "desc": "每日精选全球 AI 领域最具价值的新闻、论文与开源项目。",
+          "tags": [
+            { "text": "AI 资讯", "color": "orange" },
+            { "text": "开源项目", "color": "green" }
+          ]
+        },
+        {
+          "name": "数据STUDIO",
+          "source": "原创硬核内容",
+          "desc": "以 Python 为核心，涵盖数据分析、可视化、机器学习，体系完整。",
+          "tags": [
+            { "text": "Python", "color": "cyan" },
+            { "text": "系统教程", "color": "green" }
+          ]
+        },
+        {
+          "name": "美团技术团队",
+          "source": "Meituan Tech",
+          "desc": "分享算法、数据挖掘、AB 实验、搜索推荐等一线实践。",
+          "tags": [
+            { "text": "大厂实践", "color": "pink" },
+            { "text": "AB 实验", "color": "green" }
+          ]
+        },
+        {
+          "name": "阿里技术",
+          "source": "Alibaba Tech",
+          "desc": "涵盖大数据、搜索推荐、因果推断、实验平台等方向。",
+          "tags": [
+            { "text": "大数据", "color": "blue" },
+            { "text": "因果推断", "color": "purple" }
+          ]
+        },
+        {
+          "name": "Python大数据分析",
+          "source": "Feffery",
+          "desc": "500+ 原创技术文章，涵盖数据分析、可视化、ML、Dash 开发。",
+          "tags": [
+            { "text": "Python", "color": "green" },
+            { "text": "Dash", "color": "orange" }
+          ]
+        },
+        {
+          "name": "爱数据LoveData",
+          "source": "原中国统计网",
+          "desc": "大数据从业者学习交流社区，涵盖数据分析、BI 工具等干货。",
+          "tags": [
+            { "text": "数据分析", "color": "orange" },
+            { "text": "BI 工具", "color": "blue" }
+          ]
+        },
+        {
+          "name": "PaperWeekly",
+          "source": "学术论文推荐",
+          "desc": "国内最具影响力的 AI 学术论文推荐平台，每周精选顶会论文。",
+          "tags": [
+            { "text": "论文推荐", "color": "purple" },
+            { "text": "顶会追踪", "color": "indigo" }
+          ]
+        },
+        {
+          "name": "携程技术",
+          "source": "Ctrip Tech",
+          "desc": "在 AB 实验平台建设、搜索推荐、数据治理等领域有丰富实战输出。",
+          "tags": [
+            { "text": "实验平台", "color": "red" },
+            { "text": "搜索推荐", "color": "teal" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,870 @@
+{
+  "sections": [
+    {
+      "id": "prob-stats",
+      "title": "概率统计",
+      "subtitle": "经典统计与贝叶斯推理",
+      "icon": "📐",
+      "gradient": "linear-gradient(135deg, #3b82f6, #6366f1)",
+      "sidebarDot": "#3b82f6",
+      "papers": [
+        {
+          "title": "Regression Shrinkage and Selection via the Lasso",
+          "authors": "Robert Tibshirani",
+          "year": 1996,
+          "source": "Journal of the Royal Statistical Society: Series B, 58(1), 267–288",
+          "impact": "引用 58,000+",
+          "url": "https://doi.org/10.1111/j.2517-6161.1996.tb02080.x",
+          "abstract": "提出 Lasso 回归方法，通过 L1 正则化实现参数稀疏化，自动进行变量选择，成为高维统计与特征工程的核心工具。",
+          "tags": [
+            { "text": "L1 正则化", "color": "purple" },
+            { "text": "稀疏模型", "color": "green" }
+          ]
+        },
+        {
+          "title": "Regularization and Variable Selection via the Elastic Net",
+          "authors": "Hui Zou, Trevor Hastie",
+          "year": 2005,
+          "source": "Journal of the Royal Statistical Society: Series B, 67(2), 301–320",
+          "impact": "引用 18,000+",
+          "url": "https://doi.org/10.1111/j.1467-9868.2005.00503.x",
+          "abstract": "提出弹性网络正则化方法，结合 L1（Lasso）和 L2（Ridge）惩罚，在高维特征选择中兼顾稀疏性和分组效应，广泛应用于基因组学和金融建模。",
+          "tags": [
+            { "text": "正则化", "color": "purple" },
+            { "text": "特征选择", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Bagging Predictors",
+          "authors": "Leo Breiman",
+          "year": 1996,
+          "source": "Machine Learning, 24(2), 123–140",
+          "impact": "引用 24,000+",
+          "url": "https://link.springer.com/article/10.1007/BF00058655",
+          "abstract": "提出 Bootstrap Aggregating（Bagging）方法，通过对训练集进行自助采样并聚合多个模型预测结果，有效降低方差、提升稳定性。",
+          "tags": [
+            { "text": "集成学习", "color": "blue" },
+            { "text": "方差减小", "color": "green" }
+          ]
+        },
+        {
+          "title": "Auto-Encoding Variational Bayes",
+          "authors": "Diederik P. Kingma, Max Welling",
+          "year": 2013,
+          "source": "ICLR 2014",
+          "impact": "引用 30,000+",
+          "url": "https://arxiv.org/abs/1312.6114",
+          "abstract": "提出变分自编码器（VAE），通过重参数化技巧使变分推断可微，实现了深度生成模型的端到端训练，成为生成模型的两大支柱之一。",
+          "tags": [
+            { "text": "VAE", "color": "indigo" },
+            { "text": "生成模型", "color": "green" }
+          ]
+        },
+        {
+          "title": "Latent Dirichlet Allocation",
+          "authors": "David M. Blei, Andrew Y. Ng, Michael I. Jordan",
+          "year": 2003,
+          "source": "JMLR, 3, 993–1022",
+          "impact": "引用 50,000+",
+          "url": "https://jmlr.org/papers/v3/blei03a.html",
+          "abstract": "提出 LDA 主题模型，使用 Dirichlet 先验的贝叶斯生成模型发现文档集合中的隐含主题，广泛应用于文本挖掘、推荐系统和数字人文等领域。",
+          "tags": [
+            { "text": "LDA", "color": "indigo" },
+            { "text": "主题模型", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Bayesian Deep Learning and a Probabilistic Perspective of Generalization",
+          "authors": "Andrew Gordon Wilson, Pavel Izmailov",
+          "year": 2020,
+          "source": "NeurIPS 2020",
+          "impact": "引用 3,000+",
+          "url": "https://arxiv.org/abs/2002.08791",
+          "abstract": "探讨贝叶斯深度学习的核心观点，阐明贝叶斯边际似然如何自动实现奥卡姆剃刀，以及贝叶斯模型平均如何提升泛化与不确定性估计。",
+          "tags": [
+            { "text": "贝叶斯深度学习", "color": "indigo" },
+            { "text": "泛化理论", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Variational Inference with Normalizing Flows",
+          "authors": "Danilo J. Rezende, Shakir Mohamed",
+          "year": 2015,
+          "source": "ICML 2015",
+          "impact": "引用 5,000+",
+          "url": "https://arxiv.org/abs/1505.05770",
+          "abstract": "将正规化流引入变分推断，通过一系列可逆变换将简单分布转换为复杂后验分布，显著提升了变分推断的表达能力。",
+          "tags": [
+            { "text": "Normalizing Flows", "color": "indigo" },
+            { "text": "变分推断", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Visualizing Data using t-SNE",
+          "authors": "Laurens van der Maaten, Geoffrey Hinton",
+          "year": 2008,
+          "source": "JMLR, 9, 2579–2605",
+          "impact": "引用 35,000+",
+          "url": "https://jmlr.org/papers/v9/vandermaaten08a.html",
+          "abstract": "提出 t-SNE 降维方法，通过 Student-t 分布保持高维数据的局部邻域结构，成为高维数据可视化的标准工具，广泛用于单细胞基因组学等领域。",
+          "tags": [
+            { "text": "t-SNE", "color": "yellow" },
+            { "text": "可视化", "color": "green" }
+          ]
+        },
+        {
+          "title": "UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction",
+          "authors": "Leland McInnes, John Healy, James Melville",
+          "year": 2018,
+          "source": "arXiv preprint",
+          "impact": "引用 14,000+",
+          "url": "https://arxiv.org/abs/1802.03426",
+          "abstract": "提出 UMAP，基于黎曼几何和拓扑数据分析理论进行降维，速度远快于 t-SNE 且更好地保持全局结构，已成为高维数据探索的首选工具。",
+          "tags": [
+            { "text": "UMAP", "color": "yellow" },
+            { "text": "流形学习", "color": "purple" }
+          ]
+        },
+        {
+          "title": "A Density-Based Algorithm for Discovering Clusters (DBSCAN)",
+          "authors": "Martin Ester, Hans-Peter Kriegel et al.",
+          "year": 1996,
+          "source": "KDD 1996",
+          "impact": "引用 35,000+",
+          "url": "https://dl.acm.org/doi/10.5555/3001460.3001507",
+          "abstract": "提出 DBSCAN 密度聚类算法，无需预设聚类数量，可发现任意形状的簇并自动识别噪声点，获 KDD 2014 Test of Time Award。",
+          "tags": [
+            { "text": "DBSCAN", "color": "yellow" },
+            { "text": "密度聚类", "color": "blue" }
+          ]
+        },
+        {
+          "title": "A Tutorial on Spectral Clustering",
+          "authors": "Ulrike von Luxburg",
+          "year": 2007,
+          "source": "Statistics and Computing, 17(4), 395–416",
+          "impact": "引用 14,000+",
+          "url": "https://doi.org/10.1007/s11222-007-9033-z",
+          "abstract": "系统介绍谱聚类方法，利用图拉普拉斯矩阵的特征向量将数据嵌入低维空间再进行聚类，特别适合处理非凸形状的簇结构。",
+          "tags": [
+            { "text": "谱聚类", "color": "yellow" },
+            { "text": "图方法", "color": "orange" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "machine-learning",
+      "title": "机器学习",
+      "subtitle": "经典算法到深度学习与图网络",
+      "icon": "🤖",
+      "gradient": "linear-gradient(135deg, #8b5cf6, #a855f7)",
+      "sidebarDot": "#8b5cf6",
+      "papers": [
+        {
+          "title": "Random Forests",
+          "authors": "Leo Breiman",
+          "year": 2001,
+          "source": "Machine Learning, 45(1), 5–32",
+          "impact": "引用 179,000+",
+          "url": "https://link.springer.com/article/10.1023/A:1010933404324",
+          "abstract": "提出随机森林算法，通过 Bagging 与随机特征选择构建决策树集成模型，在分类和回归任务中表现优异，成为最广泛使用的机器学习方法之一。",
+          "tags": [
+            { "text": "集成学习", "color": "blue" },
+            { "text": "分类/回归", "color": "green" }
+          ]
+        },
+        {
+          "title": "Support-Vector Networks",
+          "authors": "Corinna Cortes, Vladimir Vapnik",
+          "year": 1995,
+          "source": "Machine Learning, 20(3), 273–297",
+          "impact": "引用 81,000+",
+          "url": "https://link.springer.com/article/10.1007/BF00994018",
+          "abstract": "提出支持向量机（SVM），通过核函数将数据映射到高维空间进行线性分离，为小样本分类问题提供了理论优雅且实用的解决方案。",
+          "tags": [
+            { "text": "核方法", "color": "blue" },
+            { "text": "分类", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Greedy Function Approximation: A Gradient Boosting Machine",
+          "authors": "Jerome H. Friedman",
+          "year": 2001,
+          "source": "Annals of Statistics, 29(5), 1189–1232",
+          "impact": "引用 28,000+",
+          "url": "https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full",
+          "abstract": "提出梯度提升框架（GBDT），将提升方法推广为一般函数空间中的梯度下降，为 XGBoost、LightGBM 等现代集成方法奠定理论基础。",
+          "tags": [
+            { "text": "Boosting", "color": "blue" },
+            { "text": "梯度优化", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Deep Learning",
+          "authors": "Yann LeCun, Yoshua Bengio, Geoffrey Hinton",
+          "year": 2015,
+          "source": "Nature, 521, 436–444",
+          "impact": "引用 90,000+",
+          "url": "https://doi.org/10.1038/nature14539",
+          "abstract": "三位图灵奖得主联合撰写的深度学习综述，全面回顾了卷积网络、循环网络、表示学习等核心技术，被视为深度学习时代的宣言书。",
+          "tags": [
+            { "text": "综述", "color": "purple" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Deep Residual Learning for Image Recognition",
+          "authors": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun",
+          "year": 2015,
+          "source": "CVPR 2016",
+          "impact": "引用 312,000+",
+          "url": "https://arxiv.org/abs/1512.03385",
+          "abstract": "提出残差网络（ResNet），通过跳跃连接解决深层网络训练中的退化问题，使训练超过 100 层的网络成为可能，深刻改变了深度学习架构设计范式。",
+          "tags": [
+            { "text": "ResNet", "color": "purple" },
+            { "text": "网络架构", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Generative Adversarial Nets",
+          "authors": "Ian Goodfellow et al.",
+          "year": 2014,
+          "source": "NeurIPS 2014",
+          "impact": "引用 93,000+",
+          "url": "https://arxiv.org/abs/1406.2661",
+          "abstract": "提出生成对抗网络（GAN），通过生成器与判别器的博弈实现无监督生成建模，开创了图像生成、数据增强、风格迁移等广泛应用。",
+          "tags": [
+            { "text": "GAN", "color": "purple" },
+            { "text": "生成模型", "color": "green" }
+          ]
+        },
+        {
+          "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+          "authors": "Nitish Srivastava, Geoffrey Hinton et al.",
+          "year": 2014,
+          "source": "JMLR, 15(1), 1929–1958",
+          "impact": "引用 61,000+",
+          "url": "https://jmlr.org/papers/v15/srivastava14a.html",
+          "abstract": "提出 Dropout 正则化技术，训练时随机丢弃神经元以防止过拟合，简单有效，成为深度学习中最基础的正则化手段之一。",
+          "tags": [
+            { "text": "正则化", "color": "blue" },
+            { "text": "训练技巧", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Batch Normalization: Accelerating Deep Network Training",
+          "authors": "Sergey Ioffe, Christian Szegedy",
+          "year": 2015,
+          "source": "ICML 2015",
+          "impact": "引用 67,000+",
+          "url": "https://arxiv.org/abs/1502.03167",
+          "abstract": "提出批量归一化（BatchNorm），通过对每层输入进行标准化来缓解内部协变量偏移，大幅加速训练收敛并提升模型性能。",
+          "tags": [
+            { "text": "归一化", "color": "purple" },
+            { "text": "训练加速", "color": "green" }
+          ]
+        },
+        {
+          "title": "Adam: A Method for Stochastic Optimization",
+          "authors": "Diederik P. Kingma, Jimmy Ba",
+          "year": 2014,
+          "source": "ICLR 2015",
+          "impact": "引用 239,000+",
+          "url": "https://arxiv.org/abs/1412.6980",
+          "abstract": "提出 Adam 优化器，结合动量法和自适应学习率（RMSProp），实现高效稳定的随机梯度优化，成为深度学习默认优化算法。",
+          "tags": [
+            { "text": "优化器", "color": "orange" },
+            { "text": "自适应学习率", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Semi-Supervised Classification with Graph Convolutional Networks",
+          "authors": "Thomas N. Kipf, Max Welling",
+          "year": 2016,
+          "source": "ICLR 2017",
+          "impact": "引用 25,000+",
+          "url": "https://arxiv.org/abs/1609.02907",
+          "abstract": "提出 GCN（图卷积网络），通过谱域上的一阶近似在图结构上实现高效卷积，简洁优雅地解决了半监督节点分类问题，引发了 GNN 研究热潮。",
+          "tags": [
+            { "text": "GCN", "color": "fuchsia" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Graph Attention Networks",
+          "authors": "Petar Veličković et al.",
+          "year": 2017,
+          "source": "ICLR 2018",
+          "impact": "引用 12,000+",
+          "url": "https://arxiv.org/abs/1710.10903",
+          "abstract": "提出 GAT（图注意力网络），引入注意力机制为不同邻居节点分配不同权重，无需预知图的全局结构，可处理归纳式学习和动态图场景。",
+          "tags": [
+            { "text": "GAT", "color": "fuchsia" },
+            { "text": "注意力机制", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Inductive Representation Learning on Large Graphs (GraphSAGE)",
+          "authors": "William L. Hamilton, Rex Ying, Jure Leskovec",
+          "year": 2017,
+          "source": "NeurIPS 2017",
+          "impact": "引用 10,000+",
+          "url": "https://arxiv.org/abs/1706.02216",
+          "abstract": "提出 GraphSAGE，通过采样邻居并聚合特征实现归纳式图表示学习，可泛化到训练时未见过的节点，支持大规模工业图的高效推理。",
+          "tags": [
+            { "text": "GraphSAGE", "color": "fuchsia" },
+            { "text": "归纳学习", "color": "green" }
+          ]
+        },
+        {
+          "title": "How Powerful are Graph Neural Networks?",
+          "authors": "Keyulu Xu, Weihua Hu, Jure Leskovec, Stefanie Jegelka",
+          "year": 2018,
+          "source": "ICLR 2019",
+          "impact": "引用 6,000+",
+          "url": "https://arxiv.org/abs/1810.00826",
+          "abstract": "从理论角度分析 GNN 的表达能力，证明其上界等价于 WL 图同构测试，并提出 GIN（图同构网络）达到这一上界，为 GNN 设计提供了理论指导。",
+          "tags": [
+            { "text": "GIN", "color": "fuchsia" },
+            { "text": "表达能力", "color": "purple" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ab-testing",
+      "title": "AB 实验",
+      "subtitle": "数据驱动决策的基石",
+      "icon": "🧪",
+      "gradient": "linear-gradient(135deg, #10b981, #059669)",
+      "sidebarDot": "#10b981",
+      "papers": [
+        {
+          "title": "Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing",
+          "authors": "Ron Kohavi, Diane Tang, Ya Xu",
+          "year": 2017,
+          "source": "Cambridge University Press / KDD 2017",
+          "impact": "引用 800+",
+          "url": "https://doi.org/10.1145/3097983.3098091",
+          "abstract": "微软/谷歌资深实验专家的权威指南，系统阐述了在线对照实验的设计、运行、分析全流程，涵盖样本量计算、护栏指标、常见陷阱等，是工业界 AB 实验的「圣经」。",
+          "tags": [
+            { "text": "实验设计", "color": "emerald" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "CUPED: Controlled-experiment Using Pre-Experiment Data",
+          "authors": "Alex Deng, Ya Xu, Ron Kohavi, Toby Walker",
+          "year": 2010,
+          "source": "WWW 2013 / Microsoft",
+          "impact": "引用 3,000+",
+          "url": "https://doi.org/10.1214/09-STS305",
+          "abstract": "提出 CUPED 方差缩减方法，利用实验前的协变量数据对实验指标进行回归调整，可在不增加样本量的情况下显著提升实验灵敏度，已成为业界标配技术。",
+          "tags": [
+            { "text": "CUPED", "color": "emerald" },
+            { "text": "方差缩减", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data",
+          "authors": "Yongyi Chen et al. (LinkedIn)",
+          "year": 2018,
+          "source": "WSDM 2018",
+          "impact": "引用 600+",
+          "url": "https://arxiv.org/abs/1710.08217",
+          "abstract": "对 CUPED 方法的重要扩展，提出使用机器学习模型预测实验前指标来进一步降低方差，同时探讨了多种协变量选择策略对灵敏度提升的影响。",
+          "tags": [
+            { "text": "方差缩减", "color": "emerald" },
+            { "text": "ML 辅助", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Diagnosing Sample Ratio Mismatch in Online Controlled Experiments",
+          "authors": "Alex Deng, Ulf Knoblich, Jiannan Lu (Microsoft)",
+          "year": 2019,
+          "source": "KDD 2019",
+          "impact": "引用 400+",
+          "url": "https://doi.org/10.1145/3292500.3330722",
+          "abstract": "系统研究了样本比例不匹配（SRM）问题的诊断方法，提出了多层级检测框架来定位实验中的数据质量问题，SRM 检查已成为实验平台的核心护栏机制。",
+          "tags": [
+            { "text": "SRM", "color": "emerald" },
+            { "text": "数据质量", "color": "cyan" }
+          ]
+        },
+        {
+          "title": "Switchback Experiments for Marketplace and Network Interference",
+          "authors": "Iavor Bojinov et al. (Uber/Lyft)",
+          "year": 2022,
+          "source": "KDD 2022",
+          "impact": "引用 200+",
+          "url": "https://doi.org/10.1145/3534678.3539160",
+          "abstract": "针对双边市场中用户间干扰（interference）问题，提出 Switchback 实验设计，在时间维度上交替切换处理组，有效减少网络效应带来的估计偏差，被 Uber、Lyft 等广泛采用。",
+          "tags": [
+            { "text": "Switchback", "color": "emerald" },
+            { "text": "网络干扰", "color": "pink" }
+          ]
+        },
+        {
+          "title": "Applying the Delta Method in Metric Analytics: A Practical Guide with Novel Ideas",
+          "authors": "Alex Deng, Ulf Knoblich, Jiannan Lu (Microsoft)",
+          "year": 2018,
+          "source": "KDD 2018",
+          "impact": "引用 500+",
+          "url": "https://doi.org/10.1145/3219819.3219919",
+          "abstract": "系统阐述了 Delta 方法在实验指标分析中的应用，包括比率指标的方差估计、分位数指标的置信区间构造等，为实验平台的统计引擎提供了实用的数学框架。",
+          "tags": [
+            { "text": "Delta 方法", "color": "emerald" },
+            { "text": "指标分析", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Overlapping Experiment Infrastructure: More, Better, Faster Experimentation",
+          "authors": "Diane Tang, Ashish Agarwal, Deirdre O'Brien, Mike Meyer (Google)",
+          "year": 2010,
+          "source": "KDD 2010",
+          "impact": "引用 800+",
+          "url": "https://doi.org/10.1145/1835804.1835810",
+          "abstract": "介绍 Google 重叠实验系统架构，通过分层（Layer）机制允许多个实验同时运行且互不干扰，是工业级实验平台设计的经典参考。",
+          "tags": [
+            { "text": "实验平台", "color": "emerald" },
+            { "text": "Google", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Online Controlled Experiments at Large Scale",
+          "authors": "Ron Kohavi, Alex Deng, Brian Frasca et al. (Microsoft)",
+          "year": 2013,
+          "source": "KDD 2013",
+          "impact": "引用 1,200+",
+          "url": "https://doi.org/10.1145/2487575.2488217",
+          "abstract": "基于微软大规模实验实践，总结了在线对照实验中的关键挑战，包括指标选择、实验灵敏度、用户体验退化检测等，提供了丰富的实战经验和案例。",
+          "tags": [
+            { "text": "大规模实验", "color": "emerald" },
+            { "text": "工业实践", "color": "cyan" }
+          ]
+        },
+        {
+          "title": "The Power of Bayesian A/B Testing",
+          "authors": "Michael Lindon, Chris Sanden et al. (Netflix)",
+          "year": 2022,
+          "source": "Netflix Tech Blog / NeurIPS 2022 Workshop",
+          "impact": "引用 200+",
+          "url": "https://arxiv.org/abs/2206.07750",
+          "abstract": "介绍 Netflix 的贝叶斯 AB 实验框架，通过后验概率和决策理论替代传统的 p 值检验，支持随时查看（anytime valid）和灵活停止，大幅提升实验效率。",
+          "tags": [
+            { "text": "贝叶斯实验", "color": "emerald" },
+            { "text": "Netflix", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Detecting Interference in A/B Tests with Increasing Allocation",
+          "authors": "Ramesh Johari, Hannah Li, Inessa Liskovich, Gabriel Weintraub",
+          "year": 2022,
+          "source": "Management Science, 2022",
+          "impact": "引用 300+",
+          "url": "https://doi.org/10.1287/mnsc.2022.4346",
+          "abstract": "提出通过渐进式增加实验分配比例来检测和量化用户间干扰效应（Interference），为社交网络和双边市场中 AB 实验的偏差诊断提供了严谨的统计方法。",
+          "tags": [
+            { "text": "干扰效应", "color": "emerald" },
+            { "text": "因果识别", "color": "pink" }
+          ]
+        },
+        {
+          "title": "A/B Testing with Fat Tails",
+          "authors": "Eduardo M. Azevedo, Alex Deng, José Luis Montiel Olea et al.",
+          "year": 2019,
+          "source": "Journal of Political Economy, 2020",
+          "impact": "引用 400+",
+          "url": "https://doi.org/10.1086/710607",
+          "abstract": "研究重尾分布指标（如收入、留存）对 AB 实验的影响，证明传统中心极限定理在小样本重尾情况下失效，提出截尾（Winsorization）和分位数方法等稳健替代方案。",
+          "tags": [
+            { "text": "重尾分布", "color": "emerald" },
+            { "text": "稳健统计", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Peeking at A/B Tests: Why It Matters, and What to Do About It",
+          "authors": "Ramesh Johari, Pete Koomen, Leonid Pekelis, David Walsh (Optimizely)",
+          "year": 2017,
+          "source": "KDD 2017",
+          "impact": "引用 600+",
+          "url": "https://doi.org/10.1145/3097983.3097992",
+          "abstract": "系统分析了频繁查看实验结果（Peeking）导致的第一类错误膨胀问题，提出基于 always-valid p-value 的序贯检验方法，允许随时查看而不牺牲统计严谨性。",
+          "tags": [
+            { "text": "序贯检验", "color": "emerald" },
+            { "text": "多重查看", "color": "cyan" }
+          ]
+        },
+        {
+          "title": "Heterogeneous Treatment Effects in Online Experimentation",
+          "authors": "Alex Deng, Jiannan Lu, Jonathan Litz (Microsoft)",
+          "year": 2023,
+          "source": "KDD 2023",
+          "impact": "引用 150+",
+          "url": "https://doi.org/10.1145/3580305.3599837",
+          "abstract": "探讨在线实验中异质性处理效应（HTE）的估计与应用，结合因果森林等 ML 方法识别对不同用户群体效果差异，助力个性化产品决策。",
+          "tags": [
+            { "text": "HTE", "color": "emerald" },
+            { "text": "个性化实验", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Top Challenges from the First Practical Online Controlled Experiments Summit",
+          "authors": "Ron Kohavi, Alex Deng, Lukas Vermeer et al.",
+          "year": 2020,
+          "source": "KDD Explorations, 2020",
+          "impact": "引用 300+",
+          "url": "https://doi.org/10.1145/3400051.3400060",
+          "abstract": "来自微软、Google、LinkedIn、Netflix 等公司的实验专家总结了 AB 实验的十大挑战，涵盖长期效应、干扰网络、指标体系、文化建设等前沿议题。",
+          "tags": [
+            { "text": "综述", "color": "emerald" },
+            { "text": "行业洞察", "color": "blue" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causal",
+      "title": "因果推断",
+      "subtitle": "从相关性到因果性",
+      "icon": "🔗",
+      "gradient": "linear-gradient(135deg, #0ea5e9, #06b6d4)",
+      "sidebarDot": "#0ea5e9",
+      "papers": [
+        {
+          "title": "The Central Role of the Propensity Score in Observational Studies for Causal Effects",
+          "authors": "Paul R. Rosenbaum, Donald B. Rubin",
+          "year": 1983,
+          "source": "Biometrika, 70(1), 41–55",
+          "impact": "引用 30,000+",
+          "url": "https://doi.org/10.1093/biomet/70.1.41",
+          "abstract": "提出倾向性评分方法，通过将多维混杂因素压缩为一维评分来平衡处理组和对照组，成为观察性研究中消除选择偏差的核心工具。",
+          "tags": [
+            { "text": "倾向性评分", "color": "cyan" },
+            { "text": "观察性研究", "color": "green" }
+          ]
+        },
+        {
+          "title": "Causality: Models, Reasoning, and Inference",
+          "authors": "Judea Pearl",
+          "year": 2009,
+          "source": "Cambridge University Press (2nd ed.)",
+          "impact": "引用 65,000+",
+          "url": "https://doi.org/10.1017/CBO9780511803161",
+          "abstract": "图灵奖得主 Judea Pearl 的经典著作，系统阐述了因果图模型（SCM）、do-演算和反事实推理的数学框架，建立了现代因果推断的理论体系。",
+          "tags": [
+            { "text": "SCM", "color": "cyan" },
+            { "text": "因果图", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies",
+          "authors": "Donald B. Rubin",
+          "year": 1974,
+          "source": "Journal of Educational Psychology, 66(5), 688–701",
+          "impact": "引用 10,000+",
+          "url": "https://doi.org/10.1037/h0037350",
+          "abstract": "提出 Rubin 因果模型（潜在结果框架），将因果效应定义为潜在结果的差异，建立了 ATE、ATT 等核心概念，成为统计因果推断的主流范式。",
+          "tags": [
+            { "text": "潜在结果", "color": "cyan" },
+            { "text": "ATE", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Double/Debiased Machine Learning for Treatment and Structural Parameters",
+          "authors": "Victor Chernozhukov et al.",
+          "year": 2019,
+          "source": "The Econometrics Journal, 21(1), C1–C68",
+          "impact": "引用 5,000+",
+          "url": "https://doi.org/10.1111/ectj.12097",
+          "abstract": "提出双重/去偏机器学习（DML）框架，利用交叉拟合和 Neyman 正交条件将机器学习方法引入因果推断，实现高维数据下的有效处理效应估计。",
+          "tags": [
+            { "text": "DML", "color": "cyan" },
+            { "text": "高维推断", "color": "blue" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeseries",
+      "title": "时序预测",
+      "subtitle": "从经典统计到深度预测",
+      "icon": "📈",
+      "gradient": "linear-gradient(135deg, #14b8a6, #10b981)",
+      "sidebarDot": "#14b8a6",
+      "papers": [
+        {
+          "title": "Long Short-Term Memory",
+          "authors": "Sepp Hochreiter, Jürgen Schmidhuber",
+          "year": 1997,
+          "source": "Neural Computation, 9(8), 1735–1780",
+          "impact": "引用 100,000+",
+          "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+          "abstract": "提出 LSTM 网络，通过门控机制（遗忘门、输入门、输出门）解决传统 RNN 的梯度消失问题，成为序列建模的基础组件。",
+          "tags": [
+            { "text": "LSTM", "color": "teal" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Forecasting at Scale (Prophet)",
+          "authors": "Sean J. Taylor, Benjamin Letham (Meta)",
+          "year": 2017,
+          "source": "The American Statistician, 72(1), 37–45",
+          "impact": "引用 10,000+",
+          "url": "https://doi.org/10.1080/00031305.2017.1380080",
+          "abstract": "提出 Prophet 时间序列预测框架，采用可分解的加法模型（趋势+季节性+假期），面向业务分析师设计，可自动处理缺失值和异常值。",
+          "tags": [
+            { "text": "Prophet", "color": "teal" },
+            { "text": "业务预测", "color": "green" }
+          ]
+        },
+        {
+          "title": "Time Series Analysis: Forecasting and Control",
+          "authors": "George E.P. Box, Gwilym M. Jenkins",
+          "year": 1970,
+          "source": "Holden-Day (Book)",
+          "impact": "引用 80,000+",
+          "url": "https://doi.org/10.1002/9781118619193",
+          "abstract": "奠定了 ARIMA 系列模型的理论基础，系统阐述了时间序列的辨识、估计和诊断方法论（Box-Jenkins 方法），是经典时序分析的奠基之作。",
+          "tags": [
+            { "text": "ARIMA", "color": "teal" },
+            { "text": "经典方法", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Are Transformers Effective for Time Series Forecasting?",
+          "authors": "Ailing Zeng et al.",
+          "year": 2022,
+          "source": "AAAI 2023",
+          "impact": "引用 2,000+",
+          "url": "https://arxiv.org/abs/2205.13504",
+          "abstract": "提出 DLinear 等简单线性模型，在多个时间序列预测基准上超越复杂 Transformer 模型，引发了 \"Transformer 是否适合时序预测\" 的广泛讨论。",
+          "tags": [
+            { "text": "DLinear", "color": "teal" },
+            { "text": "争议性研究", "color": "purple" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "人工智能",
+      "subtitle": "NLP、计算机视觉与强化学习",
+      "icon": "🧠",
+      "gradient": "linear-gradient(135deg, #ec4899, #f43f5e)",
+      "sidebarDot": "#ec4899",
+      "papers": [
+        {
+          "title": "Attention Is All You Need",
+          "authors": "Ashish Vaswani et al.",
+          "year": 2017,
+          "source": "NeurIPS 2017",
+          "impact": "引用 170,000+",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "abstract": "提出 Transformer 架构，完全基于自注意力机制取代 RNN/CNN，成为 BERT、GPT 等所有现代大语言模型的基础架构，重新定义了 NLP 领域。",
+          "tags": [
+            { "text": "Transformer", "color": "orange" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+          "authors": "Jacob Devlin, Ming-Wei Chang et al.",
+          "year": 2018,
+          "source": "NAACL 2019",
+          "impact": "引用 120,000+",
+          "url": "https://arxiv.org/abs/1810.04805",
+          "abstract": "提出 BERT 预训练模型，通过掩码语言模型和下一句预测任务进行双向预训练，在 11 项 NLP 任务上刷新记录，开启了「预训练+微调」范式。",
+          "tags": [
+            { "text": "预训练", "color": "orange" },
+            { "text": "NLU", "color": "green" }
+          ]
+        },
+        {
+          "title": "Efficient Estimation of Word Representations in Vector Space",
+          "authors": "Tomas Mikolov et al.",
+          "year": 2013,
+          "source": "ICLR 2013 Workshop",
+          "impact": "引用 45,000+",
+          "url": "https://arxiv.org/abs/1301.3781",
+          "abstract": "提出 Word2Vec（CBOW 和 Skip-gram），将词语映射为稠密向量使语义相似的词在向量空间中邻近，催生了分布式表示学习的研究浪潮。",
+          "tags": [
+            { "text": "词向量", "color": "blue" },
+            { "text": "表示学习", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Language Models are Few-Shot Learners",
+          "authors": "Tom B. Brown et al. (OpenAI)",
+          "year": 2020,
+          "source": "NeurIPS 2020",
+          "impact": "引用 30,000+",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "abstract": "提出 GPT-3（175B 参数），展示了超大规模语言模型的少样本学习能力，无需微调即可通过提示完成多种 NLP 任务，开启了大模型时代。",
+          "tags": [
+            { "text": "GPT-3", "color": "orange" },
+            { "text": "大模型", "color": "purple" }
+          ]
+        },
+        {
+          "title": "GloVe: Global Vectors for Word Representation",
+          "authors": "Jeffrey Pennington, Richard Socher, Christopher Manning",
+          "year": 2014,
+          "source": "EMNLP 2014",
+          "impact": "引用 38,000+",
+          "url": "https://aclanthology.org/D14-1162/",
+          "abstract": "提出 GloVe 词向量方法，结合全局矩阵分解和局部上下文窗口方法的优点，在词类比和命名实体识别等任务上表现出色。",
+          "tags": [
+            { "text": "词向量", "color": "blue" },
+            { "text": "共现矩阵", "color": "green" }
+          ]
+        },
+        {
+          "title": "Sequence to Sequence Learning with Neural Networks",
+          "authors": "Ilya Sutskever, Oriol Vinyals, Quoc V. Le",
+          "year": 2014,
+          "source": "NeurIPS 2014",
+          "impact": "引用 28,000+",
+          "url": "https://arxiv.org/abs/1409.3215",
+          "abstract": "提出 Seq2Seq 编码器-解码器架构，使用 LSTM 实现端到端的序列到序列映射，奠定了机器翻译、文本摘要等生成式 NLP 的基础。",
+          "tags": [
+            { "text": "Seq2Seq", "color": "orange" },
+            { "text": "编码器-解码器", "color": "purple" }
+          ]
+        },
+        {
+          "title": "ImageNet Classification with Deep Convolutional Neural Networks",
+          "authors": "Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton",
+          "year": 2012,
+          "source": "NeurIPS 2012",
+          "impact": "引用 160,000+",
+          "url": "https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+          "abstract": "提出 AlexNet，在 ImageNet 竞赛中大幅超越传统方法，标志着深度学习在计算机视觉领域的突破性胜利，引发了 CNN 革命。",
+          "tags": [
+            { "text": "AlexNet", "color": "green" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
+          "authors": "Karen Simonyan, Andrew Zisserman",
+          "year": 2014,
+          "source": "ICLR 2015",
+          "impact": "引用 115,000+",
+          "url": "https://arxiv.org/abs/1409.1556",
+          "abstract": "提出 VGGNet，证明了通过增加网络深度（16–19 层）使用小卷积核（3×3）可以有效提升图像识别性能，架构简洁且特征迁移性强。",
+          "tags": [
+            { "text": "VGGNet", "color": "green" },
+            { "text": "深度网络", "color": "orange" }
+          ]
+        },
+        {
+          "title": "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+          "authors": "Olaf Ronneberger, Philipp Fischer, Thomas Brox",
+          "year": 2015,
+          "source": "MICCAI 2015",
+          "impact": "引用 75,000+",
+          "url": "https://arxiv.org/abs/1505.04597",
+          "abstract": "提出 U-Net 编码器-解码器架构，通过跳跃连接融合低层和高层特征，在小样本医学图像分割中表现卓越，成为分割任务的标准架构。",
+          "tags": [
+            { "text": "U-Net", "color": "green" },
+            { "text": "图像分割", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Faster R-CNN: Towards Real-Time Object Detection",
+          "authors": "Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun",
+          "year": 2015,
+          "source": "NeurIPS 2015",
+          "impact": "引用 68,000+",
+          "url": "https://arxiv.org/abs/1506.01497",
+          "abstract": "提出区域建议网络（RPN），与检测网络共享卷积特征，实现近实时的端到端目标检测，成为两阶段检测方法的经典范式。",
+          "tags": [
+            { "text": "目标检测", "color": "green" },
+            { "text": "RPN", "color": "blue" }
+          ]
+        },
+        {
+          "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+          "authors": "Alexey Dosovitskiy et al. (Google Brain)",
+          "year": 2020,
+          "source": "ICLR 2021",
+          "impact": "引用 35,000+",
+          "url": "https://arxiv.org/abs/2010.11929",
+          "abstract": "提出 Vision Transformer（ViT），将图像分割为 Patch 序列后直接应用 Transformer，证明了纯注意力机制在视觉任务中可超越 CNN。",
+          "tags": [
+            { "text": "ViT", "color": "green" },
+            { "text": "Transformer", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Going Deeper with Convolutions",
+          "authors": "Christian Szegedy et al. (Google)",
+          "year": 2014,
+          "source": "CVPR 2015",
+          "impact": "引用 65,000+",
+          "url": "https://arxiv.org/abs/1409.4842",
+          "abstract": "提出 GoogLeNet/Inception 架构，引入 Inception 模块实现多尺度特征提取，在增加网络深度和宽度的同时控制计算量。",
+          "tags": [
+            { "text": "Inception", "color": "green" },
+            { "text": "多尺度", "color": "purple" }
+          ]
+        },
+        {
+          "title": "Human-level Control through Deep Reinforcement Learning",
+          "authors": "Volodymyr Mnih et al. (DeepMind)",
+          "year": 2015,
+          "source": "Nature, 518, 529–533",
+          "impact": "引用 30,000+",
+          "url": "https://doi.org/10.1038/nature14236",
+          "abstract": "提出 DQN，将深度学习与 Q-Learning 结合，使用经验回放和目标网络使 Agent 在 Atari 游戏中达到人类水平，开启深度强化学习时代。",
+          "tags": [
+            { "text": "DQN", "color": "pink" },
+            { "text": "里程碑", "color": "blue" }
+          ]
+        },
+        {
+          "title": "Mastering the Game of Go with Deep Neural Networks and Tree Search",
+          "authors": "David Silver et al. (DeepMind)",
+          "year": 2016,
+          "source": "Nature, 529, 484–489",
+          "impact": "引用 18,000+",
+          "url": "https://doi.org/10.1038/nature16961",
+          "abstract": "提出 AlphaGo，结合深度卷积网络与蒙特卡洛树搜索（MCTS），首次击败人类围棋世界冠军，成为 AI 发展史上的标志性事件。",
+          "tags": [
+            { "text": "AlphaGo", "color": "pink" },
+            { "text": "MCTS", "color": "green" }
+          ]
+        },
+        {
+          "title": "Proximal Policy Optimization Algorithms",
+          "authors": "John Schulman et al. (OpenAI)",
+          "year": 2017,
+          "source": "arXiv preprint",
+          "impact": "引用 15,000+",
+          "url": "https://arxiv.org/abs/1707.06347",
+          "abstract": "提出 PPO 算法，通过裁剪概率比限制策略更新幅度，兼顾训练稳定性和采样效率，成为强化学习（尤其是 RLHF）中最常用的策略优化方法。",
+          "tags": [
+            { "text": "PPO", "color": "pink" },
+            { "text": "策略优化", "color": "orange" }
+          ]
+        },
+        {
+          "title": "Q-Learning",
+          "authors": "Christopher J.C.H. Watkins, Peter Dayan",
+          "year": 1992,
+          "source": "Machine Learning, 8(3), 279–292",
+          "impact": "引用 20,000+",
+          "url": "https://link.springer.com/article/10.1007/BF00992698",
+          "abstract": "提出 Q-Learning 算法，通过离策略的时序差分学习直接逼近最优动作价值函数，不需要环境模型，是强化学习最基础的无模型方法之一。",
+          "tags": [
+            { "text": "Q-Learning", "color": "blue" },
+            { "text": "值函数", "color": "purple" }
+          ]
+        }
+      ]
+    }
+  ]
+}

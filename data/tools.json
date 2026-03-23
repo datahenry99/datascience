@@ -1,0 +1,716 @@
+{
+  "categories": [
+    {
+      "id": "data-processing",
+      "title": "数据处理",
+      "desc": "数据清洗、转换、存储与管道构建",
+      "emoji": "🐼",
+      "color": "#f97316",
+      "gradient": "linear-gradient(135deg,#f97316,#fb923c)",
+      "tagClass": "orange",
+      "iconBg": "#fff7ed"
+    },
+    {
+      "id": "ml",
+      "title": "机器学习",
+      "desc": "经典算法、模型训练与评估",
+      "emoji": "📈",
+      "color": "#3b82f6",
+      "gradient": "linear-gradient(135deg,#3b82f6,#60a5fa)",
+      "tagClass": "blue",
+      "iconBg": "#eff6ff"
+    },
+    {
+      "id": "dl",
+      "title": "深度学习",
+      "desc": "神经网络框架与模型训练",
+      "emoji": "🧠",
+      "color": "#8b5cf6",
+      "gradient": "linear-gradient(135deg,#8b5cf6,#a78bfa)",
+      "tagClass": "purple",
+      "iconBg": "#f5f3ff"
+    },
+    {
+      "id": "viz",
+      "title": "数据可视化",
+      "desc": "图表绑定、交互式仪表板",
+      "emoji": "📊",
+      "color": "#22c55e",
+      "gradient": "linear-gradient(135deg,#22c55e,#4ade80)",
+      "tagClass": "green",
+      "iconBg": "#f0fdf4"
+    },
+    {
+      "id": "nlp",
+      "title": "自然语言处理",
+      "desc": "文本分析、语言模型与对话系统",
+      "emoji": "💬",
+      "color": "#ec4899",
+      "gradient": "linear-gradient(135deg,#ec4899,#f472b6)",
+      "tagClass": "pink",
+      "iconBg": "#fdf2f8"
+    },
+    {
+      "id": "cv",
+      "title": "计算机视觉",
+      "desc": "图像处理、目标检测与图像生成",
+      "emoji": "👁️",
+      "color": "#06b6d4",
+      "gradient": "linear-gradient(135deg,#06b6d4,#22d3ee)",
+      "tagClass": "cyan",
+      "iconBg": "#ecfeff"
+    },
+    {
+      "id": "deploy",
+      "title": "部署与工程",
+      "desc": "模型部署、实验追踪与 MLOps",
+      "emoji": "🚀",
+      "color": "#f43f5e",
+      "gradient": "linear-gradient(135deg,#f43f5e,#fb7185)",
+      "tagClass": "red",
+      "iconBg": "#fff1f2"
+    },
+    {
+      "id": "auto",
+      "title": "AutoML 与实验工具",
+      "desc": "自动化建模、Notebook 与开发环境",
+      "emoji": "⚙️",
+      "color": "#a855f7",
+      "gradient": "linear-gradient(135deg,#a855f7,#c084fc)",
+      "tagClass": "violet",
+      "iconBg": "#faf5ff"
+    },
+    {
+      "id": "agent",
+      "title": "AI Agent / 龙虾产品",
+      "desc": "智能体框架与 AI 自动化平台",
+      "emoji": "🦞",
+      "color": "#ef4444",
+      "gradient": "linear-gradient(135deg,#ef4444,#f97316)",
+      "tagClass": "lobster",
+      "iconBg": "#fef2f2"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Pandas",
+      "category": "data-processing",
+      "desc": "高性能 DataFrame 数据结构，支持数据清洗、转换、聚合、合并，是数据分析的核心工具。",
+      "url": "https://pandas.pydata.org",
+      "icon": "https://pandas.pydata.org/static/img/favicon_white.ico",
+      "stars": "⭐ 44.3k",
+      "badge": "🔥 热度最高",
+      "tag": "数据处理"
+    },
+    {
+      "name": "NumPy",
+      "category": "data-processing",
+      "desc": "Python 科学计算基础库，提供高效的多维数组对象和丰富的数学函数，是几乎所有数据科学库的底层依赖。",
+      "url": "https://numpy.org",
+      "icon": "https://numpy.org/images/logo.svg",
+      "stars": "⭐ 28.5k",
+      "badge": "🔥 基石级",
+      "tag": "数据处理"
+    },
+    {
+      "name": "Polars",
+      "category": "data-processing",
+      "desc": "基于 Rust 的超高速 DataFrame 库，支持惰性计算和多线程，处理大数据集比 Pandas 快 10-100 倍。",
+      "url": "https://pola.rs",
+      "icon": "https://raw.githubusercontent.com/pola-rs/polars-static/master/logos/polars-logo-dark-medium.png",
+      "stars": "⭐ 31.2k",
+      "badge": "🔥 增速最快",
+      "tag": "数据处理"
+    },
+    {
+      "name": "SciPy",
+      "category": "data-processing",
+      "desc": "科学计算工具箱，包含优化、线性代数、积分、插值、统计等模块，是工程与科研的必备库。",
+      "url": "https://scipy.org",
+      "icon": "https://scipy.org/images/logo.svg",
+      "stars": "⭐ 13.3k",
+      "badge": "📦 经典稳定",
+      "tag": "数据处理"
+    },
+    {
+      "name": "Dask",
+      "category": "data-processing",
+      "desc": "并行计算框架，兼容 Pandas/NumPy API，支持分布式处理超大数据集，无需更改代码即可扩展。",
+      "url": "https://dask.org",
+      "icon": "https://docs.dask.org/en/latest/_images/dask_icon_no_text.svg",
+      "stars": "⭐ 12.9k",
+      "badge": "📦 大数据",
+      "tag": "数据处理"
+    },
+    {
+      "name": "Apache Spark (PySpark)",
+      "category": "data-processing",
+      "desc": "分布式大数据处理引擎，支持 SQL、流式计算、机器学习，适合 TB/PB 级数据管道构建。",
+      "url": "https://spark.apache.org",
+      "icon": "https://spark.apache.org/images/spark-logo-rev.svg",
+      "stars": "⭐ 40.3k",
+      "badge": "🔥 企业级",
+      "tag": "数据处理"
+    },
+    {
+      "name": "Apache Airflow",
+      "category": "data-processing",
+      "desc": "工作流编排平台，用 Python 定义 DAG 数据管道，支持定时调度、依赖管理和监控。",
+      "url": "https://airflow.apache.org",
+      "icon": "https://airflow.apache.org/images/feature-image.png",
+      "stars": "⭐ 38.1k",
+      "badge": "📦 管道编排",
+      "tag": "数据处理"
+    },
+    {
+      "name": "Scikit-learn",
+      "category": "ml",
+      "desc": "最流行的 Python 机器学习库，提供分类、回归、聚类、降维等算法，API 简洁统一。",
+      "url": "https://scikit-learn.org",
+      "icon": "https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png",
+      "stars": "⭐ 60.8k",
+      "badge": "🔥 必学",
+      "tag": "机器学习"
+    },
+    {
+      "name": "XGBoost",
+      "category": "ml",
+      "desc": "极致优化的梯度提升框架，Kaggle 竞赛中最受欢迎的算法之一，支持并行训练和正则化。",
+      "url": "https://xgboost.ai",
+      "icon": "https://raw.githubusercontent.com/dmlc/dmlc.github.io/master/img/logo-m/xgboost.png",
+      "stars": "⭐ 26.6k",
+      "badge": "🏅 竞赛利器",
+      "tag": "机器学习"
+    },
+    {
+      "name": "LightGBM",
+      "category": "ml",
+      "desc": "微软出品的轻量级梯度提升框架，基于直方图的算法，训练速度更快，内存消耗更低。",
+      "url": "https://lightgbm.readthedocs.io",
+      "icon": "https://lightgbm.readthedocs.io/en/latest/_images/LightGBM_logo_black_text.svg",
+      "stars": "⭐ 17.1k",
+      "badge": "⚡ 高效",
+      "tag": "机器学习"
+    },
+    {
+      "name": "CatBoost",
+      "category": "ml",
+      "desc": "Yandex 开发的梯度提升库，原生支持类别特征处理，无需手动编码，开箱即用效果出色。",
+      "url": "https://catboost.ai",
+      "icon": "https://catboost.ai/favicon.ico",
+      "stars": "⭐ 8.2k",
+      "badge": "📦 开箱即用",
+      "tag": "机器学习"
+    },
+    {
+      "name": "Statsmodels",
+      "category": "ml",
+      "desc": "统计建模与计量经济学库，提供回归分析、时间序列分析、假设检验等经典统计方法。",
+      "url": "https://www.statsmodels.org",
+      "icon": "https://www.statsmodels.org/stable/_images/statsmodels-logo-v2-no-text.svg",
+      "stars": "⭐ 10.3k",
+      "badge": "📦 统计学",
+      "tag": "机器学习"
+    },
+    {
+      "name": "Optuna",
+      "category": "ml",
+      "desc": "自动化超参数调优框架，支持贝叶斯优化、剪枝策略，可与任何机器学习框架集成。",
+      "url": "https://optuna.org",
+      "icon": "https://avatars.githubusercontent.com/u/57251745",
+      "stars": "⭐ 11.5k",
+      "badge": "🎯 调参神器",
+      "tag": "机器学习"
+    },
+    {
+      "name": "TensorFlow",
+      "category": "dl",
+      "desc": "Google 开源的深度学习框架，支持 GPU/TPU 加速，生态完善，适合从研究到生产部署全流程。",
+      "url": "https://tensorflow.org",
+      "icon": "https://www.tensorflow.org/favicon.ico",
+      "stars": "⭐ 187k",
+      "badge": "🔥 生态最全",
+      "tag": "深度学习"
+    },
+    {
+      "name": "PyTorch",
+      "category": "dl",
+      "desc": "Meta 开源的深度学习框架，动态计算图设计，调试友好，学术界首选，工业界快速增长。",
+      "url": "https://pytorch.org",
+      "icon": "https://pytorch.org/favicon.ico",
+      "stars": "⭐ 85.7k",
+      "badge": "🔥 学术首选",
+      "tag": "深度学习"
+    },
+    {
+      "name": "Hugging Face Transformers",
+      "category": "dl",
+      "desc": "预训练模型中心，提供 BERT、GPT、T5 等数万个模型，几行代码即可加载使用。",
+      "url": "https://huggingface.co",
+      "icon": "https://huggingface.co/favicon.ico",
+      "stars": "⭐ 138k",
+      "badge": "🔥 模型库",
+      "tag": "深度学习"
+    },
+    {
+      "name": "PyTorch Lightning",
+      "category": "dl",
+      "desc": "PyTorch 的高级封装框架，自动处理训练循环、分布式训练、混合精度等，让研究者聚焦模型本身。",
+      "url": "https://lightning.ai",
+      "icon": "https://lightning.ai/favicon.ico",
+      "stars": "⭐ 28.6k",
+      "badge": "⚡ 高效训练",
+      "tag": "深度学习"
+    },
+    {
+      "name": "Keras",
+      "category": "dl",
+      "desc": "高层神经网络 API，设计简洁优雅，适合快速原型设计，已集成到 TensorFlow 中。",
+      "url": "https://keras.io",
+      "icon": "https://keras.io/favicon.ico",
+      "stars": "⭐ 62.2k",
+      "badge": "📦 入门首选",
+      "tag": "深度学习"
+    },
+    {
+      "name": "JAX",
+      "category": "dl",
+      "desc": "Google 的高性能数值计算库，支持自动微分和 XLA 编译加速，是 NumPy 的 GPU 版升级。",
+      "url": "https://github.com/google/jax",
+      "icon": "https://raw.githubusercontent.com/jax-ml/jax/main/images/jax_logo_250px.png",
+      "stars": "⭐ 31.5k",
+      "badge": "🔥 新锐",
+      "tag": "深度学习"
+    },
+    {
+      "name": "ONNX Runtime",
+      "category": "dl",
+      "desc": "跨平台模型推理引擎，支持多种框架导出的 ONNX 模型，优化推理速度和内存占用。",
+      "url": "https://onnxruntime.ai",
+      "icon": "https://onnxruntime.ai/images/icons/ONNX-Runtime-logo.svg",
+      "stars": "⭐ 15.2k",
+      "badge": "🏎️ 高速推理",
+      "tag": "深度学习"
+    },
+    {
+      "name": "Matplotlib",
+      "category": "viz",
+      "desc": "Python 可视化基石，支持折线图、柱状图、散点图、热力图等各种图表，高度可定制。",
+      "url": "https://matplotlib.org",
+      "icon": "https://matplotlib.org/stable/_static/logo_dark.svg",
+      "stars": "⭐ 20.7k",
+      "badge": "📦 基石级",
+      "tag": "可视化"
+    },
+    {
+      "name": "Seaborn",
+      "category": "viz",
+      "desc": "基于 Matplotlib 的统计可视化库，默认样式精美，特别适合统计图表和探索性数据分析。",
+      "url": "https://seaborn.pydata.org",
+      "icon": "https://seaborn.pydata.org/_static/logo-wide-lightbg.svg",
+      "stars": "⭐ 12.8k",
+      "badge": "🎨 最美统计图",
+      "tag": "可视化"
+    },
+    {
+      "name": "Plotly",
+      "category": "viz",
+      "desc": "交互式可视化库，支持缩放、悬停、动画等交互功能，图表可嵌入网页和 Jupyter Notebook。",
+      "url": "https://plotly.com",
+      "icon": "https://avatars.githubusercontent.com/u/5997976",
+      "stars": "⭐ 16.8k",
+      "badge": "🔥 交互式",
+      "tag": "可视化"
+    },
+    {
+      "name": "Bokeh",
+      "category": "viz",
+      "desc": "交互式 Web 可视化库，生成的图表可嵌入 Web 应用，支持流式数据和大规模数据集。",
+      "url": "https://bokeh.org",
+      "icon": "https://static.bokeh.org/branding/icons/bokeh-icon@5x.png",
+      "stars": "⭐ 19.5k",
+      "badge": "📦 Web原生",
+      "tag": "可视化"
+    },
+    {
+      "name": "Streamlit",
+      "category": "viz",
+      "desc": "极简数据应用开发框架，纯 Python 代码快速构建交互式数据仪表板和 ML 演示应用。",
+      "url": "https://streamlit.io",
+      "icon": "https://streamlit.io/favicon.svg",
+      "stars": "⭐ 36.9k",
+      "badge": "🔥 最火仪表板",
+      "tag": "可视化"
+    },
+    {
+      "name": "Dash",
+      "category": "viz",
+      "desc": "Plotly 团队出品的 Web 分析应用框架，适合构建企业级数据仪表板，支持回调交互。",
+      "url": "https://dash.plotly.com",
+      "icon": "https://avatars.githubusercontent.com/u/5997976",
+      "stars": "⭐ 22.1k",
+      "badge": "📦 企业级",
+      "tag": "可视化"
+    },
+    {
+      "name": "NLTK",
+      "category": "nlp",
+      "desc": "经典自然语言处理工具包，提供分词、词性标注、命名实体识别等功能，NLP 入门首选。",
+      "url": "https://nltk.org",
+      "icon": "https://avatars.githubusercontent.com/u/1430299",
+      "stars": "⭐ 13.8k",
+      "badge": "📦 经典教材级",
+      "tag": "NLP"
+    },
+    {
+      "name": "spaCy",
+      "category": "nlp",
+      "desc": "工业级 NLP 库，处理速度极快，内置预训练模型，支持命名实体、依存句法分析等。",
+      "url": "https://spacy.io",
+      "icon": "https://avatars.githubusercontent.com/u/13643239",
+      "stars": "⭐ 30.6k",
+      "badge": "⚡ 工业级",
+      "tag": "NLP"
+    },
+    {
+      "name": "Gensim",
+      "category": "nlp",
+      "desc": "主题建模与文档相似度计算库，实现了 Word2Vec、Doc2Vec、LDA 等经典算法。",
+      "url": "https://radimrehurek.com/gensim",
+      "icon": "https://avatars.githubusercontent.com/u/8019486",
+      "stars": "⭐ 15.8k",
+      "badge": "📦 词向量",
+      "tag": "NLP"
+    },
+    {
+      "name": "LangChain",
+      "category": "nlp",
+      "desc": "LLM 应用开发框架，支持链式调用、RAG、Agent 等模式，快速构建 AI 应用。",
+      "url": "https://langchain.com",
+      "icon": "https://avatars.githubusercontent.com/u/126733545",
+      "stars": "⭐ 98.5k",
+      "badge": "🔥 最火LLM框架",
+      "tag": "NLP"
+    },
+    {
+      "name": "LlamaIndex",
+      "category": "nlp",
+      "desc": "LLM 数据连接框架，擅长构建 RAG 系统，将私有数据与大语言模型结合。",
+      "url": "https://llamaindex.ai",
+      "icon": "https://avatars.githubusercontent.com/u/118414232",
+      "stars": "⭐ 38.2k",
+      "badge": "🔥 RAG首选",
+      "tag": "NLP"
+    },
+    {
+      "name": "Sentence-Transformers",
+      "category": "nlp",
+      "desc": "语义嵌入模型库，一行代码生成文本向量，广泛用于语义搜索、文本聚类和相似度计算。",
+      "url": "https://sbert.net",
+      "icon": "https://huggingface.co/favicon.ico",
+      "stars": "⭐ 15.6k",
+      "badge": "📦 语义搜索",
+      "tag": "NLP"
+    },
+    {
+      "name": "OpenCV",
+      "category": "cv",
+      "desc": "最流行的计算机视觉库，提供图像处理、视频分析、特征检测等 2500+ 优化算法。",
+      "url": "https://opencv.org",
+      "icon": "https://opencv.org/wp-content/uploads/2022/05/logo.png",
+      "stars": "⭐ 80.1k",
+      "badge": "🔥 CV基石",
+      "tag": "计算机视觉"
+    },
+    {
+      "name": "Pillow (PIL)",
+      "category": "cv",
+      "desc": "Python 图像处理库，支持打开、操作和保存多种图像格式，API 简洁易用。",
+      "url": "https://pillow.readthedocs.io",
+      "icon": "https://avatars.githubusercontent.com/u/3905455",
+      "stars": "⭐ 12.5k",
+      "badge": "📦 基础图像处理",
+      "tag": "计算机视觉"
+    },
+    {
+      "name": "YOLOv8 (Ultralytics)",
+      "category": "cv",
+      "desc": "最先进的实时目标检测模型，支持检测、分割、分类、姿态估计，部署简单效果好。",
+      "url": "https://ultralytics.com",
+      "icon": "https://avatars.githubusercontent.com/u/26833451",
+      "stars": "⭐ 34.7k",
+      "badge": "🔥 目标检测王者",
+      "tag": "计算机视觉"
+    },
+    {
+      "name": "MediaPipe",
+      "category": "cv",
+      "desc": "Google 的跨平台 ML 解决方案，支持人脸检测、手势识别、姿态估计，端侧实时运行。",
+      "url": "https://mediapipe.dev",
+      "icon": "https://avatars.githubusercontent.com/u/1342004",
+      "stars": "⭐ 28.3k",
+      "badge": "📦 端侧部署",
+      "tag": "计算机视觉"
+    },
+    {
+      "name": "Diffusers",
+      "category": "cv",
+      "desc": "Hugging Face 扩散模型库，支持 Stable Diffusion 等图像生成模型，文本生成图像的利器。",
+      "url": "https://huggingface.co/docs/diffusers",
+      "icon": "https://huggingface.co/favicon.ico",
+      "stars": "⭐ 27.4k",
+      "badge": "🔥 AIGC",
+      "tag": "计算机视觉"
+    },
+    {
+      "name": "MLflow",
+      "category": "deploy",
+      "desc": "开源 MLOps 平台，管理 ML 全生命周期：实验追踪、模型注册、部署和监控。",
+      "url": "https://mlflow.org",
+      "icon": "https://avatars.githubusercontent.com/u/39938107",
+      "stars": "⭐ 19.3k",
+      "badge": "🔥 MLOps标准",
+      "tag": "MLOps"
+    },
+    {
+      "name": "Weights & Biases",
+      "category": "deploy",
+      "desc": "ML 实验追踪平台，自动记录超参数、指标和模型版本，可视化对比不同实验。",
+      "url": "https://wandb.ai",
+      "icon": "https://avatars.githubusercontent.com/u/26401354",
+      "stars": "⭐ 9.2k",
+      "badge": "📦 实验追踪",
+      "tag": "MLOps"
+    },
+    {
+      "name": "Docker",
+      "category": "deploy",
+      "desc": "容器化平台，将 ML 模型及其依赖打包为可移植容器，确保环境一致性和部署可靠性。",
+      "url": "https://docker.com",
+      "icon": "https://avatars.githubusercontent.com/u/5429470",
+      "stars": "⭐ 69.5k",
+      "badge": "🔥 环境一致性",
+      "tag": "MLOps"
+    },
+    {
+      "name": "FastAPI",
+      "category": "deploy",
+      "desc": "高性能 Python Web 框架，自动生成 API 文档，是部署 ML 模型为 REST API 的首选。",
+      "url": "https://fastapi.tiangolo.com",
+      "icon": "https://fastapi.tiangolo.com/img/favicon.png",
+      "stars": "⭐ 80.5k",
+      "badge": "🔥 API首选",
+      "tag": "MLOps"
+    },
+    {
+      "name": "BentoML",
+      "category": "deploy",
+      "desc": "ML 模型服务化框架，将训练好的模型打包为标准化服务，一键部署到云端。",
+      "url": "https://bentoml.com",
+      "icon": "https://avatars.githubusercontent.com/u/49176046",
+      "stars": "⭐ 7.3k",
+      "badge": "📦 模型服务化",
+      "tag": "MLOps"
+    },
+    {
+      "name": "DVC",
+      "category": "deploy",
+      "desc": "数据版本控制工具，像 Git 管理代码一样管理数据集和模型文件，支持远程存储。",
+      "url": "https://dvc.org",
+      "icon": "https://avatars.githubusercontent.com/u/35057648",
+      "stars": "⭐ 14.1k",
+      "badge": "📦 数据版本管理",
+      "tag": "MLOps"
+    },
+    {
+      "name": "Jupyter Notebook",
+      "category": "auto",
+      "desc": "交互式计算笔记本，支持代码、公式、可视化和文档混排，数据科学家的标准工具。",
+      "url": "https://jupyter.org",
+      "icon": "https://jupyter.org/favicon.ico",
+      "stars": "⭐ 12.1k",
+      "badge": "🔥 标配工具",
+      "tag": "开发环境"
+    },
+    {
+      "name": "JupyterLab",
+      "category": "auto",
+      "desc": "Jupyter 的下一代界面，支持多标签、文件管理、终端和扩展插件，完整的数据科学 IDE。",
+      "url": "https://jupyterlab.readthedocs.io",
+      "icon": "https://jupyter.org/favicon.ico",
+      "stars": "⭐ 14.4k",
+      "badge": "📦 新一代IDE",
+      "tag": "开发环境"
+    },
+    {
+      "name": "Auto-sklearn",
+      "category": "auto",
+      "desc": "基于 Scikit-learn 的自动机器学习系统，自动选择算法和超参数，一行代码完成建模。",
+      "url": "https://automl.github.io/auto-sklearn",
+      "icon": "https://avatars.githubusercontent.com/u/24355806",
+      "stars": "⭐ 7.7k",
+      "badge": "🤖 自动建模",
+      "tag": "AutoML"
+    },
+    {
+      "name": "TPOT",
+      "category": "auto",
+      "desc": "基于遗传算法的自动 ML 管道优化工具，自动探索特征工程、模型选择和超参数调优。",
+      "url": "http://epistasislab.github.io/tpot",
+      "icon": "https://avatars.githubusercontent.com/u/12765553",
+      "stars": "⭐ 9.8k",
+      "badge": "📦 管道优化",
+      "tag": "AutoML"
+    },
+    {
+      "name": "PyCaret",
+      "category": "auto",
+      "desc": "低代码机器学习库，几行代码完成从数据预处理到模型部署的全流程，适合快速实验。",
+      "url": "https://pycaret.org",
+      "icon": "https://avatars.githubusercontent.com/u/58118658",
+      "stars": "⭐ 9.1k",
+      "badge": "📦 低代码",
+      "tag": "AutoML"
+    },
+    {
+      "name": "Gradio",
+      "category": "auto",
+      "desc": "快速构建 ML 模型交互式演示界面，几行代码创建 Web UI，支持图像、音频、文本输入。",
+      "url": "https://gradio.app",
+      "icon": "https://avatars.githubusercontent.com/u/51063788",
+      "stars": "⭐ 35.3k",
+      "badge": "🔥 Demo神器",
+      "tag": "开发环境"
+    },
+    {
+      "name": "Anaconda",
+      "category": "auto",
+      "desc": "数据科学发行版，集成了 Python、conda 包管理器和 1500+ 科学计算包，一键搭建环境。",
+      "url": "https://anaconda.com",
+      "icon": "https://avatars.githubusercontent.com/u/497012",
+      "stars": "⭐ —",
+      "badge": "📦 环境管理",
+      "tag": "开发环境"
+    },
+    {
+      "name": "OpenClaw",
+      "category": "agent",
+      "desc": "开源 AI 智能体框架鼻祖，本地部署，通过飞书/微信等聊天工具下达指令，自主执行文件管理、邮件处理、自动化任务。GitHub 260k+ Stars。",
+      "url": "https://openclaw.ai",
+      "emoji": "🦞",
+      "stars": "⭐ 260k+",
+      "badge": "🔥 现象级开源",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "Kimi Claw",
+      "category": "agent",
+      "desc": "Moonshot AI 推出的云托管龙虾方案，一键部署 OpenClaw 到云端，内置 Kimi K2.5 模型，40GB 云存储 + 5000 技能，7×24 在线服务。",
+      "url": "https://kimi.com/bot",
+      "emoji": "🌙",
+      "stars": "⭐ 云托管",
+      "badge": "🔥 零门槛部署",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "MaxClaw",
+      "category": "agent",
+      "desc": "MiniMax 出品的云端龙虾方案，10 秒极速部署，成本仅为 Claude 3.5 的 1/10，集成 MiniMax 语音和音乐模型技能。",
+      "url": "https://www.minimaxi.com",
+      "emoji": "⚡",
+      "stars": "⭐ 极速",
+      "badge": "⚡ 低成本",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "Manus AI",
+      "category": "agent",
+      "desc": "通用型 AI Agent 先驱，多代理系统架构，自动拆解任务 + 规划 + 执行 + 验证，端到端交付市场调研、旅行规划等复杂任务。",
+      "url": "https://manus.im",
+      "icon": "https://manus.im/favicon.ico",
+      "stars": "⭐ GAIA榜首",
+      "badge": "🔥 通用Agent",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "扣子空间 (Coze Space)",
+      "category": "agent",
+      "desc": "字节跳动推出的通用型 AI Agent 平台，搭载 Doubao-1.5 模型，支持任务自动化、专家 Agent 生态和 MCP 扩展集成。",
+      "url": "https://space.coze.cn",
+      "emoji": "🧩",
+      "stars": "⭐ 字节出品",
+      "badge": "🔥 生态丰富",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "Dify",
+      "category": "agent",
+      "desc": "开源 LLM 应用开发平台，支持工作流编排、知识库管理、多模型接入，适合需要深度定制和私有化部署的 Agent 场景。",
+      "url": "https://dify.ai",
+      "icon": "https://avatars.githubusercontent.com/u/127165244",
+      "stars": "⭐ 60k+",
+      "badge": "📦 开源可控",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "DeskClaw",
+      "category": "agent",
+      "desc": "杭州 NoDesk AI 开发的\"中国版小龙虾\"，基于 OpenClaw 生态，面向个人和电商团队优化，获近亿元融资。",
+      "url": "https://nodesk.co",
+      "emoji": "🖥️",
+      "stars": "⭐ 国产新锐",
+      "badge": "🔥 电商优化",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "NullClaw",
+      "category": "agent",
+      "desc": "极致轻量级 AI Agent 方案，仅 678KB，专为资源受限场景设计，无需 Docker，启动秒级，是 OpenClaw \"太重了\" 的最佳替代。",
+      "url": "https://github.com/nicepkg/nullclaw",
+      "emoji": "🪶",
+      "stars": "⭐ 极简",
+      "badge": "🪶 678KB",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "QClaw（腾讯）",
+      "category": "agent",
+      "desc": "腾讯基于 OpenClaw 极简封装的 AI Agent，首个实现微信互联的龙虾产品。微信小程序入口一键操控电脑，内置\"灵感广场\"预置常用任务，下载即用零门槛。",
+      "url": "https://qclaw.qq.com",
+      "emoji": "🐧",
+      "stars": "⭐ 腾讯出品",
+      "badge": "💬 微信互联",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "悟空（阿里/钉钉）",
+      "category": "agent",
+      "desc": "阿里发布的全球首个企业级 AI 原生工作平台，内置于 2000 万+企业组织的钉钉中。支持 CLI 化原生操作，Agent 自动继承企业权限，打造 24h 工作的\"龙虾军团\"。",
+      "url": "https://www.dingtalk.com",
+      "emoji": "🙊",
+      "stars": "⭐ 阿里出品",
+      "badge": "🏢 企业级",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "AutoGLM 沉思（智谱）",
+      "category": "agent",
+      "desc": "智谱 AI 推出的集深度研究与操作执行于一体的自主 Agent。搭载 GLM-Z1 系列模型，支持多轮搜索推理 + 浏览器自动操作，是全球首个\"边想边干\"的智能体。",
+      "url": "https://chatglm.cn",
+      "emoji": "🔮",
+      "stars": "⭐ 智谱出品",
+      "badge": "🧠 深度研究",
+      "tag": "AI Agent"
+    },
+    {
+      "name": "小度龙虾（百度）",
+      "category": "agent",
+      "desc": "百度发布的全球首款家用 AI 智能体，将 OpenClaw 深度融入家庭场景。本地优先、隐私安全，语音唤醒即可自主执行跨设备跨应用的复杂任务，全家可用。",
+      "url": "https://dumixiao.baidu.com",
+      "emoji": "🦐",
+      "stars": "⭐ 百度出品",
+      "badge": "🏠 家用场景",
+      "tag": "AI Agent"
+    }
+  ]
+}
