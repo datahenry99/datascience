@@ -531,6 +531,10 @@ a {
   background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
 }
 
+.explore-card-flashcards .explore-card-glow {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+}
+
 .explore-card:hover .explore-card-glow {
   opacity: 1;
 }

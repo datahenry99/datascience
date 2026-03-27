@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知识卡片 - DataHenry</title>
+  <meta name="description" content="DataHenry 知识卡片，以翻转卡片的形式掌握数据科学核心概念，目前聚焦 A/B 实验知识。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%237c3aed'/><stop offset='100%25' stop-color='%2300d4ff'/></linearGradient></defs><rect rx='20' width='100' height='100' fill='url(%23g)'/><polyline points='20 65 35 45 55 55 80 25' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='35' cy='45' r='5' fill='white'/><circle cx='55' cy='55' r='5' fill='white'/><circle cx='80' cy='25' r='5' fill='white'/></svg>">
+  <link rel="stylesheet" href="../css/style.css?v=20260327">
+  <link rel="stylesheet" href="../css/flashcards.css?v=20260327">
+  <link rel="stylesheet" href="../css/assistant.css?v=20260324">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="../index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+          <span class="logo-text">DataHenry</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <a href="flashcards.html" class="nav-link active">知识卡片</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="about.html" class="nav-link">关于</a>
+      </nav>
+      <div class="nav-search" onclick="openSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+      <div class="nav-social">
+        <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+      <button class="nav-search-mobile" onclick="openSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu">
+    <div class="mobile-menu-brand">
+      <div class="mobile-menu-brand-left">
+        <div class="mobile-menu-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        <div>
+          <div class="mobile-menu-brand-name">DataHenry</div>
+          <div class="mobile-menu-brand-desc">数据科学导航站</div>
+        </div>
+      </div>
+      <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-search-btn" onclick="toggleMobileMenu();openSearch();">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>搜索本站信息</span>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="../index.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span class="mobile-link-text">首页</span>
+      </a>
+      <a href="papers.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="mobile-link-text">论文精读</span>
+      </a>
+      <a href="tools.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span class="mobile-link-text">工具榜单</span>
+      </a>
+      <a href="articles.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="mobile-link-text">博客社区</span>
+      </a>
+      <a href="flashcards.html" class="mobile-link active">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="mobile-link-text">知识卡片</span>
+      </a>
+      <a href="about.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+        <span class="mobile-link-text">关于</span>
+      </a>
+    </div>
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-footer-deco"></div>
+      <p>© 2026 DataHenry</p>
+    </div>
+  </div>
+  <script>
+  function toggleMobileMenu() {
+    document.querySelector('.mobile-menu').classList.toggle('active');
+    document.querySelector('.mobile-menu-overlay').classList.toggle('active');
+    document.body.style.overflow = document.querySelector('.mobile-menu').classList.contains('active') ? 'hidden' : '';
+  }
+  </script>
+
+  <!-- 页面主体 -->
+  <div class="fc-page">
+    <!-- 侧边栏 -->
+    <aside class="fc-sidebar">
+      <div class="fc-sidebar-header">
+        <h2 class="fc-sidebar-title">🧠 知识卡片</h2>
+        <p class="fc-sidebar-desc">翻转卡片，高效学习</p>
+      </div>
+      <nav class="fc-sidebar-nav" id="sidebar-nav">
+        <!-- 动态生成 -->
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="fc-main">
+      <!-- 顶部：主题选择 + 控制区 -->
+      <div class="fc-hero">
+        <div class="fc-hero-left">
+          <h1 class="fc-hero-title" id="topic-title">A/B 实验</h1>
+          <p class="fc-hero-subtitle" id="topic-subtitle">从假设检验到实验设计的核心知识</p>
+        </div>
+        <div class="fc-hero-right">
+          <div class="fc-progress">
+            <div class="fc-progress-bar">
+              <div class="fc-progress-fill" id="progress-fill"></div>
+            </div>
+            <span class="fc-progress-text" id="progress-text">0 / 20</span>
+          </div>
+          <div class="fc-controls">
+            <button class="fc-filter-btn" id="filter-btn" onclick="toggleFilterPanel()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              筛选
+            </button>
+            <button class="fc-shuffle-btn" onclick="shuffleCards()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+              随机
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 筛选面板 -->
+      <div class="fc-filter-panel" id="filter-panel">
+        <div class="fc-filter-group">
+          <span class="fc-filter-label">难度</span>
+          <div class="fc-filter-options">
+            <button class="fc-filter-tag active" data-filter="difficulty" data-value="all" onclick="setFilter('difficulty','all',this)">全部</button>
+            <button class="fc-filter-tag" data-filter="difficulty" data-value="easy" onclick="setFilter('difficulty','easy',this)">🟢 入门</button>
+            <button class="fc-filter-tag" data-filter="difficulty" data-value="medium" onclick="setFilter('difficulty','medium',this)">🟡 进阶</button>
+            <button class="fc-filter-tag" data-filter="difficulty" data-value="hard" onclick="setFilter('difficulty','hard',this)">🔴 高级</button>
+          </div>
+        </div>
+        <div class="fc-filter-group">
+          <span class="fc-filter-label">分类</span>
+          <div class="fc-filter-options" id="category-filters">
+            <!-- 动态生成 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片浏览区 -->
+      <div class="fc-card-area">
+        <!-- 单卡模式 -->
+        <div class="fc-single-view" id="single-view">
+          <button class="fc-nav-btn fc-nav-prev" id="prev-btn" onclick="prevCard()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+
+          <div class="fc-card-wrapper" id="card-wrapper">
+            <div class="fc-card" id="flashcard" onclick="flipCard()">
+              <div class="fc-card-inner" id="card-inner">
+                <!-- 正面：问题 -->
+                <div class="fc-card-front">
+                  <div class="fc-card-category" id="card-category">基础概念</div>
+                  <div class="fc-card-question" id="card-question">什么是 A/B 实验？</div>
+                  <div class="fc-card-hint">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 15 19 19"/><circle cx="11" cy="11" r="8"/></svg>
+                    点击翻转查看答案
+                  </div>
+                  <div class="fc-card-meta">
+                    <span class="fc-card-difficulty" id="card-difficulty">🟢 入门</span>
+                    <span class="fc-card-number" id="card-number">1 / 20</span>
+                  </div>
+                </div>
+                <!-- 背面：答案 -->
+                <div class="fc-card-back">
+                  <div class="fc-card-back-header">
+                    <span class="fc-card-back-label">💡 答案</span>
+                  </div>
+                  <div class="fc-card-answer" id="card-answer"></div>
+                  <div class="fc-card-tags" id="card-tags"></div>
+                  <div class="fc-card-hint">
+                    点击翻转回到问题
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="fc-nav-btn fc-nav-next" id="next-btn" onclick="nextCard()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- 卡片索引号 -->
+        <div class="fc-dots" id="card-dots"></div>
+
+        <!-- 键盘提示 -->
+        <div class="fc-keyboard-hint">
+          <span><kbd>←</kbd> <kbd>→</kbd> 切换卡片</span>
+          <span><kbd>Space</kbd> 翻转</span>
+        </div>
+      </div>
+
+      <!-- 网格总览 -->
+      <div class="fc-grid-section">
+        <div class="fc-grid-header">
+          <h2 class="fc-grid-title">📋 全部卡片总览</h2>
+          <span class="fc-grid-count" id="grid-count">20 张卡片</span>
+        </div>
+        <div class="fc-grid" id="card-grid">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        DataHenry
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">首页</a>
+        <a href="papers.html">论文精读</a>
+        <a href="tools.html">工具榜单</a>
+        <a href="articles.html">博客社区</a>
+        <a href="flashcards.html">知识卡片</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 DataHenry. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  // ===== 知识卡片主逻辑 =====
+  let allCards = [];
+  let filteredCards = [];
+  let currentIndex = 0;
+  let isFlipped = false;
+  let filters = { difficulty: 'all', category: 'all' };
+
+  // 简单的 markdown-like 渲染
+  function renderMarkdown(text) {
+    return text
+      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n• /g, '<br>• ')
+      .replace(/\n→/g, '<br>→')
+      .replace(/\n(\d+)\./g, '<br>$1.')
+      .replace(/\n\|/g, '<br>|')
+      .replace(/\n/g, '<br>');
+  }
+
+  function getDifficultyLabel(d) {
+    return d === 'easy' ? '🟢 入门' : d === 'medium' ? '🟡 进阶' : '🔴 高级';
+  }
+
+  // 加载数据
+  (async function init() {
+    try {
+      const res = await fetch('../data/flashcards.json?v=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const topic = data.topics[0]; // 当前只有 AB 实验
+
+      document.getElementById('topic-title').textContent = topic.icon + ' ' + topic.title;
+      document.getElementById('topic-subtitle').textContent = topic.subtitle;
+
+      allCards = topic.cards;
+      filteredCards = [...allCards];
+
+      // 生成侧边栏
+      renderSidebar(topic);
+
+      // 生成分类筛选
+      const categories = [...new Set(allCards.map(c => c.category))];
+      const catContainer = document.getElementById('category-filters');
+      catContainer.innerHTML = '<button class="fc-filter-tag active" data-filter="category" data-value="all" onclick="setFilter(\'category\',\'all\',this)">全部</button>';
+      categories.forEach(cat => {
+        catContainer.innerHTML += `<button class="fc-filter-tag" data-filter="category" data-value="${cat}" onclick="setFilter('category','${cat}',this)">${cat}</button>`;
+      });
+
+      renderCard();
+      renderGrid();
+      renderDots();
+      updateProgress();
+    } catch(e) {
+      console.error('Failed to load flashcards:', e);
+      document.getElementById('card-question').textContent = '加载失败: ' + e.message;
+      document.getElementById('card-grid').innerHTML = '<p style="color:red;padding:20px;">数据加载失败: ' + e.message + '</p>';
+    }
+  })();
+
+  function renderSidebar(topic) {
+    const nav = document.getElementById('sidebar-nav');
+    const categories = [...new Set(topic.cards.map(c => c.category))];
+    nav.innerHTML = categories.map(cat => {
+      const count = topic.cards.filter(c => c.category === cat).length;
+      return `<a class="fc-sidebar-item" href="#" onclick="filterByCategory('${cat}');return false;">
+        <span class="fc-sidebar-dot" style="background: ${topic.gradient}"></span>
+        <span class="fc-sidebar-text">${cat}</span>
+        <span class="fc-sidebar-count">${count}</span>
+      </a>`;
+    }).join('');
+  }
+
+  function renderCard() {
+    if (filteredCards.length === 0) {
+      document.getElementById('card-question').textContent = '没有匹配的卡片';
+      document.getElementById('card-category').textContent = '';
+      document.getElementById('card-difficulty').textContent = '';
+      document.getElementById('card-number').textContent = '0 / 0';
+      return;
+    }
+
+    const card = filteredCards[currentIndex];
+    // 确保翻回正面
+    if (isFlipped) {
+      document.getElementById('card-inner').classList.remove('flipped');
+      isFlipped = false;
+    }
+
+    document.getElementById('card-category').textContent = card.category;
+    document.getElementById('card-question').textContent = card.question;
+    document.getElementById('card-difficulty').textContent = getDifficultyLabel(card.difficulty);
+    document.getElementById('card-number').textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+
+    // 答案 (markdown-like)
+    document.getElementById('card-answer').innerHTML = renderMarkdown(card.answer);
+
+    // 标签
+    const tagsHtml = card.tags.map(t => `<span class="fc-tag">${t}</span>`).join('');
+    document.getElementById('card-tags').innerHTML = tagsHtml;
+
+    updateProgress();
+    updateDots();
+
+    // 更新按钮状态
+    document.getElementById('prev-btn').disabled = currentIndex === 0;
+    document.getElementById('next-btn').disabled = currentIndex === filteredCards.length - 1;
+  }
+
+  function flipCard() {
+    const inner = document.getElementById('card-inner');
+    inner.classList.toggle('flipped');
+    isFlipped = !isFlipped;
+  }
+
+  function prevCard() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderCard();
+    }
+  }
+
+  function nextCard() {
+    if (currentIndex < filteredCards.length - 1) {
+      currentIndex++;
+      renderCard();
+    }
+  }
+
+  function goToCard(index) {
+    currentIndex = index;
+    renderCard();
+    // 滚动到卡片区域
+    document.getElementById('single-view').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function shuffleCards() {
+    for (let i = filteredCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+    }
+    currentIndex = 0;
+    renderCard();
+    renderGrid();
+    renderDots();
+  }
+
+  function toggleFilterPanel() {
+    const panel = document.getElementById('filter-panel');
+    panel.classList.toggle('open');
+    document.getElementById('filter-btn').classList.toggle('active');
+  }
+
+  function setFilter(type, value, btn) {
+    filters[type] = value;
+    // 更新按钮状态
+    const group = btn.parentElement;
+    group.querySelectorAll('.fc-filter-tag').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function filterByCategory(cat) {
+    filters.category = cat;
+    // 更新分类筛选按钮
+    document.querySelectorAll('#category-filters .fc-filter-tag').forEach(b => {
+      b.classList.toggle('active', b.dataset.value === cat);
+    });
+    // 打开筛选面板
+    document.getElementById('filter-panel').classList.add('open');
+    document.getElementById('filter-btn').classList.add('active');
+    applyFilters();
+  }
+
+  function applyFilters() {
+    filteredCards = allCards.filter(c => {
+      if (filters.difficulty !== 'all' && c.difficulty !== filters.difficulty) return false;
+      if (filters.category !== 'all' && c.category !== filters.category) return false;
+      return true;
+    });
+    currentIndex = 0;
+    renderCard();
+    renderGrid();
+    renderDots();
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = filteredCards.length;
+    const current = total > 0 ? currentIndex + 1 : 0;
+    document.getElementById('progress-text').textContent = `${current} / ${total}`;
+    const pct = total > 0 ? (current / total) * 100 : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  function renderDots() {
+    const container = document.getElementById('card-dots');
+    if (filteredCards.length <= 20) {
+      container.innerHTML = filteredCards.map((_, i) =>
+        `<button class="fc-dot ${i === currentIndex ? 'active' : ''}" onclick="goToCard(${i})"></button>`
+      ).join('');
+      container.style.display = 'flex';
+    } else {
+      container.style.display = 'none';
+    }
+  }
+
+  function updateDots() {
+    document.querySelectorAll('.fc-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('card-grid');
+    document.getElementById('grid-count').textContent = `${filteredCards.length} 张卡片`;
+
+    grid.innerHTML = filteredCards.map((card, i) => `
+      <div class="fc-grid-card ${card.difficulty}" onclick="goToCard(${i})">
+        <div class="fc-grid-card-top">
+          <span class="fc-grid-card-cat">${card.category}</span>
+          <span class="fc-grid-card-diff">${getDifficultyLabel(card.difficulty)}</span>
+        </div>
+        <div class="fc-grid-card-q">${card.question}</div>
+        <div class="fc-grid-card-tags">
+          ${card.tags.map(t => `<span class="fc-grid-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 键盘快捷键
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowLeft') { prevCard(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { nextCard(); e.preventDefault(); }
+    if (e.key === ' ') { flipCard(); e.preventDefault(); }
+  });
+
+  // 触摸滑动支持
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const cardWrapper = document.getElementById('card-wrapper');
+  if (cardWrapper) {
+    cardWrapper.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    cardWrapper.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 60) {
+        if (diff > 0) nextCard();
+        else prevCard();
+      }
+    }, { passive: true });
+  }
+  </script>
+
+  <script src="../js/search.js"></script>
+  <script src="../js/assistant.js"></script>
+</body>
+</html>

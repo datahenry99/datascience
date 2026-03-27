@@ -1,6 +1,76 @@
 {
   "sections": [
     {
+      "id": "ai-community",
+      "title": "AI 社区",
+      "subtitle": "发现最前沿的 AI 交流与实践平台",
+      "icon": "🤖",
+      "gradient": "linear-gradient(135deg, #8b5cf6, #6d28d9)",
+      "sidebarDot": "#8b5cf6",
+      "items": [
+        {
+          "name": "飞书社区",
+          "source": "飞书官方社区平台",
+          "url": "https://www.feishu.cn/community",
+          "icon": "https://lf-community.feishucdn.com/obj/community-cdn-bucket-cn/favico.ico",
+          "desc": "飞书官方社区（飞行社），汇聚用户与创作者的互动空间。聚焦 AI 效率实践、飞书应用生态与多维表格等话题，提供精选频道、热门讨论与官方活动，是碰撞 AI 灵感的实践社区。",
+          "tags": [
+            { "text": "AI 效率", "color": "purple" },
+            { "text": "飞书生态", "color": "blue" }
+          ],
+          "stats": ["🚀 官方社区", "💡 实践分享"]
+        },
+        {
+          "name": "SkillHub",
+          "source": "腾讯 · AI Skills 社区",
+          "url": "https://skillhub.tencent.com/",
+          "icon": "https://cloudcache.tencent-cloud.com/qcloud/ui/static/open_source/68ef3362-0217-4e57-b123-4e6b3b58ec24.png",
+          "desc": "腾讯推出的专为中国用户优化的 AI Skills 社区，精选 Top 50 高质量 AI 技能。所有技能经过安全审核与多维度评估，帮助你发现最实用、安全的 AI 工具与能力。",
+          "tags": [
+            { "text": "AI Skills", "color": "cyan" },
+            { "text": "腾讯出品", "color": "blue" }
+          ],
+          "stats": ["🏢 腾讯", "🔒 安全审核"]
+        },
+        {
+          "name": "魔搭社区 Skills",
+          "source": "阿里 · ModelScope 技能中心",
+          "url": "https://modelscope.cn/skills",
+          "icon": "https://g.alicdn.com/sail-web/maas/2.13.40/favicon/128.ico",
+          "desc": "阿里达摩院推出的 ModelScope 技能中心，汇聚社区能力组件，定义模型无限可能。整合开源模型与工具插件，提供一站式 AI 技能探索与应用体验，是国内最大的 AI 开源社区。",
+          "tags": [
+            { "text": "开源模型", "color": "orange" },
+            { "text": "阿里出品", "color": "blue" }
+          ],
+          "stats": ["🤗 2500万+ 用户", "📦 17万+ 模型"]
+        },
+        {
+          "name": "智源社区",
+          "source": "北京智源人工智能研究院",
+          "url": "https://hub.baai.ac.cn/",
+          "icon": "https://hub.baai.ac.cn/_nuxt/favicon.ico",
+          "desc": "北京智源人工智能研究院（BAAI）打造的没有围墙的人工智能实验室。提供论文分享、活动发布、风云榜、专栏、知识树等功能，是学术与产业交流的前沿 AI 社区。",
+          "tags": [
+            { "text": "学术前沿", "color": "green" },
+            { "text": "智源研究院", "color": "purple" }
+          ],
+          "stats": ["🎓 学术社区", "📄 论文分享"]
+        },
+        {
+          "name": "魔乐社区",
+          "source": "全产业链共建 AI 社区",
+          "url": "https://modelers.cn/tools",
+          "icon": "https://modelers.cn/favicon.ico?v=2",
+          "desc": "中立、公益的人工智能社区，由全产业链共同建设、运营与共享。提供 AI 工具、模型、数据的托管与展示，支持昇腾生态，致力于推动国产 AI 生态繁荣发展。",
+          "tags": [
+            { "text": "国产生态", "color": "red" },
+            { "text": "公益社区", "color": "green" }
+          ],
+          "stats": ["🌐 中立公益", "🔧 1万+ 项目"]
+        }
+      ]
+    },
+    {
       "id": "blogs",
       "title": "技术博客",
       "subtitle": "最值得订阅的数据科学博客",

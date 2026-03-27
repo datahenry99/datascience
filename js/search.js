@@ -98,6 +98,19 @@
         });
       });
 
+      flashcards.topics.forEach(function (topic) {
+        topic.cards.forEach(function (card) {
+          searchIndex.push({
+            type: '🧠 知识卡片',
+            title: card.question,
+            desc: card.answer.slice(0, 100),
+            tag: topic.title + ' · ' + card.category,
+            url: flashcardsPage,
+            page: flashcardsPage
+          });
+        });
+      });
+
       searchLoaded = true;
     } catch (e) {
       console.error('搜索索引加载失败', e);
@@ -123,7 +136,7 @@
 
   function resetResults() {
     var results = document.getElementById('searchResults');
-    results.innerHTML = '<div class="search-empty" id="searchEmpty"><p>🔍 输入关键词开始搜索</p><p class="search-empty-hint">支持搜索工具、论文、博客社区，按 ⌘K 快速唤起</p></div>';
+    results.innerHTML = '<div class="search-empty" id="searchEmpty"><p>🔍 输入关键词开始搜索</p><p class="search-empty-hint">支持搜索工具、论文、博客社区、知识卡片，按 ⌘K 快速唤起</p></div>';
   }
 
   function doSearch(query) {
