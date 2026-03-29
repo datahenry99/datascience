@@ -47,12 +47,14 @@
     try {
       const isSubPage = window.location.pathname.includes('/pages/');
       const prefix = isSubPage ? '../' : '';
+      const ver = '20260329';
 
       const [toolsRes, papersRes, articlesRes] = await Promise.all([
-        fetch(prefix + 'data/tools.json?v=' + Date.now()),
-        fetch(prefix + 'data/papers.json?v=' + Date.now()),
-        fetch(prefix + 'data/articles.json?v=' + Date.now())
+        fetch(prefix + 'data/tools.json?v=' + ver),
+        fetch(prefix + 'data/papers.json?v=' + ver),
+        fetch(prefix + 'data/articles.json?v=' + ver)
       ]);
+      if (!toolsRes.ok || !papersRes.ok || !articlesRes.ok) throw new Error('HTTP error');
       const toolsData = await toolsRes.json();
       const papers = await papersRes.json();
       const articles = await articlesRes.json();
@@ -98,7 +100,12 @@
         });
       });
 
-      flashcards.topics.forEach(function (topic) {
+      const flashcardsRes = await fetch(prefix + 'data/flashcards.json?v=' + ver);
+      if (!flashcardsRes.ok) throw new Error('HTTP ' + flashcardsRes.status);
+      const flashcardsData = await flashcardsRes.json();
+      const flashcardsPage = isSubPage ? 'flashcards.html' : 'pages/flashcards.html';
+
+      flashcardsData.topics.forEach(function (topic) {
         topic.cards.forEach(function (card) {
           searchIndex.push({
             type: '🧠 知识卡片',
@@ -169,8 +176,8 @@
       var descText = item.desc.length > 60 ? item.desc.slice(0, 60) + '...' : item.desc;
       a.innerHTML =
         '<div class="search-result-header">' +
-        '<span class="search-result-type">' + item.type + '</span>' +
-        '<span class="search-result-tag">' + item.tag + '</span>' +
+        '<span class="search-result-type">' + escapeHtml(item.type) + '</span>' +
+        '<span class="search-result-tag">' + escapeHtml(item.tag) + '</span>' +
         '</div>' +
         '<h4 class="search-result-title">' + highlightMatch(item.title, q) + '</h4>' +
         '<p class="search-result-desc">' + highlightMatch(descText, q) + '</p>';
@@ -178,10 +185,16 @@
     });
   }
 
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   function highlightMatch(text, query) {
-    if (!query) return text;
-    var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-    return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+    if (!query) return escapeHtml(text);
+    var escaped = escapeHtml(text);
+    var escapedQuery = escapeHtml(query);
+    var regex = new RegExp('(' + escapedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return escaped.replace(regex, '<mark class="search-highlight">$1</mark>');
   }
 
   // 暴露到全局

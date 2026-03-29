@@ -3,18 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>论文精读 - DataHenry | 数据科学里程碑论文合集</title>
-  <meta name="description" content="系统梳理数据科学核心方法论的里程碑论文，从统计学习到图神经网络，深度解读每一篇经典。">
+  <title>论文精读 - DataHenry | 数据科学必读论文合集</title>
+  <meta name="description" content="系统梳理数据科学核心方法论的必读论文，从统计学习到图神经网络，深度解读每一篇经典。">
   <meta name="keywords" content="论文精读,机器学习论文,深度学习论文,数据科学,Transformer,GNN,注意力机制">
+  <link rel="canonical" href="https://www.datahenry.com/pages/papers.html">
   <meta property="og:title" content="论文精读 - DataHenry">
-  <meta property="og:description" content="数据科学核心领域的里程碑论文精选与深度解读">
+  <meta property="og:description" content="数据科学核心领域的必读论文精选与深度解读">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.datahenry.com/pages/papers.html">
+  <meta property="og:image" content="https://www.datahenry.com/images/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="论文精读 - DataHenry">
+  <meta name="twitter:description" content="数据科学核心领域的必读论文精选与深度解读">
+  <meta name="twitter:image" content="https://www.datahenry.com/images/og-cover.png">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%237c3aed'/><stop offset='100%25' stop-color='%2300d4ff'/></linearGradient></defs><rect rx='20' width='100' height='100' fill='url(%23g)'/><polyline points='20 65 35 45 55 55 80 25' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='35' cy='45' r='5' fill='white'/><circle cx='55' cy='55' r='5' fill='white'/><circle cx='80' cy='25' r='5' fill='white'/></svg>">
-  <link rel="stylesheet" href="../css/style.css?v=20260324">
+  <!-- Google Analytics: 替换 G-XXXXXXXXXX 为真实 ID 后取消注释 -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20260329">
   <link rel="stylesheet" href="../css/assistant.css?v=20260324">
   <link rel="stylesheet" href="../css/papers.css?v=20260324">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260329">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Inter:wght@800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -43,25 +56,33 @@
         搜索
       </div>
       <div class="nav-social">
-        <a href="https://github.com/datahenry99/datascience" target="_blank" class="nav-github" title="GitHub">
+        <button class="theme-toggle" onclick="toggleTheme()" title="切换深色模式" aria-label="切换深色/浅色模式">
+          <span class="icon-sun" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="icon-moon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+        </button>
+        <a href="https://github.com/datahenry99/datascience" target="_blank" rel="noopener" class="nav-github" title="GitHub" aria-label="GitHub 仓库">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
-        <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" class="nav-xiaohongshu" title="小红书">
+        <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" rel="noopener" class="nav-xiaohongshu" title="小红书" aria-label="小红书主页">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
         </a>
       </div>
+      <button class="nav-theme-mobile" onclick="toggleTheme()" title="切换深色模式">
+        <span class="icon-sun"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+        <span class="icon-moon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+      </button>
       <button class="nav-search-mobile" onclick="openSearch()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </button>
-      <button class="nav-hamburger" onclick="toggleMobileMenu()">
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="打开导航菜单" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </header>
 
   <!-- 移动端菜单 -->
-  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
-  <div class="mobile-menu">
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()" aria-hidden="true"></div>
+  <div class="mobile-menu" role="dialog" aria-label="导航菜单">
     <div class="mobile-menu-brand">
       <div class="mobile-menu-brand-left">
         <div class="mobile-menu-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
@@ -83,6 +104,10 @@
         <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <span class="mobile-link-text">首页</span>
       </a>
+      <a href="flashcards.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="mobile-link-text">知识卡片</span>
+      </a>
       <a href="papers.html" class="mobile-link active">
         <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
         <span class="mobile-link-text">论文精读</span>
@@ -100,15 +125,6 @@
         <span class="mobile-link-text">关于</span>
       </a>
     </div>
-    <div class="mobile-menu-social">
-      <a href="https://github.com/datahenry99/datascience" target="_blank" class="mobile-social-card">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        <span>GitHub</span>
-      </a>
-      <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" class="mobile-social-card">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
-      </a>
-    </div>
     <div class="mobile-menu-footer">
       <div class="mobile-menu-footer-deco"></div>
       <p>© 2026 DataHenry</p>
@@ -118,7 +134,10 @@
   function toggleMobileMenu() {
     document.querySelector('.mobile-menu').classList.toggle('active');
     document.querySelector('.mobile-menu-overlay').classList.toggle('active');
-    document.body.style.overflow = document.querySelector('.mobile-menu').classList.contains('active') ? 'hidden' : '';
+    var isOpen = document.querySelector('.mobile-menu').classList.contains('active');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    var hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.setAttribute('aria-expanded', isOpen);
   }
   </script>
 
@@ -133,7 +152,7 @@
         论文精读
       </h1>
       <p class="papers-hero-desc">
-        数据科学核心领域的里程碑论文精选与深度解读
+        数据科学核心领域的必读论文精选与深度解读
       </p>
     </div>
   </section>
@@ -152,11 +171,41 @@
 
       <!-- 论文内容区域（由 JS 动态生成） -->
       <div class="papers-content" id="papersContent">
-        <!-- JS 动态填充 -->
+        <!-- Loading skeleton -->
+        <div class="loading-skeleton" id="papers-loading">
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+            <div class="skeleton-line skeleton-line-medium"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+            <div class="skeleton-line skeleton-line-short"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-medium"></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+          </div>
+        </div>
       </div>
 
     </div>
   </main>
+
+  <!-- 移动端目录 -->
+  <button class="mobile-toc-fab" id="mobileTocFab" onclick="toggleMobileToc()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="mobile-toc-overlay" id="mobileTocOverlay" onclick="toggleMobileToc()"></div>
+  <div class="mobile-toc-panel" id="mobileTocPanel">
+    <div class="mobile-toc-header">
+      <span class="mobile-toc-title">📑 论文导航</span>
+      <button class="mobile-toc-close" onclick="toggleMobileToc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="mobile-toc-list" id="mobileTocList"></div>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
@@ -185,7 +234,7 @@
 
     (async function() {
       // 1. 加载数据
-      const resp = await fetch('../data/papers.json?v=' + Date.now());
+      const resp = await fetch('../data/papers.json?v=20260329');
       const data = await resp.json();
       const sections = data.sections;
 
@@ -199,7 +248,27 @@
         </a>
       `).join('');
 
-      // 3. 渲染论文内容区域
+      // 2b. 同步填充移动端目录
+      const mobileTocList = document.getElementById('mobileTocList');
+      if (mobileTocList) {
+        mobileTocList.innerHTML = sections.map((sec, i) => `
+          <a class="mobile-toc-item${i === 0 ? ' active' : ''}" data-section="${sec.id}" href="#${sec.id}">
+            <span class="mobile-toc-dot" style="background:${sec.sidebarDot};"></span>
+            <span>${sec.title}</span>
+            <span class="mobile-toc-count">${sec.papers.length}</span>
+          </a>
+        `).join('');
+        mobileTocList.querySelectorAll('.mobile-toc-item').forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const t = document.getElementById(this.dataset.section);
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            toggleMobileToc();
+          });
+        });
+      }
+
+      // 3. 移除 loading skeleton 并渲染论文内容区域
       const papersContent = document.getElementById('papersContent');
       papersContent.innerHTML = sections.map(sec => `
         <div class="section-anchor" id="${sec.id}"></div>
@@ -248,6 +317,10 @@
             link.classList.add('active');
           }
         });
+        // 同步移动端目录高亮
+        document.querySelectorAll('.mobile-toc-item').forEach(item => {
+          item.classList.toggle('active', item.dataset.section === current);
+        });
       }
 
       window.addEventListener('scroll', updateActiveLink);
@@ -265,7 +338,20 @@
         });
       });
     })();
+
+    function toggleMobileToc() {
+      document.getElementById('mobileTocOverlay').classList.toggle('active');
+      document.getElementById('mobileTocPanel').classList.toggle('active');
+    }
   </script>
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <script>
+  (function(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});})();
+  </script>
+
   <script src="../js/search.js"></script>
   <script src="../js/assistant.js"></script>
 

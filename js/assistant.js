@@ -17,11 +17,13 @@
   async function loadData() {
     if (dataReady) return;
     try {
+      const ver = '20260329';
       const [tRes, pRes, aRes] = await Promise.all([
-        fetch(prefix + 'data/tools.json?v=' + Date.now()),
-        fetch(prefix + 'data/papers.json?v=' + Date.now()),
-        fetch(prefix + 'data/articles.json?v=' + Date.now())
+        fetch(prefix + 'data/tools.json?v=' + ver),
+        fetch(prefix + 'data/papers.json?v=' + ver),
+        fetch(prefix + 'data/articles.json?v=' + ver)
       ]);
+      if (!tRes.ok || !pRes.ok || !aRes.ok) throw new Error('HTTP error');
       const tData = await tRes.json();
       const pData = await pRes.json();
       const aData = await aRes.json();
@@ -120,7 +122,7 @@
         return num >= 10000;
       }).slice(0, 6);
       return {
-        text: '📄 **里程碑论文推荐**\n\n本站收录了 ' + allPapers.length + ' 篇经典论文，覆盖 ' + paperSections.length + ' 大方向。以下是引用量最高的几篇：',
+        text: '📄 **必读论文推荐**\n\n本站收录了 ' + allPapers.length + ' 篇经典论文，覆盖 ' + paperSections.length + ' 大方向。以下是引用量最高的几篇：',
         cards: topPapers.map(p => formatPaperCard(p))
       };
     }
