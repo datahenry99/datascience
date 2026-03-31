@@ -11,6 +11,8 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    // 通知 canvas 等非 CSS 组件重绘
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
   }
 
   // 切换主题

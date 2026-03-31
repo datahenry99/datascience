@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>统计模拟 - DataHenry</title>
-  <meta name="description" content="DataHenry 统计模拟，通过交互式模拟直观理解正态分布、中心极限定理、P 值、置信区间、贝叶斯定理、大数定律。">
+  <meta name="description" content="DataHenry 统计模拟，通过交互式模拟直观理解正态分布、中心极限定理、P 值、置信区间、贝叶斯定理、大数定律、Type I/II 错误、辛普森悖论、马尔可夫链。">
   <link rel="canonical" href="https://www.datahenry.com/pages/stat-intuition.html">
   <meta property="og:title" content="统计模拟 - DataHenry">
   <meta property="og:description" content="交互式动画直观理解核心统计概念">
@@ -25,7 +25,7 @@
     s.parentNode.insertBefore(hm, s);
   })();
   </script>
-  <script src="../js/theme.js"></script>
+  <script src="../js/theme.js?v=20260331b"></script>
   <link rel="stylesheet" href="../css/style.css?v=20260331">
   <link rel="stylesheet" href="../css/assistant.css?v=20260324">
   <link rel="stylesheet" href="../css/dark-mode.css?v=20260331">
@@ -319,6 +319,17 @@
       .si-canvas-wrap { padding: 10px; }
       .si-section-header { gap: 10px; padding: 12px 0; }
       .si-section-icon { width: 40px; height: 40px; font-size: 20px; }
+      .si-section-title { font-size: 16px; }
+      .si-section-subtitle { font-size: 12px; }
+      .si-btn { font-size: 12px; padding: 8px 14px; gap: 4px; border-radius: 8px; }
+      .si-btn-row { gap: 8px; margin-bottom: 14px; }
+      .si-control-label { font-size: 12px; min-width: 80px; }
+      .si-control-value { font-size: 12px; min-width: 36px; }
+      .si-stat-value { font-size: 18px; }
+      .si-stat-label { font-size: 11px; }
+      .si-stats-box { padding: 12px; gap: 8px; }
+      .si-explain { font-size: 12.5px; padding: 12px 14px; }
+      .si-controls { gap: 10px; margin-bottom: 14px; }
     }
   </style>
   <script>
@@ -454,18 +465,18 @@
               <span class="si-sidebar-link-sub">Normal Distribution</span>
             </div>
           </a>
+          <a href="#lln" class="si-sidebar-link" data-section="lln">
+            <div class="si-sidebar-icon" style="background:#e0e7ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">大数定律</span>
+              <span class="si-sidebar-link-sub">Law of Large Numbers</span>
+            </div>
+          </a>
           <a href="#clt" class="si-sidebar-link" data-section="clt">
             <div class="si-sidebar-icon" style="background:#dbeafe;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="14" y="2" width="8" height="8" rx="1.5"/><rect x="8" y="14" width="8" height="8" rx="1.5"/></svg></div>
             <div class="si-sidebar-link-text">
               <span class="si-sidebar-link-title">中心极限定理</span>
               <span class="si-sidebar-link-sub">Central Limit Theorem</span>
-            </div>
-          </a>
-          <a href="#pvalue" class="si-sidebar-link" data-section="pvalue">
-            <div class="si-sidebar-icon" style="background:#fce7f3;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <div class="si-sidebar-link-text">
-              <span class="si-sidebar-link-title">P 值可视化</span>
-              <span class="si-sidebar-link-sub">P-Value</span>
             </div>
           </a>
           <a href="#ci" class="si-sidebar-link" data-section="ci">
@@ -475,6 +486,20 @@
               <span class="si-sidebar-link-sub">Confidence Interval</span>
             </div>
           </a>
+          <a href="#pvalue" class="si-sidebar-link" data-section="pvalue">
+            <div class="si-sidebar-icon" style="background:#fce7f3;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">P 值可视化</span>
+              <span class="si-sidebar-link-sub">P-Value</span>
+            </div>
+          </a>
+          <a href="#errors" class="si-sidebar-link" data-section="errors">
+            <div class="si-sidebar-icon" style="background:#fee2e2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">Type I/II 错误</span>
+              <span class="si-sidebar-link-sub">Error Types & Power</span>
+            </div>
+          </a>
           <a href="#bayes" class="si-sidebar-link" data-section="bayes">
             <div class="si-sidebar-icon" style="background:#fef3c7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
             <div class="si-sidebar-link-text">
@@ -482,11 +507,18 @@
               <span class="si-sidebar-link-sub">Bayes' Theorem</span>
             </div>
           </a>
-          <a href="#lln" class="si-sidebar-link" data-section="lln">
-            <div class="si-sidebar-icon" style="background:#e0e7ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <a href="#simpson" class="si-sidebar-link" data-section="simpson">
+            <div class="si-sidebar-icon" style="background:#fce7f3;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
             <div class="si-sidebar-link-text">
-              <span class="si-sidebar-link-title">大数定律</span>
-              <span class="si-sidebar-link-sub">Law of Large Numbers</span>
+              <span class="si-sidebar-link-title">辛普森悖论</span>
+              <span class="si-sidebar-link-sub">Simpson's Paradox</span>
+            </div>
+          </a>
+          <a href="#markov" class="si-sidebar-link" data-section="markov">
+            <div class="si-sidebar-icon" style="background:#e0e7ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><path d="M8 10l8-0"/><path d="M8 14l8 0"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">马尔可夫链</span>
+              <span class="si-sidebar-link-sub">Markov Chain</span>
             </div>
           </a>
         </nav>
@@ -524,14 +556,51 @@
                 <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
                 <ul class="si-ref-list">
                   <li><a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Wikipedia: Normal distribution</a></li>
-                  <li><a href="https://www.khanacademy.org/math/statistics-probability/modeling-distributions-of-data/normal-distributions-library/a/normal-distributions-review" target="_blank" rel="noopener">Khan Academy: Normal Distribution Review</a></li>
+                  <li><a href="https://www.zhihu.com/question/56891433" target="_blank" rel="noopener">知乎：如何直观地理解正态分布？</a></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 2. 中心极限定理 -->
+        <!-- 2. 大数定律 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="lln"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div>
+              <h2 class="si-section-title">大数定律</h2>
+              <p class="si-section-subtitle">模拟抛硬币，观察比例如何收敛到理论值</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-lln"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ \bar{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{P} \mu \quad (n \to \infty) \]
+                </div>
+                <p class="si-formula-note">
+                  <strong>弱大数定律（Khintchine）</strong>：对独立同分布且期望有限的随机变量序列，样本均值依概率收敛到总体期望 <code>μ</code>。
+                  <strong>强大数定律</strong>更进一步：<code>X̄ₙ</code> 以概率 1 收敛到 <code>μ</code>（几乎必然收敛）。抛硬币实验中，正面比例随 n 增大而趋近 0.5。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-lln"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank" rel="noopener">Wikipedia: Law of Large Numbers</a></li>
+                  <li><a href="https://zhuanlan.zhihu.com/p/77312635" target="_blank" rel="noopener">知乎专栏：大数定理的通俗理解（辛钦、伯努利、切比雪夫）</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 中心极限定理 -->
         <div class="si-section">
           <div class="si-section-anchor" id="clt"></div>
           <div class="si-section-header">
@@ -560,46 +629,7 @@
                 <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
                 <ul class="si-ref-list">
                   <li><a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Wikipedia: Central Limit Theorem</a></li>
-                  <li><a href="https://seeing-theory.brown.edu/probability-distributions/index.html" target="_blank" rel="noopener">Seeing Theory (Brown University): Interactive CLT Demo</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. P 值可视化 -->
-        <div class="si-section">
-          <div class="si-section-anchor" id="pvalue"></div>
-          <div class="si-section-header">
-            <div class="si-section-icon" style="background:linear-gradient(135deg,#ec4899,#e11d48);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <div>
-              <h2 class="si-section-title">P 值可视化</h2>
-              <p class="si-section-subtitle">拖动观测值，直观理解假设检验的核心概念</p>
-            </div>
-          </div>
-          <div class="si-section-body">
-            <div class="si-section-left">
-              <div class="si-viz-card" id="viz-pvalue"></div>
-            </div>
-            <div class="si-section-right">
-              <div class="si-formula-block">
-                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
-                <div class="si-formula-row">
-                  \[ Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \]
-                </div>
-                <div class="si-formula-row">
-                  \[ p\text{-value} = 2 \cdot P(Z \geq |z_{\text{obs}}|) \]
-                </div>
-                <p class="si-formula-note">
-                  其中 <code>Z</code> 为检验统计量，<code>μ₀</code> 为原假设下的总体均值，<code>Φ</code> 为标准正态分布的 CDF。P 值是在原假设 H₀ 为真时，观测到当前或更极端结果的概率。当 <code>p < α</code>（通常 α = 0.05）时拒绝 H₀。
-                </p>
-              </div>
-              <div class="si-explain-slot" id="explain-pvalue"></div>
-              <div class="si-ref-block">
-                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
-                <ul class="si-ref-list">
-                  <li><a href="https://en.wikipedia.org/wiki/P-value" target="_blank" rel="noopener">Wikipedia: P-value</a></li>
-                  <li><a href="https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/p-values-and-significance-tests" target="_blank" rel="noopener">Khan Academy: P-values and Significance Tests</a></li>
+                  <li><a href="https://www.bilibili.com/video/BV1gh4y1W7ag" target="_blank" rel="noopener">B站：但是什么是中心极限定理？（3Blue1Brown 官方双语）</a></li>
                 </ul>
               </div>
             </div>
@@ -635,14 +665,88 @@
                 <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
                 <ul class="si-ref-list">
                   <li><a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank" rel="noopener">Wikipedia: Confidence Interval</a></li>
-                  <li><a href="https://rpsychologist.com/d3/ci/" target="_blank" rel="noopener">R Psychologist: Interpreting Confidence Intervals (Interactive)</a></li>
+                  <li><a href="https://www.zhihu.com/question/26419030" target="_blank" rel="noopener">知乎：如何理解置信区间？</a></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 5. 贝叶斯定理 -->
+        <!-- 5. P 值可视化 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="pvalue"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#ec4899,#e11d48);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div>
+              <h2 class="si-section-title">P 值可视化</h2>
+              <p class="si-section-subtitle">拖动观测值，直观理解假设检验的核心概念</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-pvalue"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \]
+                </div>
+                <div class="si-formula-row">
+                  \[ p\text{-value} = 2 \cdot P(Z \geq |z_{\text{obs}}|) \]
+                </div>
+                <p class="si-formula-note">
+                  其中 <code>Z</code> 为检验统计量，<code>μ₀</code> 为原假设下的总体均值，<code>Φ</code> 为标准正态分布的 CDF。P 值是在原假设 H₀ 为真时，观测到当前或更极端结果的概率。当 <code>p < α</code>（通常 α = 0.05）时拒绝 H₀。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-pvalue"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/P-value" target="_blank" rel="noopener">Wikipedia: P-value</a></li>
+                  <li><a href="https://www.zhihu.com/question/23149768" target="_blank" rel="noopener">知乎：如何通俗地理解 P 值？</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Type I / Type II Error -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="errors"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div>
+              <h2 class="si-section-title">Type I / Type II 错误</h2>
+              <p class="si-section-subtitle">可视化 α、β 与检验功效 Power 之间的权衡</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-errors"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block" style="padding:14px 16px;">
+                <div class="si-formula-title" style="margin-bottom:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心概念</div>
+                <p class="si-formula-note" style="margin:0;">
+                  <code>α</code>（Type I 错误）：「误报」，原假设为真时错误地拒绝它。<br>
+                  <code>β</code>（Type II 错误）：「漏报」，备择假设为真时未能拒绝原假设。<br>
+                  <code>Power = 1-β</code> 是检测到真实效应的能力。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-errors"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Type_I_and_type_II_errors" target="_blank" rel="noopener">Wikipedia: Type I and Type II Errors</a></li>
+                  <li><a href="https://www.zhihu.com/question/20993864" target="_blank" rel="noopener">知乎：怎样理解 I 类错误和 II 类错误？</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. 贝叶斯定理 -->
         <div class="si-section">
           <div class="si-section-anchor" id="bayes"></div>
           <div class="si-section-header">
@@ -660,10 +764,11 @@
               <div class="si-formula-block">
                 <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
                 <div class="si-formula-row">
-                  \[ P(D \mid +) = \frac{P(+\mid D)\,P(D)}{P(+)} \]
+                  \[ P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)} \]
                 </div>
                 <p class="si-formula-note">
-                  <code>P(D)</code> 为先验概率（患病率），<code>P(+|D)</code> 为灵敏度（真阳性率），<code>P(+|¬D) = 1 - 特异度</code>为假阳性率。分母 <code>P(+)</code> 是检测阳性的总概率（全概率公式）。当先验很低时，即使检测灵敏度很高，后验概率也可能出人意料地低——这就是「基率谬误」。
+                  在本模拟中：<code>A</code> = 患病，<code>B</code> = 检测阳性。<br>
+                  <code>P(A)</code> 为先验概率，<code>P(B|A)</code> 为灵敏度，<code>P(B)</code> 为阳性总概率。当先验很低时，后验概率也可能出人意料地低——这就是「基率谬误」。
                 </p>
               </div>
               <div class="si-explain-slot" id="explain-bayes"></div>
@@ -671,44 +776,76 @@
                 <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
                 <ul class="si-ref-list">
                   <li><a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Wikipedia: Bayes' Theorem</a></li>
-                  <li><a href="https://www.3blue1brown.com/lessons/bayes-theorem" target="_blank" rel="noopener">3Blue1Brown: Bayes' Theorem (Video)</a></li>
+                  <li><a href="https://www.bilibili.com/video/BV1R7411a76r" target="_blank" rel="noopener">B站：贝叶斯定理的本质（3Blue1Brown 中文字幕）</a></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 6. 大数定律 -->
+        <!-- 8. 辛普森悖论 -->
         <div class="si-section">
-          <div class="si-section-anchor" id="lln"></div>
+          <div class="si-section-anchor" id="simpson"></div>
           <div class="si-section-header">
-            <div class="si-section-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#db2777,#be185d);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
             <div>
-              <h2 class="si-section-title">大数定律</h2>
-              <p class="si-section-subtitle">模拟抛硬币，观察比例如何收敛到理论值</p>
+              <h2 class="si-section-title">辛普森悖论</h2>
+              <p class="si-section-subtitle">分组趋势 vs 合并趋势的「反转」现象</p>
             </div>
           </div>
           <div class="si-section-body">
             <div class="si-section-left">
-              <div class="si-viz-card" id="viz-lln"></div>
+              <div class="si-viz-card" id="viz-simpson"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心概念</div>
+                <p class="si-formula-note">
+                  <strong>辛普森悖论（Simpson's Paradox）</strong>：在每个子组中，X 与 Y 正相关；但合并所有子组后，X 与 Y 变成负相关（或反之）。这是因为存在混淆变量（分组变量）影响了 X 与 Y 的关系。在因果推断和 A/B 实验中，忽略混淆变量可能导致完全错误的结论。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-simpson"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">Wikipedia: Simpson's Paradox</a></li>
+                  <li><a href="https://cloud.tencent.com/developer/article/1980778" target="_blank" rel="noopener">腾讯云：终于有人把辛普森悖论讲明白了</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. 马尔可夫链 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="markov"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#4f46e5,#4338ca);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="12" cy="5" r="3"/><path d="M8 10l2-3"/><path d="M14 10l-2-3"/><path d="M8 14l8 0"/></svg></div>
+            <div>
+              <h2 class="si-section-title">马尔可夫链</h2>
+              <p class="si-section-subtitle">状态转移动画，理解平稳分布与收敛</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-markov"></div>
             </div>
             <div class="si-section-right">
               <div class="si-formula-block">
                 <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
                 <div class="si-formula-row">
-                  \[ \bar{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{P} \mu \quad (n \to \infty) \]
+                  \[ \mathbf{\pi} = \mathbf{\pi} \mathbf{P} \]
                 </div>
                 <p class="si-formula-note">
-                  <strong>弱大数定律（Khintchine）</strong>：对独立同分布且期望有限的随机变量序列，样本均值依概率收敛到总体期望 <code>μ</code>。
-                  <strong>强大数定律</strong>更进一步：<code>X̄ₙ</code> 以概率 1 收敛到 <code>μ</code>（几乎必然收敛）。抛硬币实验中，正面比例随 n 增大而趋近 0.5。
+                  <strong>马尔可夫性</strong>：下一个状态只依赖当前状态，与历史无关。<code>P</code> 为转移矩阵，<code>P<sub>ij</sub></code> 表示从状态 i 到状态 j 的概率。<strong>平稳分布 π</strong> 满足 <code>πP = π</code>，是长期运行后各状态的占比。MCMC 方法就基于此原理进行采样。
                 </p>
               </div>
-              <div class="si-explain-slot" id="explain-lln"></div>
+              <div class="si-explain-slot" id="explain-markov"></div>
               <div class="si-ref-block">
                 <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
                 <ul class="si-ref-list">
-                  <li><a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank" rel="noopener">Wikipedia: Law of Large Numbers</a></li>
-                  <li><a href="https://seeing-theory.brown.edu/basic-probability/index.html" target="_blank" rel="noopener">Seeing Theory (Brown University): Law of Large Numbers</a></li>
+                  <li><a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank" rel="noopener">Wikipedia: Markov Chain</a></li>
+                  <li><a href="https://www.zhihu.com/question/26665048" target="_blank" rel="noopener">知乎：如何通俗地理解马尔可夫链？</a></li>
                 </ul>
               </div>
             </div>
@@ -747,6 +884,16 @@
       </a>
       <a class="si-mobile-toc-item" data-section="lln" href="#lln">
         <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span>大数定律</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="errors" href="#errors">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Type I/II 错误</span>
+      </a>
+
+      <a class="si-mobile-toc-item" data-section="simpson" href="#simpson">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></span><span>辛普森悖论</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="markov" href="#markov">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/></svg></span><span>马尔可夫链</span>
       </a>
     </div>
   </div>
@@ -798,7 +945,7 @@
   (function() {
     var sidebarLinks = document.querySelectorAll('.si-sidebar-link');
     var mobileTocItems = document.querySelectorAll('.si-mobile-toc-item');
-    var sectionIds = ['normal', 'clt', 'pvalue', 'ci', 'bayes', 'lln'];
+    var sectionIds = ['normal', 'lln', 'clt', 'ci', 'pvalue', 'errors', 'bayes', 'simpson', 'markov'];
 
     function updateActive() {
       var current = '';
@@ -828,7 +975,7 @@
   })();
   </script>
 
-  <script src="../js/stat-intuition.js"></script>
+  <script src="../js/stat-intuition.js?v=20260331b"></script>
   <script src="../js/search.js"></script>
   <script src="../js/assistant.js"></script>
 

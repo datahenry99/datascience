@@ -3,7 +3,8 @@
 // SVG icon for "insight" bullet (replaces emoji)
 var SVG_INSIGHT = '<svg style="display:inline-block;vertical-align:-2px;margin-right:4px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>';
 
-// --- Utility ---
+// Global registry for redraw callbacks (used by theme toggle)
+var _siRedrawFns = [];
 function gaussianPDF(x, mu, sigma) {
   return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
 }
@@ -63,30 +64,41 @@ function makeSlider(label, min, max, value, step, onChange) {
   var lbl = h('span', { class: 'si-control-label' }, label);
   var val = h('span', { class: 'si-control-value' }, String(value));
   var inp = h('input', { type: 'range', min: min, max: max, value: value, step: step || 1 });
+  var rafId = null;
   inp.addEventListener('input', function() {
     val.textContent = inp.value;
-    onChange(parseFloat(inp.value));
+    var v = parseFloat(inp.value);
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(function() { rafId = null; onChange(v); });
   });
   row.appendChild(lbl); row.appendChild(inp); row.appendChild(val);
   return row;
 }
 
 // ============================================================
-// Auto-init: render all 6 visualizations into their containers
+// Auto-init: render all 11 visualizations into their containers
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
   var vizMap = [
     { id: 'viz-normal', init: initNormal },
+    { id: 'viz-lln',    init: initLLN },
     { id: 'viz-clt',    init: initCLT },
-    { id: 'viz-pvalue', init: initPValue },
     { id: 'viz-ci',     init: initCI },
+    { id: 'viz-pvalue', init: initPValue },
+    { id: 'viz-errors',   init: initErrors },
     { id: 'viz-bayes',  init: initBayes },
-    { id: 'viz-lln',    init: initLLN }
+    { id: 'viz-simpson',    init: initSimpson },
+    { id: 'viz-markov',     init: initMarkov }
   ];
 
   vizMap.forEach(function(v) {
     var container = document.getElementById(v.id);
     if (container) v.init(container);
+  });
+
+  // 主题切换时触发所有 canvas 重绘
+  window.addEventListener('themechange', function() {
+    _siRedrawFns.forEach(function(fn) { fn(); });
   });
 });
 
@@ -214,6 +226,7 @@ function initNormal(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
 
 // ============================================================
@@ -354,6 +367,7 @@ function initCLT(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
 
 // ============================================================
@@ -485,6 +499,7 @@ function initPValue(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
 
 // ============================================================
@@ -594,6 +609,7 @@ function initCI(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
 
 // ============================================================
@@ -601,14 +617,14 @@ function initCI(container) {
 // ============================================================
 function initBayes(container) {
   var prior = 0.01, sensitivity = 0.95, specificity = 0.90;
-  var c = makeCanvas(280);
+  var c = makeCanvas(200);
   var controls = h('div', { class: 'si-controls' });
   var stats = h('div', { class: 'si-stats-box' });
   var explainSlot = document.getElementById('explain-bayes');
 
-  controls.appendChild(makeSlider('先验 P(D)', 0.001, 0.5, 0.01, 0.001, function(v) { prior = v; draw(); }));
-  controls.appendChild(makeSlider('灵敏度 P(+|D)', 0.5, 1, 0.95, 0.01, function(v) { sensitivity = v; draw(); }));
-  controls.appendChild(makeSlider('特异度 P(-|¬D)', 0.5, 1, 0.90, 0.01, function(v) { specificity = v; draw(); }));
+  controls.appendChild(makeSlider('先验 P(A)', 0.001, 0.5, 0.01, 0.001, function(v) { prior = v; draw(); }));
+  controls.appendChild(makeSlider('灵敏度 P(B|A)', 0.5, 1, 0.95, 0.01, function(v) { sensitivity = v; draw(); }));
+  controls.appendChild(makeSlider('特异度 P(¬B|¬A)', 0.5, 1, 0.90, 0.01, function(v) { specificity = v; draw(); }));
 
   container.appendChild(c.wrap);
   container.appendChild(controls);
@@ -631,8 +647,9 @@ function initBayes(container) {
     var posterior = (sensitivity * prior) / pPos;
 
     // Draw stacked bar
-    var padL = 80, padR = 80, padT = 40, padB = 60;
-    var bw = W - padL - padR, bh = 50;
+    var padL = 60, padR = 60, padT = 30, padB = 20;
+    var bw = W - padL - padR, bh = 40;
+    var gap = 28;   // gap between two bars (room for arrow + text)
 
     // Prior bar
     var y1 = padT;
@@ -642,14 +659,14 @@ function initBayes(container) {
     ctx.fillRect(padL + bw * prior, y1, bw * (1 - prior), bh);
 
     ctx.fillStyle = isDark ? '#f1f5f9' : '#0f172a';
-    ctx.font = 'bold 13px "Noto Sans SC", sans-serif';
+    ctx.font = 'bold 12px "Noto Sans SC", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('先验', 8, y1 + bh / 2 + 5);
+    ctx.fillText('先验', 6, y1 + bh / 2 + 4);
     ctx.textAlign = 'right';
-    ctx.fillText((prior * 100).toFixed(1) + '%', W - 10, y1 + bh / 2 + 5);
+    ctx.fillText((prior * 100).toFixed(1) + '%', W - 8, y1 + bh / 2 + 4);
 
     // Posterior bar
-    var y2 = padT + bh + 30;
+    var y2 = y1 + bh + gap;
     ctx.fillStyle = '#f43f5e';
     ctx.fillRect(padL, y2, bw * posterior, bh);
     ctx.fillStyle = isDark ? '#334155' : '#e2e8f0';
@@ -657,32 +674,44 @@ function initBayes(container) {
 
     ctx.fillStyle = isDark ? '#f1f5f9' : '#0f172a';
     ctx.textAlign = 'left';
-    ctx.fillText('后验', 8, y2 + bh / 2 + 5);
+    ctx.fillText('后验', 6, y2 + bh / 2 + 4);
     ctx.textAlign = 'right';
-    ctx.fillText((posterior * 100).toFixed(1) + '%', W - 10, y2 + bh / 2 + 5);
+    ctx.fillText((posterior * 100).toFixed(1) + '%', W - 8, y2 + bh / 2 + 4);
 
-    // Arrow
-    var arrowX = padL + bw / 2;
-    ctx.strokeStyle = isDark ? '#475569' : '#94a3b8';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(arrowX, y1 + bh + 4); ctx.lineTo(arrowX, y2 - 4); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(arrowX - 6, y2 - 10); ctx.lineTo(arrowX, y2 - 4); ctx.lineTo(arrowX + 6, y2 - 10); ctx.stroke();
+    // Arrow – aligned with "先验"/"后验" text column (x ≈ 28)
+    var arrowX = 28;
+    var arrowTop = y1 + bh + 3;
+    var arrowBot = y2 - 3;
+    var arrowColor = isDark ? '#475569' : '#94a3b8';
+    ctx.strokeStyle = arrowColor;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(arrowX, arrowTop); ctx.lineTo(arrowX, arrowBot); ctx.stroke();
+    // filled triangle head
+    ctx.fillStyle = arrowColor;
+    ctx.beginPath();
+    ctx.moveTo(arrowX, arrowBot);
+    ctx.lineTo(arrowX - 4, arrowBot - 6);
+    ctx.lineTo(arrowX + 4, arrowBot - 6);
+    ctx.closePath();
+    ctx.fill();
 
+    // Centre label between the two bars
     ctx.fillStyle = isDark ? '#94a3b8' : '#64748b';
-    ctx.font = '12px Inter, sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('检测阳性 → 贝叶斯更新', arrowX, y1 + bh + 22);
-
-    // Labels
     ctx.font = '11px "Noto Sans SC", sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('检测阳性 → 贝叶斯更新', padL + bw / 2, (y1 + bh + y2) / 2 + 4);
+
+    // Labels – left-aligned at bar start
+    ctx.font = '11px "Noto Sans SC", sans-serif';
+    ctx.textAlign = 'left';
     ctx.fillStyle = isDark ? '#94a3b8' : '#64748b';
-    ctx.fillText('P(患病)', padL + bw * prior / 2, y1 - 6);
-    ctx.fillText('P(患病|阳性)', padL + bw * posterior / 2, y2 + bh + 18);
+    ctx.fillText('P(A)  先验概率', padL, y1 - 6);
+    ctx.fillText('P(A|B)  后验概率', padL, y2 + bh + 14);
 
     stats.innerHTML =
-      '<div class="si-stat"><div class="si-stat-value">' + (prior * 100).toFixed(2) + '%</div><div class="si-stat-label">先验 P(D)</div></div>' +
-      '<div class="si-stat"><div class="si-stat-value" style="color:#f43f5e">' + (posterior * 100).toFixed(2) + '%</div><div class="si-stat-label">后验 P(D|+)</div></div>' +
-      '<div class="si-stat"><div class="si-stat-value">' + (posterior / prior).toFixed(1) + '×</div><div class="si-stat-label">更新倍数</div></div>' +
-      '<div class="si-stat"><div class="si-stat-value">' + (pPosGivenNotD * 100).toFixed(1) + '%</div><div class="si-stat-label">假阳性率</div></div>';
+      '<div class="si-stat"><div class="si-stat-value">' + (prior * 100).toFixed(2) + '%</div><div class="si-stat-label">先验 P(A)</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value" style="color:#f43f5e">' + (posterior * 100).toFixed(2) + '%</div><div class="si-stat-label">后验 P(A|B)</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value">' + (pPos * 100).toFixed(2) + '%</div><div class="si-stat-label" title="P(B) = P(B|A)·P(A) + P(B|¬A)·P(¬A)，由全概率公式算出">P(B) 阳性率</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value">' + (posterior / prior).toFixed(1) + '×</div><div class="si-stat-label" title="后验概率 ÷ 先验概率，表示观测到证据后信念增强了多少倍">后验 ÷ 先验</div></div>';
 
     if (explainSlot) explainSlot.innerHTML = '<div class="si-explain"><strong>' + SVG_INSIGHT + '直觉：</strong>经典的「医学检测悖论」——即使检测灵敏度高达 ' + (sensitivity * 100).toFixed(0) + '%，' +
       '当患病率仅为 <strong>' + (prior * 100).toFixed(2) + '%</strong> 时，检测阳性后真正患病的概率只有 <strong>' + (posterior * 100).toFixed(2) + '%</strong>。' +
@@ -691,6 +720,7 @@ function initBayes(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
 
 // ============================================================
@@ -813,4 +843,387 @@ function initLLN(container) {
 
   setTimeout(draw, 100);
   new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
+}
+
+// ============================================================
+// 7. Type I / Type II Errors & Power
+// ============================================================
+function initErrors(container) {
+  var alpha = 0.05, effectSize = 1.5, sampleN = 25;
+  var c = makeCanvas(300);
+  var controls = h('div', { class: 'si-controls' });
+  var stats = h('div', { class: 'si-stats-box' });
+  var explainSlot = document.getElementById('explain-errors');
+
+  controls.appendChild(makeSlider('α 水平', 0.001, 0.20, 0.05, 0.001, function(v) { alpha = v; draw(); }));
+
+  // 效应量 d 滑块 + 说明
+  var dSliderRow = makeSlider('效应量 d', 0.1, 3.0, 1.5, 0.05, function(v) { effectSize = v; draw(); });
+  controls.appendChild(dSliderRow);
+  var dHint = h('div', { style: { fontSize: '12px', color: '#94a3b8', lineHeight: '1.6', padding: '0 0 4px 112px', marginTop: '-8px' } },
+    '💡 两组均值之差除以标准差，衡量差异大小。<span style="color:#64748b">0.2=小，0.5=中，0.8=大</span>');
+  controls.appendChild(dHint);
+
+  // 样本量 n 滑块 + 说明
+  var nSliderRow = makeSlider('样本量 n', 2, 100, 25, 1, function(v) { sampleN = v; draw(); });
+  controls.appendChild(nSliderRow);
+  var nHint = h('div', { style: { fontSize: '12px', color: '#94a3b8', lineHeight: '1.6', padding: '0 0 4px 112px', marginTop: '-8px' } },
+    '💡 每组观测数量。n 越大，H₁ 曲线越远离 H₀，Power 越高');
+  controls.appendChild(nHint);
+
+  container.appendChild(c.wrap);
+  container.appendChild(controls);
+  container.appendChild(stats);
+
+  function invNormApprox(p) {
+    if (p <= 0) return -8; if (p >= 1) return 8;
+    var lim = p < 0.5 ? p : 1 - p;
+    var t = Math.sqrt(-2 * Math.log(lim));
+    var z = t - (2.515517 + 0.802853*t + 0.010328*t*t) / (1 + 1.432788*t + 0.189269*t*t + 0.001308*t*t*t);
+    return p < 0.5 ? -z : z;
+  }
+
+  function draw() {
+    var rect = c.canvas.getBoundingClientRect();
+    var W = rect.width, HT = rect.height;
+    if (W === 0 || HT === 0) return;
+    var ctx = setupHiDPI(c.canvas, W, HT);
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    ctx.clearRect(0, 0, W, HT);
+    ctx.fillStyle = isDark ? '#0f172a' : '#f8fafc';
+    ctx.fillRect(0, 0, W, HT);
+
+    var padL = 40, padR = 20, padT = 30, padB = 40;
+    var pw = W - padL - padR, ph = HT - padT - padB;
+    var mu0 = 0, mu1 = effectSize * Math.sqrt(sampleN);
+    var zCrit = invNormApprox(1 - alpha / 2);
+    var xMin = Math.min(mu0 - 4, mu1 - 4);
+    var xMax = Math.max(mu0 + 4, mu1 + 4);
+
+    function toXE(v) { return padL + ((v - xMin) / (xMax - xMin)) * pw; }
+    function toYE(v, pk) { return padT + ph - (v / pk) * ph * 0.88; }
+
+    var peak0 = gaussianPDF(mu0, mu0, 1), peak1 = gaussianPDF(mu1, mu1, 1);
+    var peakMax = Math.max(peak0, peak1);
+
+    // Type I fill
+    ctx.fillStyle = isDark ? 'rgba(239,68,68,0.35)' : 'rgba(239,68,68,0.25)';
+    ctx.beginPath(); ctx.moveTo(toXE(zCrit), padT + ph);
+    for (var px = 0; px <= pw; px++) {
+      var xv = xMin + (px / pw) * (xMax - xMin);
+      if (xv < zCrit) continue;
+      ctx.lineTo(toXE(xv), toYE(gaussianPDF(xv, mu0, 1), peakMax));
+    }
+    ctx.lineTo(toXE(xMax), padT + ph); ctx.closePath(); ctx.fill();
+
+    // Type II fill
+    ctx.fillStyle = isDark ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.2)';
+    ctx.beginPath(); ctx.moveTo(toXE(xMin), padT + ph);
+    for (var px2 = 0; px2 <= pw; px2++) {
+      var xv2 = xMin + (px2 / pw) * (xMax - xMin);
+      if (xv2 > zCrit) break;
+      ctx.lineTo(toXE(xv2), toYE(gaussianPDF(xv2, mu1, 1), peakMax));
+    }
+    ctx.lineTo(toXE(zCrit), padT + ph); ctx.closePath(); ctx.fill();
+
+    // H0 curve
+    ctx.beginPath();
+    for (var px3 = 0; px3 <= pw; px3++) {
+      var xv3 = xMin + (px3 / pw) * (xMax - xMin);
+      var cy = toYE(gaussianPDF(xv3, mu0, 1), peakMax);
+      if (px3 === 0) ctx.moveTo(padL + px3, cy); else ctx.lineTo(padL + px3, cy);
+    }
+    ctx.strokeStyle = isDark ? '#94a3b8' : '#64748b'; ctx.lineWidth = 2; ctx.stroke();
+
+    // H1 curve
+    ctx.beginPath();
+    for (var px4 = 0; px4 <= pw; px4++) {
+      var xv4 = xMin + (px4 / pw) * (xMax - xMin);
+      var cy2 = toYE(gaussianPDF(xv4, mu1, 1), peakMax);
+      if (px4 === 0) ctx.moveTo(padL + px4, cy2); else ctx.lineTo(padL + px4, cy2);
+    }
+    ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2.5; ctx.stroke();
+
+    // Critical line
+    ctx.setLineDash([6, 4]); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(toXE(zCrit), padT); ctx.lineTo(toXE(zCrit), padT + ph); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Labels
+    ctx.fillStyle = isDark ? '#94a3b8' : '#64748b';
+    ctx.font = 'bold 12px Inter, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('H₀', toXE(mu0), padT - 8);
+    ctx.fillStyle = '#6366f1'; ctx.fillText('H₁', toXE(mu1), padT - 8);
+    ctx.fillStyle = '#ef4444'; ctx.font = '11px Inter, sans-serif';
+    ctx.fillText('z=' + zCrit.toFixed(2), toXE(zCrit), padT + ph + 16);
+
+    // Legend
+    ctx.font = '11px "Noto Sans SC", sans-serif'; ctx.textAlign = 'left';
+    ctx.fillStyle = isDark ? 'rgba(239,68,68,0.5)' : 'rgba(239,68,68,0.35)';
+    ctx.fillRect(padL + 8, padT + 5, 10, 10);
+    ctx.fillStyle = isDark ? '#e2e8f0' : '#334155'; ctx.fillText('α (Type I)', padL + 22, padT + 14);
+    ctx.fillStyle = isDark ? 'rgba(59,130,246,0.4)' : 'rgba(59,130,246,0.3)';
+    ctx.fillRect(padL + 8, padT + 22, 10, 10);
+    ctx.fillStyle = isDark ? '#e2e8f0' : '#334155'; ctx.fillText('β (Type II)', padL + 22, padT + 31);
+
+    var beta = normalCDF(zCrit, mu1, 1);
+    var power = 1 - beta;
+
+    stats.innerHTML =
+      '<div class="si-stat"><div class="si-stat-value" style="color:#ef4444">' + (alpha * 100).toFixed(1) + '%</div><div class="si-stat-label">α (Type I)</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value" style="color:#3b82f6">' + (beta * 100).toFixed(1) + '%</div><div class="si-stat-label">β (Type II)</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value" style="color:#10b981">' + (power * 100).toFixed(1) + '%</div><div class="si-stat-label">Power</div></div>' +
+      '<div class="si-stat"><div class="si-stat-value">' + effectSize.toFixed(1) + '</div><div class="si-stat-label">效应量 d</div></div>';
+
+    if (explainSlot) explainSlot.innerHTML = '<div class="si-explain"><strong>' + SVG_INSIGHT + '直觉：</strong>红色区域=α（误报），蓝色区域=β（漏报），Power=1-β=' + (power * 100).toFixed(1) + '%。' +
+      (power < 0.8 ? '⚠️ Power 不足 80%，建议增大样本量或效应量！' : '✅ Power 达标。') + '</div>';
+  }
+
+  setTimeout(draw, 100);
+  new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
+}
+
+// ============================================================
+// 8. Simpson's Paradox
+// ============================================================
+function initSimpson(container) {
+  var showGroups = true;
+  var c = makeCanvas(320);
+  var btnRow = h('div', { class: 'si-btn-row' });
+  var stats = h('div', { class: 'si-stats-box' });
+  var explainSlot = document.getElementById('explain-simpson');
+
+  var groups = [
+    { name: '部门 A', color: '#6366f1', points: [] },
+    { name: '部门 B', color: '#f59e0b', points: [] },
+    { name: '部门 C', color: '#10b981', points: [] }
+  ];
+
+  function genData() {
+    groups[0].points = []; groups[1].points = []; groups[2].points = [];
+    // 关键：每组内 X↑ → Y↓（负斜率），但组间 X 越大的组 Y 基线越高
+    // 这样合并后总体趋势反转为正斜率 → 辛普森悖论
+    for (var i = 0; i < 25; i++) { var x = 0.5 + Math.random() * 2; groups[0].points.push({ x: x, y: 4 - 0.8 * x + (Math.random() - 0.5) * 1.2 }); }
+    for (var j = 0; j < 25; j++) { var x2 = 3.5 + Math.random() * 2; groups[1].points.push({ x: x2, y: 8.5 - 0.8 * x2 + (Math.random() - 0.5) * 1.2 }); }
+    for (var k = 0; k < 25; k++) { var x3 = 6.5 + Math.random() * 2.5; groups[2].points.push({ x: x3, y: 13 - 0.8 * x3 + (Math.random() - 0.5) * 1.2 }); }
+  }
+  genData();
+
+  var togBtn = h('button', { class: 'si-btn si-btn-primary' }, '👁 切换分组显示');
+  var regBtn = h('button', { class: 'si-btn si-btn-secondary' }, '🎲 重新生成');
+  togBtn.addEventListener('click', function() { showGroups = !showGroups; draw(); });
+  regBtn.addEventListener('click', function() { genData(); draw(); });
+  btnRow.appendChild(togBtn); btnRow.appendChild(regBtn);
+
+  container.appendChild(c.wrap);
+  container.appendChild(btnRow);
+  container.appendChild(stats);
+
+  function fitL(pts) {
+    if (pts.length < 2) return null;
+    var n = pts.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    pts.forEach(function(p) { sx += p.x; sy += p.y; sxx += p.x * p.x; sxy += p.x * p.y; });
+    var d = n * sxx - sx * sx;
+    if (Math.abs(d) < 1e-10) return null;
+    return { b0: (sy - ((n * sxy - sx * sy) / d) * sx) / n, b1: (n * sxy - sx * sy) / d };
+  }
+
+  function draw() {
+    var rect = c.canvas.getBoundingClientRect();
+    var W = rect.width, HT = rect.height;
+    if (W === 0 || HT === 0) return;
+    var ctx = setupHiDPI(c.canvas, W, HT);
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    ctx.clearRect(0, 0, W, HT);
+    ctx.fillStyle = isDark ? '#0f172a' : '#f8fafc';
+    ctx.fillRect(0, 0, W, HT);
+
+    var padL = 50, padR = 20, padT = 20, padB = 40;
+    var pw = W - padL - padR, ph = HT - padT - padB;
+    var xMin = 0, xMax = 10, yMin = 0, yMax = 10;
+    function toXS(v) { return padL + ((v - xMin) / (xMax - xMin)) * pw; }
+    function toYS(v) { return padT + ph - ((v - yMin) / (yMax - yMin)) * ph; }
+
+    ctx.strokeStyle = isDark ? '#1e293b' : '#e8ecf1'; ctx.lineWidth = 1;
+    for (var gx = 0; gx <= 10; gx += 2) { ctx.beginPath(); ctx.moveTo(toXS(gx), padT); ctx.lineTo(toXS(gx), padT + ph); ctx.stroke(); }
+    for (var gy = 0; gy <= 10; gy += 2) { ctx.beginPath(); ctx.moveTo(padL, toYS(gy)); ctx.lineTo(padL + pw, toYS(gy)); ctx.stroke(); }
+    ctx.fillStyle = isDark ? '#94a3b8' : '#64748b'; ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    for (var t = 0; t <= 10; t += 2) ctx.fillText(t, toXS(t), HT - 8);
+    ctx.textAlign = 'right';
+    for (var t2 = 0; t2 <= 10; t2 += 2) ctx.fillText(t2, padL - 6, toYS(t2) + 4);
+
+    var allPts = [];
+    groups.forEach(function(g) { allPts = allPts.concat(g.points); });
+    var oFit = fitL(allPts);
+
+    if (oFit) {
+      ctx.strokeStyle = isDark ? '#94a3b8' : '#475569'; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(toXS(xMin), toYS(oFit.b0 + oFit.b1 * xMin)); ctx.lineTo(toXS(xMax), toYS(oFit.b0 + oFit.b1 * xMax)); ctx.stroke();
+    }
+
+    if (showGroups) {
+      groups.forEach(function(g) {
+        var gf = fitL(g.points);
+        if (gf) {
+          var gxMn = Math.min.apply(null, g.points.map(function(p) { return p.x; }));
+          var gxMx = Math.max.apply(null, g.points.map(function(p) { return p.x; }));
+          ctx.strokeStyle = g.color; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+          ctx.beginPath(); ctx.moveTo(toXS(gxMn), toYS(gf.b0 + gf.b1 * gxMn)); ctx.lineTo(toXS(gxMx), toYS(gf.b0 + gf.b1 * gxMx)); ctx.stroke();
+        }
+        ctx.setLineDash([]); ctx.fillStyle = g.color;
+        g.points.forEach(function(p) { ctx.beginPath(); ctx.arc(toXS(p.x), toYS(p.y), 4, 0, 2 * Math.PI); ctx.fill(); });
+      });
+      ctx.font = '12px "Noto Sans SC", sans-serif'; ctx.textAlign = 'left';
+      groups.forEach(function(g, i) {
+        ctx.fillStyle = g.color; ctx.fillRect(padL + 8, padT + 5 + i * 18, 10, 10);
+        ctx.fillStyle = isDark ? '#e2e8f0' : '#334155'; ctx.fillText(g.name, padL + 22, padT + 14 + i * 18);
+      });
+    } else {
+      ctx.fillStyle = isDark ? '#94a3b8' : '#64748b';
+      allPts.forEach(function(p) { ctx.beginPath(); ctx.arc(toXS(p.x), toYS(p.y), 4, 0, 2 * Math.PI); ctx.fill(); });
+    }
+
+    var gSlopes = groups.map(function(g) { var f = fitL(g.points); return f ? f.b1 : 0; });
+    stats.innerHTML =
+      '<div class="si-stat"><div class="si-stat-value" style="color:' + (oFit && oFit.b1 > 0 ? '#10b981' : '#ef4444') + '">' + (oFit ? (oFit.b1 > 0 ? '↗ ' : '↘ ') + oFit.b1.toFixed(2) : '--') + '</div><div class="si-stat-label">总体斜率</div></div>' +
+      groups.map(function(g, i) { return '<div class="si-stat"><div class="si-stat-value" style="color:' + g.color + '">' + (gSlopes[i] > 0 ? '↗ ' : '↘ ') + gSlopes[i].toFixed(2) + '</div><div class="si-stat-label">' + g.name + '</div></div>'; }).join('');
+
+    if (explainSlot) {
+      var paradox = oFit && oFit.b1 > 0 && gSlopes.every(function(s) { return s < 0; });
+      explainSlot.innerHTML = '<div class="si-explain"><strong>' + SVG_INSIGHT + '直觉：</strong>' +
+        (showGroups ? (paradox ? '悖论出现！每组内<strong style="color:#ef4444">负相关</strong>（↘），合并后变成<strong style="color:#10b981">正相关</strong>（↗）。混淆变量导致趋势反转！' : '观察各组虚线与总体实线的方向差异。') : '当前只看总体趋势。切换分组看看会怎样！') + '</div>';
+    }
+  }
+
+  setTimeout(draw, 100);
+  new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
+}
+
+// ============================================================
+// 11. Markov Chain
+// ============================================================
+function initMarkov(container) {
+  var P = [[0.7, 0.2, 0.1], [0.3, 0.4, 0.3], [0.2, 0.3, 0.5]];
+  var stNames = ['☀️ 晴天', '⛅ 多云', '🌧️ 雨天'];
+  var stColors = ['#f59e0b', '#64748b', '#3b82f6'];
+  var hist = [], curSt = 0;
+
+  var c = makeCanvas(300);
+  var btnRow = h('div', { class: 'si-btn-row' });
+  var stats = h('div', { class: 'si-stats-box' });
+  var explainSlot = document.getElementById('explain-markov');
+
+  function nextSt(s) { var r = Math.random(), cum = 0; for (var j = 0; j < 3; j++) { cum += P[s][j]; if (r < cum) return j; } return 2; }
+  function runN(n) { for (var i = 0; i < n; i++) { curSt = nextSt(curSt); hist.push(curSt); } draw(); }
+
+  var b1 = h('button', { class: 'si-btn si-btn-primary' }, '▶ 1 步');
+  var b2 = h('button', { class: 'si-btn si-btn-primary' }, '⚡ 100 步');
+  var b3 = h('button', { class: 'si-btn si-btn-primary' }, '🚀 1000 步');
+  var b4 = h('button', { class: 'si-btn si-btn-secondary' }, '↺ 重置');
+  b1.addEventListener('click', function() { runN(1); });
+  b2.addEventListener('click', function() { runN(100); });
+  b3.addEventListener('click', function() { runN(1000); });
+  b4.addEventListener('click', function() { hist = []; curSt = 0; draw(); });
+  btnRow.appendChild(b1); btnRow.appendChild(b2); btnRow.appendChild(b3); btnRow.appendChild(b4);
+
+  container.appendChild(c.wrap);
+  container.appendChild(btnRow);
+  container.appendChild(stats);
+
+  // Stationary distribution
+  var pi = [1/3, 1/3, 1/3];
+  for (var it = 0; it < 200; it++) {
+    var np = [0, 0, 0];
+    for (var j = 0; j < 3; j++) for (var i = 0; i < 3; i++) np[j] += pi[i] * P[i][j];
+    pi = np;
+  }
+
+  function draw() {
+    var rect = c.canvas.getBoundingClientRect();
+    var W = rect.width, HT = rect.height;
+    if (W === 0 || HT === 0) return;
+    var ctx = setupHiDPI(c.canvas, W, HT);
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    ctx.clearRect(0, 0, W, HT);
+    ctx.fillStyle = isDark ? '#0f172a' : '#f8fafc';
+    ctx.fillRect(0, 0, W, HT);
+
+    var padL = 50, padR = 20, padT = 30, padB = 40;
+    var pw = W - padL - padR, ph = HT - padT - padB;
+
+    if (hist.length === 0) {
+      ctx.fillStyle = isDark ? '#475569' : '#94a3b8'; ctx.font = '16px "Noto Sans SC", sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('点击按钮模拟天气转换', W / 2, HT / 2);
+      stats.innerHTML = '';
+      if (explainSlot) explainSlot.innerHTML = '<div class="si-explain"><strong>' + SVG_INSIGHT + '马尔可夫链：</strong>三种天气按转移概率随机切换。长期占比会收敛到平稳分布 π，与起始状态无关。</div>';
+      return;
+    }
+
+    // Y grid
+    ctx.strokeStyle = isDark ? '#1e293b' : '#e8ecf1'; ctx.lineWidth = 1;
+    [0, 0.25, 0.5, 0.75, 1].forEach(function(v) {
+      var y = padT + ph - v * ph;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + pw, y); ctx.stroke();
+      ctx.fillStyle = isDark ? '#94a3b8' : '#64748b'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'right';
+      ctx.fillText((v * 100).toFixed(0) + '%', padL - 6, y + 4);
+    });
+
+    // Stationary lines
+    pi.forEach(function(pv, s) {
+      var y = padT + ph - pv * ph;
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = stColors[s]; ctx.lineWidth = 1; ctx.globalAlpha = 0.4;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + pw, y); ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+    ctx.setLineDash([]);
+
+    // Running proportions
+    var step = Math.max(1, Math.floor(hist.length / pw));
+    for (var s = 0; s < 3; s++) {
+      ctx.beginPath();
+      for (var idx = 0; idx < hist.length; idx += step) {
+        var cnt = 0;
+        for (var jj = 0; jj <= idx; jj++) if (hist[jj] === s) cnt++;
+        var prop = cnt / (idx + 1);
+        var x = padL + (idx / Math.max(hist.length - 1, 1)) * pw;
+        var y2 = padT + ph - prop * ph;
+        if (idx === 0) ctx.moveTo(x, y2); else ctx.lineTo(x, y2);
+      }
+      var fc = hist.filter(function(hh) { return hh === s; }).length;
+      ctx.lineTo(padL + pw, padT + ph - (fc / hist.length) * ph);
+      ctx.strokeStyle = stColors[s]; ctx.lineWidth = 2; ctx.stroke();
+    }
+
+    ctx.fillStyle = isDark ? '#94a3b8' : '#64748b'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'center';
+    for (var t = 0; t <= 4; t++) ctx.fillText(Math.round((t / 4) * hist.length).toLocaleString(), padL + (t / 4) * pw, HT - 8);
+
+    // Legend
+    ctx.font = '12px "Noto Sans SC", sans-serif'; ctx.textAlign = 'left';
+    stNames.forEach(function(nm, i) {
+      ctx.fillStyle = stColors[i]; ctx.fillRect(padL + 8 + i * 90, padT - 20, 10, 10);
+      ctx.fillStyle = isDark ? '#e2e8f0' : '#334155'; ctx.fillText(nm, padL + 22 + i * 90, padT - 11);
+    });
+
+    var fCounts = [0, 0, 0];
+    hist.forEach(function(hh) { fCounts[hh]++; });
+    var fProps = fCounts.map(function(cc) { return cc / hist.length; });
+
+    stats.innerHTML =
+      '<div class="si-stat"><div class="si-stat-value">' + hist.length.toLocaleString() + '</div><div class="si-stat-label">步数</div></div>' +
+      stNames.map(function(nm, i) { return '<div class="si-stat"><div class="si-stat-value" style="color:' + stColors[i] + '">' + (fProps[i] * 100).toFixed(1) + '%</div><div class="si-stat-label">' + nm + ' (π=' + (pi[i] * 100).toFixed(1) + '%)</div></div>'; }).join('');
+
+    if (explainSlot) {
+      var maxDiff = Math.max.apply(null, fProps.map(function(p2, i) { return Math.abs(p2 - pi[i]); }));
+      explainSlot.innerHTML = '<div class="si-explain"><strong>' + SVG_INSIGHT + '直觉：</strong>经过 ' + hist.length.toLocaleString() + ' 步，各状态占比' +
+        (maxDiff < 0.02 ? '已收敛到平稳分布 π' : '正在向平稳分布 π 收敛') + '。π=[' + pi.map(function(p2) { return (p2 * 100).toFixed(1) + '%'; }).join(', ') + ']。这就是马尔可夫链的遍历性！</div>';
+    }
+  }
+
+  setTimeout(draw, 100);
+  new ResizeObserver(draw).observe(c.canvas);
+  _siRedrawFns.push(draw);
 }
