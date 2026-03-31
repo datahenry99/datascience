@@ -627,6 +627,10 @@ a {
   background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
 }
 
+.explore-card-stat-intuition .explore-card-glow {
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.12) 0%, transparent 70%);
+}
+
 .explore-card:hover .explore-card-glow {
   opacity: 1;
 }
@@ -1996,5 +2000,239 @@ a {
 
   .explore-card-arrow {
     font-size: 13px;
+  }
+}
+
+/* ===== Learning Roadmap Section ===== */
+.roadmap-section {
+  padding: 64px 0 72px;
+  background: #fafafa;
+}
+
+.roadmap-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.roadmap-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.roadmap-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.roadmap-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.roadmap-desc {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Track layout */
+.roadmap-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.roadmap-line {
+  position: absolute;
+  left: 27px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 20%, #f97316 40%, #10b981 55%, #ec4899 70%, #06b6d4 85%, #f59e0b 100%);
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+/* Node */
+.roadmap-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px 0;
+  position: relative;
+}
+
+.roadmap-node-dot {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--dot-color, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--dot-color, #3b82f6) 30%, transparent);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.roadmap-node:hover .roadmap-node-dot {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--dot-color, #3b82f6) 40%, transparent);
+}
+
+.roadmap-node-icon {
+  line-height: 1;
+}
+
+/* Card */
+.roadmap-node-card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e8ecf1;
+  border-radius: 14px;
+  padding: 20px 24px;
+  transition: all 0.3s;
+}
+
+.roadmap-node:hover .roadmap-node-card {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transform: translateX(4px);
+}
+
+.roadmap-phase-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--badge-color, #3b82f6);
+  background: var(--badge-bg, rgba(59,130,246,0.1));
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.roadmap-node-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.roadmap-node-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.roadmap-node-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.roadmap-mini-tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid #e8ecf1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .roadmap-section {
+    padding: 48px 0 56px;
+  }
+
+  .roadmap-title {
+    font-size: 24px;
+  }
+
+  .roadmap-line {
+    left: 23px;
+  }
+
+  .roadmap-node-dot {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .roadmap-inner {
+    padding: 0 16px;
+  }
+
+  .roadmap-header {
+    margin-bottom: 32px;
+  }
+
+  .roadmap-title {
+    font-size: 22px;
+  }
+
+  .roadmap-desc {
+    font-size: 13px;
+  }
+
+  .roadmap-line {
+    left: 19px;
+  }
+
+  .roadmap-node {
+    gap: 14px;
+    padding: 6px 0;
+  }
+
+  .roadmap-node-dot {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+
+  .roadmap-node-card {
+    padding: 14px 16px;
+  }
+
+  .roadmap-node-title {
+    font-size: 15px;
+  }
+
+  .roadmap-node-desc {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .roadmap-node-tags {
+    gap: 4px;
+  }
+
+  .roadmap-mini-tag {
+    font-size: 10px;
+    padding: 2px 8px;
   }
 }

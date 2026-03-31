@@ -1269,3 +1269,236 @@
   background: rgba(59,130,246,0.15);
   color: #60a5fa;
 }
+
+/* ===== Learning Roadmap ===== */
+[data-theme="dark"] .roadmap-section {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .roadmap-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .roadmap-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .roadmap-line {
+  opacity: 0.4;
+}
+
+[data-theme="dark"] .roadmap-node-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .roadmap-node:hover .roadmap-node-card {
+  border-color: #475569;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .roadmap-node-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .roadmap-node-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .roadmap-mini-tag {
+  background: #0f172a;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+/* ===== Stat Intuition Page ===== */
+[data-theme="dark"] .si-main {
+  background: #0f172a;
+}
+
+/* Sidebar */
+[data-theme="dark"] .si-sidebar {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .si-sidebar-title {
+  color: #f1f5f9;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .si-sidebar-link {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .si-sidebar-link:hover {
+  background: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .si-sidebar-link.active {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .si-sidebar-link-sub {
+  color: #64748b;
+}
+
+[data-theme="dark"] .si-sidebar-link.active .si-sidebar-link-sub {
+  color: #818cf8;
+}
+
+/* Section */
+[data-theme="dark"] .si-section-header {
+  background: #0f172a;
+  border-bottom-color: #1e293b;
+}
+
+[data-theme="dark"] .si-section-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .si-section-subtitle {
+  color: #64748b;
+}
+
+/* Viz Card */
+[data-theme="dark"] .si-viz-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+/* Canvas */
+[data-theme="dark"] .si-canvas-wrap {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+/* Controls */
+[data-theme="dark"] .si-control-label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .si-control-value {
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .si-btn-secondary {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .si-btn-secondary:hover {
+  background: #475569;
+}
+
+/* Stats */
+[data-theme="dark"] .si-stats-box {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .si-stat-value {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .si-stat-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .si-explain {
+  background: rgba(99,102,241,0.08);
+  border-color: rgba(99,102,241,0.2);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .si-explain strong {
+  color: #f1f5f9;
+}
+
+/* Formula block dark mode */
+[data-theme="dark"] .si-formula-block {
+  background: #1e293b;
+  border-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="dark"] .si-formula-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .si-formula-row {
+  background: rgba(15,23,42,0.6);
+  border-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="dark"] .si-formula-note {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .si-formula-note code {
+  background: rgba(99,102,241,0.12);
+  color: #c7d2fe;
+}
+
+/* Reference block dark mode */
+[data-theme="dark"] .si-ref-block {
+  background: rgba(245,158,11,0.06);
+  border-color: rgba(245,158,11,0.2);
+}
+
+[data-theme="dark"] .si-ref-title {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .si-ref-list li {
+  color: #d4d4d8;
+}
+
+[data-theme="dark"] .si-ref-list li::before {
+  background: #fbbf24;
+}
+
+[data-theme="dark"] .si-ref-list a {
+  color: #fbbf24;
+  text-decoration-color: rgba(251,191,36,0.3);
+}
+
+[data-theme="dark"] .si-ref-list a:hover {
+  color: #fde68a;
+  text-decoration-color: #fde68a;
+}
+
+/* Mobile TOC */
+[data-theme="dark"] .si-mobile-toc-fab {
+  background: rgba(30,41,59,0.92);
+  border-color: #334155;
+}
+
+[data-theme="dark"] .si-mobile-toc-panel {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .si-mobile-toc-header {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .si-mobile-toc-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .si-mobile-toc-close {
+  background: #334155;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .si-mobile-toc-item {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .si-mobile-toc-item.active {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+  color: #a5b4fc;
+}
+
+

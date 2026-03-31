@@ -1313,6 +1313,458 @@
           ]
         }
       ]
+    },
+    {
+      "id": "interview",
+      "title": "面试题库",
+      "subtitle": "数据科学与算法岗高频面试题精选",
+      "icon": "🎯",
+      "gradient": "linear-gradient(135deg, #f59e0b, #ef4444)",
+      "cardCount": 40,
+      "cards": [
+        {
+          "id": 1,
+          "category": "概率统计",
+          "question": "什么是大数定律？和中心极限定理有什么区别？",
+          "answer": "**大数定律（LLN）**：当样本量 n → ∞ 时，样本均值 **依概率收敛** 到总体均值。\n→ 告诉我们「均值稳定在哪」\n\n**中心极限定理（CLT）**：不论总体分布如何，大样本下样本均值近似服从 **正态分布**。\n→ 告诉我们「均值的分布长什么样」\n\n| | 大数定律 | 中心极限定理 |\n|---|---|---|\n| 关注点 | 收敛方向 | 分布形状 |\n| 结论 | X̄ → μ | X̄ ~ N(μ, σ²/n) |\n| 用途 | 保证估计一致性 | 构造检验和置信区间 |\n\n⚡ 面试提示：两者互补，LLN 保证方向对，CLT 保证能做推断。",
+          "tags": ["高频", "概率论"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Probability and Statistics for Data Science (Carlos Fernandez-Granda)", "url": "https://cims.nyu.edu/~cfgranda/pages/stuff/probability_stats_for_DS.pdf"}
+          ]
+        },
+        {
+          "id": 2,
+          "category": "概率统计",
+          "question": "请解释贝叶斯定理并举一个实际例子",
+          "answer": "**贝叶斯定理**：\nP(A|B) = P(B|A) × P(A) / P(B)\n\n组成部分：\n• **P(A)** — 先验概率：在观察到证据前的信念\n• **P(B|A)** — 似然：假设 A 成立时看到 B 的概率\n• **P(A|B)** — 后验概率：看到证据后更新的信念\n• **P(B)** — 边际概率（归一化常数）\n\n**经典面试例子 — 疾病检测**：\n• 疾病患病率 0.1%（先验 P(D)=0.001）\n• 检测灵敏度 99%（P(+|D)=0.99）\n• 假阳性率 5%（P(+|¬D)=0.05）\n\n问：检测阳性，实际患病概率？\nP(D|+) = 0.99 × 0.001 / (0.99×0.001 + 0.05×0.999)\n≈ **1.94%**\n\n⚡ 面试提示：先验很低时，即使检测很准，阳性也不一定是真阳性（Base Rate Fallacy）。",
+          "tags": ["高频", "贝叶斯"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Bayes' Theorem - 3Blue1Brown", "url": "https://www.youtube.com/watch?v=HZGCoVF3YvM"}
+          ]
+        },
+        {
+          "id": 3,
+          "category": "概率统计",
+          "question": "什么是最大似然估计（MLE）？与最大后验估计（MAP）有何不同？",
+          "answer": "**MLE（最大似然估计）**：\n找到参数 θ 使得观测数据出现的概率最大：\nθ_MLE = argmax P(X|θ)\n\n**MAP（最大后验估计）**：\n在 MLE 基础上加入先验：\nθ_MAP = argmax P(θ|X) = argmax P(X|θ) × P(θ)\n\n**核心区别**：\n| | MLE | MAP |\n|---|---|---|\n| 先验 | 不使用 | 使用 P(θ) |\n| 等价于 | 频率学派 | 贝叶斯学派 |\n| 正则化 | 无 | P(θ)=高斯 → L2 正则 |\n| 过拟合 | 容易 | 有正则化保护 |\n\n⚡ 面试提示：当先验为均匀分布时，MAP = MLE。MAP 中高斯先验等价于 L2 正则化，拉普拉斯先验等价于 L1 正则化。",
+          "tags": ["高频", "参数估计"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Pattern Recognition and Machine Learning (Bishop, 2006)", "url": "https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/"}
+          ]
+        },
+        {
+          "id": 4,
+          "category": "概率统计",
+          "question": "掷两个骰子，至少一个是6的条件下，两个都是6的概率？",
+          "answer": "**方法：条件概率 + 容斥原理**\n\n设事件：\n• A = 两个都是 6\n• B = 至少一个是 6\n\nP(A|B) = P(A∩B) / P(B) = P(A) / P(B)\n\n计算：\n• P(A) = 1/36\n• P(B) = 1 - P(没有 6) = 1 - (5/6)² = 11/36\n\n结果：P(A|B) = (1/36) / (11/36) = **1/11 ≈ 9.1%**\n\n⚠️ 常见错误：\n• 错误答案 1/6：这是「已知某个特定骰子为 6」的条件概率\n• 正确区分「至少一个」vs「某个特定的」\n\n⚡ 面试提示：条件概率题的关键是准确定义事件和样本空间。",
+          "tags": ["概率题", "条件概率"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Introduction to Probability (Blitzstein & Hwang)", "url": "https://projects.iq.harvard.edu/stat110/home"}
+          ]
+        },
+        {
+          "id": 5,
+          "category": "概率统计",
+          "question": "什么是 A/B 检验的多重比较问题？如何修正？",
+          "answer": "**多重比较问题（Multiple Testing Problem）**：\n同时检验多个假设时，至少出现一次假阳性的概率急剧上升。\n\n例如：检验 20 个指标（α=0.05），至少一个假阳性的概率：\n1 - (1-0.05)²⁰ ≈ **64%**\n\n**常见修正方法**：\n\n1. **Bonferroni 校正**：α' = α/m\n→ 简单保守，检验 20 个指标则 α'=0.0025\n\n2. **Holm-Bonferroni**：逐步拒绝法\n→ 比 Bonferroni 更强大\n\n3. **FDR 控制（Benjamini-Hochberg）**：\n→ 控制**假发现率**而非族错误率\n→ 更适合探索性分析\n\n4. **分层测试策略**：\n→ 区分主要指标和次要指标\n→ 只对主要指标严格控制 α\n\n⚡ 面试提示：实际中推荐 BH 方法 + 明确区分主次指标。",
+          "tags": ["多重比较", "假设检验"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Benjamini & Hochberg (1995) - Controlling FDR", "url": "https://doi.org/10.1111/j.2517-6161.1995.tb02031.x"}
+          ]
+        },
+        {
+          "id": 6,
+          "category": "概率统计",
+          "question": "解释 Bootstrap 方法的原理和适用场景",
+          "answer": "**Bootstrap 原理**：\n从原始样本中**有放回地重复抽样** B 次（通常 B=1000~10000），每次抽样生成一个统计量，用这 B 个统计量的分布来近似真实的抽样分布。\n\n**核心步骤**：\n1. 从 n 个样本有放回抽 n 个 → 一个 Bootstrap 样本\n2. 计算该样本的统计量（均值、中位数等）\n3. 重复 B 次，得到统计量的分布\n4. 用百分位法或 BCa 法构造置信区间\n\n**适用场景**：\n• 分布未知或非正态\n• 复杂统计量（中位数、分位数、比率的比率）\n• 小样本但无参数假设\n• A/B 实验中方差估计\n\n**局限**：\n• 原始样本必须有代表性\n• 对极端值敏感\n• 计算成本较高\n\n⚡ 面试提示：Bootstrap 的哲学是「用样本模拟总体」，它不创造新信息，只更好地利用已有信息。",
+          "tags": ["Bootstrap", "非参方法"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "An Introduction to the Bootstrap (Efron & Tibshirani, 1993)", "url": "https://doi.org/10.1007/978-1-4899-4541-9"}
+          ]
+        },
+        {
+          "id": 7,
+          "category": "SQL",
+          "question": "SQL 中 HAVING 和 WHERE 的区别是什么？",
+          "answer": "**WHERE**：在 **分组前** 过滤行\n**HAVING**：在 **分组后** 过滤组\n\n执行顺序：\nFROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY\n\n**示例**：\n```\n-- 找出平均订单金额 > 100 的活跃用户\nSELECT user_id, AVG(amount) as avg_amt\nFROM orders\nWHERE status = 'completed'     -- 先过滤已完成订单\nGROUP BY user_id\nHAVING AVG(amount) > 100       -- 再过滤均值>100的组\n```\n\n| | WHERE | HAVING |\n|---|---|---|\n| 作用对象 | 行 | 分组 |\n| 执行时机 | GROUP BY 之前 | GROUP BY 之后 |\n| 能否用聚合函数 | ❌ | ✅ |\n\n⚡ 面试提示：能用 WHERE 过滤的尽量用 WHERE，减少 GROUP BY 的数据量，性能更好。",
+          "tags": ["高频", "SQL基础"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "SQL Tutorial - W3Schools", "url": "https://www.w3schools.com/sql/"}
+          ]
+        },
+        {
+          "id": 8,
+          "category": "SQL",
+          "question": "解释窗口函数（Window Function）的用法，举例 ROW_NUMBER, RANK, DENSE_RANK 的区别",
+          "answer": "**窗口函数**：在不减少行数的前提下，对一组相关行执行计算。\n\n语法：`函数() OVER (PARTITION BY ... ORDER BY ...)`\n\n**三种排名函数区别**：\n\n数据：分数 = [100, 90, 90, 80]\n\n| 函数 | 结果 | 特点 |\n|---|---|---|\n| ROW_NUMBER | 1,2,3,4 | 唯一编号，并列也不同 |\n| RANK | 1,2,2,4 | 并列相同，跳过后续 |\n| DENSE_RANK | 1,2,2,3 | 并列相同，不跳过 |\n\n**常用场景**：\n```\n-- 每个部门薪资排名第一的员工\nSELECT * FROM (\n  SELECT *, ROW_NUMBER() OVER (\n    PARTITION BY dept_id ORDER BY salary DESC\n  ) as rn\n  FROM employees\n) t WHERE rn = 1\n```\n\n其他常用窗口函数：\n• LAG / LEAD：前后行的值\n• SUM() OVER：累计求和\n• NTILE(n)：分桶\n\n⚡ 面试提示：窗口函数是 SQL 面试的高频考点，必须熟练。",
+          "tags": ["高频", "窗口函数"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Window Functions - PostgreSQL Docs", "url": "https://www.postgresql.org/docs/current/tutorial-window.html"}
+          ]
+        },
+        {
+          "id": 9,
+          "category": "SQL",
+          "question": "如何用 SQL 计算用户留存率（次日留存/7日留存）？",
+          "answer": "**次日留存率** = 次日回访用户数 / 当日新增用户数\n\n```\n-- 次日留存率\nSELECT \n  a.first_date,\n  COUNT(DISTINCT a.user_id) as new_users,\n  COUNT(DISTINCT b.user_id) as retained,\n  ROUND(COUNT(DISTINCT b.user_id) * 1.0 \n    / COUNT(DISTINCT a.user_id), 4) as retention_rate\nFROM (\n  SELECT user_id, MIN(DATE(login_time)) as first_date\n  FROM user_login\n  GROUP BY user_id\n) a\nLEFT JOIN user_login b\n  ON a.user_id = b.user_id\n  AND DATE(b.login_time) = DATE(a.first_date, '+1 day')\nGROUP BY a.first_date\n```\n\n**N日留存**：把 `'+1 day'` 改为 `'+N day'`\n\n**留存矩阵**（多天留存一起看）：\n用 CROSS JOIN 生成天数维度 + LEFT JOIN 匹配回访\n\n⚡ 面试提示：注意区分「新用户留存」和「活跃用户留存」，定义要先和面试官对齐。",
+          "tags": ["高频", "留存分析"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Retention Analysis - Mode Analytics", "url": "https://mode.com/sql-tutorial/sql-business-analytics-training/"}
+          ]
+        },
+        {
+          "id": 10,
+          "category": "SQL",
+          "question": "SQL 中的 JOIN 类型有哪些？各自的使用场景？",
+          "answer": "**四种主要 JOIN**：\n\n| JOIN 类型 | 结果 | 使用场景 |\n|---|---|---|\n| INNER JOIN | 两表都匹配的行 | 只要交集 |\n| LEFT JOIN | 左表全部 + 右表匹配 | 保留主表所有记录 |\n| RIGHT JOIN | 右表全部 + 左表匹配 | 较少使用 |\n| FULL OUTER JOIN | 两表全部 | 找不匹配的记录 |\n\n**其他 JOIN**：\n• **CROSS JOIN**：笛卡尔积，每行 × 每行\n• **SELF JOIN**：表与自身关联（如查找上下级）\n\n**性能注意事项**：\n• JOIN 的列应建立索引\n• 小表驱动大表（小表放左边）\n• 避免在 ON 条件中使用函数\n\n**面试常考**：\n```\n-- 找出没有下单的用户\nSELECT u.user_id\nFROM users u\nLEFT JOIN orders o ON u.user_id = o.user_id\nWHERE o.user_id IS NULL\n```\n\n⚡ 面试提示：LEFT JOIN + WHERE IS NULL 是找「不存在」记录的经典技巧。",
+          "tags": ["SQL基础", "JOIN"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Visual Representation of SQL Joins", "url": "https://blog.codinghorror.com/a-visual-explanation-of-sql-joins/"}
+          ]
+        },
+        {
+          "id": 11,
+          "category": "SQL",
+          "question": "如何用 SQL 查找连续登录 N 天的用户？",
+          "answer": "**经典解法：日期 - 行号 = 常数**\n\n```\nWITH login_dates AS (\n  SELECT DISTINCT user_id, DATE(login_time) as dt\n  FROM user_login\n),\nranked AS (\n  SELECT *,\n    DATE(dt, '-' || ROW_NUMBER() OVER (\n      PARTITION BY user_id ORDER BY dt\n    ) || ' day') as grp\n  FROM login_dates\n)\nSELECT user_id, grp,\n  MIN(dt) as start_date,\n  MAX(dt) as end_date,\n  COUNT(*) as consecutive_days\nFROM ranked\nGROUP BY user_id, grp\nHAVING COUNT(*) >= 7  -- 连续7天\nORDER BY consecutive_days DESC\n```\n\n**原理**：\n连续日期减去递增序号 = 相同的值\n• 2025-01-01 - 1 = 2024-12-31\n• 2025-01-02 - 2 = 2024-12-31\n• 2025-01-03 - 3 = 2024-12-31\n→ 同组！\n\n⚡ 面试提示：「日期-行号」是连续问题的万能套路，掌握后可以解决连续登录、连续增长等一系列问题。",
+          "tags": ["高频", "连续问题"],
+          "difficulty": "hard",
+          "references": [
+            {"title": "Gaps and Islands in SQL", "url": "https://www.red-gate.com/simple-talk/databases/sql-server/t-sql-programming-sql-server/the-sql-of-gaps-and-islands-in-sequences/"}
+          ]
+        },
+        {
+          "id": 12,
+          "category": "机器学习",
+          "question": "什么是偏差-方差权衡（Bias-Variance Tradeoff）？",
+          "answer": "**泛化误差分解**：\nError = Bias² + Variance + Irreducible Noise\n\n**偏差（Bias）**：模型预测值与真实值的**系统性偏离**\n→ 高偏差 = 欠拟合（模型太简单）\n\n**方差（Variance）**：模型对训练数据变化的**敏感程度**\n→ 高方差 = 过拟合（模型太复杂）\n\n| | 高偏差 | 高方差 |\n|---|---|---|\n| 表现 | 训练集和测试集都差 | 训练集好、测试集差 |\n| 原因 | 模型太简单 | 模型太复杂 |\n| 解决 | 增加特征/复杂度 | 正则化/更多数据 |\n| 类比 | 瞄准偏了 | 瞄准不稳 |\n\n**实际中的权衡**：\n• 线性回归 → 高偏差、低方差\n• 深度神经网络 → 低偏差、高方差\n• 随机森林 / 正则化 → 平衡两者\n\n⚡ 面试提示：现代深度学习中 Double Descent 现象挑战了传统的 U 形权衡曲线。",
+          "tags": ["高频", "核心概念"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Understanding the Bias-Variance Tradeoff (Scott Fortmann-Roe)", "url": "http://scott.fortmann-roe.com/docs/BiasVariance.html"}
+          ]
+        },
+        {
+          "id": 13,
+          "category": "机器学习",
+          "question": "L1 和 L2 正则化的区别？为什么 L1 能产生稀疏解？",
+          "answer": "**L1 正则化（Lasso）**：惩罚项 = λΣ|wᵢ|\n• 倾向于将部分权重直接压为 **0**\n• 产生**稀疏解**，自动特征选择\n• 对应拉普拉斯先验\n\n**L2 正则化（Ridge）**：惩罚项 = λΣwᵢ²\n• 将权重压小但**不为零**\n• 适合特征都相关的场景\n• 对应高斯先验\n\n**为什么 L1 能产生稀疏解？**\n\n几何解释：\n• L1 的约束区域是**菱形**（尖角在坐标轴上）\n• L2 的约束区域是**圆形**\n• 等高线与菱形的交点更容易落在**坐标轴上**（某些 w=0）\n• 等高线与圆的交点一般不在轴上\n\n**Elastic Net**：结合两者\n→ λ₁Σ|wᵢ| + λ₂Σwᵢ²\n→ 既有稀疏性又保持组内相关特征\n\n⚡ 面试提示：掌握几何直觉比记公式更重要。",
+          "tags": ["高频", "正则化"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Elements of Statistical Learning, Ch.3", "url": "https://hastie.su.domains/ElemStatLearn/"}
+          ]
+        },
+        {
+          "id": 14,
+          "category": "机器学习",
+          "question": "XGBoost 为什么比传统 GBDT 更好？核心改进有哪些？",
+          "answer": "**XGBoost 的核心改进**：\n\n**1. 算法层面**：\n• **二阶泰勒展开**：同时使用一阶（梯度）和二阶（Hessian）导数\n→ 更精确的损失函数近似\n• **正则化目标函数**：Obj = Loss + Ω(tree)\n→ 控制树的复杂度，减少过拟合\n• **列抽样**（Column Subsampling）：类似 Random Forest\n→ 进一步降低过拟合\n\n**2. 工程层面**：\n• **加权分位数法**：近似找最佳分裂点\n→ 处理大规模数据更高效\n• **稀疏感知**：自动处理缺失值\n→ 缺失值有默认方向\n• **并行化**：特征粒度并行（不是树粒度）\n→ 大幅提速\n• **缓存优化 + 核外计算**：处理超大数据\n\n**vs LightGBM**：\n• LightGBM 用直方图算法 + Leaf-wise 生长\n• LightGBM 通常更快，XGBoost 更灵活\n\n⚡ 面试提示：重点说「二阶导数 + 正则化 + 工程优化」三个角度。",
+          "tags": ["高频", "集成学习"],
+          "difficulty": "hard",
+          "references": [
+            {"title": "XGBoost: A Scalable Tree Boosting System (Chen & Guestrin, 2016)", "url": "https://arxiv.org/abs/1603.02754"}
+          ]
+        },
+        {
+          "id": 15,
+          "category": "机器学习",
+          "question": "解释随机森林和 GBDT 的区别",
+          "answer": "| | 随机森林 (RF) | 梯度提升决策树 (GBDT) |\n|---|---|---|\n| 集成方式 | Bagging（并行） | Boosting（串行） |\n| 基学习器 | 独立的深树 | 逐步修正的浅树 |\n| 组合方式 | 投票/平均 | 加权累加 |\n| 偏差-方差 | 降低方差为主 | 降低偏差为主 |\n| 过拟合 | 不易过拟合 | 容易过拟合 |\n| 训练速度 | 可并行，较快 | 串行，较慢 |\n| 调参难度 | 简单 | 较复杂 |\n\n**随机森林**：\n• 每棵树用 Bootstrap 样本 + 随机特征子集\n• 树之间独立 → 方差降低\n• 适合特征多、担心过拟合的场景\n\n**GBDT**：\n• 每棵树拟合上一轮的**残差**\n• 逐步纠错 → 偏差降低\n• 适合追求高精度、愿意精调的场景\n\n⚡ 面试提示：一句话总结 —— RF 靠「人多力量大」，GBDT 靠「知错就改」。",
+          "tags": ["高频", "集成学习"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Hands-On Machine Learning (Géron), Ch.7", "url": "https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/"}
+          ]
+        },
+        {
+          "id": 16,
+          "category": "机器学习",
+          "question": "如何处理类别不平衡问题？",
+          "answer": "**数据层面**：\n1. **过采样少数类**：\n→ SMOTE：合成少数类样本（在特征空间插值）\n→ ADASYN：在决策边界附近生成更多样本\n\n2. **欠采样多数类**：\n→ 随机欠采样 / Tomek Links / NearMiss\n→ 丢失信息风险\n\n3. **组合方法**：SMOTETomek, SMOTEENN\n\n**算法层面**：\n1. **类别权重调整**：class_weight='balanced'\n2. **代价敏感学习**：不同类别不同误分类代价\n3. **集成方法**：BalancedRandomForest, EasyEnsemble\n\n**评估层面**：\n• 不要用 Accuracy！\n• 使用 **Precision, Recall, F1, AUC-ROC, AUC-PR**\n• PR 曲线在极度不平衡时比 ROC 更有区分度\n\n**实际经验**：\n• 轻度不平衡（1:10）→ 调权重即可\n• 重度不平衡（1:1000）→ SMOTE + 集成 + 阈值调整\n\n⚡ 面试提示：先说评估指标的选择，再说处理方法，体现全局思维。",
+          "tags": ["高频", "工程实践"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "imbalanced-learn Documentation", "url": "https://imbalanced-learn.org/stable/"}
+          ]
+        },
+        {
+          "id": 17,
+          "category": "机器学习",
+          "question": "解释 AUC-ROC 曲线的含义，AUC=0.5 代表什么？",
+          "answer": "**ROC 曲线**：以 **FPR**（假阳率）为 X 轴，**TPR**（真阳率/召回率）为 Y 轴画出的曲线。\n\n• **TPR** = TP / (TP + FN) = 把正样本正确找出来的比例\n• **FPR** = FP / (FP + TN) = 把负样本误判为正的比例\n\n**AUC 的概率含义**：\n随机取一个正样本和一个负样本，模型给正样本打分更高的概率。\n\n| AUC 值 | 含义 |\n|---|---|\n| 1.0 | 完美分类 |\n| 0.9+ | 优秀 |\n| 0.7~0.9 | 良好 |\n| 0.5 | 等于随机猜 |\n| <0.5 | 比随机差（预测反了） |\n\n**AUC 的优点**：\n• 不受阈值选择影响\n• 不受类别比例影响（但 PR-AUC 在极不平衡时更好）\n\n⚡ 面试提示：AUC=0.5 不是「50% 准确率」，而是「模型没有区分能力，等同于随机排序」。",
+          "tags": ["高频", "模型评估"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "ROC Curves Explained - Google ML Crash Course", "url": "https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc"}
+          ]
+        },
+        {
+          "id": 18,
+          "category": "机器学习",
+          "question": "交叉验证有哪些类型？分别适用于什么场景？",
+          "answer": "**1. K-Fold Cross Validation**：\n• 数据分 K 份，轮流取 1 份做验证\n• 标准选择：K=5 或 K=10\n• 适用：大多数场景\n\n**2. Stratified K-Fold**：\n• 保持每折中类别比例一致\n• 适用：类别不平衡数据\n\n**3. Leave-One-Out (LOO)**：\n• K = 样本数 n\n• 偏差最小、方差最大、计算量最大\n• 适用：极小数据集\n\n**4. Time Series Split**：\n• 训练集始终在验证集之前（不打乱时间）\n• 适用：时序数据（**严禁**随机切分）\n\n**5. Group K-Fold**：\n• 同一组（如同一用户的数据）不会同时出现在训练和验证中\n• 适用：存在组内相关性\n\n**6. Repeated K-Fold**：\n• 重复多次 K-Fold，取平均\n• 适用：结果不稳定时\n\n⚡ 面试提示：时序数据用普通 K-Fold 是常见错误，一定要提 Time Series Split。",
+          "tags": ["模型评估", "交叉验证"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Cross-validation - scikit-learn", "url": "https://scikit-learn.org/stable/modules/cross_validation.html"}
+          ]
+        },
+        {
+          "id": 19,
+          "category": "机器学习",
+          "question": "什么是特征工程？常用的特征处理方法有哪些？",
+          "answer": "**特征工程** = 利用领域知识从原始数据中构造更有效的输入特征。\n\n**数值特征处理**：\n• **标准化**（Z-score）：均值0方差1，适合正态分布\n• **归一化**（Min-Max）：缩放到[0,1]，适合有界数据\n• **Log 变换**：处理右偏分布（如收入、交易额）\n• **分箱**（Binning）：连续变量离散化\n\n**类别特征处理**：\n• **One-Hot**：低基数类别（<20类）\n• **Label Encoding**：有序类别\n• **Target Encoding**：高基数类别（需防止泄漏）\n• **Embedding**：超高基数（如用户ID）\n\n**时间特征**：\n• 年/月/日/星期几/小时\n• 是否节假日/工作日\n• 距离特定事件的天数\n\n**文本特征**：TF-IDF、词嵌入、句子长度\n\n**交互特征**：特征交叉（如 城市 × 品类）\n\n⚡ 面试提示：特征工程的质量往往比模型选择更重要。Andrew Ng：「Applied ML is basically feature engineering」。",
+          "tags": ["高频", "特征工程"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Feature Engineering for Machine Learning (Zheng & Casari)", "url": "https://www.oreilly.com/library/view/feature-engineering-for/9781491953235/"}
+          ]
+        },
+        {
+          "id": 20,
+          "category": "机器学习",
+          "question": "解释梯度下降法，SGD、Mini-batch GD、Adam 有什么区别？",
+          "answer": "**梯度下降**：沿损失函数梯度的反方向迭代更新参数。\nθ = θ - η × ∇L(θ)\n\n| 方法 | 每步使用数据 | 特点 |\n|---|---|---|\n| Batch GD | 全部数据 | 稳定但慢，内存大 |\n| SGD | 1 个样本 | 快但震荡 |\n| Mini-batch GD | 一批（32~256） | 实际最常用 |\n\n**主流优化器演进**：\n\n1. **SGD + Momentum**：加入「惯性」，减少震荡\n→ v = βv + η∇L; θ -= v\n\n2. **AdaGrad**：自适应学习率（稀疏特征大步，频繁特征小步）\n→ 问题：学习率单调递减\n\n3. **RMSProp**：指数衰减平均解决 AdaGrad 递减问题\n\n4. **Adam** = Momentum + RMSProp\n→ 自适应学习率 + 动量\n→ 默认首选，大多数场景表现好\n→ 超参：lr=0.001, β₁=0.9, β₂=0.999\n\n**Adam 的局限**：\n• 在某些任务上泛化不如 SGD+Momentum\n• AdamW 修正了 L2 正则化的问题\n\n⚡ 面试提示：回答思路 —— 原始GD → SGD → Momentum → 自适应 → Adam。",
+          "tags": ["高频", "优化算法"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Adam: A Method for Stochastic Optimization (Kingma & Ba, 2015)", "url": "https://arxiv.org/abs/1412.6980"}
+          ]
+        },
+        {
+          "id": 21,
+          "category": "深度学习",
+          "question": "Transformer 的核心机制是什么？为什么比 RNN 更好？",
+          "answer": "**Transformer 核心 = Self-Attention 机制**\n\nAttention(Q,K,V) = softmax(QK^T / √d_k) × V\n\n**核心组件**：\n1. **Multi-Head Attention**：多个注意力头并行，捕获不同模式\n2. **位置编码（Positional Encoding）**：注入序列位置信息\n3. **残差连接 + LayerNorm**：稳定训练\n4. **前馈网络（FFN）**：逐位置变换\n\n**vs RNN 的优势**：\n| | RNN | Transformer |\n|---|---|---|\n| 并行性 | ❌ 必须顺序计算 | ✅ 完全并行 |\n| 长距离依赖 | 梯度消失/爆炸 | 直接注意力连接 |\n| 训练效率 | 慢 | 快（GPU 友好） |\n| 可解释性 | 差 | 注意力权重可视化 |\n\n**为什么 √d_k？**\n→ 防止 QK^T 的值过大导致 softmax 梯度消失\n\n⚡ 面试提示：重点说 Self-Attention 的 QKV 机制 + 并行化优势 + 位置编码的必要性。",
+          "tags": ["高频", "Transformer"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Attention Is All You Need (Vaswani et al., 2017)", "url": "https://arxiv.org/abs/1706.03762"},
+            {"title": "The Illustrated Transformer - Jay Alammar", "url": "https://jalammar.github.io/illustrated-transformer/"}
+          ]
+        },
+        {
+          "id": 22,
+          "category": "深度学习",
+          "question": "什么是过拟合？如何防止？",
+          "answer": "**过拟合**：模型在训练集上表现很好，但在测试集/新数据上表现差。\n→ 模型学到了训练数据中的**噪声**而非真正的规律。\n\n**判断方法**：训练损失 << 验证损失\n\n**防止过拟合的方法**：\n\n1. **数据层面**：\n• 增加训练数据\n• 数据增强（Data Augmentation）\n\n2. **模型层面**：\n• 降低模型复杂度\n• **正则化**：L1/L2/Elastic Net\n• **Dropout**：随机丢弃神经元（训练时）\n• **早停（Early Stopping）**：验证集性能不再提升时停止\n\n3. **训练技巧**：\n• **Batch Normalization**：加速训练、轻微正则效果\n• **权重衰减（Weight Decay）**\n• **学习率调度**\n\n4. **集成方法**：\n• Bagging / Stacking → 降低方差\n\n⚡ 面试提示：按「数据→模型→训练→集成」的框架组织回答，显得有条理。",
+          "tags": ["高频", "正则化"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Deep Learning (Goodfellow et al.), Ch.7 Regularization", "url": "https://www.deeplearningbook.org/contents/regularization.html"}
+          ]
+        },
+        {
+          "id": 23,
+          "category": "深度学习",
+          "question": "BatchNorm 和 LayerNorm 的区别？各自在哪里使用？",
+          "answer": "**Batch Normalization**：\n• 沿 **batch 维度** 归一化\n• 对一个 mini-batch 中的同一特征计算均值方差\n• 依赖 batch size，batch 小时效果差\n• 推理时使用训练阶段的滑动平均\n\n**Layer Normalization**：\n• 沿 **特征维度** 归一化\n• 对单个样本的所有特征计算均值方差\n• 不依赖 batch size\n• 训练和推理行为一致\n\n| | BatchNorm | LayerNorm |\n|---|---|---|\n| 归一化维度 | batch 内同一特征 | 样本内所有特征 |\n| 依赖 batch | ✅ 是 | ❌ 否 |\n| 主要应用 | CNN（图像） | Transformer / RNN（NLP） |\n| 推理差异 | 需要滑动统计量 | 无差异 |\n\n**为什么 Transformer 用 LayerNorm？**\n• 序列长度可变，batch 维度归一化不合适\n• 不受 batch size 影响，训练更稳定\n\n⚡ 面试提示：一句话 —— BN 对同一特征跨样本归一化，LN 对同一样本跨特征归一化。",
+          "tags": ["归一化", "深度学习"],
+          "difficulty": "hard",
+          "references": [
+            {"title": "Layer Normalization (Ba et al., 2016)", "url": "https://arxiv.org/abs/1607.06450"}
+          ]
+        },
+        {
+          "id": 24,
+          "category": "业务分析",
+          "question": "DAU 突然下降了 20%，你会如何排查？",
+          "answer": "**系统性排查框架（MECE）**：\n\n**第一步：确认数据准确性** ⚙️\n• 数据采集/上报是否有 bug？\n• 埋点是否变更？\n• 是否有数据延迟或缺失？\n\n**第二步：外部因素** 🌍\n• 是否节假日/开学季/特殊事件？\n• 竞品是否有大动作？\n• 是否有负面舆论/政策变化？\n\n**第三步：内部因素拆解** 📊\n\n按用户维度拆：\n• 新用户 vs 老用户 → 哪类下降更多？\n• 按渠道拆 → 某个获客渠道异常？\n• 按地区拆 → 特定地区问题？\n• 按设备/版本拆 → 某版本有 bug？\n\n按行为维度拆：\n• 注册转化 → 激活 → 活跃 → 留存，哪个环节漏了？\n\n**第四步：产品变更** 🔧\n• 最近是否有版本发布/功能改动？\n• 是否有 A/B 实验影响？\n• 推送策略是否变化？\n\n**第五步：定位后验证**\n• 排除因素后，看剩余部分是否恢复正常\n\n⚡ 面试提示：先排除数据问题，再外部→内部→拆维度→验证，展示结构化思维。",
+          "tags": ["高频", "业务Case"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Data Science Interview Questions - Meta/Google", "url": "https://www.interviewquery.com/"}
+          ]
+        },
+        {
+          "id": 25,
+          "category": "业务分析",
+          "question": "如何设计一个推荐系统的评估指标体系？",
+          "answer": "**离线评估指标**：\n\n1. **准确性指标**：\n• Precision@K / Recall@K\n• NDCG（Normalized DCG）→ 考虑排序位置\n• MAP（Mean Average Precision）\n• Hit Rate@K\n\n2. **多样性指标**：\n• Intra-list Diversity → 推荐列表内的差异度\n• Coverage → 推荐系统覆盖了多少商品\n\n3. **新颖性**：\n• 推荐长尾 / 非热门内容的比例\n\n**在线评估指标**：\n\n1. **用户参与度**：\n• CTR（点击率）\n• 平均观看时长 / 完播率\n• 互动率（点赞/收藏/评论）\n\n2. **业务指标**：\n• GMV / 订单转化率\n• 人均消费\n\n3. **长期指标**：\n• 用户留存率\n• 用户活跃天数\n• LTV（用户生命周期价值）\n\n**指标权衡**：\n• CTR 高 ≠ 好推荐（标题党/信息茧房）\n• 短期指标 vs 长期健康度\n• 需要建立**综合指标（OEC）**\n\n⚡ 面试提示：不要只说 CTR，要展示对用户体验、多样性、长期价值的全局思考。",
+          "tags": ["推荐系统", "指标设计"],
+          "difficulty": "hard",
+          "references": [
+            {"title": "Evaluating Recommendation Systems (Shani & Gunawardana)", "url": "https://link.springer.com/chapter/10.1007/978-0-387-85820-3_8"}
+          ]
+        },
+        {
+          "id": 26,
+          "category": "业务分析",
+          "question": "什么是北极星指标（North Star Metric）？如何选择？",
+          "answer": "**北极星指标**：一个最能反映产品**核心价值**的单一指标，用于指导全公司的增长方向。\n\n**经典案例**：\n• **Facebook** → 月活用户数（MAU）\n• **Airbnb** → 预订住宿晚数\n• **Spotify** → 每周听歌时长\n• **Uber** → 完成的出行次数\n• **Slack** → 每周发送消息数\n\n**好的北极星指标的特征**：\n1. **衡量核心价值**：用户真正获得价值的时刻\n2. **可衡量**：能准确追踪\n3. **可操作**：团队能通过行动影响它\n4. **前瞻性**：预测长期业务健康\n5. **所有人理解**：简单明了\n\n**常见误区**：\n• ❌ 用收入作北极星 → 短视，可能伤害用户体验\n• ❌ 用注册量 → vanity metric，不代表用户获得价值\n• ✅ 应选择反映「用户 aha moment」的指标\n\n**框架：输入指标 → 北极星 → 输出指标**\n→ 输入：获客、激活等可操作指标\n→ 输出：收入、利润等商业结果\n\n⚡ 面试提示：结合具体产品分析，不要空谈理论。",
+          "tags": ["产品指标", "增长"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "What is a North Star Metric? - Amplitude", "url": "https://amplitude.com/blog/north-star-metric"}
+          ]
+        },
+        {
+          "id": 27,
+          "category": "业务分析",
+          "question": "如何用数据分析拆解一个产品的增长问题？",
+          "answer": "**经典框架：AARRR 海盗模型**\n\n1. **Acquisition（获客）**\n• 渠道分析：各渠道的 CAC（获客成本）和量级\n• 渠道质量：不同渠道用户的留存差异\n\n2. **Activation（激活）**\n• 新用户引导完成率\n• Aha Moment 分析：哪个行为与留存强相关\n→ Facebook: 10天内加7个好友\n→ Dropbox: 上传第一个文件\n\n3. **Retention（留存）**\n• 留存曲线：次日/7日/30日留存\n• 队列分析（Cohort Analysis）\n• 流失原因分析\n\n4. **Revenue（变现）**\n• ARPU / ARPPU\n• 付费转化漏斗\n• LTV（用户生命周期价值）\n\n5. **Referral（推荐/传播）**\n• 病毒系数 K-Factor\n• NPS（净推荐值）\n\n**分析步骤**：\n1. 确定当前瓶颈在哪个环节\n2. 用数据定位具体问题\n3. 提出假设 → 设计实验验证\n4. 迭代优化\n\n⚡ 面试提示：先画全局漏斗，找到最大 drop-off 的环节，再深入分析。",
+          "tags": ["高频", "增长分析"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Lean Analytics (Croll & Yoskovitz)", "url": "https://leananalyticsbook.com/"}
+          ]
+        },
+        {
+          "id": 28,
+          "category": "业务分析",
+          "question": "什么是 RFM 模型？如何用于用户分层？",
+          "answer": "**RFM 模型**：基于三个维度对用户价值进行分层。\n\n• **R（Recency）**：最近一次消费距今多久\n• **F（Frequency）**：消费频率\n• **M（Monetary）**：消费金额\n\n**分层方法**（每个维度分高低两档）：\n\n| R | F | M | 用户类型 | 策略 |\n|---|---|---|---|---|\n| 高 | 高 | 高 | 重要价值客户 | VIP 维护 |\n| 高 | 低 | 高 | 重要发展客户 | 提升频次 |\n| 低 | 高 | 高 | 重要保持客户 | 召回激活 |\n| 低 | 低 | 高 | 重要挽留客户 | 精准挽回 |\n| 高 | 高 | 低 | 一般价值客户 | 提升客单 |\n| 高 | 低 | 低 | 一般发展客户 | 培养习惯 |\n| 低 | 高 | 低 | 一般保持客户 | 唤醒 |\n| 低 | 低 | 低 | 流失客户 | 低成本触达 |\n\n**实际应用**：\n• 用分位数划分高低（如 top 20%）\n• 可结合 K-Means 聚类更精细化\n• 驱动差异化运营策略\n\n⚡ 面试提示：不要只说概念，要能说出每类用户的具体运营策略。",
+          "tags": ["用户分层", "运营分析"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "RFM Analysis - Towards Data Science", "url": "https://towardsdatascience.com/rfm-analysis-using-python-e4e7c58aebf5"}
+          ]
+        },
+        {
+          "id": 29,
+          "category": "深度学习",
+          "question": "解释反向传播（Backpropagation）的原理",
+          "answer": "**反向传播** = 链式法则在计算图上的高效应用。\n\n**前向传播**：输入 → 逐层计算 → 输出 → 损失值 L\n\n**反向传播**：从损失 L 出发，用**链式法则**逐层计算每个参数的梯度。\n\n∂L/∂w₁ = ∂L/∂y × ∂y/∂h × ∂h/∂w₁\n\n**关键步骤**：\n1. **前向传播**：计算每层输出，保存中间结果\n2. **计算损失**：L = loss(ŷ, y)\n3. **反向传播**：从输出层向输入层，逐层计算梯度\n4. **参数更新**：w = w - η × ∂L/∂w\n\n**为什么高效？**\n• 每个中间梯度只计算一次（动态规划思想）\n• 时间复杂度 = 前向传播的常数倍\n\n**常见问题**：\n• **梯度消失**：深层网络中梯度连乘趋近 0（Sigmoid）\n→ 解决：ReLU, ResNet, LSTM\n• **梯度爆炸**：梯度连乘变得极大\n→ 解决：梯度裁剪, 权重初始化\n\n⚡ 面试提示：说清「链式法则 + 计算图 + 中间结果缓存」三个关键点。",
+          "tags": ["高频", "深度学习基础"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Calculus on Computational Graphs: Backpropagation (Chris Olah)", "url": "https://colah.github.io/posts/2015-08-Backprop/"}
+          ]
+        },
+        {
+          "id": 30,
+          "category": "深度学习",
+          "question": "GPT 和 BERT 的核心区别是什么？",
+          "answer": "**BERT** = Bidirectional Encoder\n**GPT** = Autoregressive Decoder\n\n| | BERT | GPT |\n|---|---|---|\n| 架构 | Transformer Encoder | Transformer Decoder |\n| 注意力方向 | 双向（看前看后） | 单向（只看前文） |\n| 预训练任务 | MLM + NSP | 下一个词预测 |\n| 适合任务 | 理解类（分类、NER、QA） | 生成类（文本生成、对话） |\n| 微调方式 | 加分类头微调 | Prompt / Few-shot |\n| 代表模型 | BERT, RoBERTa, DeBERTa | GPT-2/3/4, LLaMA |\n\n**BERT 的 MLM（Masked Language Model）**：\n• 随机 mask 15% 的 token，让模型预测\n• 同时看到左右上下文 → 双向理解\n\n**GPT 的自回归**：\n• 从左到右逐词生成\n• 训练 = 预测下一个 token\n• 通过 Scale up（参数量 + 数据量）涌现能力\n\n**趋势**：\n• GPT 路线（自回归 + 缩放）成为主流\n• BERT 路线在特定任务（搜索排序、文本分类）仍有优势\n\n⚡ 面试提示：一句话 —— BERT 擅长「理解」，GPT 擅长「生成」。",
+          "tags": ["高频", "NLP", "LLM"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "BERT (Devlin et al., 2019)", "url": "https://arxiv.org/abs/1810.04805"},
+            {"title": "Language Models are Few-Shot Learners (GPT-3)", "url": "https://arxiv.org/abs/2005.14165"}
+          ]
+        },
+        {
+          "id": 31,
+          "category": "概率统计",
+          "question": "如何理解相关性不等于因果性？举例说明。",
+          "answer": "**相关性（Correlation）**：两个变量倾向于一起变化。\n**因果性（Causation）**：一个变量的变化**导致**另一个变化。\n\n**经典反例**：\n• 冰淇淋销量 ↑ vs 溺水人数 ↑\n→ 都是因为夏天（**混淆变量**），不是冰淇淋导致溺水\n\n• 有机食品销量 ↑ vs 自闭症诊断率 ↑\n→ 只是时间趋势巧合（**伪相关**）\n\n**为什么会产生虚假相关？**\n\n1. **混淆变量（Confounder）**：\nZ 同时影响 X 和 Y，使 X-Y 看起来相关\n\n2. **反向因果**：\n不是 X→Y，而是 Y→X（如学历高→收入高？还是家庭富裕→学历高？）\n\n3. **选择偏差（Collider Bias）**：\n对某个结果变量的筛选导致虚假相关\n\n**如何建立因果关系？**\n• **随机对照实验（A/B Test）** → 金标准\n• **工具变量、DID、断点回归** → 观测数据下的因果推断\n\n⚡ 面试提示：举具体例子比讲抽象理论更有说服力。",
+          "tags": ["因果推断", "核心概念"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "The Book of Why (Judea Pearl)", "url": "https://www.basicbooks.com/titles/judea-pearl/the-book-of-why/9780465097609/"}
+          ]
+        },
+        {
+          "id": 32,
+          "category": "机器学习",
+          "question": "什么是过采样技术 SMOTE？它的原理和局限性？",
+          "answer": "**SMOTE（Synthetic Minority Over-sampling Technique）**\n\n**原理**：\n1. 对少数类样本 x，找到其 K 个最近邻（默认 K=5）\n2. 随机选择其中一个近邻 x_nn\n3. 在 x 和 x_nn 的连线上随机插值生成新样本：\n   x_new = x + rand(0,1) × (x_nn - x)\n4. 重复直到达到目标比例\n\n**优点**：\n• 不是简单复制（减少过拟合风险）\n• 在特征空间中合理插值\n• 增加少数类样本多样性\n\n**局限性**：\n• ❌ 在类别重叠区域会生成**噪声样本**\n• ❌ 不考虑多数类的分布（可能侵入多数类区域）\n• ❌ 高维稀疏数据效果差\n• ❌ 需要连续特征（类别特征需特殊处理）\n\n**改进版本**：\n• **Borderline-SMOTE**：只在决策边界附近生成\n• **ADASYN**：在更难分类的区域生成更多样本\n• **SMOTE-ENN**：SMOTE 后用 ENN 清理噪声\n\n⚡ 面试提示：不要只用 SMOTE，实际中 SMOTE + ENN/Tomek + 调权重 的组合更好。",
+          "tags": ["类别不平衡", "采样技术"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "SMOTE (Chawla et al., 2002)", "url": "https://arxiv.org/abs/1106.1813"}
+          ]
+        },
+        {
+          "id": 33,
+          "category": "SQL",
+          "question": "什么是 CTE（公用表表达式）？和子查询有什么区别？",
+          "answer": "**CTE（Common Table Expression）**：用 WITH 子句定义的**命名临时结果集**。\n\n```\nWITH active_users AS (\n  SELECT user_id, COUNT(*) as login_cnt\n  FROM user_login\n  WHERE login_date >= '2025-01-01'\n  GROUP BY user_id\n  HAVING COUNT(*) >= 10\n)\nSELECT u.user_name, a.login_cnt\nFROM users u\nJOIN active_users a ON u.user_id = a.user_id\n```\n\n**CTE vs 子查询**：\n| | CTE | 子查询 |\n|---|---|---|\n| 可读性 | ✅ 命名清晰，自顶向下 | 嵌套深时难读 |\n| 复用 | ✅ 可多次引用 | ❌ 需要重复写 |\n| 递归 | ✅ 支持递归 CTE | ❌ 不支持 |\n| 性能 | 引擎可能物化或内联 | 类似 |\n\n**递归 CTE 示例**（组织架构层级查询）：\n```\nWITH RECURSIVE org_tree AS (\n  SELECT id, name, manager_id, 1 as level\n  FROM employees WHERE manager_id IS NULL\n  UNION ALL\n  SELECT e.id, e.name, e.manager_id, t.level + 1\n  FROM employees e\n  JOIN org_tree t ON e.manager_id = t.id\n)\nSELECT * FROM org_tree\n```\n\n⚡ 面试提示：CTE 使复杂 SQL 的逻辑层次更清晰，是写复杂查询的最佳实践。",
+          "tags": ["SQL进阶", "CTE"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "CTE - PostgreSQL Docs", "url": "https://www.postgresql.org/docs/current/queries-with.html"}
+          ]
+        },
+        {
+          "id": 34,
+          "category": "机器学习",
+          "question": "解释决策树的分裂准则：信息增益、基尼系数、方差减少",
+          "answer": "**分类树**常用准则：\n\n**1. 信息增益（ID3 算法）**：\n• 基于信息熵：H = -Σ pᵢ log₂(pᵢ)\n• 信息增益 = 分裂前熵 - 分裂后加权平均熵\n• 缺点：偏向取值多的特征\n\n**2. 信息增益率（C4.5 算法）**：\n• 信息增益 / 特征自身的熵\n• 修正了对多值特征的偏好\n\n**3. 基尼系数（CART 算法）**：\n• Gini = 1 - Σ pᵢ²\n• 计算更简单（无 log），效果类似\n• sklearn 默认使用 Gini\n\n**回归树**常用准则：\n\n**4. 方差减少（MSE）**：\n• 分裂使得子节点的总方差最小化\n• Var_reduction = Var(parent) - Σ(nᵢ/n × Var(childᵢ))\n\n| 准则 | 算法 | 任务 | 计算复杂度 |\n|---|---|---|---|\n| 信息增益 | ID3 | 分类 | 高（有 log） |\n| 增益率 | C4.5 | 分类 | 高 |\n| 基尼系数 | CART | 分类 | 低 |\n| MSE | CART | 回归 | 低 |\n\n⚡ 面试提示：实际中基尼系数和信息增益结果差别不大，重点说清概念和直觉。",
+          "tags": ["决策树", "分裂准则"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Decision Trees - scikit-learn", "url": "https://scikit-learn.org/stable/modules/tree.html"}
+          ]
+        },
+        {
+          "id": 35,
+          "category": "深度学习",
+          "question": "什么是 RAG（检索增强生成）？为什么需要它？",
+          "answer": "**RAG（Retrieval-Augmented Generation）**：\n在生成回答之前，先从外部知识库中**检索**相关文档，然后将检索结果作为上下文输入给 LLM 进行生成。\n\n**流程**：\n1. 用户提问 → Query\n2. Query → Embedding → 向量检索相关文档\n3. 将检索到的文档 + 原始 Query 拼接\n4. 输入 LLM 生成最终回答\n\n**为什么需要 RAG？**\n\n解决 LLM 的核心问题：\n• ❌ **幻觉（Hallucination）**：编造不存在的事实\n• ❌ **知识过时**：训练数据有截止日期\n• ❌ **无法访问私有数据**：企业内部知识\n\n**RAG 的优势 vs 微调**：\n| | RAG | 微调（Fine-tuning） |\n|---|---|---|\n| 知识更新 | 实时（更新文档库） | 需重新训练 |\n| 成本 | 低 | 高 |\n| 可解释性 | ✅ 可引用来源 | ❌ 黑箱 |\n| 适用场景 | 知识密集型QA | 风格/格式调整 |\n\n**关键技术点**：\n• 向量数据库选择（Pinecone, Milvus, Chroma）\n• Embedding 模型选择\n• 分块策略（Chunk Size, Overlap）\n• 检索策略（混合检索, Re-ranking）\n\n⚡ 面试提示：RAG 是当前 LLM 应用落地的最主流方案。",
+          "tags": ["LLM", "RAG"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "RAG Paper (Lewis et al., 2020)", "url": "https://arxiv.org/abs/2005.11401"}
+          ]
+        },
+        {
+          "id": 36,
+          "category": "概率统计",
+          "question": "什么是辛普森悖论（Simpson's Paradox）？",
+          "answer": "**辛普森悖论**：在**每个子组**中都成立的趋势，在**合并数据**后可能完全反转。\n\n**经典案例 — UC Berkeley 录取歧视**：\n\n整体数据：\n• 男性录取率 44%，女性录取率 35%\n→ 看似性别歧视！\n\n按系拆分后：\n• 每个系的女性录取率 ≥ 男性\n• 但女性更多申请了**录取率低的竞争激烈系**\n\n**原因：混淆变量**\n\n「系别」是混淆变量：\n• 影响性别分布（女性选择不同的系）\n• 影响录取率（不同系难度不同）\n\n**如何避免被辛普森悖论误导？**\n1. 识别可能的**混淆变量**\n2. 进行**分层分析**（按子组拆解）\n3. 使用**因果推断**方法（如调整公式）\n4. 理解数据生成机制（画 DAG 图）\n\n⚡ 面试提示：这是展示你对数据分析深度理解的绝佳话题。面试中如果能主动提到辛普森悖论，会很加分。",
+          "tags": ["高频", "悖论"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Simpson's Paradox - Stanford Encyclopedia of Philosophy", "url": "https://plato.stanford.edu/entries/paradox-simpson/"}
+          ]
+        },
+        {
+          "id": 37,
+          "category": "业务分析",
+          "question": "如何做漏斗分析？转化率下降怎么排查？",
+          "answer": "**漏斗分析**：追踪用户从起始行为到目标行为的逐步转化过程。\n\n**典型电商漏斗**：\n首页访问 → 商品浏览 → 加入购物车 → 提交订单 → 支付成功\n100% → 40% → 15% → 8% → 5%\n\n**构建步骤**：\n1. 定义关键步骤和转化事件\n2. 设定转化窗口（如 30 分钟内）\n3. 计算每步转化率和流失率\n4. 按维度拆分对比\n\n**转化率下降排查框架**：\n\n**Step 1: 定位哪一步下降**\n• 对比历史同期各步骤转化率\n• 找到 drop-off 最大的环节\n\n**Step 2: 按维度拆解**\n• 用户维度：新/老用户、会员等级\n• 渠道维度：APP/H5/小程序\n• 设备维度：iOS/Android、版本\n• 地域维度\n\n**Step 3: 排除技术问题**\n• 页面加载速度变慢？\n• 支付接口异常？\n• 某版本 UI Bug？\n\n**Step 4: 分析业务变化**\n• 价格/库存/活动变化？\n• 竞品促销影响？\n\n⚡ 面试提示：先定位「哪一步」出问题，再定位「哪类人」出问题，展示逻辑清晰度。",
+          "tags": ["漏斗分析", "诊断框架"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Funnel Analysis - Mixpanel", "url": "https://mixpanel.com/blog/funnel-analysis/"}
+          ]
+        },
+        {
+          "id": 38,
+          "category": "机器学习",
+          "question": "什么是推荐系统中的协同过滤？用户CF和物品CF有何区别？",
+          "answer": "**协同过滤（Collaborative Filtering）**：\n基于用户行为数据（非内容特征）进行推荐。\n核心思想：物以类聚，人以群分。\n\n**1. 用户协同过滤（User-CF）**：\n• 找到与你兴趣相似的用户\n• 推荐他们喜欢而你没看过的物品\n• 相似度：余弦相似度、Pearson 相关\n\n**2. 物品协同过滤（Item-CF）**：\n• 找到与你喜欢物品相似的物品\n• 推荐这些相似物品\n• 「喜欢 A 的人也喜欢 B」\n\n| | User-CF | Item-CF |\n|---|---|---|\n| 推荐逻辑 | 与你相似的人喜欢什么 | 与你喜欢的物品相似的是什么 |\n| 适用场景 | 用户少、物品多 | 物品少、用户多 |\n| 实时性 | 用户兴趣变化快时好 | 物品关系稳定时好 |\n| 经典应用 | 新闻推荐 | 电商推荐（Amazon） |\n| 冷启动 | 新用户问题 | 新物品问题 |\n\n**局限**：\n• 稀疏性问题（大部分用户只交互极少物品）\n• 冷启动问题\n→ 解决：矩阵分解（SVD）、深度学习（NCF, DeepFM）\n\n⚡ 面试提示：实际系统通常是 CF + 内容推荐 + 深度模型的混合架构。",
+          "tags": ["推荐系统", "协同过滤"],
+          "difficulty": "medium",
+          "references": [
+            {"title": "Amazon.com Recommendations: Item-to-Item CF (Linden et al., 2003)", "url": "https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf"}
+          ]
+        },
+        {
+          "id": 39,
+          "category": "深度学习",
+          "question": "什么是迁移学习？有哪些常见策略？",
+          "answer": "**迁移学习（Transfer Learning）**：\n将在**源任务**上学到的知识迁移到**目标任务**，减少对目标任务标注数据的需求。\n\n**为什么有效？**\n• 底层特征具有通用性（边缘、纹理、语法结构等）\n• 预训练模型已学到丰富的表示\n\n**常见策略**：\n\n**1. Feature Extraction（特征提取）**\n• 冻结预训练模型，只训练最后的分类头\n• 适用：目标数据很少\n\n**2. Fine-tuning（微调）**\n• 解冻部分/全部层，用较小学习率训练\n• 适用：有一定量的目标数据\n• 技巧：先冻结训练分类头 → 再解冻微调\n\n**3. Domain Adaptation**\n• 源域和目标域分布不同\n• 方法：对抗训练、领域混淆\n\n**各领域的迁移学习**：\n| 领域 | 预训练模型 | 迁移方式 |\n|---|---|---|\n| CV | ImageNet → ResNet/ViT | Fine-tune |\n| NLP | BERT / GPT | Fine-tune / Prompt |\n| 语音 | Whisper / wav2vec | Fine-tune |\n\n⚡ 面试提示：迁移学习是现代 AI 的基石，「预训练 + 微调」是主流范式。",
+          "tags": ["迁移学习", "预训练"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "A Survey on Transfer Learning (Pan & Yang, 2010)", "url": "https://ieeexplore.ieee.org/document/5288526"}
+          ]
+        },
+        {
+          "id": 40,
+          "category": "业务分析",
+          "question": "面试中的 Case Study 通用答题框架是什么？",
+          "answer": "**万能框架：CRISP 五步法**\n\n**1. Clarify（明确问题）** 🎯\n• 复述问题，确认理解\n• 明确指标定义（如「活跃」是 DAU 还是 MAU？）\n• 确认时间范围、用户范围\n• 提出关键假设\n\n**2. Reason（分析思路）** 🧠\n• 画全局框架（MECE）\n• 提出假设：可能的原因是什么？\n• 优先级排序：先验证最可能的\n\n**3. Investigate（数据验证）** 📊\n• 需要哪些数据？\n• 用什么方法分析？（分组对比/趋势/漏斗）\n• 如何验证假设？\n\n**4. Solution（提出方案）** 💡\n• 基于分析结论给出建议\n• 短期 vs 长期方案\n• 量化预期收益\n\n**5. Predict（预判效果）** 📈\n• 如何衡量方案效果？\n• 需要做 A/B 实验吗？\n• 有什么风险和注意事项？\n\n**注意事项**：\n• ✅ 主动沟通，不要默默思考\n• ✅ 用数据说话，不要纯猜\n• ✅ 展示结构化思维\n• ❌ 不要一上来就回答，先确认问题\n\n⚡ 面试提示：80% 的面试官看的是思维过程，不是最终答案。",
+          "tags": ["高频", "面试技巧"],
+          "difficulty": "easy",
+          "references": [
+            {"title": "Ace the Data Science Interview (Nick Singh & Kevin Huo)", "url": "https://www.acethedatascienceinterview.com/"}
+          ]
+        }
+      ]
     }
   ]
 }

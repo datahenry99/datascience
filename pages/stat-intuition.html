@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>统计模拟 - DataHenry</title>
+  <meta name="description" content="DataHenry 统计模拟，通过交互式模拟直观理解正态分布、中心极限定理、P 值、置信区间、贝叶斯定理、大数定律。">
+  <link rel="canonical" href="https://www.datahenry.com/pages/stat-intuition.html">
+  <meta property="og:title" content="统计模拟 - DataHenry">
+  <meta property="og:description" content="交互式动画直观理解核心统计概念">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.datahenry.com/pages/stat-intuition.html">
+  <meta property="og:image" content="https://www.datahenry.com/images/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="统计模拟 - DataHenry">
+  <meta name="twitter:description" content="交互式动画直观理解核心统计概念">
+  <meta name="twitter:image" content="https://www.datahenry.com/images/og-cover.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%237c3aed'/><stop offset='100%25' stop-color='%2300d4ff'/></linearGradient></defs><rect rx='20' width='100' height='100' fill='url(%23g)'/><polyline points='20 65 35 45 55 55 80 25' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='35' cy='45' r='5' fill='white'/><circle cx='55' cy='55' r='5' fill='white'/><circle cx='80' cy='25' r='5' fill='white'/></svg>">
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?59f51c7002c5b191a2f53b23c5a838da";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20260331">
+  <link rel="stylesheet" href="../css/assistant.css?v=20260324">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260331">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Inter:wght@800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Stat Intuition Page Styles ===== */
+
+    /* Main Layout: Sidebar + Content */
+    .si-main { padding: 88px 0 80px; background: #f8fafc; }
+    .si-main-inner {
+      max-width: 1600px; margin: 0 auto; padding: 0 32px;
+      display: flex; gap: 32px; align-items: flex-start;
+    }
+
+    /* Sidebar */
+    .si-sidebar {
+      position: sticky; top: 80px;
+      width: 220px; min-width: 220px; flex-shrink: 0;
+      background: #fff; border-radius: 14px;
+      border: 1px solid #e8ecf1; padding: 20px 16px;
+      max-height: calc(100vh - 120px); overflow-y: auto;
+    }
+    .si-sidebar-title {
+      font-size: 13px; font-weight: 700; color: #0f172a;
+      margin-bottom: 14px; padding-bottom: 12px;
+      border-bottom: 1px solid #e8ecf1;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .si-sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+    .si-sidebar-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px; border-radius: 10px;
+      text-decoration: none; font-size: 13px; font-weight: 500;
+      color: #64748b; transition: all 0.2s; cursor: pointer;
+    }
+    .si-sidebar-link:hover { background: #f1f5f9; color: #1e293b; }
+    .si-sidebar-link.active {
+      background: linear-gradient(135deg, #eff6ff, #f5f0ff);
+      color: #6366f1; font-weight: 600;
+    }
+    .si-sidebar-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .si-sidebar-link-text { line-height: 1.3; }
+    .si-sidebar-link-title { display: block; }
+    .si-sidebar-link-sub { display: block; font-size: 11px; color: #94a3b8; font-weight: 400; margin-top: 1px; }
+    .si-sidebar-link.active .si-sidebar-link-sub { color: #93c5fd; }
+
+    /* Content Area */
+    .si-content { flex: 1; min-width: 0; }
+
+    /* Section */
+    .si-section { margin-bottom: 48px; }
+    .si-section:last-child { margin-bottom: 0; }
+    .si-section-anchor { scroll-margin-top: 80px; }
+    .si-section-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px; padding: 12px 0;
+      border-bottom: 2px solid #e8ecf1;
+      position: sticky; top: 64px; background: #f8fafc; z-index: 10;
+    }
+    .si-section-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0; color: #fff;
+    }
+    .si-section-title {
+      font-size: 20px; font-weight: 700; color: #0f172a; margin: 0 0 2px;
+    }
+    .si-section-subtitle {
+      font-size: 13px; color: #94a3b8; margin: 0;
+    }
+
+    /* Two-column layout within each section */
+    .si-section-body {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+      align-items: start;
+    }
+    .si-section-left { min-width: 0; }
+    .si-section-right {
+      position: sticky; top: 130px;
+      display: flex; flex-direction: column; gap: 14px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.1) transparent;
+    }
+    .si-section-right::-webkit-scrollbar { width: 4px; }
+    .si-section-right::-webkit-scrollbar-track { background: transparent; }
+    .si-section-right::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+
+    /* Viz Card (inline, no modal) */
+    .si-viz-card {
+      background: #fff; border: 1px solid #e8ecf1; border-radius: 14px;
+      padding: 24px; overflow: hidden;
+    }
+
+    /* Canvas & Controls */
+    .si-canvas-wrap {
+      background: #f8fafc; border: 1px solid #e8ecf1; border-radius: 12px;
+      padding: 16px; margin-bottom: 20px;
+    }
+    .si-canvas-wrap canvas {
+      width: 100%; height: 300px; display: block; border-radius: 8px;
+    }
+    .si-controls { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+    .si-control-row {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .si-control-label {
+      font-size: 14px; font-weight: 600; color: #334155;
+      min-width: 100px;
+    }
+    .si-control-row input[type="range"] {
+      flex: 1; min-width: 140px; accent-color: #6366f1;
+    }
+    .si-control-value {
+      font-size: 14px; font-weight: 700; color: #6366f1;
+      min-width: 50px; text-align: right;
+    }
+    .si-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 10px; border: none;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .si-btn-primary { background: #6366f1; color: #fff; }
+    .si-btn-primary:hover { background: #4f46e5; }
+    .si-btn-secondary { background: #f1f5f9; color: #334155; }
+    .si-btn-secondary:hover { background: #e2e8f0; }
+    .si-btn-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    /* Stats & Explain */
+    .si-stats-box {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px; background: #f8fafc; border: 1px solid #e8ecf1;
+      border-radius: 12px; padding: 16px; margin-bottom: 16px;
+    }
+    .si-stat { text-align: center; }
+    .si-stat-value { font-size: 22px; font-weight: 800; color: #0f172a; }
+    .si-stat-label { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .si-explain {
+      background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px;
+      padding: 16px 20px; font-size: 14px; line-height: 1.8; color: #334155;
+    }
+    .si-explain strong { color: #0f172a; }
+
+    /* Mobile TOC */
+    .si-mobile-toc-fab {
+      display: none;
+      position: fixed; bottom: 124px; right: 18px;
+      width: 44px; height: 44px; border-radius: 14px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      align-items: center; justify-content: center;
+      cursor: pointer; z-index: 89; color: #6366f1;
+      transition: all 0.3s;
+    }
+    .si-mobile-toc-fab svg { width: 20px; height: 20px; }
+    .si-mobile-toc-fab:active { transform: scale(0.92); }
+    .si-mobile-toc-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
+      z-index: 299; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .si-mobile-toc-overlay.active { opacity: 1; pointer-events: auto; }
+    .si-mobile-toc-panel {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      max-height: 55vh; background: #fff;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.12);
+      z-index: 300; transform: translateY(100%); pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      overflow: hidden; flex-direction: column;
+    }
+    .si-mobile-toc-panel.active { transform: translateY(0); pointer-events: auto; }
+    .si-mobile-toc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px 12px; border-bottom: 1px solid #f1f5f9;
+    }
+    .si-mobile-toc-title { font-size: 15px; font-weight: 700; color: #0f172a; }
+    .si-mobile-toc-close {
+      width: 30px; height: 30px; border-radius: 8px; border: none;
+      background: #f1f5f9; color: #64748b;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .si-mobile-toc-list { flex: 1; overflow-y: auto; padding: 8px 12px 24px; -webkit-overflow-scrolling: touch; }
+    .si-mobile-toc-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; color: #475569;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .si-mobile-toc-item:active { background: #f1f5f9; }
+    .si-mobile-toc-item.active {
+      background: linear-gradient(135deg,#eff6ff,#f5f0ff);
+      color: #6366f1; font-weight: 600;
+    }
+    .si-mobile-toc-icon { font-size: 18px; flex-shrink: 0; }
+
+    /* Formula Block */
+    .si-formula-block {
+      background: #fff; border: 1px solid #e8ecf1; border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .si-formula-title {
+      font-size: 13px; font-weight: 700; color: #0f172a;
+      margin: 0 0 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .si-formula-title svg { flex-shrink: 0; }
+    .si-formula-row {
+      background: #f8fafc; border: 1px solid #e8ecf1; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 10px; text-align: center;
+      overflow-x: auto;
+    }
+    .si-formula-row:last-child { margin-bottom: 0; }
+    .si-formula-row .MathJax { font-size: 1.05em !important; }
+    .si-formula-note {
+      font-size: 12.5px; color: #64748b; line-height: 1.7;
+      margin: 10px 0 0; padding: 0 2px;
+    }
+    .si-formula-note code {
+      background: #f1f5f9; padding: 2px 5px; border-radius: 4px;
+      font-size: 11.5px; font-family: 'SF Mono', 'Cascadia Code', monospace;
+      color: #334155;
+    }
+
+    /* Reference Block */
+    .si-ref-block {
+      background: #fefce8; border: 1px solid #fde68a; border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .si-ref-title {
+      font-size: 13px; font-weight: 700; color: #92400e;
+      margin: 0 0 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .si-ref-title svg { flex-shrink: 0; }
+    .si-ref-list { list-style: none; padding: 0; margin: 0; }
+    .si-ref-list li {
+      font-size: 13px; color: #78350f; line-height: 1.7;
+      padding: 4px 0; display: flex; align-items: flex-start; gap: 8px;
+    }
+    .si-ref-list li::before {
+      content: ''; display: inline-block; flex-shrink: 0;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #f59e0b; margin-top: 8px;
+    }
+    .si-ref-list a {
+      color: #b45309; text-decoration: underline;
+      text-decoration-color: rgba(180,83,9,0.3);
+      transition: color 0.2s;
+    }
+    .si-ref-list a:hover { color: #92400e; text-decoration-color: #92400e; }
+
+    /* Explain Slot (right column) */
+    .si-explain-slot { }
+    .si-explain-slot:empty { display: none; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .si-sidebar { display: none; }
+      .si-mobile-toc-fab, .si-mobile-toc-overlay, .si-mobile-toc-panel { display: flex; }
+      .si-section-body {
+        grid-template-columns: 1fr;
+      }
+      .si-section-right {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+    @media (max-width: 900px) {
+      .si-main { padding: 76px 0 60px; }
+      .si-main-inner { padding: 0 20px; }
+      .si-section-header { top: 56px; }
+      .si-section-title { font-size: 18px; }
+    }
+    @media (max-width: 600px) {
+      .si-main { padding: 68px 0 48px; }
+      .si-main-inner { padding: 0 14px; gap: 16px; }
+      .si-viz-card { padding: 18px 14px; border-radius: 12px; }
+      .si-canvas-wrap canvas { height: 240px; }
+      .si-canvas-wrap { padding: 10px; }
+      .si-section-header { gap: 10px; padding: 12px 0; }
+      .si-section-icon { width: 40px; height: 40px; font-size: 20px; }
+    }
+  </style>
+  <script>
+  MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' },
+    startup: { typeset: true }
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="../index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+          <span class="logo-text">DataHenry</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <a href="flashcards.html" class="nav-link">知识卡片</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="stat-intuition.html" class="nav-link active">统计模拟</a>
+      </nav>
+      <div class="nav-search" onclick="openSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        搜索
+      </div>
+      <div class="nav-social">
+        <button class="theme-toggle" onclick="toggleTheme()" title="切换深色模式" aria-label="切换深色/浅色模式">
+          <span class="icon-sun" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="icon-moon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+        </button>
+        <a href="https://github.com/datahenry99/datascience" target="_blank" rel="noopener" class="nav-github" title="GitHub" aria-label="GitHub 仓库">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" rel="noopener" class="nav-xiaohongshu" title="小红书" aria-label="小红书主页">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
+        </a>
+      </div>
+      <button class="nav-theme-mobile" onclick="toggleTheme()" title="切换深色模式">
+        <span class="icon-sun"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+        <span class="icon-moon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+      </button>
+      <button class="nav-search-mobile" onclick="openSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="打开导航菜单" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()" aria-hidden="true"></div>
+  <div class="mobile-menu" role="dialog" aria-label="导航菜单">
+    <div class="mobile-menu-brand">
+      <div class="mobile-menu-brand-left">
+        <div class="mobile-menu-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        <div>
+          <div class="mobile-menu-brand-name">DataHenry</div>
+          <div class="mobile-menu-brand-desc">数据科学导航站</div>
+        </div>
+      </div>
+      <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-search-btn" onclick="toggleMobileMenu();openSearch();">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>搜索本站信息</span>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="../index.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span class="mobile-link-text">首页</span>
+      </a>
+      <a href="flashcards.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="mobile-link-text">知识卡片</span>
+      </a>
+      <a href="papers.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="mobile-link-text">论文精读</span>
+      </a>
+      <a href="tools.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span class="mobile-link-text">工具榜单</span>
+      </a>
+      <a href="articles.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="mobile-link-text">博客社区</span>
+      </a>
+      <a href="stat-intuition.html" class="mobile-link active">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></span>
+        <span class="mobile-link-text">统计模拟</span>
+      </a>
+    </div>
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-footer-deco"></div>
+      <p>© 2026 DataHenry</p>
+    </div>
+  </div>
+  <script>
+  function toggleMobileMenu() {
+    document.querySelector('.mobile-menu').classList.toggle('active');
+    document.querySelector('.mobile-menu-overlay').classList.toggle('active');
+    var isOpen = document.querySelector('.mobile-menu').classList.contains('active');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    var hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.setAttribute('aria-expanded', isOpen);
+  }
+  </script>
+
+  <!-- Main: Sidebar + Content -->
+  <section class="si-main">
+    <div class="si-main-inner">
+
+      <!-- 左侧侧边栏目录 -->
+      <aside class="si-sidebar">
+        <div class="si-sidebar-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> 概念导航</div>
+        <nav class="si-sidebar-nav">
+          <a href="#normal" class="si-sidebar-link active" data-section="normal">
+            <div class="si-sidebar-icon" style="background:#ede9fe;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20c2-8 4-16 10-16s8 8 10 16"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">正态分布</span>
+              <span class="si-sidebar-link-sub">Normal Distribution</span>
+            </div>
+          </a>
+          <a href="#clt" class="si-sidebar-link" data-section="clt">
+            <div class="si-sidebar-icon" style="background:#dbeafe;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="14" y="2" width="8" height="8" rx="1.5"/><rect x="8" y="14" width="8" height="8" rx="1.5"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">中心极限定理</span>
+              <span class="si-sidebar-link-sub">Central Limit Theorem</span>
+            </div>
+          </a>
+          <a href="#pvalue" class="si-sidebar-link" data-section="pvalue">
+            <div class="si-sidebar-icon" style="background:#fce7f3;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">P 值可视化</span>
+              <span class="si-sidebar-link-sub">P-Value</span>
+            </div>
+          </a>
+          <a href="#ci" class="si-sidebar-link" data-section="ci">
+            <div class="si-sidebar-icon" style="background:#d1fae5;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M8 8l-4 4 4 4"/><path d="M16 8l4 4-4 4"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">置信区间</span>
+              <span class="si-sidebar-link-sub">Confidence Interval</span>
+            </div>
+          </a>
+          <a href="#bayes" class="si-sidebar-link" data-section="bayes">
+            <div class="si-sidebar-icon" style="background:#fef3c7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">贝叶斯定理</span>
+              <span class="si-sidebar-link-sub">Bayes' Theorem</span>
+            </div>
+          </a>
+          <a href="#lln" class="si-sidebar-link" data-section="lln">
+            <div class="si-sidebar-icon" style="background:#e0e7ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="si-sidebar-link-text">
+              <span class="si-sidebar-link-title">大数定律</span>
+              <span class="si-sidebar-link-sub">Law of Large Numbers</span>
+            </div>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- 右侧内容区 -->
+      <div class="si-content">
+
+        <!-- 1. 正态分布 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="normal"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20c2-8 4-16 10-16s8 8 10 16"/></svg></div>
+            <div>
+              <h2 class="si-section-title">正态分布探索器</h2>
+              <p class="si-section-subtitle">拖动 μ 和 σ 滑块，实时观察钟形曲线如何变化</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-normal"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x-\mu)^2}{2\sigma^2}} \]
+                </div>
+                <p class="si-formula-note">
+                  其中 <code>μ</code> 为均值（分布中心），<code>σ</code> 为标准差（控制曲线宽度），<code>σ²</code> 为方差。68-95-99.7 法则：约 68% 数据落在 μ±σ，95% 落在 μ±2σ，99.7% 落在 μ±3σ。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-normal"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Wikipedia: Normal distribution</a></li>
+                  <li><a href="https://www.khanacademy.org/math/statistics-probability/modeling-distributions-of-data/normal-distributions-library/a/normal-distributions-review" target="_blank" rel="noopener">Khan Academy: Normal Distribution Review</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 中心极限定理 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="clt"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="14" y="2" width="8" height="8" rx="1.5"/><rect x="8" y="14" width="8" height="8" rx="1.5"/></svg></div>
+            <div>
+              <h2 class="si-section-title">中心极限定理</h2>
+              <p class="si-section-subtitle">从任意分布抽样，观察样本均值如何趋向正态分布</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-clt"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ \bar{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{d} N\!\left(\mu,\;\frac{\sigma^2}{n}\right) \]
+                </div>
+                <p class="si-formula-note">
+                  设 <code>X₁, X₂, …, Xₙ</code> 为均值 <code>μ</code>、方差 <code>σ²</code> 的独立同分布随机变量，则样本均值 <code>X̄ₙ</code> 的分布近似正态分布，均值为 <code>μ</code>，方差为 <code>σ²/n</code>。标准化后：\( Z = \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \)
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-clt"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Wikipedia: Central Limit Theorem</a></li>
+                  <li><a href="https://seeing-theory.brown.edu/probability-distributions/index.html" target="_blank" rel="noopener">Seeing Theory (Brown University): Interactive CLT Demo</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. P 值可视化 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="pvalue"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#ec4899,#e11d48);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div>
+              <h2 class="si-section-title">P 值可视化</h2>
+              <p class="si-section-subtitle">拖动观测值，直观理解假设检验的核心概念</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-pvalue"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \]
+                </div>
+                <div class="si-formula-row">
+                  \[ p\text{-value} = 2 \cdot P(Z \geq |z_{\text{obs}}|) \]
+                </div>
+                <p class="si-formula-note">
+                  其中 <code>Z</code> 为检验统计量，<code>μ₀</code> 为原假设下的总体均值，<code>Φ</code> 为标准正态分布的 CDF。P 值是在原假设 H₀ 为真时，观测到当前或更极端结果的概率。当 <code>p < α</code>（通常 α = 0.05）时拒绝 H₀。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-pvalue"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/P-value" target="_blank" rel="noopener">Wikipedia: P-value</a></li>
+                  <li><a href="https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/p-values-and-significance-tests" target="_blank" rel="noopener">Khan Academy: P-values and Significance Tests</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 置信区间 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="ci"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#10b981,#059669);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M8 8l-4 4 4 4"/><path d="M16 8l4 4-4 4"/></svg></div>
+            <div>
+              <h2 class="si-section-title">置信区间模拟</h2>
+              <p class="si-section-subtitle">反复抽样验证「95% 的区间包含真实均值」的含义</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-ci"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ \text{CI} = \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \]
+                </div>
+                <p class="si-formula-note">
+                  其中 <code>X̄</code> 为样本均值，<code>z<sub>α/2</sub></code> 为标准正态分布的临界值（95% CI 时为 1.96），<code>σ/√n</code> 为标准误（SE）。置信区间的频率学解释：如果反复抽样构造 CI，其中约 95% 的区间会包含真实参数值 μ。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-ci"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank" rel="noopener">Wikipedia: Confidence Interval</a></li>
+                  <li><a href="https://rpsychologist.com/d3/ci/" target="_blank" rel="noopener">R Psychologist: Interpreting Confidence Intervals (Interactive)</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 贝叶斯定理 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="bayes"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
+            <div>
+              <h2 class="si-section-title">贝叶斯定理</h2>
+              <p class="si-section-subtitle">调整先验与似然度，观察后验概率如何更新</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-bayes"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ P(D \mid +) = \frac{P(+\mid D)\,P(D)}{P(+)} \]
+                </div>
+                <p class="si-formula-note">
+                  <code>P(D)</code> 为先验概率（患病率），<code>P(+|D)</code> 为灵敏度（真阳性率），<code>P(+|¬D) = 1 - 特异度</code>为假阳性率。分母 <code>P(+)</code> 是检测阳性的总概率（全概率公式）。当先验很低时，即使检测灵敏度很高，后验概率也可能出人意料地低——这就是「基率谬误」。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-bayes"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Wikipedia: Bayes' Theorem</a></li>
+                  <li><a href="https://www.3blue1brown.com/lessons/bayes-theorem" target="_blank" rel="noopener">3Blue1Brown: Bayes' Theorem (Video)</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. 大数定律 -->
+        <div class="si-section">
+          <div class="si-section-anchor" id="lln"></div>
+          <div class="si-section-header">
+            <div class="si-section-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div>
+              <h2 class="si-section-title">大数定律</h2>
+              <p class="si-section-subtitle">模拟抛硬币，观察比例如何收敛到理论值</p>
+            </div>
+          </div>
+          <div class="si-section-body">
+            <div class="si-section-left">
+              <div class="si-viz-card" id="viz-lln"></div>
+            </div>
+            <div class="si-section-right">
+              <div class="si-formula-block">
+                <div class="si-formula-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M4 20V4l4 4 4-8 4 8 4-4v16"/></svg> 核心公式</div>
+                <div class="si-formula-row">
+                  \[ \bar{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{P} \mu \quad (n \to \infty) \]
+                </div>
+                <p class="si-formula-note">
+                  <strong>弱大数定律（Khintchine）</strong>：对独立同分布且期望有限的随机变量序列，样本均值依概率收敛到总体期望 <code>μ</code>。
+                  <strong>强大数定律</strong>更进一步：<code>X̄ₙ</code> 以概率 1 收敛到 <code>μ</code>（几乎必然收敛）。抛硬币实验中，正面比例随 n 增大而趋近 0.5。
+                </p>
+              </div>
+              <div class="si-explain-slot" id="explain-lln"></div>
+              <div class="si-ref-block">
+                <div class="si-ref-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> 参考材料</div>
+                <ul class="si-ref-list">
+                  <li><a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank" rel="noopener">Wikipedia: Law of Large Numbers</a></li>
+                  <li><a href="https://seeing-theory.brown.edu/basic-probability/index.html" target="_blank" rel="noopener">Seeing Theory (Brown University): Law of Large Numbers</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 移动端目录 -->
+  <button class="si-mobile-toc-fab" id="siMobileTocFab" onclick="toggleSiMobileToc()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="si-mobile-toc-overlay" id="siMobileTocOverlay" onclick="toggleSiMobileToc()"></div>
+  <div class="si-mobile-toc-panel" id="siMobileTocPanel">
+    <div class="si-mobile-toc-header">
+      <span class="si-mobile-toc-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> 概念导航</span>
+      <button class="si-mobile-toc-close" onclick="toggleSiMobileToc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="si-mobile-toc-list">
+      <a class="si-mobile-toc-item active" data-section="normal" href="#normal">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20c2-8 4-16 10-16s8 8 10 16"/></svg></span><span>正态分布探索器</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="clt" href="#clt">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1.5"/><rect x="14" y="2" width="8" height="8" rx="1.5"/><rect x="8" y="14" width="8" height="8" rx="1.5"/></svg></span><span>中心极限定理</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="pvalue" href="#pvalue">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></span><span>P 值可视化</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="ci" href="#ci">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M8 8l-4 4 4 4"/><path d="M16 8l4 4-4 4"/></svg></span><span>置信区间模拟</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="bayes" href="#bayes">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg></span><span>贝叶斯定理</span>
+      </a>
+      <a class="si-mobile-toc-item" data-section="lln" href="#lln">
+        <span class="si-mobile-toc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span>大数定律</span>
+      </a>
+    </div>
+  </div>
+  <script>
+  function toggleSiMobileToc() {
+    document.getElementById('siMobileTocOverlay').classList.toggle('active');
+    document.getElementById('siMobileTocPanel').classList.toggle('active');
+  }
+  // Mobile TOC click
+  document.querySelectorAll('.si-mobile-toc-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      var t = document.getElementById(this.dataset.section);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toggleSiMobileToc();
+    });
+  });
+  </script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        DataHenry
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">首页</a>
+        <a href="papers.html">论文精读</a>
+        <a href="tools.html">工具榜单</a>
+        <a href="articles.html">博客社区</a>
+        <a href="flashcards.html">知识卡片</a>
+        <a href="stat-intuition.html">统计模拟</a>
+      </nav>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 DataHenry. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <script>
+  (function(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});})();
+  </script>
+
+  <!-- Sidebar scroll tracking -->
+  <script>
+  (function() {
+    var sidebarLinks = document.querySelectorAll('.si-sidebar-link');
+    var mobileTocItems = document.querySelectorAll('.si-mobile-toc-item');
+    var sectionIds = ['normal', 'clt', 'pvalue', 'ci', 'bayes', 'lln'];
+
+    function updateActive() {
+      var current = '';
+      sectionIds.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 160) current = id;
+      });
+      sidebarLinks.forEach(function(link) {
+        link.classList.toggle('active', link.getAttribute('data-section') === current);
+      });
+      mobileTocItems.forEach(function(item) {
+        item.classList.toggle('active', item.dataset.section === current);
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Sidebar smooth scroll
+    sidebarLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var t = document.getElementById(this.getAttribute('data-section'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+  </script>
+
+  <script src="../js/stat-intuition.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/assistant.js"></script>
+
+</body>
+</html>
