@@ -536,23 +536,14 @@
 }
 
 /* ===== Pages: Hero Sections ===== */
-[data-theme="dark"] .papers-hero,
-[data-theme="dark"] .tools-hero,
-[data-theme="dark"] .articles-hero,
 [data-theme="dark"] .about-hero {
   background: #0f172a;
 }
 
-[data-theme="dark"] .papers-hero-title,
-[data-theme="dark"] .tools-hero-title,
-[data-theme="dark"] .articles-hero-title,
 [data-theme="dark"] .about-hero-title {
   color: #f1f5f9;
 }
 
-[data-theme="dark"] .papers-hero-desc,
-[data-theme="dark"] .tools-hero-desc,
-[data-theme="dark"] .articles-hero-desc,
 [data-theme="dark"] .about-hero-desc {
   color: #94a3b8;
 }
@@ -671,16 +662,6 @@
   border-top-color: #334155;
 }
 
-/* Tool tag dark variants */
-[data-theme="dark"] .tool-tag.orange { background: rgba(234, 88, 12, 0.15); }
-[data-theme="dark"] .tool-tag.blue { background: rgba(37, 99, 235, 0.15); }
-[data-theme="dark"] .tool-tag.purple { background: rgba(124, 58, 237, 0.15); }
-[data-theme="dark"] .tool-tag.green { background: rgba(22, 163, 74, 0.15); }
-[data-theme="dark"] .tool-tag.pink { background: rgba(219, 39, 119, 0.15); }
-[data-theme="dark"] .tool-tag.cyan { background: rgba(8, 145, 178, 0.15); }
-[data-theme="dark"] .tool-tag.red { background: rgba(220, 38, 38, 0.15); }
-[data-theme="dark"] .tool-tag.violet { background: rgba(124, 58, 237, 0.15); }
-
 /* Filter buttons */
 [data-theme="dark"] .filter-btn {
   color: #94a3b8;
@@ -732,6 +713,12 @@
 [data-theme="dark"] .article-tag.indigo { background: rgba(79, 70, 229, 0.15); }
 [data-theme="dark"] .article-tag.teal { background: rgba(13, 148, 136, 0.15); }
 [data-theme="dark"] .article-tag.red { background: rgba(220, 38, 38, 0.15); }
+
+/* Pinned badge dark mode */
+[data-theme="dark"] .article-pinned-badge {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  box-shadow: 0 1px 4px rgba(225, 29, 72, 0.4);
+}
 
 /* Pagination dark mode */
 [data-theme="dark"] .page-btn {

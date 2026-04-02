@@ -6,80 +6,10 @@
   font-weight: 600;
 }
 
-/* --- Papers Hero --- */
-.papers-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 64px 0 48px;
-  background: #fafafa;
-}
-
-.papers-hero-bg {
-  position: absolute;
-  top: -120px;
-  right: -80px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 40%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.papers-hero::before {
-  content: '';
-  position: absolute;
-  bottom: -60px;
-  left: -60px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.papers-hero-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  text-align: center;
-}
-
-.papers-hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.08);
-  padding: 6px 20px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  border: 1px solid rgba(139, 92, 246, 0.12);
-}
-
-.papers-hero-title {
-  font-size: 44px;
-  font-weight: 900;
-  color: #0f172a;
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
-}
-
-.papers-hero-desc {
-  font-size: 15px;
-  color: #64748b;
-  line-height: 1.5;
-  max-width: 680px;
-  margin: 0 auto 24px;
-}
-
 /* --- Main Content --- */
 .papers-main {
-  padding: 40px 0 80px;
-  background: #fff;
+  padding: 88px 0 80px;
+  background: #f8fafc;
 }
 
 .papers-main-inner {
@@ -98,7 +28,7 @@
   width: 200px;
   min-width: 200px;
   flex-shrink: 0;
-  background: #fafbfc;
+  background: #fff;
   border-radius: 12px;
   border: 1px solid #e8ecf1;
   padding: 16px;
@@ -113,6 +43,9 @@
   margin-bottom: 12px;
   padding-bottom: 10px;
   border-bottom: 1px solid #e8ecf1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .sidebar-nav {
@@ -192,7 +125,7 @@
   border-bottom: 2px solid #f1f5f9;
   position: sticky;
   top: 64px;
-  background: #fff;
+  background: #f8fafc;
   z-index: 10;
 }
 
@@ -518,10 +451,6 @@
 }
 
 @media (max-width: 900px) {
-  .papers-hero-title {
-    font-size: 32px;
-  }
-
   .paper-grid {
     grid-template-columns: 1fr;
   }
@@ -532,18 +461,6 @@
 }
 
 @media (max-width: 600px) {
-  .papers-hero {
-    padding: 40px 0 32px;
-  }
-
-  .papers-hero-inner {
-    padding: 0 16px;
-  }
-
-  .papers-hero-title {
-    font-size: 26px;
-  }
-
   .papers-main-inner {
     padding: 0 16px;
   }

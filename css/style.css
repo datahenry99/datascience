@@ -30,13 +30,11 @@ a {
 }
 
 .navbar-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 0 32px;
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .logo {
@@ -89,6 +87,7 @@ a {
   display: flex;
   align-items: center;
   gap: 32px;
+  margin-left: 32px;
 }
 
 .nav-link {
@@ -126,6 +125,7 @@ a {
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
+  margin-left: auto;
 }
 
 .nav-search:hover {

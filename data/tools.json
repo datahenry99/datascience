@@ -7,7 +7,6 @@
       "emoji": "🐼",
       "color": "#f97316",
       "gradient": "linear-gradient(135deg,#f97316,#fb923c)",
-      "tagClass": "orange",
       "iconBg": "#fff7ed"
     },
     {
@@ -17,7 +16,6 @@
       "emoji": "📈",
       "color": "#3b82f6",
       "gradient": "linear-gradient(135deg,#3b82f6,#60a5fa)",
-      "tagClass": "blue",
       "iconBg": "#eff6ff"
     },
     {
@@ -27,7 +25,6 @@
       "emoji": "🧠",
       "color": "#8b5cf6",
       "gradient": "linear-gradient(135deg,#8b5cf6,#a78bfa)",
-      "tagClass": "purple",
       "iconBg": "#f5f3ff"
     },
     {
@@ -37,7 +34,6 @@
       "emoji": "📊",
       "color": "#22c55e",
       "gradient": "linear-gradient(135deg,#22c55e,#4ade80)",
-      "tagClass": "green",
       "iconBg": "#f0fdf4"
     },
     {
@@ -47,7 +43,6 @@
       "emoji": "💬",
       "color": "#ec4899",
       "gradient": "linear-gradient(135deg,#ec4899,#f472b6)",
-      "tagClass": "pink",
       "iconBg": "#fdf2f8"
     },
     {
@@ -57,7 +52,6 @@
       "emoji": "👁️",
       "color": "#06b6d4",
       "gradient": "linear-gradient(135deg,#06b6d4,#22d3ee)",
-      "tagClass": "cyan",
       "iconBg": "#ecfeff"
     },
     {
@@ -67,7 +61,6 @@
       "emoji": "🚀",
       "color": "#f43f5e",
       "gradient": "linear-gradient(135deg,#f43f5e,#fb7185)",
-      "tagClass": "red",
       "iconBg": "#fff1f2"
     },
     {
@@ -77,7 +70,6 @@
       "emoji": "⚙️",
       "color": "#a855f7",
       "gradient": "linear-gradient(135deg,#a855f7,#c084fc)",
-      "tagClass": "violet",
       "iconBg": "#faf5ff"
     },
     {
@@ -87,7 +79,6 @@
       "emoji": "🦞",
       "color": "#ef4444",
       "gradient": "linear-gradient(135deg,#ef4444,#f97316)",
-      "tagClass": "lobster",
       "iconBg": "#fef2f2"
     }
   ],
@@ -99,8 +90,7 @@
       "url": "https://pandas.pydata.org",
       "icon": "https://pandas.pydata.org/static/img/favicon_white.ico",
       "stars": "⭐ 44.3k",
-      "badge": "🔥 热度最高",
-      "tag": "数据处理"
+      "badge": "🔥 热度最高"
     },
     {
       "name": "NumPy",
@@ -109,8 +99,7 @@
       "url": "https://numpy.org",
       "icon": "https://numpy.org/images/logo.svg",
       "stars": "⭐ 28.5k",
-      "badge": "🔥 基石级",
-      "tag": "数据处理"
+      "badge": "🔥 基石级"
     },
     {
       "name": "Polars",
@@ -119,8 +108,7 @@
       "url": "https://pola.rs",
       "icon": "https://raw.githubusercontent.com/pola-rs/polars-static/master/logos/polars-logo-dark-medium.png",
       "stars": "⭐ 31.2k",
-      "badge": "🔥 增速最快",
-      "tag": "数据处理"
+      "badge": "🔥 增速最快"
     },
     {
       "name": "SciPy",
@@ -129,8 +117,7 @@
       "url": "https://scipy.org",
       "icon": "https://scipy.org/images/logo.svg",
       "stars": "⭐ 13.3k",
-      "badge": "📦 经典稳定",
-      "tag": "数据处理"
+      "badge": "📦 经典稳定"
     },
     {
       "name": "Dask",
@@ -139,8 +126,7 @@
       "url": "https://dask.org",
       "icon": "https://docs.dask.org/en/latest/_images/dask_icon_no_text.svg",
       "stars": "⭐ 12.9k",
-      "badge": "📦 大数据",
-      "tag": "数据处理"
+      "badge": "📦 大数据"
     },
     {
       "name": "Apache Spark (PySpark)",
@@ -149,8 +135,7 @@
       "url": "https://spark.apache.org",
       "icon": "https://spark.apache.org/images/spark-logo-rev.svg",
       "stars": "⭐ 40.3k",
-      "badge": "🔥 企业级",
-      "tag": "数据处理"
+      "badge": "🔥 企业级"
     },
     {
       "name": "Apache Airflow",
@@ -159,8 +144,7 @@
       "url": "https://airflow.apache.org",
       "icon": "https://airflow.apache.org/images/feature-image.png",
       "stars": "⭐ 38.1k",
-      "badge": "📦 管道编排",
-      "tag": "数据处理"
+      "badge": "📦 管道编排"
     },
     {
       "name": "Scikit-learn",
@@ -169,8 +153,7 @@
       "url": "https://scikit-learn.org",
       "icon": "https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png",
       "stars": "⭐ 60.8k",
-      "badge": "🔥 必学",
-      "tag": "机器学习"
+      "badge": "🔥 必学"
     },
     {
       "name": "XGBoost",
@@ -179,8 +162,7 @@
       "url": "https://xgboost.ai",
       "icon": "https://raw.githubusercontent.com/dmlc/dmlc.github.io/master/img/logo-m/xgboost.png",
       "stars": "⭐ 26.6k",
-      "badge": "🏅 竞赛利器",
-      "tag": "机器学习"
+      "badge": "🏅 竞赛利器"
     },
     {
       "name": "LightGBM",
@@ -189,8 +171,7 @@
       "url": "https://lightgbm.readthedocs.io",
       "icon": "https://lightgbm.readthedocs.io/en/latest/_images/LightGBM_logo_black_text.svg",
       "stars": "⭐ 17.1k",
-      "badge": "⚡ 高效",
-      "tag": "机器学习"
+      "badge": "⚡ 高效"
     },
     {
       "name": "CatBoost",
@@ -199,8 +180,7 @@
       "url": "https://catboost.ai",
       "icon": "https://catboost.ai/favicon.ico",
       "stars": "⭐ 8.2k",
-      "badge": "📦 开箱即用",
-      "tag": "机器学习"
+      "badge": "📦 开箱即用"
     },
     {
       "name": "Statsmodels",
@@ -209,8 +189,7 @@
       "url": "https://www.statsmodels.org",
       "icon": "https://www.statsmodels.org/stable/_images/statsmodels-logo-v2-no-text.svg",
       "stars": "⭐ 10.3k",
-      "badge": "📦 统计学",
-      "tag": "机器学习"
+      "badge": "📦 统计学"
     },
     {
       "name": "Optuna",
@@ -219,8 +198,7 @@
       "url": "https://optuna.org",
       "icon": "https://avatars.githubusercontent.com/u/57251745",
       "stars": "⭐ 11.5k",
-      "badge": "🎯 调参神器",
-      "tag": "机器学习"
+      "badge": "🎯 调参神器"
     },
     {
       "name": "TensorFlow",
@@ -229,8 +207,7 @@
       "url": "https://tensorflow.org",
       "icon": "https://www.tensorflow.org/favicon.ico",
       "stars": "⭐ 187k",
-      "badge": "🔥 生态最全",
-      "tag": "深度学习"
+      "badge": "🔥 生态最全"
     },
     {
       "name": "PyTorch",
@@ -239,8 +216,7 @@
       "url": "https://pytorch.org",
       "icon": "https://pytorch.org/favicon.ico",
       "stars": "⭐ 85.7k",
-      "badge": "🔥 学术首选",
-      "tag": "深度学习"
+      "badge": "🔥 学术首选"
     },
     {
       "name": "Hugging Face Transformers",
@@ -249,8 +225,7 @@
       "url": "https://huggingface.co",
       "icon": "https://huggingface.co/favicon.ico",
       "stars": "⭐ 138k",
-      "badge": "🔥 模型库",
-      "tag": "深度学习"
+      "badge": "🔥 模型库"
     },
     {
       "name": "PyTorch Lightning",
@@ -259,8 +234,7 @@
       "url": "https://lightning.ai",
       "icon": "https://lightning.ai/favicon.ico",
       "stars": "⭐ 28.6k",
-      "badge": "⚡ 高效训练",
-      "tag": "深度学习"
+      "badge": "⚡ 高效训练"
     },
     {
       "name": "Keras",
@@ -269,8 +243,7 @@
       "url": "https://keras.io",
       "icon": "https://keras.io/favicon.ico",
       "stars": "⭐ 62.2k",
-      "badge": "📦 入门首选",
-      "tag": "深度学习"
+      "badge": "📦 入门首选"
     },
     {
       "name": "JAX",
@@ -279,8 +252,7 @@
       "url": "https://github.com/google/jax",
       "icon": "https://raw.githubusercontent.com/jax-ml/jax/main/images/jax_logo_250px.png",
       "stars": "⭐ 31.5k",
-      "badge": "🔥 新锐",
-      "tag": "深度学习"
+      "badge": "🔥 新锐"
     },
     {
       "name": "ONNX Runtime",
@@ -289,8 +261,7 @@
       "url": "https://onnxruntime.ai",
       "icon": "https://onnxruntime.ai/images/icons/ONNX-Runtime-logo.svg",
       "stars": "⭐ 15.2k",
-      "badge": "🏎️ 高速推理",
-      "tag": "深度学习"
+      "badge": "🏎️ 高速推理"
     },
     {
       "name": "Matplotlib",
@@ -299,8 +270,7 @@
       "url": "https://matplotlib.org",
       "icon": "https://matplotlib.org/stable/_static/logo_dark.svg",
       "stars": "⭐ 20.7k",
-      "badge": "📦 基石级",
-      "tag": "可视化"
+      "badge": "📦 基石级"
     },
     {
       "name": "Seaborn",
@@ -309,8 +279,7 @@
       "url": "https://seaborn.pydata.org",
       "icon": "https://seaborn.pydata.org/_static/logo-wide-lightbg.svg",
       "stars": "⭐ 12.8k",
-      "badge": "🎨 最美统计图",
-      "tag": "可视化"
+      "badge": "🎨 最美统计图"
     },
     {
       "name": "Plotly",
@@ -319,8 +288,7 @@
       "url": "https://plotly.com",
       "icon": "https://avatars.githubusercontent.com/u/5997976",
       "stars": "⭐ 16.8k",
-      "badge": "🔥 交互式",
-      "tag": "可视化"
+      "badge": "🔥 交互式"
     },
     {
       "name": "Bokeh",
@@ -329,8 +297,7 @@
       "url": "https://bokeh.org",
       "icon": "https://static.bokeh.org/branding/icons/bokeh-icon@5x.png",
       "stars": "⭐ 19.5k",
-      "badge": "📦 Web原生",
-      "tag": "可视化"
+      "badge": "📦 Web原生"
     },
     {
       "name": "Streamlit",
@@ -339,8 +306,7 @@
       "url": "https://streamlit.io",
       "icon": "https://streamlit.io/favicon.svg",
       "stars": "⭐ 36.9k",
-      "badge": "🔥 最火仪表板",
-      "tag": "可视化"
+      "badge": "🔥 最火仪表板"
     },
     {
       "name": "Dash",
@@ -349,8 +315,7 @@
       "url": "https://dash.plotly.com",
       "icon": "https://avatars.githubusercontent.com/u/5997976",
       "stars": "⭐ 22.1k",
-      "badge": "📦 企业级",
-      "tag": "可视化"
+      "badge": "📦 企业级"
     },
     {
       "name": "NLTK",
@@ -359,8 +324,7 @@
       "url": "https://nltk.org",
       "icon": "https://avatars.githubusercontent.com/u/1430299",
       "stars": "⭐ 13.8k",
-      "badge": "📦 经典教材级",
-      "tag": "NLP"
+      "badge": "📦 经典教材级"
     },
     {
       "name": "spaCy",
@@ -369,8 +333,7 @@
       "url": "https://spacy.io",
       "icon": "https://avatars.githubusercontent.com/u/13643239",
       "stars": "⭐ 30.6k",
-      "badge": "⚡ 工业级",
-      "tag": "NLP"
+      "badge": "⚡ 工业级"
     },
     {
       "name": "Gensim",
@@ -379,8 +342,7 @@
       "url": "https://radimrehurek.com/gensim",
       "icon": "https://avatars.githubusercontent.com/u/8019486",
       "stars": "⭐ 15.8k",
-      "badge": "📦 词向量",
-      "tag": "NLP"
+      "badge": "📦 词向量"
     },
     {
       "name": "LangChain",
@@ -389,8 +351,7 @@
       "url": "https://langchain.com",
       "icon": "https://avatars.githubusercontent.com/u/126733545",
       "stars": "⭐ 98.5k",
-      "badge": "🔥 最火LLM框架",
-      "tag": "NLP"
+      "badge": "🔥 最火LLM框架"
     },
     {
       "name": "LlamaIndex",
@@ -399,8 +360,7 @@
       "url": "https://llamaindex.ai",
       "icon": "https://avatars.githubusercontent.com/u/118414232",
       "stars": "⭐ 38.2k",
-      "badge": "🔥 RAG首选",
-      "tag": "NLP"
+      "badge": "🔥 RAG首选"
     },
     {
       "name": "Sentence-Transformers",
@@ -409,8 +369,7 @@
       "url": "https://sbert.net",
       "icon": "https://huggingface.co/favicon.ico",
       "stars": "⭐ 15.6k",
-      "badge": "📦 语义搜索",
-      "tag": "NLP"
+      "badge": "📦 语义搜索"
     },
     {
       "name": "OpenCV",
@@ -419,8 +378,7 @@
       "url": "https://opencv.org",
       "icon": "https://opencv.org/wp-content/uploads/2022/05/logo.png",
       "stars": "⭐ 80.1k",
-      "badge": "🔥 CV基石",
-      "tag": "计算机视觉"
+      "badge": "🔥 CV基石"
     },
     {
       "name": "Pillow (PIL)",
@@ -429,8 +387,7 @@
       "url": "https://pillow.readthedocs.io",
       "icon": "https://avatars.githubusercontent.com/u/3905455",
       "stars": "⭐ 12.5k",
-      "badge": "📦 基础图像处理",
-      "tag": "计算机视觉"
+      "badge": "📦 基础图像处理"
     },
     {
       "name": "YOLOv8 (Ultralytics)",
@@ -439,8 +396,7 @@
       "url": "https://ultralytics.com",
       "icon": "https://avatars.githubusercontent.com/u/26833451",
       "stars": "⭐ 34.7k",
-      "badge": "🔥 目标检测王者",
-      "tag": "计算机视觉"
+      "badge": "🔥 目标检测王者"
     },
     {
       "name": "MediaPipe",
@@ -449,8 +405,7 @@
       "url": "https://mediapipe.dev",
       "icon": "https://avatars.githubusercontent.com/u/1342004",
       "stars": "⭐ 28.3k",
-      "badge": "📦 端侧部署",
-      "tag": "计算机视觉"
+      "badge": "📦 端侧部署"
     },
     {
       "name": "Diffusers",
@@ -459,8 +414,7 @@
       "url": "https://huggingface.co/docs/diffusers",
       "icon": "https://huggingface.co/favicon.ico",
       "stars": "⭐ 27.4k",
-      "badge": "🔥 AIGC",
-      "tag": "计算机视觉"
+      "badge": "🔥 AIGC"
     },
     {
       "name": "MLflow",
@@ -469,8 +423,7 @@
       "url": "https://mlflow.org",
       "icon": "https://avatars.githubusercontent.com/u/39938107",
       "stars": "⭐ 19.3k",
-      "badge": "🔥 MLOps标准",
-      "tag": "MLOps"
+      "badge": "🔥 MLOps标准"
     },
     {
       "name": "Weights & Biases",
@@ -479,8 +432,7 @@
       "url": "https://wandb.ai",
       "icon": "https://avatars.githubusercontent.com/u/26401354",
       "stars": "⭐ 9.2k",
-      "badge": "📦 实验追踪",
-      "tag": "MLOps"
+      "badge": "📦 实验追踪"
     },
     {
       "name": "Docker",
@@ -489,8 +441,7 @@
       "url": "https://docker.com",
       "icon": "https://avatars.githubusercontent.com/u/5429470",
       "stars": "⭐ 69.5k",
-      "badge": "🔥 环境一致性",
-      "tag": "MLOps"
+      "badge": "🔥 环境一致性"
     },
     {
       "name": "FastAPI",
@@ -499,8 +450,7 @@
       "url": "https://fastapi.tiangolo.com",
       "icon": "https://fastapi.tiangolo.com/img/favicon.png",
       "stars": "⭐ 80.5k",
-      "badge": "🔥 API首选",
-      "tag": "MLOps"
+      "badge": "🔥 API首选"
     },
     {
       "name": "BentoML",
@@ -509,8 +459,7 @@
       "url": "https://bentoml.com",
       "icon": "https://avatars.githubusercontent.com/u/49176046",
       "stars": "⭐ 7.3k",
-      "badge": "📦 模型服务化",
-      "tag": "MLOps"
+      "badge": "📦 模型服务化"
     },
     {
       "name": "DVC",
@@ -519,8 +468,7 @@
       "url": "https://dvc.org",
       "icon": "https://avatars.githubusercontent.com/u/35057648",
       "stars": "⭐ 14.1k",
-      "badge": "📦 数据版本管理",
-      "tag": "MLOps"
+      "badge": "📦 数据版本管理"
     },
     {
       "name": "Jupyter Notebook",
@@ -529,8 +477,7 @@
       "url": "https://jupyter.org",
       "icon": "https://jupyter.org/favicon.ico",
       "stars": "⭐ 12.1k",
-      "badge": "🔥 标配工具",
-      "tag": "开发环境"
+      "badge": "🔥 标配工具"
     },
     {
       "name": "JupyterLab",
@@ -539,8 +486,7 @@
       "url": "https://jupyterlab.readthedocs.io",
       "icon": "https://jupyter.org/favicon.ico",
       "stars": "⭐ 14.4k",
-      "badge": "📦 新一代IDE",
-      "tag": "开发环境"
+      "badge": "📦 新一代IDE"
     },
     {
       "name": "Auto-sklearn",
@@ -549,8 +495,7 @@
       "url": "https://automl.github.io/auto-sklearn",
       "icon": "https://avatars.githubusercontent.com/u/24355806",
       "stars": "⭐ 7.7k",
-      "badge": "🤖 自动建模",
-      "tag": "AutoML"
+      "badge": "🤖 自动建模"
     },
     {
       "name": "TPOT",
@@ -559,8 +504,7 @@
       "url": "http://epistasislab.github.io/tpot",
       "icon": "https://avatars.githubusercontent.com/u/12765553",
       "stars": "⭐ 9.8k",
-      "badge": "📦 管道优化",
-      "tag": "AutoML"
+      "badge": "📦 管道优化"
     },
     {
       "name": "PyCaret",
@@ -569,8 +513,7 @@
       "url": "https://pycaret.org",
       "icon": "https://avatars.githubusercontent.com/u/58118658",
       "stars": "⭐ 9.1k",
-      "badge": "📦 低代码",
-      "tag": "AutoML"
+      "badge": "📦 低代码"
     },
     {
       "name": "Gradio",
@@ -579,8 +522,7 @@
       "url": "https://gradio.app",
       "icon": "https://avatars.githubusercontent.com/u/51063788",
       "stars": "⭐ 35.3k",
-      "badge": "🔥 Demo神器",
-      "tag": "开发环境"
+      "badge": "🔥 Demo神器"
     },
     {
       "name": "Anaconda",
@@ -589,8 +531,7 @@
       "url": "https://anaconda.com",
       "icon": "https://avatars.githubusercontent.com/u/497012",
       "stars": "⭐ —",
-      "badge": "📦 环境管理",
-      "tag": "开发环境"
+      "badge": "📦 环境管理"
     },
     {
       "name": "OpenClaw",
@@ -599,8 +540,7 @@
       "url": "https://openclaw.ai",
       "emoji": "🦞",
       "stars": "⭐ 260k+",
-      "badge": "🔥 现象级开源",
-      "tag": "AI Agent"
+      "badge": "🔥 现象级开源"
     },
     {
       "name": "Kimi Claw",
@@ -609,8 +549,7 @@
       "url": "https://kimi.com/bot",
       "emoji": "🌙",
       "stars": "⭐ 云托管",
-      "badge": "🔥 零门槛部署",
-      "tag": "AI Agent"
+      "badge": "🔥 零门槛部署"
     },
     {
       "name": "MaxClaw",
@@ -619,8 +558,7 @@
       "url": "https://www.minimaxi.com",
       "emoji": "⚡",
       "stars": "⭐ 极速",
-      "badge": "⚡ 低成本",
-      "tag": "AI Agent"
+      "badge": "⚡ 低成本"
     },
     {
       "name": "Manus AI",
@@ -629,8 +567,7 @@
       "url": "https://manus.im",
       "icon": "https://manus.im/favicon.ico",
       "stars": "⭐ GAIA榜首",
-      "badge": "🔥 通用Agent",
-      "tag": "AI Agent"
+      "badge": "🔥 通用Agent"
     },
     {
       "name": "扣子空间 (Coze Space)",
@@ -639,8 +576,7 @@
       "url": "https://space.coze.cn",
       "emoji": "🧩",
       "stars": "⭐ 字节出品",
-      "badge": "🔥 生态丰富",
-      "tag": "AI Agent"
+      "badge": "🔥 生态丰富"
     },
     {
       "name": "Dify",
@@ -649,8 +585,7 @@
       "url": "https://dify.ai",
       "icon": "https://avatars.githubusercontent.com/u/127165244",
       "stars": "⭐ 60k+",
-      "badge": "📦 开源可控",
-      "tag": "AI Agent"
+      "badge": "📦 开源可控"
     },
     {
       "name": "DeskClaw",
@@ -659,8 +594,7 @@
       "url": "https://nodesk.co",
       "emoji": "🖥️",
       "stars": "⭐ 国产新锐",
-      "badge": "🔥 电商优化",
-      "tag": "AI Agent"
+      "badge": "🔥 电商优化"
     },
     {
       "name": "NullClaw",
@@ -669,8 +603,7 @@
       "url": "https://github.com/nicepkg/nullclaw",
       "emoji": "🪶",
       "stars": "⭐ 极简",
-      "badge": "🪶 678KB",
-      "tag": "AI Agent"
+      "badge": "🪶 678KB"
     },
     {
       "name": "QClaw（腾讯）",
@@ -679,8 +612,7 @@
       "url": "https://qclaw.qq.com",
       "emoji": "🐧",
       "stars": "⭐ 腾讯出品",
-      "badge": "💬 微信互联",
-      "tag": "AI Agent"
+      "badge": "💬 微信互联"
     },
     {
       "name": "悟空（阿里/钉钉）",
@@ -689,8 +621,7 @@
       "url": "https://www.dingtalk.com",
       "emoji": "🙊",
       "stars": "⭐ 阿里出品",
-      "badge": "🏢 企业级",
-      "tag": "AI Agent"
+      "badge": "🏢 企业级"
     },
     {
       "name": "AutoGLM 沉思（智谱）",
@@ -699,8 +630,7 @@
       "url": "https://chatglm.cn",
       "emoji": "🔮",
       "stars": "⭐ 智谱出品",
-      "badge": "🧠 深度研究",
-      "tag": "AI Agent"
+      "badge": "🧠 深度研究"
     },
     {
       "name": "小度龙虾（百度）",
@@ -709,8 +639,7 @@
       "url": "https://dumixiao.baidu.com",
       "emoji": "🦐",
       "stars": "⭐ 百度出品",
-      "badge": "🏠 家用场景",
-      "tag": "AI Agent"
+      "badge": "🏠 家用场景"
     }
   ]
 }

@@ -31,10 +31,10 @@
   })();
   </script>
   <script src="../js/theme.js"></script>
-  <link rel="stylesheet" href="../css/style.css?v=20260329">
-  <link rel="stylesheet" href="../css/assistant.css?v=20260324">
-  <link rel="stylesheet" href="../css/articles.css?v=20260329d">
-  <link rel="stylesheet" href="../css/dark-mode.css?v=20260329b">
+  <link rel="stylesheet" href="../css/style.css?v=20260402b">
+  <link rel="stylesheet" href="../css/assistant.css?v=20260402b">
+  <link rel="stylesheet" href="../css/articles.css?v=20260402b">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260402b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Inter:wght@800&display=swap" rel="stylesheet">
@@ -151,29 +151,13 @@
   }
   </script>
 
-  <!-- 页面头部 -->
-  <section class="articles-hero">
-    <div class="articles-hero-bg"></div>
-    <div class="articles-hero-inner">
-      <div class="articles-hero-tag">
-        <span>📚</span> 博客社区 · 优质内容精选
-      </div>
-      <h1 class="articles-hero-title">
-        博客社区
-      </h1>
-      <p class="articles-hero-desc">
-        最值得关注的数据科学公众号、博客社区
-      </p>
-    </div>
-  </section>
-
   <!-- 主体内容 -->
   <section class="articles-main">
     <div class="articles-main-inner">
 
       <!-- 侧边导航（由 JS 动态生成） -->
       <aside class="articles-sidebar" id="articlesSidebar">
-        <div class="sidebar-title">📚 内容导航</div>
+        <div class="sidebar-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 内容导航</div>
         <nav class="sidebar-nav" id="sidebarNav">
           <!-- JS 动态填充 -->
         </nav>
@@ -211,7 +195,7 @@
   <div class="mobile-toc-overlay" id="mobileTocOverlay" onclick="toggleMobileToc()"></div>
   <div class="mobile-toc-panel" id="mobileTocPanel">
     <div class="mobile-toc-header">
-      <span class="mobile-toc-title">📚 内容导航</span>
+      <span class="mobile-toc-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 内容导航</span>
       <button class="mobile-toc-close" onclick="toggleMobileToc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="mobile-toc-list" id="mobileTocList"></div>
@@ -257,7 +241,7 @@
 
     (async function() {
       // 1. 加载数据
-      const resp = await fetch('../data/articles.json?v=20260329q');
+      const resp = await fetch('../data/articles.json?v=20260402');
       const data = await resp.json();
       const sections = data.sections;
 
@@ -322,8 +306,10 @@
           } else {
             // 网站样式：可点击跳转
             const initial = item.name.charAt(0).toUpperCase();
+            const pinnedBadge = item.pinned ? '<span style="position:absolute;top:0;right:0;font-size:11px;font-weight:600;color:#fff;background:linear-gradient(135deg,#f97316,#ef4444);padding:2px 10px;border-radius:0 0 0 8px;line-height:1.5;z-index:2;">置顶</span>' : '';
             return `
             <a class="article-card${hiddenClass}" data-page="${pageIdx}" href="${item.url}" target="_blank" rel="noopener">
+              ${pinnedBadge}
               <div class="article-card-header">
                 <div class="article-avatar" style="background: #f0f0f0;">
                   <img src="${item.icon}" alt="${item.name}" width="26" height="26" referrerpolicy="no-referrer" style="object-fit:contain;" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<span style=\\'font-size:16px;font-weight:700;color:#fff;\\'>${initial}</span>';this.parentElement.style.background='linear-gradient(135deg,#3b82f6,#60a5fa)';">

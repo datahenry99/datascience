@@ -31,10 +31,10 @@
   })();
   </script>
   <script src="../js/theme.js"></script>
-  <link rel="stylesheet" href="../css/style.css?v=20260329">
-  <link rel="stylesheet" href="../css/assistant.css?v=20260324">
-  <link rel="stylesheet" href="../css/tools.css?v=20260324">
-  <link rel="stylesheet" href="../css/dark-mode.css?v=20260329">
+  <link rel="stylesheet" href="../css/style.css?v=20260402b">
+  <link rel="stylesheet" href="../css/assistant.css?v=20260402b">
+  <link rel="stylesheet" href="../css/tools.css?v=20260402b">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260402b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Inter:wght@800&display=swap" rel="stylesheet">
@@ -151,29 +151,13 @@
   }
   </script>
 
-  <!-- 页面头部 -->
-  <section class="tools-hero">
-    <div class="tools-hero-bg"></div>
-    <div class="tools-hero-inner">
-      <div class="tools-hero-tag">
-        <span>🛠️</span> 工具榜单 · 数据科学全流程
-      </div>
-      <h1 class="tools-hero-title">
-        工具榜单
-      </h1>
-      <p class="tools-hero-desc">
-        精选数据科学工具与 AI 产品，覆盖全流程
-      </p>
-    </div>
-  </section>
-
   <!-- 工具主体 -->
   <section class="tools-main">
     <div class="tools-main-inner">
       <div class="tools-layout">
         <!-- 侧边目录（动态生成） -->
         <aside class="tools-sidebar" id="tools-sidebar">
-          <div class="sidebar-title">🛠️ 工具导航</div>
+          <div class="sidebar-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> 工具导航</div>
         </aside>
         <!-- 工具列表主体（动态生成） -->
         <div class="tools-content" id="tools-content">
@@ -207,7 +191,7 @@
   <div class="mobile-toc-overlay" id="mobileTocOverlay" onclick="toggleMobileToc()"></div>
   <div class="mobile-toc-panel" id="mobileTocPanel">
     <div class="mobile-toc-header">
-      <span class="mobile-toc-title">🛠️ 工具导航</span>
+      <span class="mobile-toc-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> 工具导航</span>
       <button class="mobile-toc-close" onclick="toggleMobileToc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="mobile-toc-list" id="mobileTocList"></div>
@@ -314,7 +298,6 @@
               '<span class="tool-icon" style="background:' + cat.iconBg + ';">' + iconInner + '</span>' +
               '<div class="tool-meta">' +
                 '<span class="tool-name">' + tool.name + '</span>' +
-                '<span class="tool-tag ' + cat.tagClass + '">' + tool.tag + '</span>' +
               '</div>' +
             '</div>' +
             '<p class="tool-desc">' + tool.desc + '</p>' +

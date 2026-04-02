@@ -47,7 +47,7 @@
     try {
       const isSubPage = window.location.pathname.includes('/pages/');
       const prefix = isSubPage ? '../' : '';
-      const ver = '20260329';
+      const ver = '20260402';
 
       const [toolsRes, papersRes, articlesRes] = await Promise.all([
         fetch(prefix + 'data/tools.json?v=' + ver),

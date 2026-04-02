@@ -17,7 +17,7 @@
   async function loadData() {
     if (dataReady) return;
     try {
-      const ver = '20260329';
+      const ver = '20260402';
       const [tRes, pRes, aRes] = await Promise.all([
         fetch(prefix + 'data/tools.json?v=' + ver),
         fetch(prefix + 'data/papers.json?v=' + ver),
