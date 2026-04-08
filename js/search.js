@@ -27,7 +27,7 @@
       <div class="search-results" id="searchResults">
         <div class="search-empty" id="searchEmpty">
           <p>🔍 输入关键词开始搜索</p>
-          <p class="search-empty-hint">支持搜索本站工具、论文、博客社区</p>
+          <p class="search-empty-hint">支持搜索本站工具、论文、博客社区、因果推断</p>
         </div>
       </div>
     `;
@@ -118,6 +118,29 @@
         });
       });
 
+      // ===== 因果推断 =====
+      const ciRes = await fetch(prefix + 'data/causal-inference.json?v=' + ver);
+      if (ciRes.ok) {
+        const ciData = await ciRes.json();
+        const ciPage = isSubPage ? 'causal-inference.html' : 'pages/causal-inference.html';
+        ciData.modules.forEach(function (mod) {
+          if (!mod.sections) return;
+          mod.sections.forEach(function (sec) {
+            if (!sec.operators) return;
+            sec.operators.forEach(function (op) {
+              searchIndex.push({
+                type: '🔬 因果推断',
+                title: op.name + (op.nameEn ? ' (' + op.nameEn + ')' : ''),
+                desc: op.desc || '',
+                tag: mod.title + ' · ' + sec.title + (op.tags ? ' · ' + op.tags.join(', ') : ''),
+                url: ciPage + '#' + sec.id,
+                page: ciPage
+              });
+            });
+          });
+        });
+      }
+
       searchLoaded = true;
     } catch (e) {
       console.error('搜索索引加载失败', e);
@@ -143,7 +166,7 @@
 
   function resetResults() {
     var results = document.getElementById('searchResults');
-    results.innerHTML = '<div class="search-empty" id="searchEmpty"><p>🔍 输入关键词开始搜索</p><p class="search-empty-hint">支持搜索工具、论文、博客社区、知识卡片，按 ⌘K 快速唤起</p></div>';
+    results.innerHTML = '<div class="search-empty" id="searchEmpty"><p>🔍 输入关键词开始搜索</p><p class="search-empty-hint">支持搜索工具、论文、博客社区、知识卡片、因果推断，按 ⌘K 快速唤起</p></div>';
   }
 
   function doSearch(query) {

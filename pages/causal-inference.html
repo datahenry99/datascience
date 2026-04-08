@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>因果推断 - DataHenry | 因果推断工具箱</title>
+  <meta name="description" content="因果推断工具箱，涵盖回归分析、实验分析、异质性分析与观测性因果推断，深入讲解原理公式并附带 Python 示例代码。">
+  <meta name="keywords" content="因果推断,回归分析,CUPED,分位数回归,Lasso,Double Lasso,A/B实验,DataHenry">
+  <link rel="canonical" href="https://www.datahenry.com/pages/causal-inference.html">
+  <meta property="og:title" content="因果推断 - DataHenry">
+  <meta property="og:description" content="因果推断工具箱，深入讲解原理公式，从回归分析到观测性因果推断的完整工具链">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.datahenry.com/pages/causal-inference.html">
+  <meta property="og:image" content="https://www.datahenry.com/images/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="因果推断 - DataHenry">
+  <meta name="twitter:description" content="因果推断工具箱，深入讲解原理公式并附带 Python 示例代码">
+  <meta name="twitter:image" content="https://www.datahenry.com/images/og-cover.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%237c3aed'/><stop offset='100%25' stop-color='%2300d4ff'/></linearGradient></defs><rect rx='20' width='100' height='100' fill='url(%23g)'/><polyline points='20 65 35 45 55 55 80 25' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='35' cy='45' r='5' fill='white'/><circle cx='55' cy='55' r='5' fill='white'/><circle cx='80' cy='25' r='5' fill='white'/></svg>">
+  <!-- 百度统计 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?59f51c7002c5b191a2f53b23c5a838da";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20260402b">
+  <link rel="stylesheet" href="../css/assistant.css?v=20260402b">
+  <link rel="stylesheet" href="../css/causal-inference.css?v=20260410e">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260410e">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Inter:wght@800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">
+        <a href="../index.html" style="display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+          <span class="logo-text">DataHenry</span>
+        </a>
+      </div>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <a href="flashcards.html" class="nav-link">知识卡片</a>
+        <a href="papers.html" class="nav-link">论文精读</a>
+        <a href="tools.html" class="nav-link">工具榜单</a>
+        <a href="articles.html" class="nav-link">博客社区</a>
+        <a href="stat-intuition.html" class="nav-link">统计模拟</a>
+        <a href="causal-inference.html" class="nav-link active">因果推断</a>
+      </nav>
+      <div class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        搜索
+      </div>
+      <div class="nav-social">
+        <button class="theme-toggle" onclick="toggleTheme()" title="切换深色模式" aria-label="切换深色/浅色模式">
+          <span class="icon-sun" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="icon-moon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+        </button>
+        <a href="https://github.com/datahenry99/datascience" target="_blank" rel="noopener" class="nav-github" title="GitHub" aria-label="GitHub 仓库">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://xhslink.com/m/5PayTgjUO7K" target="_blank" rel="noopener" class="nav-xiaohongshu" title="小红书" aria-label="小红书主页">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.405 9.879c.002.016.01.02.07.019h.725a.797.797 0 0 0 .78-.972.794.794 0 0 0-.884-.618.795.795 0 0 0-.692.794c0 .101-.002.666.001.777zm-11.509 4.808c-.203.001-1.353.004-1.685.003a2.528 2.528 0 0 1-.766-.126.025.025 0 0 0-.03.014L7.7 16.127a.025.025 0 0 0 .01.032c.111.06.336.124.495.124.66.01 1.32.002 1.981 0 .01 0 .02-.006.023-.015l.712-1.545a.025.025 0 0 0-.024-.036zM.477 9.91c-.071 0-.076.002-.076.01a.834.834 0 0 0-.01.08c-.027.397-.038.495-.234 3.06-.012.24-.034.389-.135.607-.026.057-.033.042.003.112.046.092.681 1.523.787 1.74.008.015.011.02.017.02.008 0 .033-.026.047-.044.147-.187.268-.391.371-.606.306-.635.44-1.325.486-1.706.014-.11.021-.22.03-.33l.204-2.616.022-.293c.003-.029 0-.033-.03-.034zm7.203 3.757a1.427 1.427 0 0 1-.135-.607c-.004-.084-.031-.39-.235-3.06a.443.443 0 0 0-.01-.082c-.004-.011-.052-.008-.076-.008h-1.48c-.03.001-.034.005-.03.034l.021.293c.076.982.153 1.964.233 2.946.05.4.186 1.085.487 1.706.103.215.223.419.37.606.015.018.037.051.048.049.02-.003.742-1.642.804-1.765.036-.07.03-.055.003-.112zm3.861-.913h-.872a.126.126 0 0 1-.116-.178l1.178-2.625a.025.025 0 0 0-.023-.035l-1.318-.003a.148.148 0 0 1-.135-.21l.876-1.954a.025.025 0 0 0-.023-.035h-1.56c-.01 0-.02.006-.024.015l-.926 2.068c-.085.169-.314.634-.399.938a.534.534 0 0 0-.02.191.46.46 0 0 0 .23.378.981.981 0 0 0 .46.119h.59c.041 0-.688 1.482-.834 1.972a.53.53 0 0 0-.023.172.465.465 0 0 0 .23.398c.15.092.342.12.475.12l1.66-.001c.01 0 .02-.006.023-.015l.575-1.28a.025.025 0 0 0-.024-.035zm-6.93-4.937H3.1a.032.032 0 0 0-.034.033c0 1.048-.01 2.795-.01 6.829 0 .288-.269.262-.28.262h-.74c-.04.001-.044.004-.04.047.001.037.465 1.064.555 1.263.01.02.03.033.051.033.157.003.767.009.938-.014.153-.02.3-.06.438-.132.3-.156.49-.419.595-.765.052-.172.075-.353.075-.533.002-2.33 0-4.66-.007-6.991a.032.032 0 0 0-.032-.032zm11.784 6.896c0-.014-.01-.021-.024-.022h-1.465c-.048-.001-.049-.002-.05-.049v-4.66c0-.072-.005-.07.07-.07h.863c.08 0 .075.004.075-.074V8.393c0-.082.006-.076-.08-.076h-3.5c-.064 0-.075-.006-.075.073v1.445c0 .083-.006.077.08.077h.854c.075 0 .07-.004.07.07v4.624c0 .095.008.084-.085.084-.37 0-1.11-.002-1.304 0-.048.001-.06.03-.06.03l-.697 1.519s-.014.025-.008.036c.006.01.013.008.058.008 1.748.003 3.495.002 5.243.002.03-.001.034-.006.035-.033v-1.539zm4.177-3.43c0 .013-.007.023-.02.024-.346.006-.692.004-1.037.004-.014-.002-.022-.01-.022-.024-.005-.434-.007-.869-.01-1.303 0-.072-.006-.071.07-.07l.733-.003c.041 0 .081.002.12.015.093.025.16.107.165.204.006.431.002 1.153.001 1.153zm2.67.244a1.953 1.953 0 0 0-.883-.222h-.18c-.04-.001-.04-.003-.042-.04V10.21c0-.132-.007-.263-.025-.394a1.823 1.823 0 0 0-.153-.53 1.533 1.533 0 0 0-.677-.71 2.167 2.167 0 0 0-1-.258c-.153-.003-.567 0-.72 0-.07 0-.068.004-.068-.065V7.76c0-.031-.01-.041-.046-.039H17.93s-.016 0-.023.007c-.006.006-.008.012-.008.023v.546c-.008.036-.057.015-.082.022h-.95c-.022.002-.028.008-.03.032v1.481c0 .09-.004.082.082.082h.913c.082 0 .072.128.072.128V11.19s.003.117-.06.117h-1.482c-.068 0-.06.082-.06.082v1.445s-.01.068.064.068h1.457c.082 0 .076-.006.076.079v3.225c0 .088-.007.081.082.081h1.43c.09 0 .082.007.082-.08v-3.27c0-.029.006-.035.033-.035l2.323-.003c.098 0 .191.02.28.061a.46.46 0 0 1 .274.407c.008.395.003.79.003 1.185 0 .259-.107.367-.33.367h-1.218c-.023.002-.029.008-.028.033.184.437.374.871.57 1.303a.045.045 0 0 0 .04.026c.17.005.34.002.51.003.15-.002.517.004.666-.01a2.03 2.03 0 0 0 .408-.075c.59-.18.975-.698.976-1.313v-1.981c0-.128-.01-.254-.034-.38 0 .078-.029-.641-.724-.998z"/></svg>
+        </a>
+      </div>
+      <button class="nav-theme-mobile" onclick="toggleTheme()" title="切换深色模式">
+        <span class="icon-sun"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+        <span class="icon-moon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+      </button>
+      <button class="nav-search-mobile" onclick="openSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="打开导航菜单" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()" aria-hidden="true"></div>
+  <div class="mobile-menu" role="dialog" aria-label="导航菜单">
+    <div class="mobile-menu-brand">
+      <div class="mobile-menu-brand-left">
+        <div class="mobile-menu-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        <div>
+          <div class="mobile-menu-brand-name">DataHenry</div>
+          <div class="mobile-menu-brand-desc">数据科学导航站</div>
+        </div>
+      </div>
+      <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-search-btn" onclick="toggleMobileMenu();openSearch();">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>搜索本站信息</span>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="../index.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span class="mobile-link-text">首页</span>
+      </a>
+      <a href="flashcards.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="mobile-link-text">知识卡片</span>
+      </a>
+      <a href="papers.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="mobile-link-text">论文精读</span>
+      </a>
+      <a href="tools.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span class="mobile-link-text">工具榜单</span>
+      </a>
+      <a href="articles.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="mobile-link-text">博客社区</span>
+      </a>
+      <a href="stat-intuition.html" class="mobile-link">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></span>
+        <span class="mobile-link-text">统计模拟</span>
+      </a>
+      <a href="causal-inference.html" class="mobile-link active">
+        <span class="mobile-link-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <span class="mobile-link-text">因果推断</span>
+      </a>
+    </div>
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-footer-deco"></div>
+      <p>© 2026 DataHenry</p>
+    </div>
+  </div>
+  <script>
+  function toggleMobileMenu() {
+    document.querySelector('.mobile-menu').classList.toggle('active');
+    document.querySelector('.mobile-menu-overlay').classList.toggle('active');
+    var isOpen = document.querySelector('.mobile-menu').classList.contains('active');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    var hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.setAttribute('aria-expanded', isOpen);
+  }
+  </script>
+
+  <!-- 主体内容 -->
+  <main class="ci-main">
+    <div class="ci-main-inner">
+
+      <!-- 侧边目录导航（由 JS 动态生成） -->
+      <aside class="papers-sidebar" id="ciSidebar">
+        <div class="sidebar-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 因果推断工具箱
+          <button class="sidebar-expand-all" id="sidebarExpandAll" title="全部展开">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 8 12 3 17 8"/><polyline points="7 16 12 21 17 16"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav">
+          <!-- JS 动态填充 -->
+        </nav>
+      </aside>
+
+      <!-- 内容区域（由 JS 动态生成） -->
+      <div class="ci-content" id="ciContent">
+        <!-- Loading skeleton -->
+        <div class="loading-skeleton" id="ci-loading">
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+            <div class="skeleton-line skeleton-line-medium"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+            <div class="skeleton-line skeleton-line-short"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-header"><div class="skeleton-avatar"></div><div class="skeleton-title"></div></div>
+            <div class="skeleton-line skeleton-line-medium"></div>
+            <div class="skeleton-line skeleton-line-long"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 移动端目录 -->
+  <button class="mobile-toc-fab" id="mobileTocFab" onclick="toggleMobileToc()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="mobile-toc-overlay" id="mobileTocOverlay" onclick="toggleMobileToc()"></div>
+  <div class="mobile-toc-panel" id="mobileTocPanel">
+    <div class="mobile-toc-header">
+      <span class="mobile-toc-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 因果推断导航</span>
+      <button class="mobile-toc-close" onclick="toggleMobileToc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="mobile-toc-list" id="mobileTocList"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><svg viewBox="0 0 24 24"><polyline points="4 16 8 10 13 14 20 6"/><circle cx="8" cy="10" r="1.5" fill="#fff" stroke="none"/><circle cx="13" cy="14" r="1.5" fill="#fff" stroke="none"/><circle cx="20" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div>
+        DataHenry
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">首页</a>
+        <a href="papers.html">论文精读</a>
+        <a href="tools.html">工具榜单</a>
+        <a href="articles.html">博客社区</a>
+        <a href="flashcards.html">知识卡片</a>
+        <a href="stat-intuition.html">统计模拟</a>
+        <a href="causal-inference.html">因果推断</a>
+      </nav>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 DataHenry. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // 因果推断工具箱：原理 + 可折叠 Python 代码
+    // ============================================================
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // 渲染原理 section 的 HTML（连续公式自动并排）
+    // 返回 { principle: '...', examples: '...' } 分离原理与示例
+    function renderPrinciple(principle) {
+      if (!principle || !principle.sections) return { principle: '', examples: '' };
+      var principleHtml = '';
+      var examplesHtml = '';
+      var items = principle.sections;
+      var i = 0;
+      while (i < items.length) {
+        var s = items[i];
+        if (s.type === 'text') {
+          if (s.content.indexOf('💡') === 0) {
+            // 示例文字不再单独区块，跳过（后面在公式解读中处理）
+            examplesHtml += '<p class="ci-principle-text">' + s.content.replace(/^💡\s*举例[：:]\s*/, '') + '</p>';
+          } else {
+            principleHtml += '<p class="ci-principle-text">' + s.content + '</p>';
+          }
+          i++;
+        } else if (s.type === 'formula') {
+          // 收集连续的 formula
+          var formulas = [];
+          while (i < items.length && items[i].type === 'formula') {
+            formulas.push(items[i]);
+            i++;
+          }
+          var colsClass = formulas.length === 1 ? ' cols-1' : (formulas.length >= 3 ? ' cols-3' : '');
+          if (formulas.length > 3) colsClass = '';
+          principleHtml += '<div class="ci-formula-grid' + colsClass + '">';
+          formulas.forEach(function(f, idx) {
+            principleHtml += '<div class="ci-formula-block">' +
+              '<span class="ci-formula-label">' + f.label + '</span>' +
+              '<div class="ci-formula-expr" data-latex="' + escapeHtml(f.latex) + '"></div>';
+            if (f.vars && f.vars.length > 0) {
+              principleHtml += '<div class="ci-formula-vars">';
+              f.vars.forEach(function(v) {
+                principleHtml += '<div><code>' + escapeHtml(v.symbol) + '</code> — ' + v.desc + '</div>';
+              });
+              principleHtml += '</div>';
+            }
+            principleHtml += '</div>';
+          });
+          // 公式组后紧跟的 text（解读 + 示例）都收进公式区
+          var noteContent = '';
+          // 先收解读文字
+          if (i < items.length && items[i].type === 'text' && items[i].content.indexOf('💡') !== 0) {
+            noteContent += items[i].content;
+            i++;
+          }
+          // 再收紧跟的示例，融为一段
+          if (i < items.length && items[i].type === 'text' && items[i].content.indexOf('💡') === 0) {
+            var exText = items[i].content.replace(/^💡\s*举例[：:]\s*/, '');
+            noteContent += (noteContent ? '<br><span class="ci-note-example">💡 ' + exText + '</span>' : '<span class="ci-note-example">💡 ' + exText + '</span>');
+            i++;
+          }
+          if (noteContent) {
+            principleHtml += '<p class="ci-formula-note">' + noteContent + '</p>';
+          }
+          principleHtml += '</div>';
+        } else if (s.type === 'keypoint') {
+          principleHtml += '<div class="ci-keypoint">' +
+            '<div class="ci-keypoint-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg> ' + s.title + '</div>' +
+            '<p class="ci-keypoint-content">' + s.content + '</p>' +
+          '</div>';
+          i++;
+        } else {
+          i++;
+        }
+      }
+      return { principle: principleHtml, examples: examplesHtml };
+    }
+
+    // 渲染参考文献
+    function renderReferences(refs) {
+      if (!refs || refs.length === 0) return '';
+      var html = '<div class="ci-references">';
+      html += '<div class="ci-references-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 参考文献</div>';
+      html += '<div class="ci-ref-list">';
+      refs.forEach(function(ref) {
+        var badge = ref.type === 'paper' ? '<span class="ci-ref-badge paper">论文</span>' : '<span class="ci-ref-badge blog">博客</span>';
+        html += '<div class="ci-ref-item">' + badge + ' ';
+        if (ref.url) {
+          html += '<span>' + ref.text + ' <a href="' + escapeHtml(ref.url) + '" target="_blank" rel="noopener">↗ 链接</a></span>';
+        } else {
+          html += '<span>' + ref.text + '</span>';
+        }
+        html += '</div>';
+      });
+      html += '</div></div>';
+      return html;
+    }
+
+    // Python 简易语法高亮
+    function highlightPython(code) {
+      var escaped = escapeHtml(code);
+      // 用占位符保护已处理的 span 标签，防止后续正则破坏 HTML 结构
+      var spans = [];
+      function protect(html) {
+        return html.replace(/<span class="py-[^"]*">[\s\S]*?<\/span>/g, function(m) {
+          spans.push(m);
+          return '\x00SPAN' + (spans.length - 1) + '\x00';
+        });
+      }
+      function restore(html) {
+        return html.replace(/\x00SPAN(\d+)\x00/g, function(_, i) {
+          return spans[i];
+        });
+      }
+      // 先处理注释（# 开头到行尾）
+      escaped = escaped.replace(/(#[^\n]*)/g, '<span class="py-comment">$1</span>');
+      escaped = protect(escaped);
+      // 字符串（三引号、单双引号）
+      escaped = escaped.replace(/(&quot;&quot;&quot;[\s\S]*?&quot;&quot;&quot;|&#039;&#039;&#039;[\s\S]*?&#039;&#039;&#039;)/g, '<span class="py-str">$1</span>');
+      escaped = escaped.replace(/(f?&quot;(?:[^&]|&(?!quot;))*?&quot;|f?&#039;(?:[^&]|&(?!#039;))*?&#039;)/g, '<span class="py-str">$1</span>');
+      escaped = protect(escaped);
+      // 关键字
+      var kwList = ['import','from','as','def','class','return','if','elif','else','for','while','in','not','and','or','with','try','except','finally','raise','pass','break','continue','yield','lambda','True','False','None','async','await'];
+      var kwPattern = new RegExp('\\b(' + kwList.join('|') + ')\\b', 'g');
+      escaped = escaped.replace(kwPattern, function(m) {
+        return '<span class="py-kw">' + m + '</span>';
+      });
+      escaped = protect(escaped);
+      // 内置函数
+      var builtins = ['print','len','range','enumerate','zip','map','filter','sorted','set','dict','list','tuple','int','float','str','bool','type','isinstance','getattr','setattr','super','open','round','abs','sum','min','max','any','all'];
+      var builtinPattern = new RegExp('\\b(' + builtins.join('|') + ')\\s*\\(', 'g');
+      escaped = escaped.replace(builtinPattern, function(m, fn) {
+        return '<span class="py-builtin">' + fn + '</span>(';
+      });
+      escaped = protect(escaped);
+      // 数字
+      escaped = escaped.replace(/\b(\d+\.?\d*(?:e[+-]?\d+)?)\b/g, '<span class="py-num">$1</span>');
+      // 还原所有占位符
+      escaped = restore(escaped);
+      return escaped;
+    }
+
+    // 异步检查参考文献链接可用性
+    function checkReferenceLinks() {
+      var links = document.querySelectorAll('.ci-ref-item a[href]');
+      links.forEach(function(link) {
+        var url = link.getAttribute('href');
+        if (!url || url.startsWith('#') || url.startsWith('javascript:')) return;
+        link.classList.add('link-checking');
+        // 使用 HEAD 请求检查链接（带超时）
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
+        fetch(url, {
+          method: 'HEAD',
+          mode: 'no-cors',
+          signal: controller.signal
+        }).then(function(resp) {
+          clearTimeout(timeoutId);
+          link.classList.remove('link-checking');
+          // no-cors 模式下 type 为 'opaque'，status 为 0，但说明可达
+          if (resp.ok || resp.type === 'opaque') {
+            link.classList.add('link-ok');
+          } else if (resp.status >= 400) {
+            link.classList.add('link-dead');
+          } else {
+            link.classList.add('link-ok');
+          }
+        }).catch(function(err) {
+          clearTimeout(timeoutId);
+          link.classList.remove('link-checking');
+          // 网络错误或超时 → 标记为可能失效
+          link.classList.add('link-dead');
+        });
+      });
+    }
+
+    (async function() {
+      let data, modules;
+      try {
+        const resp = await fetch('../data/causal-inference.json?v=20260410k');
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        data = await resp.json();
+        modules = data.modules;
+      } catch(e) {
+        console.error('加载因果推断数据失败:', e);
+        var el = document.getElementById('ciContent');
+        if (el) el.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#64748b;"><p><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>数据加载失败，请刷新页面重试</p><p style="font-size:13px;margin-top:8px;">错误信息: ' + e.message + '</p></div>';
+        return;
+      }
+
+      // 收集所有要渲染的 section（仅 active 模块展开）
+      const activeSections = [];
+      modules.forEach(mod => {
+        if (mod.status === 'active' && mod.sections.length > 0) {
+          mod.sections.forEach(sec => activeSections.push({ ...sec, moduleId: mod.id }));
+        }
+      });
+
+      // 1. 渲染侧边栏
+      const sidebarNav = document.getElementById('sidebarNav');
+      let sidebarHtml = '';
+
+      modules.forEach(mod => {
+        if (mod.status === 'active') {
+          sidebarHtml += '<div class="sidebar-module-title">' + mod.title + '</div>';
+          mod.sections.forEach((sec, i) => {
+            const opCount = sec.operators ? sec.operators.length : 0;
+            const ops = sec.operators || [];
+            sidebarHtml += '<div class="sidebar-section-group">';
+            sidebarHtml += '<a class="sidebar-link' + (i === 0 ? ' active' : '') + '" data-section="' + sec.id + '">' +
+              '<span class="sidebar-dot" style="background:' + mod.sidebarDot + ';"></span>' +
+              '<span>' + sec.title + '</span>' +
+              '<span class="sidebar-count">' + opCount + '</span>' +
+              '<svg class="sidebar-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>';
+            // Level 3: operator 子项（默认折叠）
+            if (ops.length > 0) {
+              sidebarHtml += '<div class="sidebar-sub-items">';
+              ops.forEach(op => {
+                sidebarHtml += '<a class="sidebar-sub-link" data-op="' + op.id + '">' + op.name + '</a>';
+              });
+              sidebarHtml += '</div>';
+            }
+            sidebarHtml += '</div>';
+          });
+        } else {
+          sidebarHtml += '<div class="sidebar-coming">' +
+            '<span class="sidebar-dot" style="background:' + mod.sidebarDot + ';opacity:0.4;"></span>' +
+            '<span>' + mod.title + '</span>' +
+            '<span class="sidebar-badge-soon">即将上线</span></div>';
+        }
+      });
+      sidebarNav.innerHTML = sidebarHtml;
+
+      // 平滑滚动（带顶部导航栏 + sticky section-header 偏移量）
+      function smoothScrollTo(el) {
+        if (!el) return;
+        var navbarH = 64;
+        // 检查目标元素是否是 operator 卡片（非 section-anchor），需额外偏移 sticky header
+        var stickyH = 0;
+        if (el.classList.contains('ci-operator-card')) {
+          // 找到该卡片所属 section 的 sticky header
+          var prev = el.previousElementSibling;
+          var parent = el.closest('.ci-operator-list');
+          if (parent) {
+            var header = parent.previousElementSibling;
+            while (header && !header.classList.contains('section-header')) {
+              header = header.previousElementSibling;
+            }
+            if (header) stickyH = header.offsetHeight;
+          }
+        }
+        var rect = el.getBoundingClientRect();
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var y = rect.top + scrollTop - navbarH - stickyH - 16;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      }
+
+      // 侧边栏折叠/展开逻辑：点击整个 sidebar-link 即可展开/折叠
+      sidebarNav.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const group = this.closest('.sidebar-section-group');
+          group.classList.toggle('expanded');
+          // 同时跳转到对应 section
+          smoothScrollTo(document.getElementById(this.getAttribute('data-section')));
+        });
+      });
+
+      // 一键全部展开/折叠
+      const expandAllBtn = document.getElementById('sidebarExpandAll');
+      let allExpanded = false;
+      expandAllBtn.addEventListener('click', function() {
+        allExpanded = !allExpanded;
+        sidebarNav.querySelectorAll('.sidebar-section-group').forEach(g => {
+          if (allExpanded) {
+            g.classList.add('expanded');
+          } else {
+            g.classList.remove('expanded');
+          }
+        });
+        this.classList.toggle('active', allExpanded);
+        this.title = allExpanded ? '全部折叠' : '全部展开';
+      });
+
+      // 2. 移动端目录
+      const mobileTocList = document.getElementById('mobileTocList');
+      if (mobileTocList) {
+        let tocHtml = '';
+        modules.forEach(mod => {
+          if (mod.status === 'active') {
+            mod.sections.forEach((sec, i) => {
+              const opCount = sec.operators ? sec.operators.length : 0;
+              const ops = sec.operators || [];
+              tocHtml += '<div class="mobile-toc-section-group">';
+              tocHtml += '<a class="mobile-toc-item' + (i === 0 ? ' active' : '') + '" data-section="' + sec.id + '">' +
+                '<span class="mobile-toc-dot" style="background:' + mod.sidebarDot + ';"></span>' +
+                '<span>' + sec.title + '</span>' +
+                '<span class="mobile-toc-count">' + opCount + '</span>' +
+                '<svg class="mobile-toc-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>';
+              if (ops.length > 0) {
+                tocHtml += '<div class="mobile-toc-sub-items">';
+                ops.forEach(op => {
+                  tocHtml += '<a class="mobile-toc-sub-link" data-op="' + op.id + '">' + op.name + '</a>';
+                });
+                tocHtml += '</div>';
+              }
+              tocHtml += '</div>';
+            });
+          } else {
+            tocHtml += '<div class="mobile-toc-coming">' + mod.icon + ' ' + mod.title + ' <span class="sidebar-badge-soon">即将上线</span></div>';
+          }
+        });
+        mobileTocList.innerHTML = tocHtml;
+        // 移动端 section 点击：展开/折叠子项 + 跳转
+        mobileTocList.querySelectorAll('.mobile-toc-item').forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.closest('.mobile-toc-section-group').classList.toggle('expanded');
+            smoothScrollTo(document.getElementById(this.dataset.section));
+            toggleMobileToc();
+          });
+        });
+        // 移动端 sub-link 点击：跳转到 operator
+        mobileTocList.querySelectorAll('.mobile-toc-sub-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            smoothScrollTo(document.getElementById('op-' + this.dataset.op));
+            toggleMobileToc();
+          });
+        });
+      }
+
+      // 3. 渲染内容
+      const ciContent = document.getElementById('ciContent');
+      let contentHtml = '';
+
+      activeSections.forEach(sec => {
+        contentHtml += '<div class="section-anchor" id="' + sec.id + '"></div>';
+        contentHtml += '<div class="section-header">' +
+          '<div class="section-icon" style="background:' + sec.gradient + ';">' + sec.icon + '</div>' +
+          '<div><h3 class="section-title">' + sec.title + '</h3>' +
+          '<p class="section-subtitle">' + sec.subtitle + '</p></div></div>';
+
+        contentHtml += '<div class="ci-operator-list">';
+        (sec.operators || []).forEach(op => {
+          var codeId = 'code-' + op.id;
+          contentHtml += '<div class="ci-operator-card" id="op-' + op.id + '">' +
+            '<div class="ci-op-header">' +
+              '<div class="ci-op-titles">' +
+                '<h4 class="ci-op-name">' + op.name + '</h4>' +
+                '<span class="ci-op-name-en">' + op.nameEn + '</span>' +
+              '</div>' +
+              '<div class="ci-op-tags">' +
+                op.tags.map(function(t) { return '<span class="paper-tag ' + t.color + '">' + t.text + '</span>'; }).join('') +
+              '</div>' +
+            '</div>';
+          contentHtml += '<div class="ci-op-body">';
+
+          // 1. 定义
+          contentHtml += '<div class="ci-section-block">' +
+            '<span class="ci-section-label">定义</span>' +
+            '<p class="ci-section-text">' + op.desc + '</p>' +
+          '</div>';
+
+          // 2. 场景
+          contentHtml += '<div class="ci-section-block">' +
+            '<span class="ci-section-label">场景</span>' +
+            '<p class="ci-section-text">' + op.when + '</p>' +
+          '</div>';
+
+          // 解析 principle，分离原理与示例
+          var parsed = renderPrinciple(op.principle);
+
+          // 3. 原理
+          if (parsed.principle) {
+            contentHtml += '<div class="ci-section-block">' +
+              '<span class="ci-section-label">原理</span>' +
+              '<div class="ci-principle">' + parsed.principle + '</div>' +
+            '</div>';
+          }
+
+          // 4. 示例
+          if (parsed.examples) {
+            contentHtml += '<div class="ci-section-block">' +
+              '<span class="ci-section-label">示例</span>' +
+              '<div class="ci-section-example">' + parsed.examples + '</div>' +
+            '</div>';
+          }
+
+          // 5. 延展
+          if (op.vs) {
+            contentHtml += '<div class="ci-section-block">' +
+              '<span class="ci-section-label">延展</span>' +
+              '<p class="ci-section-text">' + op.vs + '</p>' +
+            '</div>';
+          }
+
+          contentHtml += '</div>';
+
+          // === 底部折叠区：优劣势、参考文献、Python 代码 ===
+          contentHtml += '<div class="ci-collapse-group">';
+
+          // 1. 优势劣势
+          if (op.pros || op.cons) {
+            contentHtml += '<details class="ci-collapse-item">' +
+              '<summary class="ci-collapse-summary">' +
+                '<span class="ci-collapse-label">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>' +
+                  ' 优势劣势' +
+                '</span>' +
+                '<svg class="ci-collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</summary>' +
+              '<div class="ci-collapse-body">';
+            contentHtml += '<div class="ci-proscons">';
+            if (op.pros) {
+              contentHtml += '<div class="ci-proscons-col ci-pros">' +
+                '<div class="ci-proscons-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 优势</div>' +
+                '<ul>' + op.pros.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul></div>';
+            }
+            if (op.cons) {
+              contentHtml += '<div class="ci-proscons-col ci-cons">' +
+                '<div class="ci-proscons-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 劣势</div>' +
+                '<ul>' + op.cons.map(function(c) { return '<li>' + c + '</li>'; }).join('') + '</ul></div>';
+            }
+            contentHtml += '</div>';
+            contentHtml += '</div></details>';
+          }
+
+          // 2. 参考文献（折叠式）
+          if (op.references && op.references.length > 0) {
+            contentHtml += '<details class="ci-collapse-item">' +
+              '<summary class="ci-collapse-summary">' +
+                '<span class="ci-collapse-label">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>' +
+                  ' 参考文献' +
+                '</span>' +
+                '<svg class="ci-collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</summary>' +
+              '<div class="ci-collapse-body">' +
+                '<div class="ci-ref-list">';
+            op.references.forEach(function(ref) {
+              var badge = ref.type === 'paper' ? '<span class="ci-ref-badge paper">论文</span>' : '<span class="ci-ref-badge blog">博客</span>';
+              contentHtml += '<div class="ci-ref-item">' + badge + ' ';
+              if (ref.url) {
+                contentHtml += '<span>' + ref.text + ' <a href="' + escapeHtml(ref.url) + '" target="_blank" rel="noopener">↗ 链接</a></span>';
+              } else {
+                contentHtml += '<span>' + ref.text + '</span>';
+              }
+              contentHtml += '</div>';
+            });
+            contentHtml += '</div></div></details>';
+          }
+
+          // 3. Python 示例代码（折叠式）
+          if (op.python) {
+            contentHtml += '<details class="ci-collapse-item" id="' + codeId + '">' +
+              '<summary class="ci-collapse-summary">' +
+                '<span class="ci-collapse-label">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' +
+                  ' 示例代码（Python）' +
+                '</span>' +
+                '<svg class="ci-collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</summary>' +
+              '<div class="ci-collapse-body"><pre><code>' + highlightPython(op.python) + '</code></pre></div>' +
+            '</details>';
+          }
+
+          contentHtml += '</div>'; // end ci-collapse-group
+
+          contentHtml += '</div>';
+        });
+        contentHtml += '</div>';
+      });
+
+      ciContent.innerHTML = contentHtml;
+
+      // 4. 渲染 KaTeX 公式
+      document.querySelectorAll('.ci-formula-expr').forEach(function(el) {
+        var latex = el.getAttribute('data-latex');
+        if (latex && window.katex) {
+          try {
+            katex.render(latex, el, { displayMode: true, throwOnError: false });
+          } catch(e) {
+            el.textContent = latex;
+          }
+        } else if (latex) {
+          // KaTeX 尚未加载，等待加载后渲染
+          el.textContent = latex;
+        }
+      });
+
+      // 如果 KaTeX 是 defer 加载的，等 load 后再渲染一次
+      if (!window.katex) {
+        window.addEventListener('load', function() {
+          document.querySelectorAll('.ci-formula-expr').forEach(function(el) {
+            var latex = el.getAttribute('data-latex');
+            if (latex && window.katex) {
+              try {
+                el.textContent = '';
+                katex.render(latex, el, { displayMode: true, throwOnError: false });
+              } catch(e) {
+                el.textContent = latex;
+              }
+            }
+          });
+        });
+      }
+
+      // 5. 侧边目录高亮跟踪
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      const sidebarSubLinks = document.querySelectorAll('.sidebar-sub-link');
+      const sectionEls = document.querySelectorAll('.section-anchor');
+      const opEls = document.querySelectorAll('.ci-operator-card');
+
+      // 6. 异步检查参考文献链接
+      setTimeout(checkReferenceLinks, 1500);
+
+      function updateActiveLink() {
+        let currentSection = '';
+        let currentOp = '';
+        sectionEls.forEach(function(section) {
+          if (section.getBoundingClientRect().top <= 160) currentSection = section.id;
+        });
+        opEls.forEach(function(card) {
+          if (card.getBoundingClientRect().top <= 200) currentOp = card.id.replace('op-', '');
+        });
+        sidebarLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('data-section') === currentSection) link.classList.add('active');
+        });
+        sidebarSubLinks.forEach(function(link) {
+          link.classList.toggle('active', link.dataset.op === currentOp);
+        });
+        document.querySelectorAll('.mobile-toc-item').forEach(function(item) {
+          item.classList.toggle('active', item.dataset.section === currentSection);
+        });
+        document.querySelectorAll('.mobile-toc-sub-link').forEach(function(link) {
+          link.classList.toggle('active', link.dataset.op === currentOp);
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink();
+
+      // 6. 点击 operator 子项平滑滚动
+      sidebarSubLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          smoothScrollTo(document.getElementById('op-' + this.dataset.op));
+        });
+      });
+    })();
+
+    function toggleMobileToc() {
+      document.getElementById('mobileTocOverlay').classList.toggle('active');
+      document.getElementById('mobileTocPanel').classList.toggle('active');
+    }
+  </script>
+
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <script>
+  (function(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>400)},{passive:true});})();
+  </script>
+
+  <script src="../js/search.js"></script>
+  <script src="../js/assistant.js"></script>
+
+</body>
+</html>

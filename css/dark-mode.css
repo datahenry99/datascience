@@ -570,6 +570,24 @@
   border-bottom-color: #334155;
 }
 
+[data-theme="dark"] .sidebar-expand-all {
+  background: #1e293b;
+  border-color: #334155;
+  color: #64748b;
+}
+
+[data-theme="dark"] .sidebar-expand-all:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #475569;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .sidebar-expand-all.active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
 [data-theme="dark"] .sidebar-link {
   color: #94a3b8;
 }
@@ -582,6 +600,40 @@
 [data-theme="dark"] .sidebar-link.active {
   background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
+}
+
+/* Sidebar Level 3 Sub-items */
+[data-theme="dark"] .sidebar-chevron {
+  opacity: 0.3;
+}
+
+[data-theme="dark"] .sidebar-chevron:hover {
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .sidebar-sub-link {
+  color: #64748b;
+}
+
+[data-theme="dark"] .sidebar-sub-link:hover {
+  color: #cbd5e1;
+  border-left-color: #475569;
+}
+
+[data-theme="dark"] .sidebar-sub-link.active {
+  color: #60a5fa;
+  border-left-color: #60a5fa;
+  background: transparent;
+}
+
+/* Mobile TOC Level 3 Sub-items */
+[data-theme="dark"] .mobile-toc-sub-link {
+  color: #64748b;
+}
+
+[data-theme="dark"] .mobile-toc-sub-link.active {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
 }
 
 /* ===== Section Headers (sticky) ===== */
@@ -1486,6 +1538,221 @@
 [data-theme="dark"] .si-mobile-toc-item.active {
   background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
   color: #a5b4fc;
+}
+
+/* ===== Causal Inference Page ===== */
+[data-theme="dark"] .ci-main {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .ci-operator-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .ci-operator-card:hover {
+  border-color: #475569;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .ci-op-name {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .ci-op-name-en {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-op-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .ci-op-when {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-op-when strong {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .ci-op-desc {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-section-text {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-section-text a,
+[data-theme="dark"] .ci-op-desc a {
+  color: #a5b4fc;
+  border-bottom-color: rgba(165, 180, 252, 0.35);
+}
+
+[data-theme="dark"] .ci-ref-item {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-ref-item a {
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .ci-ref-item a:hover {
+  color: #bfdbfe;
+}
+
+/* Principle Section */
+[data-theme="dark"] .ci-principle-text {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-formula-grid {
+  background: transparent;
+  border-color: transparent;
+}
+
+[data-theme="dark"] .ci-formula-block {
+  background: transparent;
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .ci-formula-label {
+  color: #a5b4fc;
+  background: rgba(165, 180, 252, 0.1);
+}
+
+[data-theme="dark"] .ci-formula-note {
+  color: #cbd5e1;
+  background: transparent;
+  border-left-color: transparent;
+}
+
+[data-theme="dark"] .ci-note-example {
+  background: rgba(99, 102, 241, 0.08);
+  border-left-color: rgba(165, 180, 252, 0.25);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-formula-expr .katex {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .ci-formula-expr::-webkit-scrollbar-thumb {
+  background: rgba(165, 180, 252, 0.2);
+}
+
+[data-theme="dark"] .ci-formula-expr::-webkit-scrollbar-thumb:hover {
+  background: rgba(165, 180, 252, 0.35);
+}
+
+[data-theme="dark"] .ci-formula-vars {
+  color: #94a3b8;
+  border-left-color: rgba(165, 180, 252, 0.15);
+}
+
+[data-theme="dark"] .ci-formula-vars code {
+  color: #a5b4fc;
+  background: rgba(165, 180, 252, 0.1);
+}
+
+[data-theme="dark"] .ci-keypoint {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.06));
+  border-color: rgba(99, 102, 241, 0.25);
+  border-left-color: #818cf8;
+}
+
+[data-theme="dark"] .ci-keypoint-title {
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .ci-keypoint-content {
+  color: #94a3b8;
+}
+
+/* Collapsible Code */
+[data-theme="dark"] .ci-code-collapse {
+  border-color: rgba(165, 180, 252, 0.2);
+}
+
+[data-theme="dark"] .ci-code-summary {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.08));
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .ci-code-summary:hover {
+  color: #c7d2fe;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.12));
+}
+
+[data-theme="dark"] details.ci-code-collapse[open] .ci-code-summary {
+  color: #c7d2fe;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.12));
+  border-bottom-color: rgba(165, 180, 252, 0.15);
+}
+
+[data-theme="dark"] .ci-code-panel {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .ci-code-panel pre {
+  background: linear-gradient(180deg, #0f172a, #0c1322);
+  color: #e2e8f0;
+  border-left-color: rgba(165, 180, 252, 0.2);
+}
+
+[data-theme="dark"] .ci-code-panel code {
+  color: #e2e8f0;
+}
+
+/* Python 语法高亮暗黑模式 */
+[data-theme="dark"] .ci-code-panel .py-kw { color: #a5b4fc; }
+[data-theme="dark"] .ci-code-panel .py-fn { color: #93c5fd; }
+[data-theme="dark"] .ci-code-panel .py-str { color: #6ee7b7; }
+[data-theme="dark"] .ci-code-panel .py-comment { color: #64748b; }
+[data-theme="dark"] .ci-code-panel .py-num { color: #f0abfc; }
+[data-theme="dark"] .ci-code-panel .py-op { color: #94a3b8; }
+[data-theme="dark"] .ci-code-panel .py-builtin { color: #67e8f9; }
+
+/* 参考文献链接状态暗黑模式 */
+[data-theme="dark"] .ci-ref-item a.link-dead {
+  color: #f87171;
+}
+
+[data-theme="dark"] .ci-ref-item a.link-dead::after {
+  color: #f87171;
+}
+
+/* Sidebar */
+[data-theme="dark"] .sidebar-module-title {
+  color: #f1f5f9;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .sidebar-coming {
+  color: #64748b;
+}
+
+[data-theme="dark"] .sidebar-badge-soon {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+/* Section header sticky background */
+[data-theme="dark"] .ci-main .section-header {
+  background: #0f172a;
+}
+
+/* Paper tags reused on CI page */
+[data-theme="dark"] .ci-op-tags .paper-tag {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+/* Mobile TOC coming items */
+[data-theme="dark"] .mobile-toc-coming {
+  color: #475569;
 }
 
 
