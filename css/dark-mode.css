@@ -39,6 +39,15 @@
   color: #cbd5e1;
 }
 
+[data-theme="dark"] .nav-changelog {
+  color: #94a3b8;
+  background: none;
+}
+
+[data-theme="dark"] .nav-changelog:hover {
+  color: #cbd5e1;
+}
+
 [data-theme="dark"] .nav-github,
 [data-theme="dark"] .nav-xiaohongshu {
   color: #94a3b8;
@@ -78,7 +87,7 @@
   border-radius: 10px;
   border: none;
   background: transparent;
-  color: #4a4a6a;
+  color: #888;
   cursor: pointer;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
@@ -355,23 +364,12 @@
   border-top-color: #334155;
 }
 
-[data-theme="dark"] .home-timeline-content {
-  background: #1e293b;
-  border-color: #334155;
+[data-theme="dark"] .home-changelog-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
 }
 
-[data-theme="dark"] .home-timeline-title {
-  color: #f1f5f9;
-}
-
-[data-theme="dark"] .home-timeline-desc {
+[data-theme="dark"] .home-changelog-entry {
   color: #94a3b8;
-}
-
-[data-theme="dark"] .home-timeline-badge {
-  background: #064e3b;
-  border-color: #065f46;
-  color: #6ee7b7;
 }
 
 /* ===== Footer ===== */
@@ -1309,46 +1307,7 @@
   color: #60a5fa;
 }
 
-/* ===== Learning Roadmap ===== */
-[data-theme="dark"] .roadmap-section {
-  background: #0f172a;
-}
 
-[data-theme="dark"] .roadmap-title {
-  color: #f1f5f9;
-}
-
-[data-theme="dark"] .roadmap-desc {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .roadmap-line {
-  opacity: 0.4;
-}
-
-[data-theme="dark"] .roadmap-node-card {
-  background: #1e293b;
-  border-color: #334155;
-}
-
-[data-theme="dark"] .roadmap-node:hover .roadmap-node-card {
-  border-color: #475569;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .roadmap-node-title {
-  color: #f1f5f9;
-}
-
-[data-theme="dark"] .roadmap-node-desc {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .roadmap-mini-tag {
-  background: #0f172a;
-  border-color: #334155;
-  color: #94a3b8;
-}
 
 /* ===== Stat Intuition Page ===== */
 [data-theme="dark"] .si-main {

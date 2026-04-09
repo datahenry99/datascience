@@ -66,9 +66,9 @@
       (toolsData.tools || toolsData).forEach(function (t) {
         searchIndex.push({
           type: '🛠 工具',
-          title: t.name,
-          desc: t.desc,
-          tag: t.tag,
+          title: t.name || '',
+          desc: t.desc || '',
+          tag: t.tag || t.category || '',
           url: t.url,
           page: toolsPage
         });
@@ -132,7 +132,7 @@
                 type: '🔬 因果推断',
                 title: op.name + (op.nameEn ? ' (' + op.nameEn + ')' : ''),
                 desc: op.desc || '',
-                tag: mod.title + ' · ' + sec.title + (op.tags ? ' · ' + op.tags.join(', ') : ''),
+                tag: mod.title + ' · ' + sec.title + (op.tags ? ' · ' + op.tags.map(function(t) { return typeof t === 'object' ? t.text : t; }).join(', ') : ''),
                 url: ciPage + '#' + sec.id,
                 page: ciPage
               });
@@ -178,9 +178,9 @@
 
     var q = query.toLowerCase();
     var matched = searchIndex.filter(function (item) {
-      return item.title.toLowerCase().includes(q) ||
-        item.desc.toLowerCase().includes(q) ||
-        item.tag.toLowerCase().includes(q);
+      return (item.title || '').toLowerCase().includes(q) ||
+        (item.desc || '').toLowerCase().includes(q) ||
+        (item.tag || '').toLowerCase().includes(q);
     }).slice(0, 20);
 
     results.innerHTML = '';
