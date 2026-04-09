@@ -91,6 +91,7 @@ a {
 }
 
 .nav-link {
+  position: relative;
   font-size: 15px;
   font-weight: 500;
   color: #4a4a6a;
@@ -899,6 +900,33 @@ a {
 
 .home-contribute-link-a:hover {
   text-decoration: underline;
+}
+
+/* --- NEW 徽章 --- */
+.new-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: #ef4444;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  vertical-align: super;
+  line-height: 1;
+  margin-left: 4px;
+}
+
+.new-badge-nav {
+  position: absolute;
+  top: -8px;
+  right: -22px;
+  z-index: 2;
+  margin-left: 0;
+  vertical-align: baseline;
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 20px;
 }
 
 /* --- 更新日志 --- */
