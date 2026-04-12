@@ -591,37 +591,28 @@
 }
 
 [data-theme="dark"] .sidebar-link:hover {
-  background: #334155;
+  background: #1e293b;
   color: #f1f5f9;
 }
 
 [data-theme="dark"] .sidebar-link.active {
-  background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
 }
 
 /* Sidebar Level 3 Sub-items */
-[data-theme="dark"] .sidebar-chevron {
-  opacity: 0.3;
-}
-
-[data-theme="dark"] .sidebar-chevron:hover {
-  opacity: 0.7;
-}
-
 [data-theme="dark"] .sidebar-sub-link {
   color: #64748b;
 }
 
 [data-theme="dark"] .sidebar-sub-link:hover {
   color: #cbd5e1;
-  border-left-color: #475569;
+  background: rgba(255,255,255,0.03);
 }
 
 [data-theme="dark"] .sidebar-sub-link.active {
   color: #60a5fa;
+  background: rgba(59,130,246,0.08);
   border-left-color: #60a5fa;
-  background: transparent;
 }
 
 /* Mobile TOC Level 3 Sub-items */
@@ -634,10 +625,13 @@
   background: rgba(59, 130, 246, 0.1);
 }
 
-/* ===== Section Headers (sticky) ===== */
+/* ===== Section Headers ===== */
 [data-theme="dark"] .section-header {
-  background: #0f172a;
   border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .ci-op-header {
+  background: #0f172a;
 }
 
 [data-theme="dark"] .section-title {
@@ -1499,19 +1493,84 @@
   color: #a5b4fc;
 }
 
+/* ===== Left Sidebar Dark Mode ===== */
+[data-theme="dark"] .ci-left-sidebar {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ===== Right TOC Dark Mode ===== */
+[data-theme="dark"] .ci-toc-title {
+  color: #f1f5f9;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .ci-toc-nav {
+  border-left-color: #334155;
+}
+
+[data-theme="dark"] .ci-toc-section {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-toc-section:hover {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .ci-toc-section.active {
+  color: #60a5fa;
+  border-left-color: #60a5fa;
+}
+
+[data-theme="dark"] .ci-toc-item {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-toc-type-step {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-toc-type-formula {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-toc-type-keypoint {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-toc-type-desc,
+[data-theme="dark"] .ci-toc-type-when,
+[data-theme="dark"] .ci-toc-type-example,
+[data-theme="dark"] .ci-toc-type-vs {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .ci-toc-item:hover {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .ci-toc-item.active {
+  color: #60a5fa;
+  border-left-color: #60a5fa;
+}
+
+[data-theme="dark"] .ci-toc-empty {
+  color: #475569;
+}
+
 /* ===== Causal Inference Page ===== */
 [data-theme="dark"] .ci-main {
   background: #0f172a;
 }
 
 [data-theme="dark"] .ci-operator-card {
-  background: #1e293b;
-  border-color: #334155;
+  background: transparent;
+  border-color: #1e293b;
 }
 
 [data-theme="dark"] .ci-operator-card:hover {
-  border-color: #475569;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-color: #1e293b;
+  box-shadow: none;
 }
 
 [data-theme="dark"] .ci-op-name {
@@ -1544,8 +1603,38 @@
   color: #cbd5e1;
 }
 
+[data-theme="dark"] .ci-body-text {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .ci-section-heading {
+  color: #e2e8f0;
+  border-bottom-color: #1e293b;
+}
+
+[data-theme="dark"] .ci-sh-icon {
+  color: #818cf8;
+}
+
+[data-theme="dark"] .ci-sh-example {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .ci-sh-vs {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .ci-sh-vs .ci-sh-icon {
+  color: #64748b;
+}
+
+[data-theme="dark"] .ci-body-vs {
+  color: #cbd5e1;
+}
+
 [data-theme="dark"] .ci-section-text a,
-[data-theme="dark"] .ci-op-desc a {
+[data-theme="dark"] .ci-op-desc a,
+[data-theme="dark"] .ci-body-text a {
   color: #a5b4fc;
   border-bottom-color: rgba(165, 180, 252, 0.35);
 }
@@ -1685,8 +1774,11 @@
 
 /* Sidebar */
 [data-theme="dark"] .sidebar-module-title {
-  color: #f1f5f9;
-  border-bottom-color: #334155;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .sidebar-module-title:hover {
+  color: #60a5fa;
+  background: #1e293b;
 }
 
 [data-theme="dark"] .sidebar-coming {
@@ -1698,9 +1790,9 @@
   color: #fbbf24;
 }
 
-/* Section header sticky background */
+/* Section header background */
 [data-theme="dark"] .ci-main .section-header {
-  background: #0f172a;
+  background: transparent;
 }
 
 /* Paper tags reused on CI page */

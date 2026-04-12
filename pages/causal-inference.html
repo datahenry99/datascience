@@ -30,8 +30,8 @@
   <script src="../js/theme.js"></script>
   <link rel="stylesheet" href="../css/style.css?v=20260402b">
   <link rel="stylesheet" href="../css/assistant.css?v=20260402b">
-  <link rel="stylesheet" href="../css/causal-inference.css?v=20260410e">
-  <link rel="stylesheet" href="../css/dark-mode.css?v=20260410e">
+  <link rel="stylesheet" href="../css/causal-inference.css?v=20260412p">
+  <link rel="stylesheet" href="../css/dark-mode.css?v=20260412p">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,24 +162,18 @@
   }
   </script>
 
-  <!-- 主体内容 -->
+  <!-- 三栏主体布局 -->
   <main class="ci-main">
-    <div class="ci-main-inner">
+    <div class="ci-main-inner ci-three-col">
 
-      <!-- 侧边目录导航（由 JS 动态生成） -->
-      <aside class="papers-sidebar" id="ciSidebar">
-        <div class="sidebar-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 因果推断工具箱
-          <button class="sidebar-expand-all" id="sidebarExpandAll" title="全部展开">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 8 12 3 17 8"/><polyline points="7 16 12 21 17 16"/></svg>
-          </button>
-        </div>
+      <!-- 左栏：导航栏 -->
+      <aside class="ci-left-sidebar" id="ciSidebar">
         <nav class="sidebar-nav" id="sidebarNav">
           <!-- JS 动态填充 -->
         </nav>
       </aside>
 
-      <!-- 内容区域（由 JS 动态生成） -->
+      <!-- 中栏：正文内容 -->
       <div class="ci-content" id="ciContent">
         <!-- Loading skeleton -->
         <div class="loading-skeleton" id="ci-loading">
@@ -200,6 +194,14 @@
           </div>
         </div>
       </div>
+
+      <!-- 右栏：本页目录 -->
+      <aside class="ci-right-toc" id="ciRightToc">
+        <div class="ci-toc-title">本页目录</div>
+        <nav class="ci-toc-nav" id="ciTocNav">
+          <!-- JS 动态填充 -->
+        </nav>
+      </aside>
 
     </div>
   </main>
@@ -246,21 +248,53 @@
     }
 
     // 渲染原理 section 的 HTML（连续公式自动并排）
-    // 返回 { principle: '...', examples: '...' } 分离原理与示例
-    function renderPrinciple(principle) {
-      if (!principle || !principle.sections) return { principle: '', examples: '' };
+    // 返回 { principle: '...', examples: '...', tocItems: [...] }
+    // tocItems 收集文章内部结构，用于右侧 TOC
+    function renderPrinciple(principle, opId) {
+      if (!principle || !principle.sections) return { principle: '', examples: '', tocItems: [] };
       var principleHtml = '';
       var examplesHtml = '';
+      var tocItems = [];
       var items = principle.sections;
       var i = 0;
+      var stepCounter = 0; // 段落计数器，用于生成锚点 ID
+
       while (i < items.length) {
         var s = items[i];
         if (s.type === 'text') {
           if (s.content.indexOf('💡') === 0) {
-            // 示例文字不再单独区块，跳过（后面在公式解读中处理）
-            examplesHtml += '<p class="ci-principle-text">' + s.content.replace(/^💡\s*举例[：:]\s*/, '') + '</p>';
+            // 示例段落
+            var exAnchorId = opId + '-example-' + stepCounter;
+            stepCounter++;
+            examplesHtml += '<p class="ci-principle-text" id="' + exAnchorId + '">' + s.content.replace(/^💡\s*举例[：:]\s*/, '') + '</p>';
           } else {
-            principleHtml += '<p class="ci-principle-text">' + s.content + '</p>';
+            // 检测 <b>Step N：标题</b> 或 <b>标题</b> 开头的段落
+            var stepMatch = s.content.match(/^<b>(Step\s*\d+[：:．.]\s*)([^<]+)<\/b>/i);
+            var boldMatch = !stepMatch && s.content.match(/^<b>([^<]+)<\/b>/);
+            var anchorId = opId + '-p-' + stepCounter;
+            stepCounter++;
+
+            if (stepMatch) {
+              // Step 标题段落：拆为独立标题 + 正文
+              var stepTitle = stepMatch[1] + stepMatch[2];
+              var stepBody = s.content.replace(/^<b>[^<]+<\/b>\s*[—\-–：:．.]*\s*/, '');
+              principleHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + anchorId + '">' +
+                '<h5 class="ci-section-heading">' + stepTitle + '</h5>' +
+                (stepBody ? '<p class="ci-principle-text">' + stepBody + '</p>' : '') +
+              '</div>';
+              tocItems.push({ id: anchorId, title: stepTitle, type: 'step' });
+            } else if (boldMatch) {
+              // 粗体标题段落：也拆为独立标题 + 正文
+              var boldTitle = boldMatch[1];
+              var boldBody = s.content.replace(/^<b>[^<]+<\/b>\s*[—\-–：:．.]*\s*/, '');
+              principleHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + anchorId + '">' +
+                '<h5 class="ci-section-heading">' + boldTitle + '</h5>' +
+                (boldBody ? '<p class="ci-principle-text">' + boldBody + '</p>' : '') +
+              '</div>';
+              tocItems.push({ id: anchorId, title: boldTitle, type: 'step' });
+            } else {
+              principleHtml += '<p class="ci-principle-text" id="' + anchorId + '">' + s.content + '</p>';
+            }
           }
           i++;
         } else if (s.type === 'formula') {
@@ -270,9 +304,12 @@
             formulas.push(items[i]);
             i++;
           }
+          var formulaAnchorId = opId + '-f-' + stepCounter;
+          stepCounter++;
           var colsClass = formulas.length === 1 ? ' cols-1' : (formulas.length >= 3 ? ' cols-3' : '');
           if (formulas.length > 3) colsClass = '';
-          principleHtml += '<div class="ci-formula-grid' + colsClass + '">';
+          principleHtml += '<div class="ci-formula-grid' + colsClass + '" id="' + formulaAnchorId + '">';
+
           formulas.forEach(function(f, idx) {
             principleHtml += '<div class="ci-formula-block">' +
               '<span class="ci-formula-label">' + f.label + '</span>' +
@@ -287,9 +324,11 @@
             principleHtml += '</div>';
           });
           // 公式组后紧跟的 text（解读 + 示例）都收进公式区
+          // 但如果是 Step 标题或粗体标题，则不吸收（留给主循环处理为独立标题）
           var noteContent = '';
-          // 先收解读文字
-          if (i < items.length && items[i].type === 'text' && items[i].content.indexOf('💡') !== 0) {
+          var stepHeadingRe = /^<b>(Step\s*\d+|[^<]+)<\/b>/i;
+          // 先收解读文字（跳过 Step/粗体标题开头的段落）
+          if (i < items.length && items[i].type === 'text' && items[i].content.indexOf('💡') !== 0 && !stepHeadingRe.test(items[i].content)) {
             noteContent += items[i].content;
             i++;
           }
@@ -304,16 +343,19 @@
           }
           principleHtml += '</div>';
         } else if (s.type === 'keypoint') {
-          principleHtml += '<div class="ci-keypoint">' +
+          var kpAnchorId = opId + '-kp-' + stepCounter;
+          stepCounter++;
+          principleHtml += '<div class="ci-keypoint" id="' + kpAnchorId + '">' +
             '<div class="ci-keypoint-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg> ' + s.title + '</div>' +
             '<p class="ci-keypoint-content">' + s.content + '</p>' +
           '</div>';
+          tocItems.push({ id: kpAnchorId, title: s.title, type: 'keypoint' });
           i++;
         } else {
           i++;
         }
       }
-      return { principle: principleHtml, examples: examplesHtml };
+      return { principle: principleHtml, examples: examplesHtml, tocItems: tocItems };
     }
 
     // 渲染参考文献
@@ -417,7 +459,7 @@
     (async function() {
       let data, modules;
       try {
-        const resp = await fetch('../data/causal-inference.json?v=20260410k');
+        const resp = await fetch('../data/causal-inference.json?v=20260413e');
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         data = await resp.json();
         modules = data.modules;
@@ -429,10 +471,22 @@
       }
 
       // 收集所有要渲染的 section（仅 active 模块展开）
+      // 同时为每个层级分配数字编号
       const activeSections = [];
+      let moduleIdx = 0;
       modules.forEach(mod => {
         if (mod.status === 'active' && mod.sections.length > 0) {
-          mod.sections.forEach(sec => activeSections.push({ ...sec, moduleId: mod.id }));
+          moduleIdx++;
+          mod._num = String(moduleIdx); // 一级编号: 1, 2, 3...
+          mod.sections.forEach((sec, si) => {
+            sec._num = moduleIdx + '.' + (si + 1); // 二级编号: 1.1, 1.2...
+            if (sec.operators) {
+              sec.operators.forEach((op, oi) => {
+                op._num = moduleIdx + '.' + (si + 1) + '.' + (oi + 1); // 三级编号: 1.1.1
+              });
+            }
+            activeSections.push({ ...sec, moduleId: mod.id, _moduleNum: mod._num });
+          });
         }
       });
 
@@ -440,54 +494,50 @@
       const sidebarNav = document.getElementById('sidebarNav');
       let sidebarHtml = '';
 
-      modules.forEach(mod => {
+      modules.forEach((mod, modIndex) => {
         if (mod.status === 'active') {
-          sidebarHtml += '<div class="sidebar-module-title">' + mod.title + '</div>';
+          // 一级标题：可点击跳转 + 折叠/展开，默认全部展开
+          var firstSecId = mod.sections.length > 0 ? mod.sections[0].id : '';
+          sidebarHtml += '<div class="sidebar-module-group expanded">' +
+            '<div class="sidebar-module-title" data-module="' + mod.id + '" data-first-section="' + firstSecId + '">' +
+              '<span class="sidebar-module-text">' + mod._num + ' ' + mod.title + '</span>' +
+              '<svg class="sidebar-module-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+            '</div>' +
+            '<div class="sidebar-module-children">';
           mod.sections.forEach((sec, i) => {
-            const opCount = sec.operators ? sec.operators.length : 0;
             const ops = sec.operators || [];
             sidebarHtml += '<div class="sidebar-section-group">';
             sidebarHtml += '<a class="sidebar-link' + (i === 0 ? ' active' : '') + '" data-section="' + sec.id + '">' +
-              '<span class="sidebar-dot" style="background:' + mod.sidebarDot + ';"></span>' +
-              '<span>' + sec.title + '</span>' +
-              '<span class="sidebar-count">' + opCount + '</span>' +
-              '<svg class="sidebar-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>';
-            // Level 3: operator 子项（默认折叠）
+              '<span>' + sec._num + ' ' + sec.title + '</span></a>';
+            // 子项（始终展开）
             if (ops.length > 0) {
               sidebarHtml += '<div class="sidebar-sub-items">';
               ops.forEach(op => {
-                sidebarHtml += '<a class="sidebar-sub-link" data-op="' + op.id + '">' + op.name + '</a>';
+                sidebarHtml += '<a class="sidebar-sub-link" data-op="' + op.id + '">' + op._num + ' ' + op.name + '</a>';
               });
               sidebarHtml += '</div>';
             }
             sidebarHtml += '</div>';
           });
+          sidebarHtml += '</div></div>'; // end sidebar-module-children + sidebar-module-group
         } else {
           sidebarHtml += '<div class="sidebar-coming">' +
-            '<span class="sidebar-dot" style="background:' + mod.sidebarDot + ';opacity:0.4;"></span>' +
             '<span>' + mod.title + '</span>' +
             '<span class="sidebar-badge-soon">即将上线</span></div>';
         }
       });
       sidebarNav.innerHTML = sidebarHtml;
 
-      // 平滑滚动（带顶部导航栏 + sticky section-header 偏移量）
+      // 平滑滚动（带顶部导航栏 + sticky op-header 偏移量）
       function smoothScrollTo(el) {
         if (!el) return;
         var navbarH = 64;
-        // 检查目标元素是否是 operator 卡片（非 section-anchor），需额外偏移 sticky header
+        // 检查目标元素是否在 operator 卡片内部（非卡片本身），需额外偏移 sticky op-header
         var stickyH = 0;
-        if (el.classList.contains('ci-operator-card')) {
-          // 找到该卡片所属 section 的 sticky header
-          var prev = el.previousElementSibling;
-          var parent = el.closest('.ci-operator-list');
-          if (parent) {
-            var header = parent.previousElementSibling;
-            while (header && !header.classList.contains('section-header')) {
-              header = header.previousElementSibling;
-            }
-            if (header) stickyH = header.offsetHeight;
-          }
+        var opCard = el.closest('.ci-operator-card');
+        if (opCard && el !== opCard) {
+          var header = opCard.querySelector('.ci-op-header');
+          if (header) stickyH = header.offsetHeight;
         }
         var rect = el.getBoundingClientRect();
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -495,31 +545,26 @@
         window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
       }
 
-      // 侧边栏折叠/展开逻辑：点击整个 sidebar-link 即可展开/折叠
-      sidebarNav.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+      // 一级标题点击：折叠/展开 + 跳转到第一个 section
+      sidebarNav.querySelectorAll('.sidebar-module-title').forEach(title => {
+        title.addEventListener('click', function(e) {
           e.preventDefault();
-          const group = this.closest('.sidebar-section-group');
-          group.classList.toggle('expanded');
-          // 同时跳转到对应 section
-          smoothScrollTo(document.getElementById(this.getAttribute('data-section')));
+          var group = this.closest('.sidebar-module-group');
+          if (group) group.classList.toggle('expanded');
+          // 同时跳转到该模块的第一个 section
+          var firstSecId = this.getAttribute('data-first-section');
+          if (firstSecId) {
+            smoothScrollTo(document.getElementById(firstSecId));
+          }
         });
       });
 
-      // 一键全部展开/折叠
-      const expandAllBtn = document.getElementById('sidebarExpandAll');
-      let allExpanded = false;
-      expandAllBtn.addEventListener('click', function() {
-        allExpanded = !allExpanded;
-        sidebarNav.querySelectorAll('.sidebar-section-group').forEach(g => {
-          if (allExpanded) {
-            g.classList.add('expanded');
-          } else {
-            g.classList.remove('expanded');
-          }
+      // 侧边栏点击跳转
+      sidebarNav.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          smoothScrollTo(document.getElementById(this.getAttribute('data-section')));
         });
-        this.classList.toggle('active', allExpanded);
-        this.title = allExpanded ? '全部折叠' : '全部展开';
       });
 
       // 2. 移动端目录
@@ -534,13 +579,13 @@
               tocHtml += '<div class="mobile-toc-section-group">';
               tocHtml += '<a class="mobile-toc-item' + (i === 0 ? ' active' : '') + '" data-section="' + sec.id + '">' +
                 '<span class="mobile-toc-dot" style="background:' + mod.sidebarDot + ';"></span>' +
-                '<span>' + sec.title + '</span>' +
+                '<span>' + sec._num + ' ' + sec.title + '</span>' +
                 '<span class="mobile-toc-count">' + opCount + '</span>' +
                 '<svg class="mobile-toc-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>';
               if (ops.length > 0) {
                 tocHtml += '<div class="mobile-toc-sub-items">';
                 ops.forEach(op => {
-                  tocHtml += '<a class="mobile-toc-sub-link" data-op="' + op.id + '">' + op.name + '</a>';
+                  tocHtml += '<a class="mobile-toc-sub-link" data-op="' + op.id + '">' + op._num + ' ' + op.name + '</a>';
                 });
                 tocHtml += '</div>';
               }
@@ -573,21 +618,25 @@
       // 3. 渲染内容
       const ciContent = document.getElementById('ciContent');
       let contentHtml = '';
+      // 存储每个 operator 的内部文章结构目录
+      const opTocMap = {};
 
       activeSections.forEach(sec => {
         contentHtml += '<div class="section-anchor" id="' + sec.id + '"></div>';
         contentHtml += '<div class="section-header">' +
-          '<div class="section-icon" style="background:' + sec.gradient + ';">' + sec.icon + '</div>' +
-          '<div><h3 class="section-title">' + sec.title + '</h3>' +
+          '<div><h3 class="section-title">' + sec._num + ' ' + sec.title + '</h3>' +
           '<p class="section-subtitle">' + sec.subtitle + '</p></div></div>';
 
         contentHtml += '<div class="ci-operator-list">';
         (sec.operators || []).forEach(op => {
           var codeId = 'code-' + op.id;
+          // 初始化该 operator 的内部目录
+          var opToc = [];
+
           contentHtml += '<div class="ci-operator-card" id="op-' + op.id + '">' +
             '<div class="ci-op-header">' +
               '<div class="ci-op-titles">' +
-                '<h4 class="ci-op-name">' + op.name + '</h4>' +
+                '<h4 class="ci-op-name">' + op._num + ' ' + op.name + '</h4>' +
                 '<span class="ci-op-name-en">' + op.nameEn + '</span>' +
               '</div>' +
               '<div class="ci-op-tags">' +
@@ -596,77 +645,67 @@
             '</div>';
           contentHtml += '<div class="ci-op-body">';
 
-          // 1. 定义
-          contentHtml += '<div class="ci-section-block">' +
-            '<span class="ci-section-label">定义</span>' +
-            '<p class="ci-section-text">' + op.desc + '</p>' +
+          // 正文区域：每个段落带可见标题
+          // 1. 定义（带锚点和标题）
+          var descAnchorId = op.id + '-desc';
+          contentHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + descAnchorId + '">' +
+            '<h5 class="ci-section-heading">定义</h5>' +
+            '<p class="ci-body-text">' + op.desc + '</p>' +
           '</div>';
+          opToc.push({ id: descAnchorId, title: '定义', type: 'desc' });
 
-          // 2. 场景
-          contentHtml += '<div class="ci-section-block">' +
-            '<span class="ci-section-label">场景</span>' +
-            '<p class="ci-section-text">' + op.when + '</p>' +
+          // 2. 场景（带锚点和标题）
+          var whenAnchorId = op.id + '-when';
+          contentHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + whenAnchorId + '">' +
+            '<h5 class="ci-section-heading">场景</h5>' +
+            '<p class="ci-body-text">' + op.when + '</p>' +
           '</div>';
+          opToc.push({ id: whenAnchorId, title: '场景', type: 'when' });
 
-          // 解析 principle，分离原理与示例
-          var parsed = renderPrinciple(op.principle);
+          // 解析 principle，分离原理与示例（传入 opId 用于生成锚点）
+          var parsed = renderPrinciple(op.principle, op.id);
 
-          // 3. 原理
+          // 3. 原理（核心内容区，带标题）
           if (parsed.principle) {
-            contentHtml += '<div class="ci-section-block">' +
-              '<span class="ci-section-label">原理</span>' +
-              '<div class="ci-principle">' + parsed.principle + '</div>' +
+            var principleAnchorId = op.id + '-principle';
+            contentHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + principleAnchorId + '">' +
+              '<h5 class="ci-section-heading">原理</h5>' +
             '</div>';
+            opToc.push({ id: principleAnchorId, title: '原理', type: 'desc' });
+            contentHtml += '<div class="ci-principle">' + parsed.principle + '</div>';
+            // 将 principle 内部的 tocItems 合并到 opToc
+            opToc = opToc.concat(parsed.tocItems);
           }
 
-          // 4. 示例
+          // 4. 示例（如果有，以高亮块形式呈现，带标题）
           if (parsed.examples) {
-            contentHtml += '<div class="ci-section-block">' +
-              '<span class="ci-section-label">示例</span>' +
+            var exAnchorId = op.id + '-examples';
+            contentHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + exAnchorId + '">' +
+              '<h5 class="ci-section-heading ci-sh-example">举例</h5>' +
               '<div class="ci-section-example">' + parsed.examples + '</div>' +
             '</div>';
+            opToc.push({ id: exAnchorId, title: '举例', type: 'example' });
           }
 
-          // 5. 延展
+          // 5. 延展（作为补充段落，带标题）
           if (op.vs) {
-            contentHtml += '<div class="ci-section-block">' +
-              '<span class="ci-section-label">延展</span>' +
-              '<p class="ci-section-text">' + op.vs + '</p>' +
+            var vsAnchorId = op.id + '-vs';
+            contentHtml += '<div class="ci-labeled-section ci-toc-anchor" id="' + vsAnchorId + '">' +
+              '<h5 class="ci-section-heading ci-sh-vs">延展</h5>' +
+              '<p class="ci-body-text ci-body-vs">' + op.vs + '</p>' +
             '</div>';
+            opToc.push({ id: vsAnchorId, title: '延展', type: 'vs' });
           }
+
+          // 存储该 operator 的内部目录
+          opTocMap[op.id] = opToc;
 
           contentHtml += '</div>';
 
-          // === 底部折叠区：优劣势、参考文献、Python 代码 ===
+          // === 底部折叠区：参考文献、Python 代码 ===
           contentHtml += '<div class="ci-collapse-group">';
 
-          // 1. 优势劣势
-          if (op.pros || op.cons) {
-            contentHtml += '<details class="ci-collapse-item">' +
-              '<summary class="ci-collapse-summary">' +
-                '<span class="ci-collapse-label">' +
-                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>' +
-                  ' 优势劣势' +
-                '</span>' +
-                '<svg class="ci-collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
-              '</summary>' +
-              '<div class="ci-collapse-body">';
-            contentHtml += '<div class="ci-proscons">';
-            if (op.pros) {
-              contentHtml += '<div class="ci-proscons-col ci-pros">' +
-                '<div class="ci-proscons-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 优势</div>' +
-                '<ul>' + op.pros.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul></div>';
-            }
-            if (op.cons) {
-              contentHtml += '<div class="ci-proscons-col ci-cons">' +
-                '<div class="ci-proscons-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 劣势</div>' +
-                '<ul>' + op.cons.map(function(c) { return '<li>' + c + '</li>'; }).join('') + '</ul></div>';
-            }
-            contentHtml += '</div>';
-            contentHtml += '</div></details>';
-          }
-
-          // 2. 参考文献（折叠式）
+          // 1. 参考文献（折叠式）
           if (op.references && op.references.length > 0) {
             contentHtml += '<details class="ci-collapse-item">' +
               '<summary class="ci-collapse-summary">' +
@@ -746,13 +785,55 @@
         });
       }
 
-      // 5. 侧边目录高亮跟踪
+      // 5. 右侧目录（本页目录 / TOC）—— 显示当前 operator 的文章内部结构
+      const tocNav = document.getElementById('ciTocNav');
+      let currentTocOp = ''; // 追踪当前 TOC 对应的 operator
+
+      // TOC 不再使用图标，纯文字目录
+
+      function updateTocForOperator(opId) {
+        if (!tocNav || !opId) return;
+        // 如果 operator 没变，不需要重建 DOM
+        if (currentTocOp === opId) return;
+        currentTocOp = opId;
+
+        var tocItems = opTocMap[opId];
+        if (!tocItems || tocItems.length === 0) {
+          tocNav.innerHTML = '<span class="ci-toc-empty">暂无目录结构</span>';
+          return;
+        }
+
+        // 渲染该 operator 内部的文章结构目录
+        var html = '';
+        tocItems.forEach(function(item) {
+          var cssClass = 'ci-toc-item ci-toc-type-' + item.type;
+          html += '<a class="' + cssClass + '" data-anchor="' + item.id + '"><span class="ci-toc-text">' + item.title + '</span></a>';
+        });
+        tocNav.innerHTML = html;
+
+        // 绑定点击事件
+        tocNav.querySelectorAll('.ci-toc-item').forEach(function(a) {
+          a.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.getElementById(this.dataset.anchor);
+            if (target) smoothScrollTo(target);
+          });
+        });
+      }
+
+      // 初始化：显示第一个 operator 的内部目录
+      var firstOpId = Object.keys(opTocMap)[0];
+      if (firstOpId) {
+        updateTocForOperator(firstOpId);
+      }
+
+      // 6. 侧边目录高亮跟踪
       const sidebarLinks = document.querySelectorAll('.sidebar-link');
       const sidebarSubLinks = document.querySelectorAll('.sidebar-sub-link');
       const sectionEls = document.querySelectorAll('.section-anchor');
       const opEls = document.querySelectorAll('.ci-operator-card');
 
-      // 6. 异步检查参考文献链接
+      // 7. 异步检查参考文献链接
       setTimeout(checkReferenceLinks, 1500);
 
       function updateActiveLink() {
@@ -777,6 +858,21 @@
         document.querySelectorAll('.mobile-toc-sub-link').forEach(function(link) {
           link.classList.toggle('active', link.dataset.op === currentOp);
         });
+        // Right TOC: update to show current operator's internal structure
+        updateTocForOperator(currentOp);
+        // Highlight current visible anchor in right TOC
+        if (currentOp && opTocMap[currentOp]) {
+          var currentAnchor = '';
+          opTocMap[currentOp].forEach(function(item) {
+            var el = document.getElementById(item.id);
+            if (el && el.getBoundingClientRect().top <= 220) {
+              currentAnchor = item.id;
+            }
+          });
+          document.querySelectorAll('#ciTocNav .ci-toc-item').forEach(function(a) {
+            a.classList.toggle('active', a.dataset.anchor === currentAnchor);
+          });
+        }
       }
 
       window.addEventListener('scroll', updateActiveLink);

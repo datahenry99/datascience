@@ -18,7 +18,7 @@
               "id": "ols",
               "name": "OLS 线性回归",
               "nameEn": "Ordinary Least Squares",
-              "desc": "OLS 由<a href='https://baike.baidu.com/item/%E9%98%BF%E5%BE%B7%E9%87%8C%E5%AE%89-%E9%A9%AC%E9%87%8C%C2%B7%E5%8B%92%E8%AE%A9%E5%BE%B7%E6%8B%89' target='_blank'>勒让德</a>（1805）和<a href='https://baike.baidu.com/item/%E5%8D%A1%E5%B0%94%C2%B7%E5%BC%97%E9%87%8C%E5%BE%B7%E9%87%8C%E5%B8%8C%C2%B7%E9%AB%98%E6%96%AF' target='_blank'>高斯</a>（1809）各自独立提出，是最早也是最基础的回归方法。它通过最小化<a href='https://baike.baidu.com/item/%E6%AE%8B%E5%B7%AE%E5%B9%B3%E6%96%B9%E5%92%8C' target='_blank'>残差平方和</a>（即实际值与预测值之差的平方之和）来拟合线性模型，在因果推断中通过控制<a href='https://www.cnblogs.com/causal-inference/p/confounding-variable.html' target='_blank'>混杂变量</a>（同时影响处理和结果的变量）来估计<a href='https://baike.baidu.com/item/%E5%A4%84%E7%90%86%E6%95%88%E5%BA%94' target='_blank'>处理效应</a>。所谓「最小二乘」就是找一条直线，让所有数据点到这条线的纵向距离的平方和最小。",
+              "desc": "OLS 由勒让德（1805）和高斯（1809）各自独立提出，是最早也是最基础的回归方法。它通过最小化残差平方和（即实际值与预测值之差的平方之和）来拟合线性模型，在因果推断中通过控制混杂变量（同时影响处理和结果的变量）来估计处理效应。所谓「最小二乘」就是找一条直线，让所有数据点到这条线的纵向距离的平方和最小。",
               "when": "适用于因变量（即我们想研究的结果变量）为连续型的场景，例如收入、消费金额、时长等，主要用来回答「处理 X 对结果 Y 的平均影响是多少」这类问题。它的核心优势是简单高效、系数含义直观——在满足高斯-马尔可夫假设（误差均值为零、方差恒定、无自相关）时，OLS 是最优线性无偏估计（BLUE），且可通过加入交互项或多项式项灵活建模非线性关系。不过，它也有明显局限：对异方差和非正态误差较为敏感，且无法解决未观测混杂带来的遗漏变量偏差；当因变量与处理之间存在严重非线性时，线性假设会导致拟合偏差。",
               "tags": [
                 {
@@ -34,7 +34,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "OLS 通过最小化残差平方和来估计回归系数。在因果推断中，我们通过在回归方程中加入混杂变量 X 来「控制」它们的影响，从而识别处理变量 T 对结果 Y 的因果效应。"
+                    "content": "OLS（普通最小二乘）是因果推断中最基础的建模框架。它通过最小化残差平方和来估计回归系数，在因果推断中通过在回归方程中加入混杂变量来「控制」混杂效应，从而识别处理效应。以下是 OLS 用于因果推断的完整实施流程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：核心假设</b> — OLS 用于因果推断需要满足：① <b>条件独立性（CIA）</b>：(Y(0), Y(1)) ⊥ T | X，即控制协变量后处理分配与潜在结果无关。② <b>线性性</b>：结果与协变量的关系是线性的（可通过加入交互项和多项式项放松）。③ <b>外生性</b>：E[ε|X,T] = 0，误差项与解释变量不相关。④ <b>无完全多重共线性</b>：设计矩阵列满秩。在高斯-马尔可夫假设下（误差零均值、同方差、无自相关），OLS 是最优线性无偏估计（BLUE）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择控制变量</b> — 应纳入同时影响 T 和 Y 的混杂变量（confounders），以及仅影响 Y 的预测变量（可降低残差方差提高精度）。不应纳入：① 中介变量（会阻断因果路径导致过度控制）；② 碰撞变量（会引入碰撞偏差）；③ 处理后的变量（会引入后处理偏差）。建议用 DAG（有向无环图）指导变量选择。变量过多会导致过拟合，过少会导致遗漏变量偏差。"
                   },
                   {
                     "type": "formula",
@@ -64,6 +72,10 @@
                     ]
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 3：估计模型</b> — OLS 通过最小化残差平方和 min_β Σ(Y_i - X_i'β)² 求解系数。估计量 β̂ = (X⊤X)⁻¹X⊤Y 通过矩阵运算一次性求出所有系数，几何上相当于将 Y 投影到 X 的列空间。β₁ 即为 ATE 的估计——处理组相对于对照组在结果变量上的平均差异。在 CIA 成立时，OLS 估计量是一致且无偏的。"
+                  },
+                  {
                     "type": "formula",
                     "label": "OLS 估计量",
                     "latex": "\\hat{\\beta} = (\\mathbf{X}^\\top \\mathbf{X})^{-1} \\mathbf{X}^\\top \\mathbf{Y}",
@@ -84,11 +96,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "其中 β₁ 即为 Average Treatment Effect（ATE）的估计——它衡量的是处理组相对于对照组在结果变量上的平均差异。OLS 估计量 β̂ = (X⊤X)⁻¹X⊤Y 通过矩阵运算一次性求出所有系数，几何上相当于将 Y 投影到 X 的列空间。在条件独立性假设（CIA）成立时，即潜在结果 (Y(0), Y(1)) ⊥ T | X（控制协变量后处理分配与潜在结果无关），OLS 估计量是一致的。"
+                    "content": "<b>Step 4：诊断检验</b> — 估计后需要检查模型假设是否成立：① <b>异方差检验</b>：用 White 检验或 Breusch-Pagan 检验，如果存在异方差，应使用稳健标准误（HC1）替代普通标准误。② <b>多重共线性</b>：计算 VIF（方差膨胀因子），VIF > 10 说明严重共线性。③ <b>残差分布</b>：绘制残差图检查是否存在非线性模式。④ <b>函数形式检验</b>：Ramsey RESET 检验是否遗漏了非线性项。如果假设严重违反，需调整模型设定或更换方法。"
                   },
                   {
                     "type": "text",
-                    "content": "💡 举例：某电商平台想评估新推荐算法（T=1）对用户人均 GMV（Y）的影响。用户年龄、性别、历史消费额（X）是混杂变量——它们既影响是否被分到新算法组，也影响 GMV。OLS 回归 Y ~ T + age + gender + pre_gmv 后得到 β₁ = 12.5 元（p < 0.01），说明新算法平均提升人均 GMV 12.5 元。如果不控制 pre_gmv，β₁ 会被高估，因为高消费用户更容易被分到新算法组（选择偏差）。"
+                    "content": "<b>Step 5：推断与报告</b> — 报告 β₁ 的点估计、标准误（推荐 HC1 稳健标准误）、95% 置信区间和 p 值。在随机实验中，OLS 回归控制变量可以提高精度（类似 CUPED 的方差缩减效果）。在观测研究中，应报告 R² 和调整 R²（衡量模型解释力）、控制变量的选择依据、以及对遗漏变量偏差的讨论。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "💡 举例：某电商平台想评估新推荐算法（T=1）对用户人均 GMV（Y）的影响。完整 Pipeline：① 协变量选择：X = {age, gender, pre_gmv, city_tier}（排除点击量等中介变量）。② 建模 Y ~ T + X，OLS 估计 β₁ = 12.5 元（HC1 SE = 3.2）。③ 诊断：White 检验 p = 0.02（存在异方差），已使用 HC1 标准误修正；VIF 均 < 3。④ 95% CI = [6.2, 18.8]，p < 0.01。如果不控制 pre_gmv，β₁ = 25.3 元（高估了一倍），因为高消费用户更容易被分到新算法组（选择偏差）。"
                   }
                 ]
               },
@@ -116,7 +132,7 @@
               "id": "logistic",
               "name": "Logistic 回归",
               "nameEn": "Logistic Regression",
-              "desc": "Logistic 回归的理论基础可追溯到 <a href='https://baike.baidu.com/item/%E7%9A%AE%E5%9F%83%E5%B0%94%C2%B7%E5%BC%97%E6%9C%97%E7%B4%A2%E7%93%A6%C2%B7%E9%9F%A6%E5%90%95%E5%8B%92' target='_blank'>Verhulst</a>（1838）提出的 <a href='https://baike.baidu.com/item/logistic%E5%87%BD%E6%95%B0' target='_blank'>logistic 函数</a>，现代统计形式由 <a href='https://doi.org/10.1111/j.2517-6161.1958.tb00292.x' target='_blank'>David Cox</a>（1958）系统化发展。它是一种<a href='https://baike.baidu.com/item/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B' target='_blank'>广义线性模型</a>（GLM），专门用于因变量为二分类（0/1）的场景。其核心是通过 logit 链接函数——即<a href='https://baike.baidu.com/item/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87' target='_blank'>对数几率函数</a> ln(p/(1-p))——将线性预测器映射到 (0,1) 概率空间。在因果推断中，Logistic 回归有两大用途：一是直接分析二值结果变量（如是否转化）的处理效应；二是作为<a href='https://baike.baidu.com/item/%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86' target='_blank'>倾向得分</a>模型，估计个体接受处理的概率 P(T=1|X)，为 PSM 和 IPW 方法提供基础。",
+              "desc": "Logistic 回归的理论基础可追溯到 Verhulst（1838）提出的 logistic 函数，现代统计形式由 David Cox（1958）系统化发展。它是一种广义线性模型（GLM），专门用于因变量为二分类（0/1）的场景。其核心是通过 logit 链接函数——即对数几率函数 ln(p/(1-p))——将线性预测器映射到 (0,1) 概率空间。在因果推断中，Logistic 回归有两大用途：一是直接分析二值结果变量（如是否转化）的处理效应；二是作为倾向得分模型，估计个体接受处理的概率 P(T=1|X)，为 PSM 和 IPW 方法提供基础。",
               "when": "适用于因变量为二分类的场景，如用户是否转化、是否留存、是否流失等「是/否」型结果。当结果变量只有两个取值时，OLS 的预测可能超出 [0,1] 范围且违反误差假设，而 Logistic 回归通过 sigmoid 函数自然地将输出约束在概率区间内。它的核心优势是系数可直接解释为 log-odds ratio，应用广泛，且可扩展为多分类（multinomial）和有序回归（ordinal）。不过，它假设对数几率与协变量呈线性关系，对完全分离问题不稳定，且不直接给出因果效应，需额外计算边际效应。",
               "tags": [
                 {
@@ -132,7 +148,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "Logistic 回归通过 logit 链接函数将线性预测器映射到 (0, 1) 概率空间。它建模的是事件发生的对数几率（log-odds），而非概率本身。"
+                    "content": "Logistic 回归是处理二值因变量的标准方法，在因果推断中有两大用途：一是直接分析二值结果的处理效应，二是作为倾向得分模型为 PSM/IPW 提供基础。以下是 Logistic 回归用于因果推断的完整流程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：适用性判断</b> — 当因变量 Y 是二值型（0/1，如是否转化、是否留存），OLS 的预测值可能超出 [0,1] 范围且违反误差假设，应改用 Logistic 回归。它通过 logit 链接函数 ln(p/(1-p)) 将线性预测器映射到 (0,1) 概率空间，自然地约束输出在概率区间内。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择协变量与模型设定</b> — 与 OLS 一致，应纳入混杂变量和纯预测变量，排除中介变量和碰撞变量。Logistic 回归假设对数几率与协变量呈线性关系，如果怀疑存在非线性效应，可加入交互项和多项式项。注意检查完全分离问题（某个协变量完美预测 Y=1 或 Y=0 导致 MLE 不收敛），必要时使用 Firth 惩罚似然。"
                   },
                   {
                     "type": "formula",
@@ -185,7 +209,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "三个公式本质上是同一个模型的不同表达形式：Logit 模型写出了对数几率的线性结构，概率形式通过 sigmoid 函数将其映射到 (0,1) 区间，Odds Ratio 则给出了因果效应的直观解读——OR = e^β₁ 表示处理使事件发生的几率变为对照组的 e^β₁ 倍。OR > 1 表示处理提高了事件概率，OR < 1 表示降低。注意 OR ≠ 相对风险（RR），当基线概率较高时两者差异显著。参数通过最大似然估计（MLE）求解。"
+                    "content": "<b>Step 3：估计参数</b> — Logistic 回归通过最大似然估计（MLE）求解参数。三个公式本质上是同一个模型的不同表达形式：Logit 模型写出了对数几率的线性结构，概率形式通过 sigmoid 函数将其映射到 (0,1) 区间，Odds Ratio 则给出了因果效应的直观解读。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：因果效应解释</b> — β₁ 的直接解释是处理对 log-odds 的效应，不够直观。常用的效应度量：① <b>Odds Ratio (OR)</b>：OR = e^β₁，表示处理使事件发生的几率变为对照组的 e^β₁ 倍。OR > 1 表示提高，OR < 1 表示降低。② <b>平均边际效应（AME）</b>：对每个个体计算 P(Y=1|T=1,X) - P(Y=1|T=0,X)，再取平均，得到概率尺度上的 ATE。③ 注意 OR ≠ 相对风险（RR），当基线概率较高时两者差异显著。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：模型诊断与推断</b> — 检查：① <b>模型拟合</b>：用 Hosmer-Lemeshow 检验评估拟合度，用 AUC/ROC 衡量区分能力。② <b>过度离散</b>：残差偏差（Deviance）是否远大于自由度。③ <b>标准误</b>：默认 MLE 标准误假设模型正确设定，推荐同时报告稳健标准误。④ 报告 OR 及其 95% CI，以及 AME 作为补充。"
                   },
                   {
                     "type": "text",
@@ -217,7 +249,7 @@
               "id": "quantile-reg",
               "name": "分位数回归",
               "nameEn": "Quantile Regression",
-              "desc": "<a href='https://baike.baidu.com/item/%E5%88%86%E4%BD%8D%E6%95%B0%E5%9B%9E%E5%BD%92' target='_blank'>分位数回归</a>由 <a href='https://doi.org/10.2307/1913643' target='_blank'>Koenker & Bassett</a>（1978）在 Econometrica 上提出。与 OLS 估计条件均值 E[Y|X] 不同，分位数回归估计的是条件<a href='https://baike.baidu.com/item/%E5%88%86%E4%BD%8D%E6%95%B0' target='_blank'>分位数</a> Q_τ(Y|X)，即在给定协变量下，结果变量分布第 τ 百分位处的值。通过对不同分位点 τ ∈ (0,1) 分别拟合，可以完整刻画处理效应在结果分布不同位置上的异质性——例如处理对低端用户和高端用户的影响可能截然不同。其优化目标使用 Check Loss 函数 ρ_τ(u) = u(τ - 𝟙{u<0})，对正残差赋权 τ、对负残差赋权 (1-τ)，τ=0.5 时退化为<a href='https://baike.baidu.com/item/%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%9B%9E%E5%BD%92' target='_blank'>中位数回归</a>。",
+              "desc": "分位数回归由 Koenker & Bassett（1978）在 Econometrica 上提出。与 OLS 估计条件均值 E[Y|X] 不同，分位数回归估计的是条件分位数 Q_τ(Y|X)，即在给定协变量下，结果变量分布第 τ 百分位处的值。通过对不同分位点 τ ∈ (0,1) 分别拟合，可以完整刻画处理效应在结果分布不同位置上的异质性——例如处理对低端用户和高端用户的影响可能截然不同。其优化目标使用 Check Loss 函数 ρ_τ(u) = u(τ - 𝟙{u<0})，对正残差赋权 τ、对负残差赋权 (1-τ)，τ=0.5 时退化为中位数回归。",
               "when": "适用于需要了解处理效应在结果分布不同位置（如中位数、分位数）上的差异的场景，例如分析某策略对高消费用户和低消费用户的影响是否不同。OLS 只能给出均值效应，而分位数回归能揭示更完整的分布信息——对偏态数据和异常值更稳健，不要求误差正态分布。不过，它的计算量大于 OLS，统计推断需要借助 bootstrap 等方法，且对因果解释需格外谨慎（条件分位数效应 ≠ 无条件分位数效应）。",
               "tags": [
                 {
@@ -233,7 +265,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "OLS 估计条件均值 E[Y|X]，而分位数回归估计条件分位数 Q_τ(Y|X)。对于不同的分位点 τ ∈ (0,1)，我们可以得到处理效应在结果分布不同位置的影响。"
+                    "content": "分位数回归估计条件分位数 Q_τ(Y|X)，可以揭示处理效应在结果分布不同位置上的异质性。以下是分位数回归用于因果推断的完整实施流程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：适用性判断</b> — 当关心的不仅是「平均效应」而是「效应在分布上的差异」时，应使用分位数回归。典型场景：处理对低端和高端用户的影响可能截然不同（如教育培训对差生和优生）。OLS 只能给出均值效应 E[Y|X]，分位数回归能给出任意分位数 τ ∈ (0,1) 处的效应。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择分位点</b> — 根据研究问题选择关注的分位点 τ。常见选择：0.10, 0.25, 0.50 (中位数), 0.75, 0.90。也可以在 (0,1) 范围内密集选取（如每隔 0.05），绘制处理效应随 τ 变化的曲线图，完整刻画分布效应。"
                   },
                   {
                     "type": "formula",
@@ -271,7 +311,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "Check Loss 函数对正残差赋权 τ，对负残差赋权 (1-τ)。当 τ = 0.5 时退化为中位数回归（LAD）。β₁(τ) 描述了处理对第 τ 分位数的边际效应。"
+                    "content": "<b>Step 3：估计与优化</b> — Check Loss 函数对正残差赋权 τ，对负残差赋权 (1-τ)。当 τ = 0.5 时退化为中位数回归（LAD）。β₁(τ) 描述了处理对第 τ 分位数的边际效应。求解通常使用线性规划（单纯形法）而非 OLS 的解析解。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：统计推断</b> — 分位数回归的标准误比 OLS 更复杂，常用方法：① <b>Bootstrap 标准误</b>（最推荐，简单可靠）；② <b>Powell Sandwich 估计</b>（需要估计条件密度函数）；③ <b>Rank Score 检验</b>。推荐用 Bootstrap 构建置信区间。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：可视化与解读</b> — 绘制 β₁(τ) 随 τ 变化的曲线图（Quantile Treatment Effect Plot），如果曲线是水平线说明效应在分布上是均匀的（此时 OLS 就够了），如果有明显斜率或非线性则说明存在分布异质性。注意条件分位数效应 ≠ 无条件分位数效应，解释时需谨慎。"
                   },
                   {
                     "type": "text",
@@ -303,7 +351,7 @@
               "id": "double-lasso",
               "name": "Double Lasso / 去偏 Lasso",
               "nameEn": "Double/Debiased Lasso",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/470855981' target='_blank'>Double Lasso</a>（也称去偏 Lasso）由 <a href='https://doi.org/10.1093/restud/rdt044' target='_blank'>Belloni, Chernozhukov & Hansen</a>（2014）在 Review of Economic Studies 上提出。它通过两步 Lasso 选择来解决单次 Lasso 的<a href='https://baike.baidu.com/item/%E9%81%97%E6%BC%8F%E5%8F%98%E9%87%8F%E5%81%8F%E5%B7%AE' target='_blank'>遗漏偏差</a>问题：第一步对 Y ~ X 做 Lasso，选出对结果有预测力的变量集合 S_Y；第二步对 T ~ X 做 Lasso，选出与处理变量相关的变量集合 S_T；第三步取两步的并集 S_Y ∪ S_T 作为控制变量，做普通 OLS 估计处理效应。关键创新在于第二步——它确保了那些「与处理高度相关但对结果直接预测力弱」的混杂变量不会被遗漏，从而保证处理效应估计的一致性。",
+              "desc": "Double Lasso（也称去偏 Lasso）由 Belloni, Chernozhukov & Hansen（2014）在 Review of Economic Studies 上提出。它通过两步 Lasso 选择来解决单次 Lasso 的遗漏偏差问题：第一步对 Y ~ X 做 Lasso，选出对结果有预测力的变量集合 S_Y；第二步对 T ~ X 做 Lasso，选出与处理变量相关的变量集合 S_T；第三步取两步的并集 S_Y ∪ S_T 作为控制变量，做普通 OLS 估计处理效应。关键创新在于第二步——它确保了那些「与处理高度相关但对结果直接预测力弱」的混杂变量不会被遗漏，从而保证处理效应估计的一致性。",
               "when": "适用于高维场景下需要对特定处理变量做因果推断（而非预测）的场景——既要从大量潜在混杂中筛选控制变量，又要保证处理效应估计的无偏性。普通 Lasso 直接应用于因果推断会导致后选择偏差，Double Lasso 通过两步筛选策略解决了这一问题，为高维因果推断提供了理论保证，自动化程度高无需手动选择控制变量。不过，它需要「近似稀疏性」假设（真正重要的变量不太多），计算成本高于单次 Lasso，且在极端非稀疏设定下表现可能不佳。",
               "tags": [
                 {
@@ -319,7 +367,11 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "Double Lasso 解决了单次 Lasso 选择的遗漏偏差问题。它通过两步 Lasso 分别识别与 Y 和 T 相关的变量，然后取并集做最终回归。"
+                    "content": "Double Lasso（去偏 Lasso）通过两步变量选择解决了单次 Lasso 在因果推断中的遗漏偏差问题。以下是完整的三步实施流程及其背后的逻辑。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：Lasso(Y ~ X) — 选择与结果相关的变量</b> — 对 Y 关于所有候选协变量 X 做 L1 正则化回归，正则化参数 λ₁ 通过交叉验证选择。非零系数对应的变量集合 S_Y 包含了对结果有预测力的变量。这些变量可能是混杂变量或纯预测变量。"
                   },
                   {
                     "type": "formula",
@@ -372,7 +424,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "取并集 S_Y ∪ S_T 确保了两类重要变量都被控制：与 Y 相关的（预测变量）和与 T 相关的（混杂变量）。这保证了处理效应估计的一致性和渐近正态性。"
+                    "content": "<b>Step 2：Lasso(T ~ X) — 选择与处理相关的变量</b> — 对 T 关于所有候选协变量 X 做 L1 正则化回归。非零系数对应的变量集合 S_T 包含了与处理分配相关的变量。这一步是 Double Lasso 的关键创新——确保那些「与 T 高度相关但对 Y 直接预测力弱」的混杂变量不会被遗漏。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：并集 OLS — 去偏估计</b> — 取两步的并集 S_Y ∪ S_T 作为控制变量，加上处理变量 T 做普通 OLS 回归，T 的系数即为去偏后的因果效应估计 τ̂。使用 HC1 稳健标准误进行推断。并集策略确保了两类重要变量都被控制——与 Y 相关的预测变量（提高精度）和与 T 相关的混杂变量（消除偏差）——从而保证了估计的一致性和渐近正态性。"
                   },
                   {
                     "type": "text",
@@ -413,7 +469,7 @@
               "id": "robust-se",
               "name": "稳健标准误",
               "nameEn": "Heteroskedasticity-Robust Standard Errors",
-              "desc": "异方差<a href='https://baike.baidu.com/item/%E6%A0%87%E5%87%86%E8%AF%AF' target='_blank'>稳健标准误</a>由 <a href='https://doi.org/10.2307/1912934' target='_blank'>Halbert White</a>（1980）在 Econometrica 上提出，结合了 <a href='https://doi.org/10.1214/aoms/1177703732' target='_blank'>Huber</a>（1967）的 <a href='https://zhuanlan.zhihu.com/p/46809592' target='_blank'>M-估计</a>理论，因此也称为 Huber-White 三明治估计量。当误差项存在异方差（即不同观测的误差方差不相等）时，OLS 的系数估计仍然一致，但传统标准误会有偏，导致 t 检验和置信区间不可靠。稳健标准误通过三明治形式 (X'X)⁻¹ (Σê²_i x_i x'_i) (X'X)⁻¹ 来校正，无需假设误差方差的具体形式。常用变体包括 HC0（基础版）、HC1（自由度修正）、HC2（杠杆值修正）和 HC3（小样本最优），实际应用中建议默认使用 HC1。",
+              "desc": "异方差稳健标准误由 Halbert White（1980）在 Econometrica 上提出，结合了 Huber（1967）的 M-估计理论，因此也称为 Huber-White 三明治估计量。当误差项存在异方差（即不同观测的误差方差不相等）时，OLS 的系数估计仍然一致，但传统标准误会有偏，导致 t 检验和置信区间不可靠。稳健标准误通过三明治形式 (X'X)⁻¹ (Σê²_i x_i x'_i) (X'X)⁻¹ 来校正，无需假设误差方差的具体形式。常用变体包括 HC0（基础版）、HC1（自由度修正）、HC2（杠杆值修正）和 HC3（小样本最优），实际应用中建议默认使用 HC1。",
               "when": "适用于怀疑回归模型存在异方差（不同观测的误差波动大小不一致）的场景，如收入、消费金额等天然方差随均值变化的变量。它不改变 OLS 的系数估计，而是修正标准误、t 统计量和置信区间，使统计推断在异方差下仍然有效。优势在于实现简单——只需替换标准误计算方式即可，适用范围广泛。不过，在小样本下 HC0 可能过于自由（偏小），建议使用 HC1-HC3 修正；它只修正推断不修正估计，若异方差严重仍应考虑 WLS；极端杠杆点会影响三明治估计的稳定性。",
               "tags": [
                 {
@@ -429,7 +485,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "当误差项存在异方差（Var(ε_i) = σ²_i 不恒定）时，OLS 系数仍然一致但标准误估计有偏，导致 t 检验和置信区间不可靠。Huber-White 三明治估计量提供了在异方差下仍然有效的标准误。"
+                    "content": "当误差项存在异方差时，OLS 系数仍然一致但标准误估计有偏，导致 t 检验和置信区间不可靠。以下是异方差诊断与稳健标准误的完整使用流程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：异方差诊断</b> — 先检查是否存在异方差：① <b>残差图</b>：绘制残差 vs 拟合值散点图，如果散点呈「漏斗形」说明存在异方差。② <b>White 检验</b>：对残差平方关于解释变量及其交叉项做回归，F 统计量显著说明异方差。③ <b>Breusch-Pagan 检验</b>：对残差平方关于解释变量做回归。如果任一检验显著（p < 0.05），应使用稳健标准误。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择 HC 变体</b> — HC0 是基础版本（White 1980），HC1 加入自由度修正 n/(n-k) 适合中等样本，HC2 用杠杆值 h_ii 修正适合不均匀设计，HC3 进一步加强修正在小样本下最保守。<b>实践推荐</b>：默认使用 HC1（最常用），小样本（n < 100）使用 HC3。"
                   },
                   {
                     "type": "formula",
@@ -475,7 +539,7 @@
                   },
                   {
                     "type": "text",
-                    "content": "HC0 是基础版本，HC1 加入自由度修正 n/(n-k)，HC2 用杠杆值 h_ii 修正，HC3 进一步加强修正，在小样本下表现最好。"
+                    "content": "<b>Step 3：计算与报告</b> — 在 Python/R 中只需一行代码切换标准误类型（如 statsmodels 的 cov_type='HC1'），系数估计不变，只有标准误、t 统计量、p 值和置信区间会改变。建议同时报告普通 SE 和稳健 SE，如果差异显著说明异方差问题严重。在因果推断中，尤其是 A/B 实验，默认使用 HC1 已成为工业界标准做法。"
                   },
                   {
                     "type": "text",
@@ -507,7 +571,7 @@
               "id": "cluster-se",
               "name": "聚类稳健标准误",
               "nameEn": "Cluster-Robust Standard Errors",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/37724789' target='_blank'>聚类稳健标准误</a>基于 <a href='https://doi.org/10.1162/rest.90.3.414' target='_blank'>Cameron, Gelbach & Miller</a>（2008）等人的研究系统化发展而来。当数据存在<a href='https://baike.baidu.com/item/%E7%BB%84%E5%86%85%E7%9B%B8%E5%85%B3' target='_blank'>组内相关性</a>（即同一个聚类组内的观测之间不独立，例如同一个用户的多次购买、同一家门店的多笔交易），普通标准误甚至<a href='https://baike.baidu.com/item/%E5%BC%82%E6%96%B9%E5%B7%AE' target='_blank'>异方差</a>稳健标准误都会低估真实的不确定性。聚类稳健标准误允许同一组内的误差项任意相关，只要求组间误差不相关，从而正确反映实际的统计精度。",
+              "desc": "聚类稳健标准误基于 Cameron, Gelbach & Miller（2008）等人的研究系统化发展而来。当数据存在组内相关性（即同一个聚类组内的观测之间不独立，例如同一个用户的多次购买、同一家门店的多笔交易），普通标准误甚至异方差稳健标准误都会低估真实的不确定性。聚类稳健标准误允许同一组内的误差项任意相关，只要求组间误差不相关，从而正确反映实际的统计精度。",
               "when": "适用于数据具有聚类结构、同组内观测相关（非独立）的场景，如同一学校的学生、同一公司的员工、同一用户的多次行为。当组内误差相关时，普通标准误会低估真实的不确定性导致 p 值过小，聚类稳健标准误通过允许组内任意相关来修正这一问题。它不改变系数估计只修正推断，理论基础成熟且易于实现。不过，聚类数量过少（< 30-50）时标准误可能不准确，需要正确选择聚类层级，且只修正组内相关不处理组间异方差。",
               "tags": [
                 {
@@ -523,7 +587,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "当数据存在组内相关性（如同一用户的多次观测），独立性假设被违反。此时普通标准误（甚至异方差稳健标准误）都会低估真实的标准误，导致 p 值过小、假阳性偏高。"
+                    "content": "当数据存在组内相关性（如同一用户的多次观测），独立性假设被违反，普通标准误会低估真实不确定性。以下是聚类标准误的完整使用流程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：判断是否需要聚类</b> — 如果数据具有层级/聚类结构（如：同一用户的多次行为、同一门店的多笔交易、同一班级的多个学生），则同组内观测很可能相关。判断依据：① 数据采集方式本身具有聚类性质；② 实验设计是按聚类层级（如门店、地区）随机化的；③ ICC（组内相关系数）> 0 说明组内存在相关性。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择聚类层级</b> — 聚类层级应选在处理分配的层级或以上。原则：① 如果实验按用户随机化，但关心用户的多次行为 → 按用户聚类。② 如果实验按门店随机化 → 按门店聚类。③ 如果既有门店级又有地区级聚类 → 选择更高层级（地区），因为聚类标准误对「选择过低层级」不稳健。④ 聚类组数需足够多（通常 > 30-50），否则聚类标准误本身会有偏差。"
                   },
                   {
                     "type": "formula",
@@ -550,7 +622,7 @@
                   },
                   {
                     "type": "text",
-                    "content": "其中 g = 1, …, G 为聚类组，ê_g 是第 g 组的残差向量。该估计允许同一组内的误差项任意相关，仅要求组间误差不相关。"
+                    "content": "<b>Step 3：计算与报告</b> — 聚类估计允许同一组内的误差项任意相关，仅要求组间误差不相关。在 Python 中用 sm.OLS().fit(cov_type='cluster', cov_kwds={'groups': cluster_id})。建议同时报告普通 SE、异方差稳健 SE 和聚类 SE，展示 SE 的膨胀倍数来说明聚类效应的严重程度。如果聚类数较少（< 50），考虑使用 Wild Cluster Bootstrap 修正。"
                   },
                   {
                     "type": "text",
@@ -606,7 +678,7 @@
               "id": "psm",
               "name": "倾向得分匹配",
               "nameEn": "Propensity Score Matching (PSM)",
-              "desc": "<a href='https://baike.baidu.com/item/%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86%E5%8C%B9%E9%85%8D' target='_blank'>倾向得分匹配</a>由 <a href='https://doi.org/10.1093/biomet/70.1.41' target='_blank'>Rosenbaum & Rubin</a>（1983）在 Biometrika 上提出，是<a href='https://zhuanlan.zhihu.com/p/549553989' target='_blank'>观测性因果推断</a>中最经典的方法之一。其核心思想是：在无法做随机实验时，用<a href='https://baike.baidu.com/item/%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86' target='_blank'>倾向得分</a> e(X) = P(T=1|X) 这个一维标量来总结高维协变量的信息（即把「这个人有多大可能接受处理」用一个单一的概率分数来概括），然后将倾向得分相近的处理组和对照组个体进行一一匹配，创建一个在可观测变量上平衡的伪实验样本，从而估计<a href='https://baike.baidu.com/item/%E5%B9%B3%E5%9D%87%E5%A4%84%E7%90%86%E6%95%88%E5%BA%94' target='_blank'>平均处理效应</a>。",
+              "desc": "倾向得分匹配由 Rosenbaum & Rubin（1983）在 Biometrika 上提出，是观测性因果推断中最经典的方法之一。其核心思想是：在无法做随机实验时，用倾向得分 e(X) = P(T=1|X) 这个一维标量来总结高维协变量的信息（即把「这个人有多大可能接受处理」用一个单一的概率分数来概括），然后将倾向得分相近的处理组和对照组个体进行一一匹配，创建一个在可观测变量上平衡的伪实验样本，从而估计平均处理效应。",
               "when": "适用于观测数据中处理组和对照组在协变量分布上存在明显差异、需要「找到可比样本」的场景。PSM 的核心思想是将高维协变量压缩为一维倾向得分 e(X) = P(T=1|X)，然后在得分相近的个体间配对比较。它直观易懂——本质上是「找相似对照」，可以直接审视匹配质量（平衡性检验），且降低了维数。不过，它只能基于可观测变量匹配（无法处理未观测混杂），匹配可能丢弃大量未匹配样本导致效率损失和外部效度下降，且对倾向得分模型的设定较为敏感。",
               "tags": [
                 {
@@ -622,24 +694,101 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "倾向得分匹配（PSM）的核心思想是：在观测数据中无法直接比较处理组和对照组，因为两组在协变量 X 上分布不同（选择偏差）。Rosenbaum & Rubin (1983) 提出用倾向得分 e(X) = P(T=1|X) 这个一维标量来总结高维协变量信息，在倾向得分相近的个体间进行匹配，消除可观测混杂。"
+                    "content": "倾向得分匹配（PSM）的核心思想是：在观测数据中无法直接比较处理组和对照组，因为两组在协变量 X 上分布不同（选择偏差）。Rosenbaum & Rubin (1983) 提出用倾向得分 e(X) = P(T=1|X) 这个一维标量来总结高维协变量信息，在倾向得分相近的个体间进行匹配，消除可观测混杂。以下是 PSM 完整实施 Pipeline 的各个环节。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：核心假设</b> — PSM 的有效性依赖三个关键假设：① <b>条件独立性（CIA / Unconfoundedness）</b>：给定可观测协变量 X，处理分配与潜在结果独立，即 (Y(0), Y(1)) ⊥ T | X。这意味着所有影响处理分配和结果的混杂变量都已被观测到，是 PSM 最强也最不可验证的假设。② <b>共同支撑（Common Support / Overlap）</b>：对于所有 X 值，处理和对照组都有正概率出现，即 0 < P(T=1|X) < 1。如果某些协变量组合只在处理组或对照组中出现，则无法进行有效匹配。③ <b>SUTVA（稳定单元处理值假设）</b>：个体 i 的结果只取决于自身是否接受处理，不受其他个体处理状态的影响（无溢出效应），且处理只有一个版本。"
                   },
                   {
                     "type": "formula",
-                    "label": "倾向得分",
-                    "latex": "e(X_i) = P(T_i = 1 | X_i)",
+                    "label": "条件独立性（CIA）",
+                    "latex": "(Y_i(0),\\, Y_i(1)) \\perp\\!\\!\\!\\perp T_i \\mid X_i",
+                    "vars": [
+                      {
+                        "symbol": "Y(0), Y(1)",
+                        "desc": "潜在结果：未处理 / 处理时的结果"
+                      },
+                      {
+                        "symbol": "⊥⊥ T | X",
+                        "desc": "给定 X 后，处理分配与潜在结果条件独立"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "formula",
+                    "label": "共同支撑",
+                    "latex": "0 < P(T_i = 1 \\mid X_i) < 1, \\quad \\forall\\, X_i",
+                    "vars": [
+                      {
+                        "symbol": "P(T=1|X)",
+                        "desc": "倾向得分必须严格在 (0,1) 之间，确保每个协变量组合都有可比较的对照"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择协变量</b> — 协变量的选择直接决定 PSM 的质量。应纳入<b>同时影响处理分配和结果的混杂变量</b>（confounders），以及<b>仅影响结果的预测变量</b>（可提高精度）。<b>不应纳入</b>：① 结果变量本身或其衍生变量（会引入后处理偏差）；② 处理的中介变量（mediators，会阻断因果路径）；③ 仅受处理影响的变量（colliders，会引入碰撞偏差）。在有 DAG（因果有向无环图）的指导下选择变量是最佳实践。变量数量不宜过多，避免维数灾难导致匹配困难。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：估计倾向得分</b> — 最常用的方法是 <b>Logistic 回归</b>，建模 P(T=1|X) 并输出概率。也可使用 Probit 回归（正态CDF链接函数，结果通常与Logistic相似）。近年来机器学习方法（GBM、随机森林、LASSO）也被用于估计倾向得分，优点是能自动捕获非线性和交互效应，缺点是可能过拟合导致过于精确的得分（使匹配变困难）。实践中推荐：先用 Logistic 回归作为基线，检查平衡后再决定是否需要更灵活的模型。"
+                  },
+                  {
+                    "type": "formula",
+                    "label": "倾向得分（Logistic 回归）",
+                    "latex": "e(X_i) = P(T_i = 1 \\mid X_i) = \\frac{1}{1 + \\exp(-X_i^\\top \\beta)}",
                     "vars": [
                       {
                         "symbol": "e(X_i)",
                         "desc": "个体 i 的倾向得分，即给定协变量后接受处理的概率"
                       },
                       {
-                        "symbol": "T_i",
-                        "desc": "处理变量（1=处理组，0=对照组）"
+                        "symbol": "β",
+                        "desc": "Logistic 回归的系数向量"
                       },
                       {
                         "symbol": "X_i",
-                        "desc": "可观测的协变量向量"
+                        "desc": "可观测的协变量向量（含截距项）"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：检查共同支撑域</b> — 在匹配前，必须检查处理组和对照组的倾向得分分布是否有足够的重叠。方法：绘制两组的 PS 分布直方图或密度图。如果重叠区域很小，说明两组在协变量空间中差异太大，PSM 的外推性很差。常见的处理方式：① 删除非重叠区域的样本（trimming，如去掉 PS < 0.05 或 > 0.95 的观测）；② 使用 Crump et al. (2009) 的最优截断规则；③ 报告仅限于重叠区域的 ATT/ATE。丢弃样本后需注意：估计的因果效应仅适用于被保留的子群体，外部效度可能下降。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：选择匹配方法</b> — 不同匹配方法各有优劣，选择取决于数据特征和研究目标。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "① <b>最近邻匹配（Nearest Neighbor, NN）</b>：对每个处理组个体，找 PS 最接近的 k 个对照组个体。1:1 匹配最常用，1:k 匹配可减少方差但增加偏差。可选有放回（with replacement，同一对照可被多次匹配，减少偏差但需调整标准误）或无放回（without replacement，每个对照最多匹配一次）。② <b>卡尺匹配（Caliper Matching）</b>：在最近邻基础上加上距离限制，当最近邻距离超过卡尺（caliper）时不匹配。常用卡尺 = 0.2 × SD(logit PS)（Austin, 2011）。可有效避免「差匹配」，但会丢弃更多处理组样本。③ <b>核匹配（Kernel Matching）</b>：对每个处理组个体，用所有对照组个体的加权平均构造反事实，权重由核函数（如 Epanechnikov 核、高斯核）决定，PS 越近权重越大。优点是利用了全部对照样本，效率更高。④ <b>马氏距离匹配（Mahalanobis Distance）</b>：直接在协变量空间中用马氏距离匹配，不经过 PS。适合协变量维度不太高的场景。⑤ <b>分层匹配（Stratification / Subclassification）</b>：将 PS 分成若干层（通常 5-10 层），在每层内比较处理组和对照组的结果差异，最后加权平均。Cochran (1968) 指出 5 个分层可消除约 90% 的 PS 偏差。⑥ <b>精确匹配（Coarsened Exact Matching, CEM）</b>：先将连续变量粗化为类别，再在类别组合内做精确匹配，最后在匹配子集上估计效应。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：执行匹配并检验平衡性</b> — 匹配后必须检查协变量在匹配后的处理组和对照组之间是否达到平衡。这是 PSM 最关键的诊断步骤，也是 PSM 相比其他方法的独特优势——可以直接审视「匹配质量」。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "平衡检验指标包括：① <b>标准化均值差（Standardized Mean Difference, SMD）</b>：SMD = |X̄_T - X̄_C| / √((S²_T + S²_C)/2)，匹配后 SMD < 0.1 通常被认为是可接受的（Rubin, 2001）。② <b>方差比（Variance Ratio）</b>：匹配后处理组与对照组的方差之比应接近 1（通常 0.5-2.0 可接受）。③ <b>KS 检验</b>：比较匹配后两组协变量的整体分布是否一致。④ <b>Love Plot</b>：用点图同时展示所有协变量在匹配前后的 SMD 变化，是最直观的可视化工具。⑤ 注意不要依赖 p 值来判断平衡——匹配后样本量变小，即使不平衡也可能不显著。"
+                  },
+                  {
+                    "type": "formula",
+                    "label": "标准化均值差（SMD）",
+                    "latex": "SMD = \\frac{|\\bar{X}_T - \\bar{X}_C|}{\\sqrt{(S_T^2 + S_C^2) \\,/\\, 2}}",
+                    "vars": [
+                      {
+                        "symbol": "X̄_T, X̄_C",
+                        "desc": "处理组和对照组的协变量均值"
+                      },
+                      {
+                        "symbol": "S²_T, S²_C",
+                        "desc": "处理组和对照组的协变量方差"
+                      },
+                      {
+                        "symbol": "SMD < 0.1",
+                        "desc": "通常认为匹配后 SMD < 0.1 表示平衡良好"
                       }
                     ]
                   },
@@ -650,7 +799,7 @@
                     "vars": [
                       {
                         "symbol": "τ̂_ATT",
-                        "desc": "处理组上的平均处理效应"
+                        "desc": "处理组上的平均处理效应（最常见的 PSM 估计目标）"
                       },
                       {
                         "symbol": "N₁",
@@ -668,11 +817,42 @@
                   },
                   {
                     "type": "text",
-                    "content": "匹配方式包括：最近邻匹配（Nearest Neighbor）、卡尺匹配（Caliper）、核匹配（Kernel）等。匹配后需通过协变量平衡检验（如标准化均值差 SMD < 0.1）验证匹配质量。"
+                    "content": "<b>Step 7：估计处理效应</b> — PSM 最常估计的是 <b>ATT（Average Treatment Effect on the Treated）</b>，即处理组上的平均处理效应。也可以估计 ATE（对整个群体的平均效应，需同时为对照组匹配处理组个体）和 ATC（对照组上的平均效应）。选择 ATT vs ATE 取决于研究问题：政策已实施时关注 ATT（「政策对参与者的效果」），政策待推广时关注 ATE（「如果所有人都参与的效果」）。"
                   },
                   {
                     "type": "text",
-                    "content": "💡 举例：某电商想评估「参加促销活动」（T=1）对用户后续消费金额的影响。参加促销的用户本身就更活跃、消费更高（选择偏差）。用 Logistic 回归估计 e(X) = P(T=1|age, gender, prior_spend, ...)，然后对每个参加促销的用户匹配一个倾向得分最接近的未参加用户。匹配后 SMD 全部 < 0.05（匹配前最大 0.42），匹配后 ATT = ¥35（而未匹配的简单差异为 ¥120），选择偏差被大幅消除。"
+                    "content": "<b>Step 8：计算标准误与置信区间</b> — PSM 的标准误计算比普通回归复杂，因为匹配过程本身引入了额外的不确定性。常用方法：① <b>Abadie-Imbens 标准误</b>（Abadie & Imbens, 2006）：专门针对匹配估计量设计，考虑了匹配的不确定性，是理论上最优的选择。② <b>Bootstrap 标准误</b>：通过重复抽样估计标准误，简单通用，但在有放回匹配时需注意 bootstrap 的有效性条件（Abadie & Imbens, 2008 指出朴素 bootstrap 在 NN 匹配时可能不一致）。③ <b>聚类标准误</b>：当个体存在组内相关时（如同一地区的用户），需使用聚类标准误。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 9：敏感性分析</b> — 由于 CIA 假设不可验证，需要通过敏感性分析评估结论对未观测混杂的稳健性。<b>Rosenbaum Bounds</b> 的思想是：假设存在一个未观测的混杂因子 U，使得两个协变量相同的个体接受处理的概率之比最多偏离 Γ 倍。然后检验：在不同 Γ 值下，因果效应的显著性是否仍然成立。如果 Γ = 2 时结论仍显著，说明即使存在使处理概率翻倍的未观测混杂，结论仍然稳健。Γ 值越大，结论越稳健。通常 Γ > 1.5 被认为是可接受的稳健性。"
+                  },
+                  {
+                    "type": "formula",
+                    "label": "Rosenbaum Bounds",
+                    "latex": "\\frac{1}{\\Gamma} \\leq \\frac{P(T_i=1 \\mid X_i, U_i) \\,/\\, P(T_i=0 \\mid X_i, U_i)}{P(T_j=1 \\mid X_j, U_j) \\,/\\, P(T_j=0 \\mid X_j, U_j)} \\leq \\Gamma",
+                    "vars": [
+                      {
+                        "symbol": "Γ",
+                        "desc": "敏感性参数：衡量未观测混杂最大能让处理赔率（odds）偏离的倍数"
+                      },
+                      {
+                        "symbol": "Γ = 1",
+                        "desc": "无隐藏偏差（即 CIA 完全成立）"
+                      },
+                      {
+                        "symbol": "Γ > 1",
+                        "desc": "存在隐藏偏差，Γ 越大允许的偏差越大"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 10：常见陷阱与最佳实践</b> — ① <b>不要用结果变量估计 PS</b>：将 Y 纳入 PS 模型会引入后处理偏差，严重扭曲因果估计。② <b>不要忽略平衡检验</b>：匹配后不检查平衡就直接估计效应是 PSM 最常见的错误。③ <b>不要过度依赖 p 值</b>判断平衡：应使用 SMD 等标准化指标。④ <b>注意匹配后样本损失</b>：如果大量处理组个体找不到好的匹配，可能需要重新考虑模型设定或换用 IPW 等全样本方法。⑤ <b>报告匹配前后对比</b>：论文中应同时报告匹配前后的平衡情况（Love Plot）、匹配率、共同支撑域。⑥ <b>迭代改进</b>：PS 估计 → 匹配 → 平衡检验 → 不满意则重新选择变量或匹配方法，这是一个迭代过程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "💡 举例：某电商想评估「参加促销活动」（T=1）对用户后续消费金额的影响。参加促销的用户本身就更活跃、消费更高（选择偏差）。完整 Pipeline：① 选择协变量 X = {age, gender, income, prior_spend, days_active, city_tier}（排除 post_spend 等结果变量）。② 用 Logistic 回归估计 e(X)，AUC = 0.78。③ 检查共同支撑域：PS 分布重叠良好，仅 3% 的处理组样本 PS > 0.95 被截断。④ 采用 0.2σ 卡尺的 1:1 最近邻匹配（无放回），匹配率 94%。⑤ 平衡检验：匹配后所有 SMD < 0.05（匹配前最大 0.42），Love Plot 显示平衡显著改善。⑥ ATT = ¥35（SE = ¥8.2），95% CI = [¥19, ¥51]（未匹配简单差异为 ¥120）。⑦ Abadie-Imbens 标准误。⑧ Rosenbaum Bounds：Γ = 1.8 时结果仍显著（p < 0.05），结论对中等程度的未观测混杂稳健。"
                   }
                 ]
               },
@@ -688,19 +868,49 @@
                   "url": "https://doi.org/10.1111/j.1467-6419.2007.00527.x"
                 },
                 {
+                  "type": "paper",
+                  "text": "Austin (2011). An Introduction to Propensity Score Methods for Reducing Confounding. Multivariate Behavioral Research",
+                  "url": "https://doi.org/10.1080/00273171.2011.568786"
+                },
+                {
+                  "type": "paper",
+                  "text": "Abadie & Imbens (2006). Large Sample Properties of Matching Estimators for ATT. Econometrica",
+                  "url": "https://doi.org/10.1111/j.1468-0262.2006.00655.x"
+                },
+                {
+                  "type": "paper",
+                  "text": "Rosenbaum (2002). Observational Studies (Sensitivity Analysis). Springer",
+                  "url": "https://doi.org/10.1007/978-1-4757-3692-2"
+                },
+                {
                   "type": "blog",
                   "text": "Causal Inference for The Brave and True — Ch.12: Propensity Score",
                   "url": "https://matheusfacure.github.io/python-causality-handbook/12-Propensity-Score.html"
                 }
               ],
-              "python": "from sklearn.linear_model import LogisticRegression\nfrom sklearn.neighbors import NearestNeighbors\nimport numpy as np\nimport pandas as pd\n\n# Step 1: 估计倾向得分\ncovariates = ['age', 'gender', 'income', 'pre_spend', 'days_active']\nps_model = LogisticRegression(max_iter=1000)\nps_model.fit(df[covariates], df['treatment'])\ndf['ps'] = ps_model.predict_proba(df[covariates])[:, 1]\n\n# Step 2: 最近邻匹配（1:1）\ntreated = df[df['treatment'] == 1]\ncontrol = df[df['treatment'] == 0]\n\nnn = NearestNeighbors(n_neighbors=1, metric='euclidean')\nnn.fit(control[['ps']])\ndist, idx = nn.kneighbors(treated[['ps']])\n\nmatched_control = control.iloc[idx.flatten()]\n\n# Step 3: 计算 ATT\natt = treated['outcome'].values - matched_control['outcome'].values\nprint(f'ATT = {att.mean():.4f}')\nprint(f'SE  = {att.std() / np.sqrt(len(att)):.4f}')\n\n# Step 4: 平衡检验（标准化均值差）\nfor col in covariates:\n    smd_before = (treated[col].mean() - control[col].mean()) / control[col].std()\n    smd_after = (treated[col].mean() - matched_control[col].mean()) / control[col].std()\n    print(f'{col}: SMD before={smd_before:.3f}, after={smd_after:.3f}')",
+              "pros": [
+                "直观易懂：本质上是「为每个处理个体找一个相似的对照」，非技术人员也容易理解",
+                "可以直接审视匹配质量（平衡检验、Love Plot），透明度高于黑箱模型",
+                "将高维协变量压缩为一维倾向得分，有效缓解维数灾难",
+                "匹配后可像分析随机实验一样用简单的均值差估计因果效应",
+                "不需要对结果变量建模（model-free for outcome），减少对结果模型的依赖"
+              ],
+              "cons": [
+                "只能控制可观测的混杂变量，无法处理未观测混杂（核心限制）",
+                "匹配可能丢弃大量未匹配样本，导致效率损失和外部效度下降",
+                "对倾向得分模型的设定较为敏感：模型错误 → 匹配偏差",
+                "在协变量分布重叠较少时（共同支撑域小），匹配质量差且损失大量样本",
+                "标准误的计算较复杂，朴素 Bootstrap 在某些匹配方式下不一致（Abadie & Imbens, 2008）",
+                "不适合连续型处理变量（continuous treatment），仅适用于二元处理"
+              ],
+              "python": "from sklearn.linear_model import LogisticRegression\nfrom sklearn.neighbors import NearestNeighbors\nfrom sklearn.metrics import roc_auc_score\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# ===== Step 1: 选择协变量（仅混杂变量，不含结果变量） =====\ncovariates = ['age', 'gender', 'income', 'pre_spend', 'days_active', 'city_tier']\nX = df[covariates]\nT = df['treatment']\nY = df['outcome']\n\n# ===== Step 2: 估计倾向得分（Logistic 回归） =====\nps_model = LogisticRegression(max_iter=1000)\nps_model.fit(X, T)\ndf['ps'] = ps_model.predict_proba(X)[:, 1]\nprint(f'PS 模型 AUC = {roc_auc_score(T, df[\"ps\"]):.3f}')\nprint(f'PS 分布: mean={df[\"ps\"].mean():.3f}, std={df[\"ps\"].std():.3f}')\n\n# ===== Step 3: 检查共同支撑域 =====\ntreated_ps = df.loc[T == 1, 'ps']\ncontrol_ps = df.loc[T == 0, 'ps']\ncommon_min = max(treated_ps.min(), control_ps.min())\ncommon_max = min(treated_ps.max(), control_ps.max())\nprint(f'共同支撑域: [{common_min:.3f}, {common_max:.3f}]')\n# 截断非重叠区域\ndf_trimmed = df[(df['ps'] >= common_min) & (df['ps'] <= common_max)].copy()\nprint(f'截断后保留 {len(df_trimmed)}/{len(df)} ({100*len(df_trimmed)/len(df):.1f}%) 样本')\n# 可视化 PS 分布\nfig, ax = plt.subplots(1, 1, figsize=(8, 4))\nax.hist(treated_ps, bins=50, alpha=0.5, label='处理组', density=True)\nax.hist(control_ps, bins=50, alpha=0.5, label='对照组', density=True)\nax.axvline(common_min, color='r', ls='--', label=f'支撑域下界 {common_min:.2f}')\nax.axvline(common_max, color='r', ls='--', label=f'支撑域上界 {common_max:.2f}')\nax.set_xlabel('倾向得分'); ax.set_ylabel('密度'); ax.legend()\nplt.title('共同支撑域检查'); plt.tight_layout(); plt.show()\n\n# ===== Step 4: 卡尺 + 最近邻匹配（1:1 无放回） =====\ntreated = df_trimmed[df_trimmed['treatment'] == 1].copy()\ncontrol = df_trimmed[df_trimmed['treatment'] == 0].copy()\n# 卡尺 = 0.2 * SD(logit PS)  (Austin 2011)\nfrom scipy.special import logit\nlogit_ps = logit(df_trimmed['ps'].clip(0.001, 0.999))\ncaliper = 0.2 * logit_ps.std()\nprint(f'卡尺(Caliper) = {caliper:.4f}')\n\nnn = NearestNeighbors(n_neighbors=1, metric='euclidean')\nnn.fit(control[['ps']])\ndist, idx = nn.kneighbors(treated[['ps']])\n# 应用卡尺：过滤距离超过卡尺的匹配\nmask = dist.flatten() <= caliper\nprint(f'卡尺匹配率: {mask.sum()}/{len(treated)} ({100*mask.mean():.1f}%)')\ntreated_matched = treated[mask].copy()\nmatched_control = control.iloc[idx.flatten()[mask]].copy()\n\n# ===== Step 5: 平衡检验（SMD + Love Plot） =====\ndef calc_smd(t, c, col):\n    return abs(t[col].mean() - c[col].mean()) / np.sqrt((t[col].var() + c[col].var()) / 2)\n\nprint('\\n=== 平衡检验 (SMD) ===')\nsmd_before_list, smd_after_list = [], []\nfor col in covariates:\n    smd_b = calc_smd(treated, control, col)\n    smd_a = calc_smd(treated_matched, matched_control, col)\n    smd_before_list.append(smd_b)\n    smd_after_list.append(smd_a)\n    status = '✅' if smd_a < 0.1 else '⚠️'\n    print(f'  {col}: 匹配前={smd_b:.3f}, 匹配后={smd_a:.3f} {status}')\n\n# Love Plot\nfig, ax = plt.subplots(figsize=(6, max(4, len(covariates)*0.5)))\ny_pos = range(len(covariates))\nax.scatter(smd_before_list, y_pos, marker='o', color='#ef4444', label='匹配前', zorder=3)\nax.scatter(smd_after_list, y_pos, marker='s', color='#22c55e', label='匹配后', zorder=3)\nax.axvline(0.1, color='gray', ls='--', alpha=0.5, label='SMD=0.1 阈值')\nax.set_yticks(list(y_pos)); ax.set_yticklabels(covariates)\nax.set_xlabel('标准化均值差 (SMD)'); ax.legend(); ax.set_title('Love Plot')\nplt.tight_layout(); plt.show()\n\n# ===== Step 6: 估计 ATT =====\natt_pairs = treated_matched['outcome'].values - matched_control['outcome'].values\natt = att_pairs.mean()\nprint(f'\\nATT = {att:.4f}')\n\n# ===== Step 7: 标准误与置信区间（Bootstrap） =====\nnp.random.seed(42)\nn_boot = 1000\nboot_atts = []\nfor _ in range(n_boot):\n    boot_idx = np.random.choice(len(att_pairs), size=len(att_pairs), replace=True)\n    boot_atts.append(att_pairs[boot_idx].mean())\nse_boot = np.std(boot_atts)\nci_lower = np.percentile(boot_atts, 2.5)\nci_upper = np.percentile(boot_atts, 97.5)\nprint(f'SE (Bootstrap) = {se_boot:.4f}')\nprint(f'95% CI: [{ci_lower:.4f}, {ci_upper:.4f}]')\n\n# ===== Step 8: 敏感性分析（简化版 Rosenbaum Bounds） =====\nfrom scipy.stats import norm\ndef rosenbaum_bounds(att_pairs, gamma_values=[1.0, 1.25, 1.5, 1.75, 2.0]):\n    n = len(att_pairs)\n    positive = (att_pairs > 0).sum()\n    print('\\n=== Rosenbaum Bounds 敏感性分析 ===')\n    for gamma in gamma_values:\n        p_plus = gamma / (1 + gamma)\n        p_minus = 1 / (1 + gamma)\n        # 上界 p-value\n        z_upper = (positive - n * p_plus) / np.sqrt(n * p_plus * (1-p_plus))\n        p_upper = 1 - norm.cdf(z_upper)\n        sig = '✅ 显著' if p_upper < 0.05 else '❌ 不显著'\n        print(f'  Γ={gamma:.2f}: p-value上界={p_upper:.4f} {sig}')\nrosenbaum_bounds(att_pairs)\n\nprint('\\n=== PSM 完整 Pipeline 结束 ===')",
               "vs": "如果不想因为匹配而丢弃未匹配的样本，可以用逆概率加权（IPW）来利用全部数据；如果对单一模型的设定没有信心，双重稳健估计（AIPW）能提供额外保障——只要结果模型和倾向得分模型中有一个是对的，估计就是一致的；如果有政策前后的面板数据，DID 可能是更好的选择。"
             },
             {
               "id": "ipw",
               "name": "逆概率加权",
               "nameEn": "Inverse Probability Weighting (IPW)",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/145054363' target='_blank'>逆概率加权</a>（IPW）的思想源自 <a href='https://doi.org/10.1080/01621459.1952.10483446' target='_blank'>Horvitz & Thompson</a>（1952）在调查抽样中提出的 HT 估计量，后由 <a href='https://doi.org/10.1093/biomet/70.1.41' target='_blank'>Rosenbaum & Rubin</a>（1983）引入因果推断领域，<a href='https://doi.org/10.1002/sim.1903' target='_blank'>Lunceford & Davidian</a>（2004）进一步系统化。其核心思想是：对被「过度选择」进入处理组的个体降权、对「不容易」进入处理组的个体升权，即用<a href='https://baike.baidu.com/item/%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86' target='_blank'>倾向得分</a> e(X) = P(T=1|X) 的倒数作为权重。加权后的样本在协变量上达到平衡，相当于创造了一个伪随机化的总体，从而在不丢弃任何样本的情况下估计因果效应。",
+              "desc": "逆概率加权（IPW）的思想源自 Horvitz & Thompson（1952）在调查抽样中提出的 HT 估计量，后由 Rosenbaum & Rubin（1983）引入因果推断领域，Lunceford & Davidian（2004）进一步系统化。其核心思想是：对被「过度选择」进入处理组的个体降权、对「不容易」进入处理组的个体升权，即用倾向得分 e(X) = P(T=1|X) 的倒数作为权重。加权后的样本在协变量上达到平衡，相当于创造了一个伪随机化的总体，从而在不丢弃任何样本的情况下估计因果效应。",
               "when": "适用于需要利用全部样本（而非仅匹配子集）来估计因果效应、且有合理的倾向得分模型的场景。IPW 通过对每个观测赋予与其「被选入」概率成反比的权重，构造伪总体使处理与协变量独立。它利用全部样本不丢弃数据，估计 ATE 和 ATT 都很方便，且理论性质清晰。不过，极端倾向得分（接近 0 或 1）会产生极大权重导致估计不稳定，对倾向得分模型的设定较为敏感，且在有限样本中方差可能很大——实践中通常需要截断权重或使用稳定化权重来缓解。",
               "tags": [
                 {
@@ -716,7 +926,15 @@
                 "sections": [
                   {
                     "type": "text",
-                    "content": "IPW 的思想源于调查抽样中的 Horvitz-Thompson 估计量：对被「过度选择」进入处理组的个体降权，对「不容易」进入处理组的个体升权，从而创建一个在协变量上平衡的伪总体。"
+                    "content": "逆概率加权（IPW）的核心思想是：在观测数据中，处理组和对照组的协变量分布不同（选择偏差），直接比较会产生偏误。IPW 通过对每个观测赋予与其「被选入」概率成反比的权重，构造一个协变量平衡的伪随机化总体，从而在不丢弃任何样本的情况下估计因果效应。以下是 IPW 完整实施 Pipeline 的各个环节。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：核心假设</b> — IPW 与 PSM 共享相同的识别假设：① <b>条件独立性（CIA / Unconfoundedness）</b>：给定可观测协变量 X，处理分配与潜在结果独立，即 (Y(0), Y(1)) ⊥ T | X。所有影响处理分配和结果的混杂变量都必须被观测到。② <b>共同支撑（Positivity）</b>：对于所有 X 值，处理和对照组都有正概率出现，即 0 < P(T=1|X) < 1。这一假设在 IPW 中尤为关键——如果倾向得分接近 0 或 1，权重会变得极大，导致估计不稳定。③ <b>SUTVA</b>：个体 i 的结果不受其他个体处理状态影响，且处理只有一个版本。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择协变量与估计倾向得分</b> — 与 PSM 类似，应纳入同时影响处理分配和结果的混杂变量，不应纳入结果变量本身、中介变量或碰撞变量。估计倾向得分 e(X) = P(T=1|X) 最常用 Logistic 回归，也可使用 GBM、随机森林等机器学习方法。IPW 对倾向得分模型的准确性要求比 PSM 更高，因为极端得分会直接转化为极端权重。建议检查 PS 模型的 AUC（不宜过高，> 0.9 可能意味着共同支撑域过小），并绘制两组 PS 分布直方图确认重叠充分。"
                   },
                   {
                     "type": "formula",
@@ -738,6 +956,33 @@
                     ]
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 3：计算 IPW 权重</b> — 根据估计目标（ATE 或 ATT）计算不同的权重。<b>ATE 权重</b>：处理组权重 = 1/e(X)，对照组权重 = 1/(1−e(X))。<b>ATT 权重</b>：处理组权重 = 1，对照组权重 = e(X)/(1−e(X))。计算后应检查权重分布：如果最大权重远大于均值（如 > 20 倍），说明存在极端权重，需要在下一步处理。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：处理极端权重</b> — 极端权重是 IPW 最大的实际挑战。当倾向得分接近 0 或 1 时，权重会非常大，导致少数观测主导整个估计，方差急剧增大。常见的处理方式：① <b>截断（Trimming）</b>：将倾向得分限制在 [ε, 1−ε] 范围内（如 ε = 0.05），再计算权重。② <b>稳定化权重（Stabilized Weights）</b>：用 P(T) / e(X) 替代 1/e(X)，即乘以处理的边际概率，使权重均值接近 1，方差更小。③ <b>Winsorize</b>：将超过某百分位（如 99%）的权重截断到该百分位值。实践中推荐同时使用稳定化权重 + 截断。"
+                  },
+                  {
+                    "type": "formula",
+                    "label": "稳定化 IPW 权重",
+                    "latex": "w_i^{\\text{stab}} = T_i \\cdot \\frac{P(T=1)}{e(X_i)} + (1-T_i) \\cdot \\frac{P(T=0)}{1 - e(X_i)}",
+                    "vars": [
+                      {
+                        "symbol": "P(T=1), P(T=0)",
+                        "desc": "处理的边际概率（无条件概率），使稳定化权重均值接近 1"
+                      },
+                      {
+                        "symbol": "w_i^{stab}",
+                        "desc": "稳定化权重，方差比原始 IPW 权重更小"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：估计因果效应</b> — IPW 可以估计多种因果效应。<b>Horvitz-Thompson 估计量</b>（原始 IPW）直接用加权均值之差，无偏但方差较大。<b>Hajek 估计量</b>（归一化 IPW）将权重归一化使其和为 1，引入轻微偏差但方差显著减小，在有限样本中通常推荐使用。也可以将 IPW 权重嵌入加权最小二乘回归（WLS）中，同时控制协变量以获得「双重调整」的效果，进一步提高效率。"
+                  },
+                  {
                     "type": "formula",
                     "label": "归一化 IPW（Hajek 估计量）",
                     "latex": "\\hat{\\tau}_{Hajek} = \\frac{\\sum_i T_i Y_i / e(X_i)}{\\sum_i T_i / e(X_i)} - \\frac{\\sum_i (1-T_i) Y_i / (1-e(X_i))}{\\sum_i (1-T_i) / (1-e(X_i))}",
@@ -750,11 +995,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "归一化 IPW（Hajek 估计量）将权重归一化使其和为 1，比原始 IPW 更稳定、方差更小，但引入了轻微偏差。在有限样本中通常推荐使用 Hajek 估计量。"
+                    "content": "<b>Step 6：检验协变量平衡</b> — 与 PSM 类似，加权后需要检查协变量是否在处理组和对照组之间达到平衡。方法：计算加权后的标准化均值差（Weighted SMD），标准是 SMD < 0.1。也可使用加权后的 KS 检验或绘制 Love Plot 对比加权前后的平衡变化。如果平衡不佳，需回到 Step 2 重新调整倾向得分模型（加入交互项、非线性项等）。此外，还需检查加权后的有效样本量（ESS = (Σw_i)² / Σw_i²），如果 ESS 远小于实际样本量，说明权重过于集中，估计精度下降。"
                   },
                   {
                     "type": "text",
-                    "content": "💡 举例：某在线教育平台评估「购买课程包」（T=1）对学习完成率的影响。直接比较发现购买者完成率 72%、未购买者 45%，差异 27pp。但购买者本身学习动机更强。用 IPW 加权后：ATE = 12pp。Hajek 估计量 = 11.5pp。未加权简单差异高估了约 2.3 倍。权重截断（clip 到 [0.05, 0.95]）使 SE 从 3.2pp 降到 2.1pp。"
+                    "content": "<b>Step 7：计算标准误与推断</b> — IPW 的标准误需要考虑倾向得分估计的不确定性。常用方法：① <b>Robust Sandwich 标准误</b>：最常用，将倾向得分视为已知，用 Huber-White 稳健标准误。② <b>Bootstrap 标准误</b>：在每次重抽样中重新估计倾向得分和权重，自动考虑了 PS 估计的不确定性。③ <b>M-估计 / GMM 标准误</b>：联合估计 PS 模型和因果效应，理论上最准确但实现更复杂。实践中推荐 Bootstrap（简单可靠）或 Sandwich（计算高效）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "💡 举例：某在线教育平台评估「购买课程包」（T=1）对学习完成率的影响。直接比较发现购买者完成率 72%、未购买者 45%，差异 27pp。但购买者本身学习动机更强。完整 Pipeline：① 选择协变量 X = {age, gender, income, pre_metric}，用 Logistic 回归估计倾向得分。② 计算 ATE 权重并截断到 [0.05, 0.95]。③ 检查 ESS：处理组 ESS = 892（原 1000），对照组 ESS = 1856（原 2000），权重分布合理。④ 加权后所有协变量 SMD < 0.05。⑤ Hajek 估计量 ATE = 11.5pp（SE = 2.1pp），95% CI = [7.4, 15.6]pp。未加权简单差异高估了约 2.3 倍。"
                   }
                 ]
               },
@@ -782,7 +1031,7 @@
               "id": "aipw",
               "name": "双重稳健估计",
               "nameEn": "Augmented IPW / Doubly Robust (DR)",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/545121006' target='_blank'>双重稳健估计量</a>最早由 <a href='https://doi.org/10.1080/01621459.1994.10476818' target='_blank'>Robins, Rotnitzky & Zhao</a>（1994）提出，后由 <a href='https://doi.org/10.1111/j.1541-0420.2005.00377.x' target='_blank'>Bang & Robins</a>（2005）推广为 AIPW 形式。它同时使用两个模型：一个结果模型 μ(X) = E[Y|T,X]（预测结果的回归模型）和一个<a href='https://baike.baidu.com/item/%E5%80%BE%E5%90%91%E5%BE%97%E5%88%86' target='_blank'>倾向得分</a>模型 e(X) = P(T=1|X)（预测接受处理概率的模型）。它的核心优势是「双重稳健」——只要这两个模型中有一个设定正确，最终的因果效应估计就是<a href='https://baike.baidu.com/item/%E4%B8%80%E8%87%B4%E6%80%A7' target='_blank'>一致</a>的，大大降低了模型设定错误的风险。",
+              "desc": "双重稳健估计量最早由 Robins, Rotnitzky & Zhao（1994）提出，后由 Bang & Robins（2005）推广为 AIPW 形式。它同时使用两个模型：一个结果模型 μ(X) = E[Y|T,X]（预测结果的回归模型）和一个倾向得分模型 e(X) = P(T=1|X)（预测接受处理概率的模型）。它的核心优势是「双重稳健」——只要这两个模型中有一个设定正确，最终的因果效应估计就是一致的，大大降低了模型设定错误的风险。",
               "when": "适用于对单一模型设定没有十足把握、希望获得更稳健的因果效应估计的场景。如果只用回归调整或只用 IPW，一旦模型设定有误就会导致结果偏差，AIPW 通过同时拟合结果模型和倾向得分模型提供「两道保险」——只需其中一个正确即可获得一致估计，两个都正确时还能达到半参数效率下界（最小方差），结合交叉拟合可使用 ML 模型（DML 框架）。不过，它实现复杂度较高，极端倾向得分仍会影响稳定性，且依赖条件独立性假设（CIA）。",
               "tags": [
                 {
@@ -799,6 +1048,22 @@
                   {
                     "type": "text",
                     "content": "双重稳健（Doubly Robust, DR）估计量结合了两个模型：① 结果模型 μ(X) = E[Y|T,X]（回归调整）；② 倾向得分模型 e(X) = P(T=1|X)（IPW）。只要两个模型中有一个正确设定（correctly specified），DR 估计量就是一致的——这就是「双重稳健」的含义。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：核心假设确认</b>　与 PSM/IPW 相同，AIPW 依赖条件独立性假设（CIA）：(Y(0),Y(1)) ⊥ T | X，以及正值性假设（Positivity）：0 < P(T=1|X) < 1。此外 AIPW 的「双重稳健」性质要求：结果模型 μ(X) 和倾向得分模型 e(X) 中至少有一个正确设定。如果两个都正确设定，AIPW 还能达到半参数效率下界（Semiparametric Efficiency Bound），即在所有正则估计量中方差最小。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：拟合倾向得分模型 e(X)</b>　用 Logistic 回归或其他分类模型估计 e(X) = P(T=1|X)。建议使用交叉拟合（Cross-fitting）：将数据分为 K 折，每折的倾向得分在其余 K-1 折上训练、在该折上预测，避免过拟合。对极端倾向得分进行截断（如 clip 到 [0.05, 0.95]），防止 IPW 权重爆炸。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：拟合结果模型 μ₁(X) 和 μ₀(X)</b>　分别在处理组和对照组上拟合结果模型：μ₁(X) = E[Y|T=1,X] 和 μ₀(X) = E[Y|T=0,X]。可以使用任意 ML 模型（Linear Regression、Random Forest、XGBoost 等）。同样建议使用交叉拟合，每折的结果模型在其余折上训练。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：计算 AIPW 估计量</b>　将两个模型的预测值代入 AIPW 公式：对每个个体计算「回归调整 + IPW 对残差的修正」，然后取平均得到 ATE 估计。"
                   },
                   {
                     "type": "formula",
@@ -825,7 +1090,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "直觉上，AIPW = 回归调整 + IPW 对回归残差的修正。如果结果模型完美，则残差 Y - μ̂(X) = 0，AIPW 退化为回归调整；如果倾向得分完美，IPW 部分提供了一致估计。"
+                    "content": "<b>Step 5：理解双重稳健性</b>　直觉上，AIPW = 回归调整 + IPW 对回归残差的修正。如果结果模型完美，则残差 Y - μ̂(X) ≈ 0，AIPW 退化为纯回归调整；如果倾向得分完美，IPW 部分提供了一致估计。两者互为「保险」，这就是「双重稳健」的含义——比单独使用回归调整或 IPW 更可靠。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：推断与诊断</b>　利用 AIPW 的影响函数（Influence Function）计算标准误：SE = std(φᵢ)/√n，其中 φᵢ 是每个个体的 AIPW 得分。构建 95% 置信区间 τ̂ ± 1.96·SE。诊断检查包括：① 比较纯回归、纯 IPW 和 AIPW 三种估计的差异（差异过大说明模型设定有问题）；② 检查倾向得分分布是否有极端值；③ 如果使用了交叉拟合，报告各折估计的稳定性。"
                   },
                   {
                     "type": "text",
@@ -866,7 +1135,7 @@
               "id": "did",
               "name": "双重差分",
               "nameEn": "Difference-in-Differences (DID)",
-              "desc": "<a href='https://baike.baidu.com/item/%E5%8F%8C%E9%87%8D%E5%B7%AE%E5%88%86%E6%B3%95' target='_blank'>双重差分法</a>（DID）最早由 <a href='https://baike.baidu.com/item/%E7%BA%A6%E7%BF%B0%C2%B7%E6%96%AF%E8%AF%BA/61391' target='_blank'>John Snow</a>（1855）在研究伦敦霍乱时隐含使用，现代经济学形式由 <a href='https://doi.org/10.2307/2534556' target='_blank'>Ashenfelter & Card</a>（1985）在评估就业培训项目时推广。它利用「差异之差」的思想：先计算处理组在政策实施前后的变化（消除时间趋势），再计算对照组在同期的变化（作为<a href='https://zhuanlan.zhihu.com/p/336689917' target='_blank'>反事实</a>基准），两个差值相减得到政策的因果效应。通过这种双重差分，同时消除了组间固定差异（如两地本身的经济水平差异）和共同时间趋势（如全国性经济增长），是政策评估和社会科学中最经典的<a href='https://zhuanlan.zhihu.com/p/390927651' target='_blank'>准实验方法</a>。",
+              "desc": "双重差分法（DID）最早由 John Snow（1855）在研究伦敦霍乱时隐含使用，现代经济学形式由 Ashenfelter & Card（1985）在评估就业培训项目时推广。它利用「差异之差」的思想：先计算处理组在政策实施前后的变化（消除时间趋势），再计算对照组在同期的变化（作为反事实基准），两个差值相减得到政策的因果效应。通过这种双重差分，同时消除了组间固定差异（如两地本身的经济水平差异）和共同时间趋势（如全国性经济增长），是政策评估和社会科学中最经典的准实验方法。",
               "when": "适用于有处理前后的面板数据（或重复截面数据）、处理时间明确、不同组在处理前有相似变化趋势（平行趋势假设）的场景，主要解决在无法做随机实验的情况下如何利用时间维度的变化来识别政策或干预的因果效应。它的逻辑简洁直观——通过差分消除固定差异和共同趋势，对未观测的时间不变混杂具有稳健性，是政策评估和准实验中最主流的方法。不过，它依赖不可直接验证的平行趋势假设，对处理时间交错（staggered adoption）需特殊处理，且不适合只有一个处理单位的场景。",
               "tags": [
                 {
@@ -883,6 +1152,18 @@
                   {
                     "type": "text",
                     "content": "DID 的核心逻辑是：处理组的结果变化 = 因果效应 + 共同时间趋势。用对照组的变化来代理共同时间趋势，将其差掉，剩下的就是因果效应。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：验证平行趋势假设</b>　DID 的核心识别假设是：如果没有处理，处理组和对照组的结果变量在时间上会有相同的变化趋势（平行趋势）。这一假设不可直接检验，但可以通过事件研究法（Event Study）检查处理前各期的系数是否接近零来间接支持。具体做法是构造处理前各期的相对时间虚拟变量与处理组的交互项，如果这些交互项系数在处理前不显著异于零，则平行趋势假设可信。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：确定处理组与对照组</b>　明确哪些个体/单位受到处理（处理组）、哪些未受处理（对照组），以及处理发生的时间节点。对照组的选择至关重要——它应该与处理组在处理前具有相似的特征和趋势。如果存在多期交错处理（staggered adoption），需要使用 Callaway & Sant'Anna（2021）等新方法处理。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：构建 DID 回归模型</b>　基础 DID 用 2×2 框架估计：τ = (Ȳ_{T,post} - Ȳ_{T,pre}) - (Ȳ_{C,post} - Ȳ_{C,pre})。等价的回归形式为 Y_it = α + β₁T_i + β₂Post_t + τ(T_i × Post_t) + ε_it，其中交互项系数 τ 就是 DID 估计量。在面板数据中，推荐使用双向固定效应模型：Y_it = αᵢ + γ_t + τ·D_it + ε_it，αᵢ 为个体固定效应，γ_t 为时间固定效应。"
                   },
                   {
                     "type": "formula",
@@ -932,7 +1213,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "DID 的核心逻辑可以用一个 2×2 表格理解：τ = (处理组 After - 处理组 Before) - (对照组 After - 对照组 Before)。第一个差消除了处理组自身的时间不变特征，第二个差消除了共同的时间趋势，双重差分后剩下的就是纯粹的处理效应。回归形式中，τ 是交互项 T × Post 的系数。在面板数据中可加入个体固定效应 α_i 和时间固定效应 γ_t 做更精确的估计：Y_it = α_i + γ_t + τ·D_it + ε_it。"
+                    "content": "<b>Step 4：选择正确的标准误</b>　DID 回归中标准误的选择至关重要。由于同一个体（或组别）在不同时间的观测存在自相关，必须使用聚类标准误（Cluster-Robust SE），通常聚类在个体或处理单位层面。如果聚类数较少（< 50），还需要使用 Wild Bootstrap 等小样本修正方法。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：稳健性检验</b>　① 安慰剂检验（Placebo Test）：将处理时间设为处理前的某个虚拟时间点，DID 估计应不显著；② 更换对照组检验：换用其他未受处理的群体作为对照组，结果应一致；③ 加入更多控制变量（如个体×时间的趋势）检查结果是否稳健；④ 检查是否存在预期效应（anticipation effect）——处理前个体是否已经开始改变行为。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：解释与报告</b>　DID 的核心逻辑可以用一个 2×2 表格理解：τ = (处理组 After - 处理组 Before) - (对照组 After - 对照组 Before)。第一个差消除了处理组自身的时间不变特征，第二个差消除了共同的时间趋势，双重差分后剩下的就是纯粹的处理效应。报告时需说明：① 平行趋势检验结果；② DID 估计值及置信区间；③ 稳健性检验结果；④ 如果是交错处理，使用了哪种新方法。"
                   },
                   {
                     "type": "text",
@@ -964,7 +1253,7 @@
               "id": "ddd",
               "name": "三重差分",
               "nameEn": "Difference-in-Difference-in-Differences (DDD)",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/521780956' target='_blank'>三重差分</a>（DDD）是<a href='https://baike.baidu.com/item/%E5%8F%8C%E9%87%8D%E5%B7%AE%E5%88%86%E6%B3%95' target='_blank'>双重差分</a>（DID）的自然扩展，最早由 <a href='https://doi.org/10.2307/2118071' target='_blank'>Gruber</a>（1994）在评估美国生育保险政策时系统化应用。当标准 DID 的<a href='https://zhuanlan.zhihu.com/p/425841718' target='_blank'>平行趋势假设</a>不可信——即处理组和对照组即使在没有处理的情况下也可能有不同的时间趋势——时，DDD 通过引入第三个差分维度来解决这一问题。具体做法是：在处理组和对照组各自内部，找到一个不受政策影响的「对照子群」，利用组内不受影响子群的趋势变化来修正组间趋势差异，从而在更弱的假设条件下识别因果效应。",
+              "desc": "三重差分（DDD）是双重差分（DID）的自然扩展，最早由 Gruber（1994）在评估美国生育保险政策时系统化应用。当标准 DID 的平行趋势假设不可信——即处理组和对照组即使在没有处理的情况下也可能有不同的时间趋势——时，DDD 通过引入第三个差分维度来解决这一问题。具体做法是：在处理组和对照组各自内部，找到一个不受政策影响的「对照子群」，利用组内不受影响子群的趋势变化来修正组间趋势差异，从而在更弱的假设条件下识别因果效应。",
               "when": "适用于标准 DID 的平行趋势假设不可信、需要额外一层差分来排除组别特有时间趋势的场景。典型情况包括：① 政策只影响特定子群（如某地提高女性生育保险，男性作为组内对照）；② 处理组和对照组本身有不同的长期趋势（如发达城市和欠发达城市的自然增长率不同）。DDD 可以在更弱的假设下识别因果效应，但代价是需要更多数据和更复杂的模型设定，且交互项的解释不如 DID 直观。",
               "tags": [
                 {
@@ -981,6 +1270,18 @@
                   {
                     "type": "text",
                     "content": "三重差分（DDD）的核心思想是：在标准 DID 的基础上引入第三个维度——组内「受影响子群」与「不受影响子群」的区分。第一层差分消除时间不变特征，第二层差分消除共同时间趋势，第三层差分消除处理组特有的时间趋势（通过使用组内不受政策影响的子群作为基准）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：识别「不受影响子群」</b>　DDD 的关键前提是在处理组和对照组内部，都存在一个不受政策影响的子群。例如：某地提高女性生育保险→女性是受影响子群（A=1），男性是不受影响子群（A=0）。理想情况下，该子群应与受影响子群共享相同的时间趋势（除了政策效应之外）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：验证 DDD 的识别假设</b>　DDD 的识别假设比 DID 更弱：不要求处理组和对照组整体有平行趋势，只要求两组内部的「受影响子群与不受影响子群的趋势差」是平行的。可以通过事件研究法（将三阶交互项按处理前各期展开）来检验处理前各期的三阶交互项系数是否接近零。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：构建 DDD 回归模型</b>　DDD 的回归形式包含三个主效应（T、A、Post）、三个二阶交互项（T×A、T×Post、A×Post）和一个三阶交互项 T×A×Post。三阶交互项的系数 τ 就是 DDD 估计量。在面板数据中，可以加入个体固定效应 αᵢ 和时间固定效应 γ_t 来吸收不可观测的个体差异和共同时间趋势。"
                   },
                   {
                     "type": "formula",
@@ -1026,7 +1327,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "DDD 的回归形式包含三个主效应、三个二阶交互项和一个三阶交互项 T×A×Post。三阶交互项的系数 τ 就是 DDD 估计量。在面板数据中，可以加入个体固定效应 α_i 和时间固定效应 γ_t 来吸收不可观测的个体差异和共同时间趋势：Y_{igt} = α_i + γ_t + β·(A_g × Post_t) + δ·(T_i × Post_t) + τ·(T_i × A_g × Post_t) + ε_{igt}。DDD 的关键识别假设比 DID 更弱：不要求处理组和对照组有平行趋势，只要求两组内部的「受影响子群与不受影响子群的趋势差」是平行的。"
+                    "content": "<b>Step 4：标准误与推断</b>　由于 DDD 有三个维度的交互，模型复杂度较高，需要更大样本量才能获得足够的统计功效。标准误应聚类在最高层级（如个体或处理单位层面），与 DID 相同。建议做分解分析：分别报告处理组和对照组各自的 DID（受影响 vs 不受影响子群），帮助理解 DDD 估计的来源。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：稳健性检验</b>　① 安慰剂检验：选择一个不应受政策影响的子群作为假的「受影响子群」，DDD 估计应不显著；② 更换不受影响子群的定义，检查结果稳健性；③ 检查处理前的三阶交互项事件研究系数是否接近零；④ 分别报告每层 DID，确认效应确实来自受影响子群而非全局趋势变化。"
                   },
                   {
                     "type": "text",
@@ -1070,7 +1375,7 @@
               "id": "scm",
               "name": "合成控制法",
               "nameEn": "Synthetic Control Method (SCM)",
-              "desc": "<a href='https://zhuanlan.zhihu.com/p/375282652' target='_blank'>合成控制法</a>（SCM）由 <a href='https://doi.org/10.1198/jasa.2009.ap08746' target='_blank'>Abadie & Gardeazabal</a>（2003）在研究西班牙巴斯克地区恐怖主义经济影响时首次提出，后由 <a href='https://doi.org/10.1198/jasa.2009.ap08746' target='_blank'>Abadie, Diamond & Hainmueller</a>（2010）在 JASA 上系统化发展。当只有一个（或极少数）处理单位时，传统 DID 的<a href='https://zhuanlan.zhihu.com/p/425841718' target='_blank'>平行趋势假设</a>难以验证且对照组选择具有主观性。SCM 的创新思路是：用多个未受处理影响的对照单位的加权组合，构造一个「合成对照组」，使其在处理前的结果走势和关键特征上与处理组尽可能吻合。处理后合成对照组与处理组的差距即为因果效应的估计。",
+              "desc": "合成控制法（SCM）由 Abadie & Gardeazabal（2003）在研究西班牙巴斯克地区恐怖主义经济影响时首次提出，后由 Abadie, Diamond & Hainmueller（2010）在 JASA 上系统化发展。当只有一个（或极少数）处理单位时，传统 DID 的平行趋势假设难以验证且对照组选择具有主观性。SCM 的创新思路是：用多个未受处理影响的对照单位的加权组合，构造一个「合成对照组」，使其在处理前的结果走势和关键特征上与处理组尽可能吻合。处理后合成对照组与处理组的差距即为因果效应的估计。",
               "when": "适用于处理单位很少（如一个国家、一个省份、一个城市）、无法使用传统 DID 的场景，但需要有多个未受处理影响的对照单位可供构造合成控制。SCM 通过数据驱动的方式选择对照权重来构建合理的反事实，避免了主观选择对照组的偏差，权重透明可解释且拟合效果可以可视化验证。不过，传统统计推断不适用于只有一个处理单位的情况，需依赖安慰剂检验；对照单位池的选择可能影响结果；且处理前拟合不好时估计不可靠。",
               "tags": [
                 {
@@ -1087,6 +1392,14 @@
                   {
                     "type": "text",
                     "content": "合成控制法（SCM）的核心思想是：用多个未受处理影响的对照单位的加权平均来构造一个「合成」版本的处理单位。权重通过最小化处理前时期合成对照与真实处理单位的差距来确定。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：选择对照单位池（Donor Pool）</b>　从所有未受处理影响的单位中选择对照单位池。选择标准：① 不能受到相同处理或类似政策的间接影响（SUTVA）；② 与处理单位在经济结构、人口特征等方面有可比性；③ 池中单位数应充足（通常 > 10 个），但不宜包含与处理单位差异极大的单位（如用发展中国家预测发达国家）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：求解最优权重</b>　通过最小化处理前拟合误差来确定每个对照单位的权重。约束条件：权重非负（w_j ≥ 0）且和为 1（Σw_j = 1），这保证合成对照是对照单位的凸组合，可解释为「加权平均」。稀疏性是 SCM 的一个优良特性——通常只有少数对照单位获得正权重，且权重大小直接反映其贡献。"
                   },
                   {
                     "type": "formula",
@@ -1106,6 +1419,14 @@
                         "desc": "第 j 个对照单位在 t 时期的结果"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：评估处理前拟合质量</b>　好的合成控制应在处理前时期（t ≤ T₀）与真实处理单位高度吻合。评估指标包括：① 处理前 RMSPE（Root Mean Squared Prediction Error）应尽可能小；② 可视化检查处理前两条曲线是否紧密重合；③ 比较合成对照与处理单位在关键特征（如 GDP、人口等）上的差异。如果处理前拟合质量差，SCM 的因果效应估计不可靠。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：估计因果效应</b>　处理后（t > T₀）合成对照与真实处理单位的差距即为因果效应的逐期估计：τ̂_{1t} = Y_{1t} - Σw*_j Y_{jt}。"
                   },
                   {
                     "type": "formula",
@@ -1128,7 +1449,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "权重求解通过最小化处理前拟合误差：min_w Σ(Y_{1t} - Σw_j Y_{jt})² s.t. w_j ≥ 0, Σw_j = 1。关键优势是权重的稀疏性和可解释性——通常只有少数对照单位获得正权重。"
+                    "content": "<b>Step 5：安慰剂检验（推断）</b>　由于只有一个处理单位，传统统计推断不适用。SCM 使用安慰剂检验（Placebo Test）：依次将每个对照单位假装为处理单位，做同样的 SCM 分析，得到「安慰剂效应」的分布。如果真实处理单位的效应远大于安慰剂效应的分布范围，则认为效应显著。具体指标：处理后/处理前 RMSPE 比值——真实处理单位的该比值应排在所有单位中的极端位置。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：稳健性检验</b>　① Leave-one-out 检验：逐个剔除权重较大的对照单位，看效应估计是否稳健；② 更换处理前时期长度，检查拟合和效应是否一致；③ In-time 安慰剂检验：将处理时间提前到实际处理前的某个虚拟时间点，效应应不显著。"
                   },
                   {
                     "type": "text",
@@ -1169,7 +1494,7 @@
               "id": "iv-2sls",
               "name": "工具变量 / 两阶段最小二乘",
               "nameEn": "Instrumental Variables / 2SLS",
-              "desc": "<a href='https://baike.baidu.com/item/%E5%B7%A5%E5%85%B7%E5%8F%98%E9%87%8F' target='_blank'>工具变量</a>方法最早由 <a href='https://zhuanlan.zhihu.com/p/382285956' target='_blank'>Philip Wright</a>（1928）在分析供给与需求弹性时提出，而现代框架由 <a href='https://doi.org/10.1080/01621459.1996.10476902' target='_blank'>Angrist, Imbens & Rubin</a>（1996）系统化发展。当处理变量 T 与误差项相关（即存在<a href='https://baike.baidu.com/item/%E5%86%85%E7%94%9F%E6%80%A7' target='_blank'>内生性</a>，比如未观测的混杂变量同时影响 T 和 Y）时，OLS 估计有偏。IV 方法的关键是找到一个工具变量 Z：它与 T 相关（相关性），但只通过 T 来影响 Y，不直接影响 Y（<a href='https://zhuanlan.zhihu.com/p/56944853' target='_blank'>排除限制</a>）。<a href='https://baike.baidu.com/item/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95' target='_blank'>2SLS</a>（两阶段最小二乘）是最常用的 IV 估计方法：第一阶段用 Z 预测 T 的「外生部分」，第二阶段用这个预测值替代原始 T 来估计对 Y 的效应。",
+              "desc": "工具变量方法最早由 Philip Wright（1928）在分析供给与需求弹性时提出，而现代框架由 Angrist, Imbens & Rubin（1996）系统化发展。当处理变量 T 与误差项相关（即存在内生性，比如未观测的混杂变量同时影响 T 和 Y）时，OLS 估计有偏。IV 方法的关键是找到一个工具变量 Z：它与 T 相关（相关性），但只通过 T 来影响 Y，不直接影响 Y（排除限制）。2SLS（两阶段最小二乘）是最常用的 IV 估计方法：第一阶段用 Z 预测 T 的「外生部分」，第二阶段用这个预测值替代原始 T 来估计对 Y 的效应。",
               "when": "适用于存在不可观测混杂（内生性）的场景，且能找到满足相关性和排除限制的工具变量，例如自然实验、政策变动、地理距离等外生变异来源。当 OLS 因遗漏变量而有偏时，IV 利用外生变异来识别因果效应，在找到好的工具变量时是最有力的因果识别策略，LATE 在政策评估中有清晰的解释。不过，好的工具变量极难找到且排除限制不可验证，弱工具变量会导致严重偏差和过大方差，且估计的是局部效应（LATE）而非全局 ATE。",
               "tags": [
                 {
@@ -1186,6 +1511,14 @@
                   {
                     "type": "text",
                     "content": "当 T 与 ε 相关（内生性）时，OLS 估计有偏。工具变量（IV）方法利用一个外生变量 Z 来提取 T 中不受混杂影响的变异部分，然后用这部分变异去估计因果效应。Z 必须满足两个条件：① 相关性（Z 与 T 相关）；② 排除限制（Z 仅通过 T 影响 Y）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：寻找并论证工具变量</b>　好的工具变量 Z 是 IV 方法的灵魂。Z 必须满足三个条件：① 相关性（Relevance）：Z 与处理变量 T 有显著的统计关联，这可以通过第一阶段 F 统计量检验（经验法则 F > 10）；② 排除限制（Exclusion Restriction）：Z 仅通过 T 影响 Y，不直接影响 Y——这一假设不可检验，必须依靠领域知识和理论论证；③ 外生性：Z 与误差项不相关。常见工具变量来源包括自然实验、政策变动、地理距离等。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：第一阶段回归</b>　用工具变量 Z（及控制变量 X）回归处理变量 T：T_i = π₀ + π₁Z_i + π₂X_i + v_i。关键检查第一阶段 F 统计量：F > 10 表示工具变量足够强，F < 10 则为弱工具变量，2SLS 估计会严重有偏且方差极大。保存拟合值 T̂_i 作为 T 的「外生部分」。"
                   },
                   {
                     "type": "formula",
@@ -1205,6 +1538,10 @@
                         "desc": "第一阶段的拟合值（T 的外生部分）"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：第二阶段回归</b>　用第一阶段的拟合值 T̂ 替代原始 T 回归结果 Y：Y_i = β₀ + τT̂_i + β₂X_i + ε_i。此时 τ 是 LATE（Local Average Treatment Effect），即工具变量影响下的「顺从者」（compliers）的平均处理效应。"
                   },
                   {
                     "type": "formula",
@@ -1234,7 +1571,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "2SLS 的两步逻辑是：第一阶段用工具变量 Z 「净化」处理变量 T，提取出 T 中仅由 Z 驱动的外生变动（T̂）；第二阶段用这个「干净的」T̂ 替代原始 T 回归 Y，从而绕开了 T 与误差项的相关性（内生性）。Wald 估计量 β₁ = Cov(Y,Z)/Cov(T,Z) 是最简洁的表达形式。注意 2SLS 估计的是 LATE（Local Average Treatment Effect）——即工具变量影响下的「顺从者」（compliers）的平均处理效应，而非全体样本的 ATE，在解释时需要注意这一区别。"
+                    "content": "<b>Step 4：弱工具变量诊断</b>　弱工具变量是 IV 方法最大的威胁。检查方法：① 第一阶段 F 统计量（> 10 为经验阈值，Stock & Yogo 2005 给出更精确的临界值）；② 如果有多个工具变量，使用 Anderson-Rubin（AR）检验或条件似然比检验，即使在弱 IV 下也有正确的 size。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：过度识别检验</b>　如果工具变量个数多于内生变量个数（过度识别），可以用 Sargan/Hansen J 检验：如果 J 统计量显著，说明至少有一个工具变量违反了排除限制。但注意 J 检验的局限性——如果所有 IV 都不满足排除限制，J 检验可能检测不出来。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：解释 LATE</b>　2SLS 估计的 τ 是 LATE 而非 ATE——它衡量的是「因工具变量的变动而改变处理状态的人群（顺从者 compliers）」的平均处理效应，而非全部人群的效应。在解释时需要注意：① 明确 compliers 是谁（如义务教育法例子中，compliers 是因出生季度不同而被迫多上几个月学的人）；② LATE 通常与 ATE 不同，不能直接推广到全体。"
                   },
                   {
                     "type": "text",
@@ -1266,7 +1611,7 @@
               "id": "rdd",
               "name": "断点回归",
               "nameEn": "Regression Discontinuity Design (RDD)",
-              "desc": "<a href='https://baike.baidu.com/item/%E6%96%AD%E7%82%B9%E5%9B%9E%E5%BD%92%E8%AE%BE%E8%AE%A1' target='_blank'>断点回归</a>最早由 <a href='https://doi.org/10.1037/h0044319' target='_blank'>Thistlethwaite & Campbell</a>（1960）在研究奖学金对学业的影响时提出，后由 <a href='https://doi.org/10.1016/j.jeconom.2007.05.001' target='_blank'>Imbens & Lemieux</a>（2008）系统化发展。其核心直觉是：当处理分配由某个连续变量（称为驱动变量或 running variable，如考试分数、信用评分）是否超过阈值决定时，在阈值附近的个体几乎是「准随机」分配的——分数恰好在 60 分以上和以下的学生，除了是否获得奖学金外几乎没有差异。因此阈值处结果的跳跃就可以被解释为因果效应。",
+              "desc": "断点回归最早由 Thistlethwaite & Campbell（1960）在研究奖学金对学业的影响时提出，后由 Imbens & Lemieux（2008）系统化发展。其核心直觉是：当处理分配由某个连续变量（称为驱动变量或 running variable，如考试分数、信用评分）是否超过阈值决定时，在阈值附近的个体几乎是「准随机」分配的——分数恰好在 60 分以上和以下的学生，除了是否获得奖学金外几乎没有差异。因此阈值处结果的跳跃就可以被解释为因果效应。",
               "when": "适用于处理分配由一个可观测的连续变量是否超过明确阈值决定的场景，例如考试分数线、信用评分门槛、收入门槛等。RDD 利用阈值附近的「准随机」变异来识别因果效应，被认为是内部效度最高的准实验方法之一——设计透明、可检验性强，有丰富的有效性检验工具（密度检验、协变量平衡等）。不过，它只估计阈值附近的局部效应，外推性差；需要足够多的阈值附近样本；且如果个体能精确操纵分数越过阈值则前提不成立。",
               "tags": [
                 {
@@ -1283,6 +1628,22 @@
                   {
                     "type": "text",
                     "content": "RDD 的直觉是：在阈值 c 附近，得分略高于 c（获得处理）和略低于 c（未获得处理）的个体几乎相同——他们在阈值附近的位置可以视为「准随机」。因此阈值处结果的跳跃可以解释为因果效应。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：确认 RDD 适用条件</b>　RDD 要求处理分配由一个可观测的连续变量（驱动变量 / running variable）是否超过明确阈值 c 来决定。关键前提是个体不能精确操纵驱动变量越过阈值（no manipulation）——如果考生可以精确控制自己的分数恰好越过分数线，RDD 就不成立。另外需要确认结果变量在阈值处的潜在跳跃不是由其他因素（如同时生效的其他政策）导致的。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：密度检验（McCrary Test）</b>　如果个体能操纵驱动变量，则阈值附近的观测密度会出现不连续跳跃（阈值右侧密度突然增大）。McCrary（2008）密度检验通过估计阈值两侧驱动变量的密度函数来检测操纵行为。如果密度在阈值处无显著跳跃，则支持「不可操纵」假设。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：协变量平衡检验</b>　如果阈值附近的个体确实是「准随机」的，那么协变量（如年龄、性别、收入等）在阈值两侧不应有系统性差异。对每个协变量执行 RDD 分析（用协变量替代结果变量），检查阈值处是否有显著跳跃。如果有协变量在阈值处出现跳跃，说明 RDD 的内部效度可能受损。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：选择带宽和估计方法</b>　RDD 使用局部多项式回归（Local Polynomial Regression）在阈值附近的窄带宽内拟合。带宽选择是 RDD 分析最关键的步骤——太窄则样本量不足方差大，太宽则引入远离阈值的偏差。推荐使用 Imbens-Kalyanaraman（IK）最优带宽或 Calonico, Cattaneo & Titiunik（CCT）的 MSE 最优带宽。通常使用局部线性（一阶多项式）拟合，在带宽边界允许斜率不同（分段线性）。"
                   },
                   {
                     "type": "formula",
@@ -1320,7 +1681,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "Sharp RDD 中阈值完全决定处理分配（X ≥ c → T=1），因果效应等于阈值两侧 Y 的条件期望之差——直觉上就是比较「刚好过线」和「刚好没过线」的个体。Fuzzy RDD 中阈值只部分影响处理概率（如过线者被推荐但不强制），此时效应估计类似 IV：τ = E[Y|X→c⁺]-E[Y|X→c⁻] 除以处理概率的跳跃量。实践中最常用局部多项式回归（local polynomial regression）在阈值附近的窄带宽内拟合，带宽选择（如 Imbens-Kalyanaraman 最优带宽）是 RDD 分析的关键步骤。"
+                    "content": "<b>Step 5：区分 Sharp 与 Fuzzy RDD</b>　Sharp RDD 中阈值完全决定处理分配（X ≥ c → T=1），因果效应等于阈值两侧 Y 的条件期望之差。Fuzzy RDD 中阈值只部分影响处理概率（如过线者被推荐但不强制），此时效应估计类似 IV：τ = Y 的跳跃 / T 的跳跃。Fuzzy RDD 本质上就是在阈值处用「是否过线」作为工具变量做 2SLS。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 6：带宽敏感性与稳健推断</b>　① 带宽敏感性分析：在最优带宽的 50%-200% 范围内变动，检查估计是否稳健；② 使用 CCT（2014）的偏差修正置信区间，比传统置信区间有更好的覆盖率；③ 更换多项式阶数（如从线性改为二次），检查结果是否一致；④ 报告不同带宽下的估计值和样本量（Donut RDD：剔除阈值附近极窄范围内的样本，排除精确操纵的影响）。"
                   },
                   {
                     "type": "text",
@@ -1372,7 +1737,7 @@
               "id": "meta-learner",
               "name": "元学习器",
               "nameEn": "Meta-Learners (S/T/X-Learner)",
-              "desc": "<a href='https://arxiv.org/abs/1706.03461' target='_blank'>元学习器</a>是一类利用通用监督学习算法估计条件平均处理效应（CATE）的框架，由 <a href='https://arxiv.org/abs/1706.03461' target='_blank'>Künzel et al.</a>（2019）系统整理。最基础的 <strong>S-Learner</strong>（Single model）将处理变量 T 作为特征直接建模 E[Y|X,T]；<strong>T-Learner</strong>（Two models）分别对处理组和对照组各建一个模型，用预测差作为 CATE 估计；<strong>X-Learner</strong> 则在 T-Learner 基础上利用「交叉残差」（用一组模型预测另一组的反事实结果）来改进估计，在处理组/对照组样本量不平衡时表现尤为出色。三种方法可搭配任意基学习器（<a href='https://baike.baidu.com/item/XGBoost' target='_blank'>XGBoost</a>、随机森林、神经网络等），是异质性分析的入门首选。",
+              "desc": "元学习器是一类利用通用监督学习算法估计条件平均处理效应（CATE）的框架，由 Künzel et al.（2019）系统整理。最基础的 <strong>S-Learner</strong>（Single model）将处理变量 T 作为特征直接建模 E[Y|X,T]；<strong>T-Learner</strong>（Two models）分别对处理组和对照组各建一个模型，用预测差作为 CATE 估计；<strong>X-Learner</strong> 则在 T-Learner 基础上利用「交叉残差」（用一组模型预测另一组的反事实结果）来改进估计，在处理组/对照组样本量不平衡时表现尤为出色。三种方法可搭配任意基学习器（XGBoost、随机森林、神经网络等），是异质性分析的入门首选。",
               "when": "适用于需要灵活估计个体层面处理效应、对基学习器选择没有限制的场景。S-Learner 实现最简单、适合效应较大或样本充足时使用，但当处理效应信号较弱时 T 变量可能被淹没；T-Learner 各组独立建模，更容易捕捉异质性但在小样本时方差较大；X-Learner 是三者中最推荐的选择——它在处理/对照不平衡时（如 RCT 中 90%/10% 分流）仍能高效估计 CATE，且利用全部样本信息。局限在于：无法自动给出统计推断（CI/p 值），需搭配 Bootstrap 或其他方法。",
               "tags": [
                 {
@@ -1389,6 +1754,14 @@
                   {
                     "type": "text",
                     "content": "元学习器的核心思想是将 CATE 估计问题转化为标准的监督学习问题。CATE 即条件平均处理效应 τ(x) = E[Y(1) - Y(0) | X = x]，描述具有特征 X = x 的个体的平均因果效应。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：选择元学习器策略</b>　根据数据特点选择合适的元学习器。三种经典策略：① S-Learner（Single Model）：用一个模型同时学习 T 和 X 对 Y 的关系，CATE = μ̂(x,1) - μ̂(x,0)。简单但当 T 的效应被 X 主导时容易被「淹没」；② T-Learner（Two Models）：分别在处理组和对照组建模，CATE = μ̂₁(x) - μ̂₀(x)。灵活但在处理/对照组样本量不平衡时方差大；③ X-Learner：T-Learner 的改进，利用交叉残差和倾向得分加权，在样本不平衡时方差更低。还有 R-Learner（Robinson 变换）和 DR-Learner（双重稳健）等高级变体。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：拟合基础模型</b>　S-Learner：训练一个模型 μ̂(x,t) = E[Y|X=x,T=t]，将 T 作为特征之一。T-Learner：分别在 T=1 和 T=0 的子样本上训练两个模型 μ̂₁(x) 和 μ̂₀(x)。X-Learner 在 T-Learner 基础上进一步计算交叉残差。所有基础模型可以使用任意 ML 算法（GBDT、Random Forest、Neural Network 等），建议使用交叉拟合避免过拟合。"
                   },
                   {
                     "type": "formula",
@@ -1419,6 +1792,10 @@
                         "desc": "对照组独立模型 E[Y|X=x, T=0]"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：X-Learner 的交叉残差与加权</b>　X-Learner 分为三步：① 在 T-Learner 基础上计算交叉残差 D̃ᵢ¹ = Yᵢ - μ̂₀(Xᵢ)（处理组）和 D̃ⱼ⁰ = μ̂₁(Xⱼ) - Yⱼ（对照组）；② 分别对 D̃¹ 和 D̃⁰ 回归得到两个 CATE 估计 τ̂₁(x) 和 τ̂₀(x)；③ 用倾向得分加权组合：τ̂(x) = e(x)·τ̂₁(x) + (1-e(x))·τ̂₀(x)。当处理组小、对照组大时，X-Learner 利用对照组的大量数据来辅助处理组的估计。"
                   },
                   {
                     "type": "formula",
@@ -1452,6 +1829,14 @@
                   },
                   {
                     "type": "text",
+                    "content": "<b>Step 4：评估 CATE 估计质量</b>　CATE 的真值不可观测，评估较困难。常用方法：① CATE 分位数分组（如按 CATE 四分位分组），在每组内用实验/观测数据验证组间效应是否确实呈单调递增——如果 CATE 预测高的组实际效应也高，说明排序合理；② 计算 RATE（Rank-Weighted Average Treatment Effect）或 AUTOC（Area Under the TOC Curve）来衡量 CATE 的排序能力；③ 用自身的交叉验证 R²（R-loss）评估拟合质量。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：业务落地——用 CATE 做个性化决策</b>　将用户按 CATE 分层：CATE 大的用户是高响应群体（优先投入资源），CATE 接近零的用户不值得干预，CATE 为负的用户应排除在干预之外。通过 CATE 分层定向投放，可以在相同预算下最大化增量效果。"
+                  },
+                  {
+                    "type": "text",
                     "content": "💡 举例：某电商评估「首单优惠券」对新用户 30 天 GMV 的异质性效应。T-Learner 发现高收入城市用户 CATE ≈ ¥45，低线城市用户 CATE ≈ ¥120（优惠券对价格敏感用户效果更强）。但处理/对照组比例为 5%/95%，T-Learner 在处理组样本不足时方差很大。改用 X-Learner 后：标准误降低约 40%，因为它利用了对照组大量样本来辅助处理组的估计。"
                   }
                 ]
@@ -1480,7 +1865,7 @@
               "id": "dml",
               "name": "双重机器学习",
               "nameEn": "Double/Debiased Machine Learning (DML)",
-              "desc": "<a href='https://arxiv.org/abs/1608.00060' target='_blank'>双重机器学习</a>（DML）由 <a href='https://en.wikipedia.org/wiki/Victor_Chernozhukov' target='_blank'>Chernozhukov</a> 等人（2018）提出，是将<a href='https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0' target='_blank'>机器学习</a>方法引入因果推断的里程碑式框架。它解决了一个关键问题：直接用 ML 模型估计因果效应会产生<a href='https://en.wikipedia.org/wiki/Regularization_(mathematics)' target='_blank'>正则化偏差</a>（因为 ML 模型会对效应参数进行收缩），导致估计不一致。DML 的核心是两步「去偏」：先用 ML 模型分别预测结果 Y 和处理 T（称为 nuisance parameters），然后在二者的残差上估计因果效应——这种 <a href='https://en.wikipedia.org/wiki/Frisch%E2%80%93Waugh%E2%80%93Lovell_theorem' target='_blank'>Frisch-Waugh-Lovell</a> 式的「偏回归」消除了混杂偏差，再结合<a href='https://en.wikipedia.org/wiki/Cross-validation_(statistics)' target='_blank'>交叉拟合</a>消除了过拟合偏差，最终得到√n 一致且渐近正态的因果效应估计。",
+              "desc": "双重机器学习（DML）由 Chernozhukov 等人（2018）提出，是将机器学习方法引入因果推断的里程碑式框架。它解决了一个关键问题：直接用 ML 模型估计因果效应会产生正则化偏差（因为 ML 模型会对效应参数进行收缩），导致估计不一致。DML 的核心是两步「去偏」：先用 ML 模型分别预测结果 Y 和处理 T（称为 nuisance parameters），然后在二者的残差上估计因果效应——这种 Frisch-Waugh-Lovell 式的「偏回归」消除了混杂偏差，再结合交叉拟合消除了过拟合偏差，最终得到√n 一致且渐近正态的因果效应估计。",
               "when": "适用于混杂变量维度高、关系复杂、传统参数模型难以正确设定的场景，特别是需要用机器学习灵活建模协变量但又要求因果参数有统计推断保证（置信区间、假设检验）的情况。DML 可搭配任意 ML 模型（随机森林、LASSO、XGBoost、神经网络等）估计 nuisance 部分，同时保证核心因果参数的√n 收敛速度和渐近正态性，是将 ML 预测力与因果推断严谨性结合的最佳方式。局限在于：仍依赖无未观测混杂假设（CIA），nuisance 模型的收敛速度需满足条件（各自 n^{-1/4}），实现时需要仔细调参。",
               "tags": [
                 {
@@ -1497,6 +1882,10 @@
                   {
                     "type": "text",
                     "content": "DML 的核心思想是 Neyman 正交化 + 交叉拟合。它将因果推断问题分解为：(1) 用 ML 拟合 nuisance functions（混杂→结果、混杂→处理的关系）；(2) 在残差化后的「干净」空间中估计因果参数。这种两步法的关键在于正交化使得 nuisance 估计的一阶误差不影响因果参数的估计。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：建立部分线性模型</b>　DML 的典型框架是部分线性模型（PLR）：Y = θT + g(X) + ε，T = m(X) + η。其中 θ 是我们关心的因果参数，g(X) 和 m(X) 是协变量对结果和处理的未知（可能非线性）影响——称为 nuisance functions。DML 的目标是即使 g 和 m 是高维非线性函数，也能对 θ 做有效的统计推断。"
                   },
                   {
                     "type": "formula",
@@ -1522,6 +1911,14 @@
                     ]
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 2：交叉拟合 nuisance models</b>　将数据分为 K 折（通常 K=5）。对每折 k：在其余 K-1 折上训练 ML 模型 ĝ(X) = E[Y|X] 和 m̂(X) = E[T|X]，然后在第 k 折上生成预测值。这种「自己不预测自己」的方式（Cross-fitting）消除了过拟合偏差，允许使用任意复杂的 ML 模型（Random Forest、XGBoost、神经网络等）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：残差化并估计因果参数</b>　计算两个残差：ε̂ᵢ = Yᵢ - ĝ(Xᵢ)（结果残差）和 η̂ᵢ = Tᵢ - m̂(Xᵢ)（处理残差）。然后做「残差对残差回归」：θ̂_DML = Σ(η̂ᵢ·ε̂ᵢ) / Σ(η̂ᵢ²)。直觉上，残差化消除了 X 对 Y 和 T 的影响，η̂ 是 T 中与 X 无关的「干净」变动，ε̂ 是 Y 中与 X 无关的变动，两者的回归系数就是净因果效应。"
+                  },
+                  {
                     "type": "formula",
                     "label": "DML 估计量（残差对残差回归）",
                     "latex": "\\hat{\\theta}_{DML} = \\frac{\\sum_{i=1}^{n} \\hat{\\eta}_i(Y_i - \\hat{g}(X_i))}{\\sum_{i=1}^{n} \\hat{\\eta}_i(T_i - \\hat{m}(X_i))} = \\frac{\\sum \\hat{\\eta}_i \\hat{\\varepsilon}_i}{\\sum \\hat{\\eta}_i^2}",
@@ -1542,7 +1939,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "交叉拟合（Cross-fitting）是 DML 的关键组件：将数据分为 K 折，每折的 nuisance 模型在其余 K-1 折上训练、在该折上预测。这避免了「自己拟合自己」带来的过拟合偏差，允许使用复杂度不受限的 ML 模型。"
+                    "content": "<b>Step 4：统计推断</b>　DML 的核心理论保证：θ̂_DML 是 √n 一致且渐近正态的（在 nuisance 模型满足一定收敛速度条件下）。标准误估计：SE = √(Σ((ε̂ᵢ - θ̂·η̂ᵢ)²·η̂ᵢ²) / (Ση̂ᵢ²)² / n)。可直接构造 95% 置信区间和 z 检验。建议多次运行交叉拟合（median aggregation）来减少因折划分随机性引入的不确定性。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：扩展——异质性 DML（CATE 估计）</b>　DML 不仅能估计 ATE，还能扩展为条件效应 θ(x)。EconML 的 CausalForestDML 就是将 DML 的 nuisance 去偏与因果森林的异质性估计结合：先用 DML 去偏，再用因果森林在残差空间中估计 CATE。这是目前工业界最推荐的异质性分析方法——既有 ML 的灵活性，又有统计推断的严谨性。"
                   },
                   {
                     "type": "text",
@@ -1583,7 +1984,7 @@
               "id": "causal-tree",
               "name": "因果树",
               "nameEn": "Causal Tree",
-              "desc": "<a href='https://arxiv.org/abs/1504.01132' target='_blank'>因果树</a>由 <a href='https://athey.people.stanford.edu/' target='_blank'>Susan Athey</a> & <a href='https://gsbfaculty.stanford.edu/guido-imbens' target='_blank'>Guido Imbens</a>（2016）提出，是将传统<a href='https://baike.baidu.com/item/CART%E7%AE%97%E6%B3%95' target='_blank'>决策树</a>（CART）改造为因果效应估计工具的开创性工作。传统 CART 通过最小化预测误差来分裂节点，因果树则将分裂准则改为「最大化子节点间处理效应的差异」——即寻找使 CATE 异质性最大的特征和阈值。为避免过拟合（因为同一组数据既用于决定分裂点又用于估计效应），因果树采用 <strong>Honest 估计</strong>：将数据分为「分裂样本」（决定树的结构）和「估计样本」（在叶节点中估计效应），从而保证每个叶节点效应估计的无偏性和有效置信区间。",
+              "desc": "因果树由 Susan Athey & Guido Imbens（2016）提出，是将传统决策树（CART）改造为因果效应估计工具的开创性工作。传统 CART 通过最小化预测误差来分裂节点，因果树则将分裂准则改为「最大化子节点间处理效应的差异」——即寻找使 CATE 异质性最大的特征和阈值。为避免过拟合（因为同一组数据既用于决定分裂点又用于估计效应），因果树采用 <strong>Honest 估计</strong>：将数据分为「分裂样本」（决定树的结构）和「估计样本」（在叶节点中估计效应），从而保证每个叶节点效应估计的无偏性和有效置信区间。",
               "when": "适用于需要直观、可解释地展示「哪些人群效应最大/最小」的场景，尤其适合向业务方汇报时使用。因果树的最大优势是可解释性——每个叶节点对应一条清晰的 if-else 规则，直接告诉你「满足 X₁ > a 且 X₂ < b 的用户处理效应为 τ̂」。但单棵树不稳定、方差大、对数据微小变动敏感，且分裂点选择受样本波动影响，实际上更推荐使用因果森林（多棵因果树的集成）来获得更稳健的估计。",
               "tags": [
                 {
@@ -1600,6 +2001,14 @@
                   {
                     "type": "text",
                     "content": "因果树将标准 CART 的分裂准则从最小化均方误差改为最大化处理效应的异质性。关键创新是 Honest 分裂：用一半数据决定树结构，另一半数据估计叶节点效应，从而避免「adaptive bias」。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：Honest 数据分割</b>　将数据随机拆分为两部分：分裂样本（Splitting Sample，约 50%）用于决定树的结构（哪个变量、在什么值处分裂）；估计样本（Estimation Sample，约 50%）用于在确定的叶节点中估计 CATE。这种分离确保了叶节点效应估计的无偏性——不会因为「先看了效应再决定分裂」而产生过拟合。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：因果分裂准则</b>　在分裂样本上生长树。分裂准则不再是最小化预测误差，而是最大化子节点间处理效应的异质性：选择使 Σ(n_ℓ/n)·τ̂²_ℓ 最大的特征和阈值。直觉上，好的分裂应该把「效应大的人」和「效应小的人」分到不同的子节点。"
                   },
                   {
                     "type": "formula",
@@ -1619,6 +2028,10 @@
                         "desc": "子节点的平均处理效应"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：Honest 效应估计</b>　树的结构确定后，将估计样本中的每个个体分配到对应的叶节点。在每个叶节点内，用估计样本计算 CATE：τ̂(x) = Ȳ¹_{est,ℓ(x)} - Ȳ⁰_{est,ℓ(x)}。由于估计样本未参与分裂决策，该估计是无偏的，且可以构造有效的置信区间。"
                   },
                   {
                     "type": "formula",
@@ -1645,6 +2058,10 @@
                   },
                   {
                     "type": "text",
+                    "content": "<b>Step 4：解读与局限</b>　因果树的最大优势是可解释性——每个叶节点对应一条清晰的 if-else 规则，直接告诉你「满足 X₁ > a 且 X₂ < b 的用户处理效应为 τ̂」。但单棵树的局限也很明显：① 不稳定（数据微小变动可能导致完全不同的树结构）；② 方差大（尤其在小样本叶节点中）；③ 分裂点选择受样本波动影响。实际应用中更推荐因果森林（多棵因果树的集成）来获得更稳健的估计。"
+                  },
+                  {
+                    "type": "text",
                     "content": "💡 举例：某出行 App 评估「接单奖励」对司机接单率的影响。因果树发现关键分裂：① 注册天数 > 90 天（老司机 CATE = +2%，新司机 CATE = +15%）；② 在新司机中再分裂：日均在线 < 4 小时的 CATE = +22%，≥ 4 小时的 CATE = +8%。结论：奖励对「新注册且在线时长短」的司机效果最强——他们是最佳运营目标。"
                   }
                 ]
@@ -1668,7 +2085,7 @@
               "id": "causal-forest",
               "name": "因果森林",
               "nameEn": "Causal Forest",
-              "desc": "<a href='https://arxiv.org/abs/1510.04342' target='_blank'>因果森林</a>由 <a href='https://athey.people.stanford.edu/' target='_blank'>Athey</a>、<a href='https://gsbfaculty.stanford.edu/guido-imbens' target='_blank'>Imbens</a> & <a href='https://web.stanford.edu/~swager/' target='_blank'>Wager</a> 提出（2018/2019），是因果树的<a href='https://baike.baidu.com/item/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97' target='_blank'>随机森林</a>集成版本。它构建大量因果树，每棵树在随机子样本和随机特征子集上生长（引入双重随机性），最终取集成平均作为 CATE 估计。关键理论贡献是证明了因果森林的点估计是<a href='https://baike.baidu.com/item/%E4%B8%80%E8%87%B4%E6%80%A7' target='_blank'>一致的</a>，且在适当条件下渐近正态——这意味着可以直接构造有效的<a href='https://baike.baidu.com/item/%E7%BD%AE%E4%BF%A1%E5%8C%BA%E9%97%B4' target='_blank'>置信区间</a>和进行假设检验，是目前非参数 CATE 估计中理论最完备的方法之一。",
+              "desc": "因果森林由 Athey、Imbens & Wager 提出（2018/2019），是因果树的随机森林集成版本。它构建大量因果树，每棵树在随机子样本和随机特征子集上生长（引入双重随机性），最终取集成平均作为 CATE 估计。关键理论贡献是证明了因果森林的点估计是一致的，且在适当条件下渐近正态——这意味着可以直接构造有效的置信区间和进行假设检验，是目前非参数 CATE 估计中理论最完备的方法之一。",
               "when": "适用于需要估计个体层面处理效应并提供严格统计推断（置信区间、p 值）的场景，是目前异质性分析的「首选方法」。它同时具备灵活性（非参数、不需要预设函数形式）、稳健性（集成降方差）、理论保证（渐近正态性、一致性）和实用性（grf 包一行代码即可），特别适合处理效应可能与协变量存在复杂非线性关系的场景。局限在于：计算开销较大（数百到数千棵树）、高维稀疏特征时需谨慎（分裂可能集中在噪声特征上）、解释性不如单棵因果树直观——通常需要配合变量重要性图和 CATE 分布图来理解结果。",
               "tags": [
                 {
@@ -1685,6 +2102,14 @@
                   {
                     "type": "text",
                     "content": "因果森林构建 B 棵 Honest 因果树，每棵树使用随机子样本（subsampling, 非 bootstrap）和随机特征子集。最终的 CATE 估计是所有树预测的加权平均，权重由样本落入相同叶节点的频率决定——这本质上是一种自适应核方法（adaptive kernel）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：构建森林——双重随机化</b>　每棵树使用两层随机化：① 子抽样（Subsampling）：不放回地抽取约 50% 的样本（不同于随机森林的 Bootstrap），理论上 subsampling 才能保证渐近正态性；② 随机特征选择：每次分裂时只考虑 √p 个随机特征。这两层随机化降低了树之间的相关性，使集成后的估计更稳定。每棵树内部采用 Honest 分裂（分裂/估计样本分离）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：森林核函数与 CATE 估计</b>　因果森林的核心洞察是：B 棵树定义了一个自适应核函数 αᵢ(x)——衡量训练样本 i 与预测点 x 的「相似度」。对于任意目标点 x，其 CATE 估计是所有训练样本的加权平均，权重 αᵢ(x) 等于样本 i 与 x 在森林中落入同一叶节点的频率。"
                   },
                   {
                     "type": "formula",
@@ -1710,6 +2135,10 @@
                     ]
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 3：渐近推断——置信区间与假设检验</b>　因果森林的关键理论贡献是证明了渐近正态性：(τ̂(x) - τ(x)) / σ̂(x) → N(0,1)。标准误 σ̂(x) 可以通过 Infinitesimal Jackknife 或 Bootstrap of Little Bags 方法估计。这意味着可以直接构造逐点置信区间 τ̂(x) ± 1.96·σ̂(x)，并做假设检验 H₀: τ(x) = 0。这是因果森林相对于元学习器的核心优势——内建统计推断。"
+                  },
+                  {
                     "type": "formula",
                     "label": "渐近正态性",
                     "latex": "\\frac{\\hat{\\tau}(x) - \\tau(x)}{\\hat{\\sigma}(x)} \\xrightarrow{d} \\mathcal{N}(0, 1)",
@@ -1723,6 +2152,10 @@
                         "desc": "渐近正态，可直接构造置信区间"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：分析与可视化</b>　因果森林的典型输出分析包括：① ATE 估计（所有 CATE 的均值及其置信区间）；② CATE 分布直方图（了解效应异质性的全貌）；③ 变量重要性（哪些特征驱动了效应异质性）；④ CATE 按分位数分组的实际效应验证（检查排序是否合理）；⑤ 部分依赖图（Partial Dependence Plot），展示关键特征与 CATE 的关系。"
                   },
                   {
                     "type": "text",
@@ -1754,7 +2187,7 @@
               "id": "grf",
               "name": "广义随机森林",
               "nameEn": "Generalized Random Forests (GRF)",
-              "desc": "<a href='https://doi.org/10.1214/18-AOS1709' target='_blank'>广义随机森林</a>（GRF）由 <a href='https://athey.people.stanford.edu/' target='_blank'>Athey</a>, <a href='https://www.stat.berkeley.edu/~jtibshirani/' target='_blank'>Tibshirani</a> & <a href='https://web.stanford.edu/~swager/' target='_blank'>Wager</a>（2019）提出，是因果森林的推广框架。因果森林只能估计 CATE 这一种参数，而 GRF 将森林方法泛化为一种「自适应加权局部估计」的通用框架，可以估计任何由<a href='https://en.wikipedia.org/wiki/Estimating_equation' target='_blank'>局部矩条件</a>定义的参数——包括条件平均处理效应（CATE）、条件<a href='https://baike.baidu.com/item/%E5%88%86%E4%BD%8D%E6%95%B0%E5%9B%9E%E5%BD%92' target='_blank'>分位数</a>处理效应（CQTE）、局部平均处理效应（LATE，配合工具变量）、条件局部处理效应等。其理论框架统一了各种基于森林的因果推断方法。",
+              "desc": "广义随机森林（GRF）由 Athey, Tibshirani & Wager（2019）提出，是因果森林的推广框架。因果森林只能估计 CATE 这一种参数，而 GRF 将森林方法泛化为一种「自适应加权局部估计」的通用框架，可以估计任何由局部矩条件定义的参数——包括条件平均处理效应（CATE）、条件分位数处理效应（CQTE）、局部平均处理效应（LATE，配合工具变量）、条件局部处理效应等。其理论框架统一了各种基于森林的因果推断方法。",
               "when": "适用于需要超越「条件均值效应」的异质性分析场景。如果你不仅想知道「不同人群的平均效应」，还想知道「不同人群的效应中位数/分位数」、「合规者的异质效应（有工具变量时）」等更丰富的因果量，GRF 是唯一开箱即用的框架。它继承了因果森林的所有优点（非参数、渐近正态推断、一致性）且更通用。开源实现 <code>grf</code> 包是该领域最活跃的工具之一。局限在于：灵活性增加了调参复杂度，分位数回归森林等变体的收敛速度可能慢于条件均值估计，且大样本下计算开销较大。",
               "tags": [
                 {
@@ -1771,6 +2204,14 @@
                   {
                     "type": "text",
                     "content": "GRF 将森林视为一种自适应最近邻方法：森林的核函数 α(x) 决定了「在估计 x 点的参数时，每个训练样本贡献多大的权重」。然后在这些权重下求解局部矩条件方程。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：定义矩条件 ψ_θ</b>　GRF 的统一性在于改变矩条件函数 ψ_θ 就能估计不同的因果量：① ψ 为均值差 → CATE（条件平均处理效应）；② ψ 为分位数损失 → CQTE（条件分位数处理效应）；③ ψ 包含工具变量 → LATE（局部平均处理效应，配合 IV）；④ ψ 为局部线性矩 → 条件局部处理效应。选择合适的矩条件是使用 GRF 的第一步。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：构建广义随机森林</b>　与因果森林类似，GRF 通过 B 棵树构建自适应核函数 αᵢ(x)。每棵树在随机子样本和随机特征子集上生长，分裂准则是最大化子节点间目标参数的异质性（使用梯度近似加速）。Honest 分裂仍然是标准配置。"
                   },
                   {
                     "type": "formula",
@@ -1816,7 +2257,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "GRF 的统一性在于：改变 ψ_θ 就能估计不同的因果量。ψ 为均值差→CATE；ψ 为分位数损失→条件分位数效应；ψ 包含工具变量→LATE。所有情况下的推断理论（渐近正态、置信区间）都统一在同一个框架下。"
+                    "content": "<b>Step 3：推断与输出</b>　所有 GRF 变体共享相同的渐近推断理论：在适当条件下 θ̂(x) 渐近正态，可直接构造置信区间和 p 值。标准误通过 Infinitesimal Jackknife 估计。输出包括：① 逐点 CATE 及其置信区间；② 变量重要性；③ Best Linear Projection（BLP）检验是否存在异质性；④ CLAN（分析哪些子群的效应最大/最小）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：高级应用——超越均值效应</b>　GRF 的独特价值在于超越 CATE 的场景：① 分位数回归森林（Quantile Regression Forest）：估计条件分位数效应 CQTE，例如处理对 P90 花费的影响——这对重尾分布指标尤其重要；② 工具变量森林（Instrumental Forest）：在有 IV 的场景中估计条件 LATE，无需假设效应同质性；③ 局部线性森林（Local Linear Forest）：在传统回归设定下获得更平滑的估计。"
                   },
                   {
                     "type": "text",
@@ -1857,7 +2302,7 @@
               "id": "uplift",
               "name": "Uplift 模型",
               "nameEn": "Uplift Modeling",
-              "desc": "<a href='https://en.wikipedia.org/wiki/Uplift_modelling' target='_blank'>Uplift 建模</a>起源于<a href='https://baike.baidu.com/item/%E7%9B%B4%E6%8E%A5%E8%90%A5%E9%94%80' target='_blank'>直邮营销</a>领域，由 <a href='https://doi.org/10.1002/dir.10073' target='_blank'>Radcliffe & Surry</a>（2011）系统化。其核心思想是将用户分为四类：<strong>可说服者</strong>（Persuadables，干预后行为改变）、<strong>自然转化者</strong>（Sure Things，不干预也会转化）、<strong>无动于衷者</strong>（Lost Causes，干预也不转化）、<strong>反作用者</strong>（Sleeping Dogs，干预反而有害）。传统<a href='https://baike.baidu.com/item/%E5%93%8D%E5%BA%94%E6%A8%A1%E5%9E%8B' target='_blank'>响应模型</a>只预测 P(转化|干预)，无法区分「本来就会转化」和「因干预才转化」的用户；Uplift 模型直接预测增量效应 P(转化|干预) - P(转化|不干预)，从而精准找到可说服者，是<a href='https://baike.baidu.com/item/%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80' target='_blank'>精准营销</a>和个性化干预中最核心的方法论。",
+              "desc": "Uplift 建模起源于直邮营销领域，由 Radcliffe & Surry（2011）系统化。其核心思想是将用户分为四类：<strong>可说服者</strong>（Persuadables，干预后行为改变）、<strong>自然转化者</strong>（Sure Things，不干预也会转化）、<strong>无动于衷者</strong>（Lost Causes，干预也不转化）、<strong>反作用者</strong>（Sleeping Dogs，干预反而有害）。传统响应模型只预测 P(转化|干预)，无法区分「本来就会转化」和「因干预才转化」的用户；Uplift 模型直接预测增量效应 P(转化|干预) - P(转化|不干预)，从而精准找到可说服者，是精准营销和个性化干预中最核心的方法论。",
               "when": "适用于运营/营销中需要决定「对谁干预」的场景，如精准推送优惠券、营销短信、产品推荐、留存干预等。Uplift 模型直接优化「干预的增量价值」——只对那些会因干预而改变行为的用户（可说服者）投入资源，避免对自然转化者浪费成本、避免对反作用者造成负面效果。相比异质性分析中的因果森林等学术方法，Uplift 模型更工程化、更关注排序能力和业务可落地性——它不要求 CATE 的点估计精确，只要求「CATE 大的排在前面」。常见方法包括 Two-Model、Class Transformation 和直接 Uplift Tree/Forest。",
               "tags": [
                 {
@@ -1874,6 +2319,14 @@
                   {
                     "type": "text",
                     "content": "Uplift 建模的核心是估计净增量（uplift）：个体因干预而产生的行为增量。常见的建模策略有三种：Two-Model（类似 T-Learner）、Class Transformation（将 uplift 转化为分类问题）、以及直接修改树分裂准则。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：理解四象限用户分类</b>　Uplift 模型将用户分为四类：① 可说服者（Persuadables）：只有接受干预才会转化，是最佳目标；② 自然转化者（Sure Things）：不干预也会转化，干预浪费成本；③ 无动于衷者（Lost Causes）：干预也不会转化；④ 反作用者（Sleeping Dogs）：干预反而产生负面效果，必须排除。传统响应模型无法区分这四类——它只预测 P(转化|干预)，而 Uplift 模型直接预测增量。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：选择建模策略</b>　三种经典策略：① Two-Model 方法：分别在处理组和对照组建模 P(Y=1|T=1,X) 和 P(Y=1|T=0,X)，uplift = 两者之差。简单但误差累积；② Class Transformation（CT）：构造新标签 Z = Y·T + (1-Y)(1-T)，将 uplift 问题转化为标准分类问题，uplift = 2P(Z=1|X) - 1，只需一个模型但要求处理/对照比例为 50:50；③ Uplift Tree/Forest：直接在树分裂时最大化子节点间 uplift 的差异（如用 KL 散度或 Euclidean distance 作为分裂准则），专门为 uplift 设计。"
                   },
                   {
                     "type": "formula",
@@ -1911,7 +2364,15 @@
                   },
                   {
                     "type": "text",
-                    "content": "用户四象限分析法：按预估 uplift 和自然转化率将用户分为四象限。可说服者（高 uplift）是最佳干预目标；自然转化者（低 uplift + 高转化率）无需干预，省下成本；反作用者（负 uplift）必须排除在外。"
+                    "content": "<b>Step 3：训练与交叉验证</b>　无论采用哪种策略，都建议使用交叉验证来调参和评估泛化能力。特别注意：交叉验证时需保持每折中处理组/对照组的比例一致（分层抽样）。对于 Two-Model 方法，两个模型应使用相同的超参数以减少估计偏差。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：评估 Uplift 模型——Qini 曲线和 AUUC</b>　Uplift 模型的评估不能用传统的 AUC 或准确率。专用评估指标：① Qini 曲线（类似 ROC 曲线）：按 uplift 预测值从高到低排序，依次增加干预用户比例，绘制累计增量转化量。理想模型的 Qini 曲线快速上升（先触达可说服者）。② AUUC（Area Under Uplift Curve）：Qini 曲线下面积，衡量模型整体排序能力。③ 分位数分组验证：将用户按 uplift 五分位分组，每组内用实验数据验证实际增量。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 5：业务落地——确定最优干预阈值</b>　根据 Qini 曲线和业务约束（如预算、发券成本），确定最优干预比例：只对 uplift 高于阈值的用户干预。阈值选择考虑：① 增量 ROI = 增量收益 / 干预成本；② 边际效益递减点（Qini 曲线斜率开始下降的位置）；③ 排除反作用者（uplift < 0 的用户绝不干预）。"
                   },
                   {
                     "type": "text",
@@ -1959,7 +2420,7 @@
               "id": "cuped",
               "name": "CUPED",
               "nameEn": "Controlled-experiment Using Pre-Experiment Data",
-              "desc": "CUPED 由微软研究院的 <a href='https://dl.acm.org/doi/10.1145/2433396.2433413' target='_blank'>Deng et al.</a>（2013）在 WSDM 会议上提出，是 <a href='https://zhuanlan.zhihu.com/p/144028720' target='_blank'>A/B 实验</a>中最主流的<a href='https://zhuanlan.zhihu.com/p/553239433' target='_blank'>方差缩减</a>技术。其核心思想源自统计学中的<a href='https://baike.baidu.com/item/%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F%E6%B3%95' target='_blank'>控制变量法</a>（Control Variates）：利用一个实验前就已确定的协变量（如实验前同期的同名指标），通过线性调整公式 Y_cuped = Y - θ(X - E[X]) 消除结果中与实验无关的噪声，从而在不增加样本量的情况下提升实验灵敏度。其中 θ = Cov(Y,X)/Var(X) 是最优调整系数。",
+              "desc": "CUPED 由微软研究院的 Deng et al.（2013）在 WSDM 会议上提出，是 A/B 实验中最主流的方差缩减技术。其核心思想源自统计学中的控制变量法（Control Variates）：利用一个实验前就已确定的协变量（如实验前同期的同名指标），通过线性调整公式 Y_cuped = Y - θ(X - E[X]) 消除结果中与实验无关的噪声，从而在不增加样本量的情况下提升实验灵敏度。其中 θ = Cov(Y,X)/Var(X) 是最优调整系数。",
               "when": "适用于 A/B 实验中有可用的实验前指标（即实验开始前的同名或相关历史数据），且实验前后指标具有较高相关性的场景，主要解决如何在现有样本量下更快、更灵敏地检测到实验效应。它的核心优势是利用实验前数据大幅降低方差而无需增加样本量，理论上 ATE 估计仍然无偏，实现也很简单——只需做一次 OLS 回归取残差。不过，方差缩减效果依赖于协变量与结果的相关性，仅限于随机实验场景，且线性调整假设可能限制方差缩减的上限。",
               "tags": [
                 {
@@ -1976,6 +2437,14 @@
                   {
                     "type": "text",
                     "content": "CUPED 的核心思想源于控制变量法（Control Variates）：利用一个与结果相关但不受实验影响的协变量 X（通常是实验前的同名指标），来减少结果变量的方差，从而提升实验灵敏度。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：选择协变量 X</b>　选择一个在实验开始前就已确定的协变量 X（即不受实验影响的变量）。最常见的选择是实验前同名指标（如实验后指标是「人均观看时长」，X 就是实验前一周的「人均观看时长」）。关键要求：① X 必须在实验前确定（保证不受处理影响）；② X 与 Y 有较高相关性 ρ（ρ 越高，方差缩减越大）。多个协变量时可选相关性最高的那个，或使用 CUPAC 的 ML 方法综合利用。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：计算最优调整系数 θ</b>　θ* = Cov(Y,X) / Var(X)，即 Y 对 X 的线性回归系数。这个值使得调整后的方差 Var(Y^cuped) 最小。可以使用全体数据（处理+对照）来估计 θ，因为 X 不受实验影响所以处理组和对照组的 θ 应该相同。"
                   },
                   {
                     "type": "formula",
@@ -2024,6 +2493,10 @@
                     ]
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 3：执行 CUPED 调整并做假设检验</b>　对每个样本计算 Y^cuped = Y - θ(X - X̄)，然后在 Y^cuped 上做标准的两样本 t 检验。由于 E[X - X̄] = 0 且 X 不受实验影响，调整后的 ATE = E[Y^cuped_T] - E[Y^cuped_C] 仍然等于原始 ATE = E[Y_T] - E[Y_C]——即 CUPED 不改变估计量的期望（无偏），只减少方差。"
+                  },
+                  {
                     "type": "formula",
                     "label": "方差缩减率",
                     "latex": "1 - \\frac{\\text{Var}(Y^{\\text{cuped}})}{\\text{Var}(Y)} = \\rho_{YX}^2",
@@ -2036,7 +2509,7 @@
                   },
                   {
                     "type": "text",
-                    "content": "CUPED 调整的核心是用 θ(X - E[X]) 减去 Y 中由协变量 X 解释的变动部分。最优 θ = Cov(Y,X)/Var(X) 正好是 Y 对 X 的线性回归系数。调整后的方差 Var(Y^cuped) = Var(Y)(1 - ρ²)，其中 ρ 是 Y 和 X 的相关系数。方差缩减率等于 ρ²——例如实验前后指标相关性为 0.7 时缩减 49%，相当于免费增加约一倍样本量。由于 X 在实验前就已确定，调整过程不会引入实验后偏差。"
+                    "content": "<b>Step 4：评估方差缩减效果</b>　方差缩减率 = ρ²_{YX}。例如 ρ = 0.7 时缩减 49%（相当于免费增加约一倍样本量），ρ = 0.9 时缩减 81%。如果 ρ < 0.3（缩减 < 9%），CUPED 效果有限，应考虑更强的协变量或升级到 CUPAC。注意 CUPED 只能缩减 Y 中与 X 线性相关的部分——如果 Y 和 X 之间的关系是非线性的，CUPED 的效果会打折扣，此时 CUPAC（用 ML 捕捉非线性）更合适。"
                   },
                   {
                     "type": "text",
@@ -2068,7 +2541,7 @@
               "id": "cupac",
               "name": "CUPAC",
               "nameEn": "Controlled-experiment Using Predictions As Covariates",
-              "desc": "CUPAC 由 <a href='https://www.kdd.org/exploration_files/8._CR.10.Boosted_decision_tree_approach_for_metric_sensitivity_-_Final.pdf' target='_blank'>Poyarkov et al.</a>（2016，Yandex）提出，是 CUPED 的机器学习扩展版本。CUPED 只能用单一线性协变量做方差缩减，而 CUPAC 将协变量替换为 ML 模型（如 <a href='https://zhuanlan.zhihu.com/p/280222403' target='_blank'>GBDT</a>、LightGBM）的预测值 ŷ = f_ML(X)，从而利用多维特征之间的非线性关系实现更大幅度的方差缩减。后来 <a href='https://doordash.engineering/2020/06/08/improving-experimental-power-through-control-using-predictions-as-covariate-cupac/' target='_blank'>DoorDash</a>（2020）等公司在实践中进一步推广了该方法。其关键步骤是用<a href='https://baike.baidu.com/item/%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81' target='_blank'>交叉验证</a>生成 ŷ 以防止过拟合，再将 ŷ 代入 CUPED 调整公式 Y_cupac = Y - θ(ŷ - E[ŷ])。",
+              "desc": "CUPAC 由 Poyarkov et al.（2016，Yandex）提出，是 CUPED 的机器学习扩展版本。CUPED 只能用单一线性协变量做方差缩减，而 CUPAC 将协变量替换为 ML 模型（如 GBDT、LightGBM）的预测值 ŷ = f_ML(X)，从而利用多维特征之间的非线性关系实现更大幅度的方差缩减。后来 DoorDash（2020）等公司在实践中进一步推广了该方法。其关键步骤是用交叉验证生成 ŷ 以防止过拟合，再将 ŷ 代入 CUPED 调整公式 Y_cupac = Y - θ(ŷ - E[ŷ])。",
               "when": "适用于实验前协变量与结果变量之间存在非线性关系、或有多维协变量可利用的 A/B 实验场景。当 CUPED 的线性调整不够充分时，CUPAC 通过 ML 模型（如 GBDT、随机森林）捕捉更复杂的关系，方差缩减效果通常优于 CUPED，灵活性也更高。不过，它需要训练 ML 模型导致计算成本更高，模型过拟合可能引入偏差（需使用交叉拟合），可解释性也低于 CUPED。",
               "tags": [
                 {
@@ -2085,6 +2558,14 @@
                   {
                     "type": "text",
                     "content": "CUPAC 将 CUPED 中的线性协变量替换为机器学习模型的预测值 ŷ，从而捕捉多维特征与结果之间的非线性关系，进一步缩减方差。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：准备多维实验前特征</b>　收集所有在实验开始前就已确定的用户特征 X = (x₁, x₂, ..., x_p)，如实验前同名指标、用户画像（年龄、性别、地区）、历史行为特征（活跃天数、品类偏好、设备类型等）。特征维度可以很高（数十到数百维），这正是 CUPAC 相对 CUPED 的优势所在。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：交叉拟合 ML 预测值</b>　用 ML 模型（GBDT、LightGBM、Random Forest 等）拟合 Y ~ X（不含 T）。关键：必须使用交叉拟合（Cross-fitting）生成 ŷ——将数据分为 K 折，每折的 ŷ 在其余 K-1 折上训练的模型生成，避免过拟合导致的方差估计偏差。"
                   },
                   {
                     "type": "formula",
@@ -2126,7 +2607,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "ML 模型 f 使用实验前数据的多维特征 X（如用户画像、历史行为）预测结果变量。由于 ŷ 与 Y 的相关性通常高于单个 X 特征，方差缩减效果更显著。"
+                    "content": "<b>Step 3：执行 CUPAC 调整</b>　计算 θ* = Cov(Y, ŷ) / Var(ŷ)，然后 Y^cupac = Y - θ*(ŷ - ȳ̂)。由于 ML 预测值 ŷ 综合了多维特征的非线性信息，ŷ 与 Y 的相关性通常高于单个 X 特征，因此方差缩减效果更显著。调整后的 ATE 仍然无偏（只要 ŷ 不受实验影响，即使用实验前特征）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：对比 CUPED 并报告增量收益</b>　报告时应同时给出：① 无调整的 ATE 和 p 值；② CUPED 调整后的结果（使用最佳单一协变量）；③ CUPAC 调整后的结果。比较方差缩减率的增量：如果 CUPAC 相比 CUPED 额外缩减 > 10%，则 ML 的非线性建模价值显著；否则 CUPED 已足够。"
                   },
                   {
                     "type": "text",
@@ -2158,7 +2643,7 @@
               "id": "mlrate",
               "name": "ML 预测调整回归",
               "nameEn": "ML-Adjusted Regression",
-              "desc": "ML 预测调整回归的理论基础源自经典的 <a href='https://zhuanlan.zhihu.com/p/342389244' target='_blank'>Frisch-Waugh-Lovell（FWL）定理</a>的非参数扩展，由 <a href='https://doi.org/10.1111/ectj.12097' target='_blank'>Chernozhukov et al.</a>（2018）在 <a href='https://zhuanlan.zhihu.com/p/470855981' target='_blank'>Double/Debiased ML</a> 框架中系统化发展。它分两步进行：第一步用 ML 模型（如 Random Forest、GBDT）拟合 Y ~ X（不含处理变量 T），获得预测值 ŷ；第二步用残差（即 ML 模型无法解释的部分）Y - ŷ 对 T 做简单回归，估计因果效应。这样既利用了 ML 的非线性拟合能力来控制混杂，又保持了回归框架下的因果推断逻辑。",
+              "desc": "ML 预测调整回归的理论基础源自经典的 Frisch-Waugh-Lovell（FWL）定理的非参数扩展，由 Chernozhukov et al.（2018）在 Double/Debiased ML 框架中系统化发展。它分两步进行：第一步用 ML 模型（如 Random Forest、GBDT）拟合 Y ~ X（不含处理变量 T），获得预测值 ŷ；第二步用残差（即 ML 模型无法解释的部分）Y - ŷ 对 T 做简单回归，估计因果效应。这样既利用了 ML 的非线性拟合能力来控制混杂，又保持了回归框架下的因果推断逻辑。",
               "when": "适用于混杂变量与结果之间存在复杂非线性关系、传统线性控制不足以充分消除混杂的场景。当混杂变量之间有交互效应或非线性影响时，OLS 的线性控制可能遗漏重要的混杂结构，ML 调整回归通过灵活的 ML 模型更完整地去除混杂，结合交叉拟合可保证统计推断的有效性，在协变量信息丰富时方差缩减显著。不过，实现复杂度较高，对 ML 模型的选择和调参有一定要求，计算成本也高于 CUPED / CUPAC。",
               "tags": [
                 {
@@ -2177,6 +2662,10 @@
                     "content": "ML 预测调整回归分两步进行：第一步用 ML 模型拟合 Y ~ X（不含 T），获得预测值 ŷ；第二步用残差 Y - ŷ 对 T 做回归，估计因果效应。"
                   },
                   {
+                    "type": "text",
+                    "content": "<b>Step 1：训练 ML 模型预测结果</b>　使用实验前特征 X（不包含处理变量 T）训练 ML 模型 f_ML(X) 预测结果变量 Y。关键要求：① 必须使用交叉拟合（Cross-fitting）生成 ŷ，防止过拟合导致的偏差；② 模型不应包含 T 作为特征，否则会吸收处理效应导致 Step 2 估计偏低。可以使用任意 ML 模型——Random Forest、GBDT、XGBoost 等。"
+                  },
+                  {
                     "type": "formula",
                     "label": "Step 1: ML 预测",
                     "latex": "\\hat{Y}_i = f_{ML}(X_i) \\quad (\\text{不包含 } T)",
@@ -2190,6 +2679,14 @@
                         "desc": "ML 模型对 Y 的预测值"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：计算残差</b>　对每个样本计算残差 ε̂ᵢ = Yᵢ - ŷᵢ。这个残差代表了 ML 模型「无法解释」的 Y 的变动——如果 ML 模型很好地拟合了 X 对 Y 的影响，残差中主要剩下 T 的效应和纯随机噪声。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：残差对 T 回归</b>　将残差 ε̂ 对处理变量 T 做 OLS 回归：(Yᵢ - ŷᵢ) = α + τ·Tᵢ + eᵢ。τ 即为处理效应的估计。第二步的 OLS 保证了因果参数 τ 的统计推断（置信区间、p 值）仍然有效——这就是半参数框架的精髓。"
                   },
                   {
                     "type": "formula",
@@ -2216,7 +2713,7 @@
                   },
                   {
                     "type": "text",
-                    "content": "τ 即为处理效应的估计。直觉上，Step 1 用 ML 模型「吸收」了协变量 X 对 Y 的非线性影响，Step 2 在残差上做回归就只剩下 T 对 Y 的净效应。这种两步法的优势在于：ML 模型可以灵活地建模任意复杂的混杂关系（不限于线性），同时第二步的 OLS 保证了因果参数 τ 的统计推断（置信区间、p 值）仍然有效——这就是半参数框架的精髓。"
+                    "content": "<b>Step 4：与 DML 的关系</b>　MLRATE 可以看作 DML 的简化版——DML 同时对 Y 和 T 残差化（消除 X 对两者的影响），而 MLRATE 只对 Y 残差化。在 A/B 实验中 T 是随机分配的（与 X 独立），对 T 残差化没有必要，所以 MLRATE 已经足够。但在观测数据中（T 与 X 相关），需要完整的 DML 框架来消除 X 对 T 的混杂影响。这也解释了为什么 CUPED/CUPAC/MLRATE 只适用于实验场景，而 DML 适用于更广泛的因果推断场景。"
                   },
                   {
                     "type": "text",
@@ -2261,7 +2758,7 @@
               "id": "srm",
               "name": "SRM 检测",
               "nameEn": "Sample Ratio Mismatch",
-              "desc": "SRM（Sample Ratio Mismatch）是 A/B 实验质量保障的第一道防线，由 <a href='https://www.kdd.org/kdd2019/accepted-papers/view/diagnosing-sample-ratio-mismatch-in-online-controlled-experiments-a-taxonomy' target='_blank'>Fabijan et al.</a>（2019）在 KDD 上系统性阐述。它检测实验各组的实际样本量比例是否与预设的分流比例一致。例如预设 50:50 分流，但实际观测到 51.2:48.8，这可能是随机波动，也可能是分流系统 Bug、<a href='https://en.wikipedia.org/wiki/Survivorship_bias' target='_blank'>幸存者偏差</a>或<a href='https://en.wikipedia.org/wiki/Bot' target='_blank'>机器人流量</a>等严重问题的信号。SRM 一旦出现，实验的因果推断基础（随机分配）就被破坏，任何指标结论都不可信。",
+              "desc": "SRM（Sample Ratio Mismatch）是 A/B 实验质量保障的第一道防线，由 Fabijan et al.（2019）在 KDD 上系统性阐述。它检测实验各组的实际样本量比例是否与预设的分流比例一致。例如预设 50:50 分流，但实际观测到 51.2:48.8，这可能是随机波动，也可能是分流系统 Bug、幸存者偏差或机器人流量等严重问题的信号。SRM 一旦出现，实验的因果推断基础（随机分配）就被破坏，任何指标结论都不可信。",
               "when": "适用于所有 A/B 实验开始分析指标之前的质量检查步骤，是实验分析流水线的第一步。检测到 SRM（p < 0.01）意味着必须暂停指标分析，先排查根因。常见原因包括：分流服务 Bug、初始化偏差（Treatment 初始化慢导致部分用户丢失）、Bot 过滤逻辑差异、实验触发条件偏差等。SRM 检测简单高效（一次卡方检验即可），但它只能告诉你「比例不对」，无法直接告诉你原因，需要结合业务排查。",
               "tags": [
                 {
@@ -2278,6 +2775,14 @@
                   {
                     "type": "text",
                     "content": "SRM 检测的核心是用卡方检验（Chi-squared test）判断实际样本分布与预期分流比例是否一致。原假设 H₀：实际比例等于预期比例（分流正确）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：收集各组样本量</b>　在实验分析的第一步，统计每个实验组（Treatment、Control，以及可能的多个 Treatment 组）的实际样本量 O_k，以及预设的分流比例 p_k。例如预设 50:50 分流，Treatment 实际 502,347 人、Control 实际 497,653 人。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：执行卡方检验</b>　计算期望样本量 E_k = N × p_k，然后计算卡方统计量 χ² = Σ(O_k - E_k)² / E_k。在 H₀ 下 χ² ~ χ²(K-1)（K 为组数）。查表或计算 p 值——工业界通常使用非常严格的阈值（p < 0.001），因为 SRM 的后果极其严重。"
                   },
                   {
                     "type": "formula",
@@ -2304,7 +2809,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "在 H₀ 下，χ² 近似服从自由度为 K-1 的卡方分布。p 值极小（通常 < 0.01 或 < 0.001）即判定存在 SRM。工业界通常使用非常严格的阈值，因为 SRM 的后果极其严重——它意味着随机化被破坏。"
+                    "content": "<b>Step 3：判定与排查</b>　如果 p < 0.001，判定存在 SRM——必须暂停所有指标分析，先排查根因。常见 SRM 原因：① 分流服务 Bug（哈希函数偏差）；② 初始化偏差（Treatment 的新功能加载较慢，部分用户在初始化完成前离开而未被记录）；③ Bot 过滤差异（Treatment 组的反作弊规则与 Control 不同）；④ 实验触发条件偏差（如 Treatment 要求特定 SDK 版本）；⑤ 幸存者偏差（Treatment 组的崩溃率更高导致部分用户数据丢失）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：修复或调整</b>　SRM 一旦检出，首选是修复根因后重新实验。如果根因已明确且可以量化偏差（如确定是某类 Bot 导致），可以尝试事后调整（如排除 Bot 后重新检查），但调整后仍需通过 SRM 检验。绝不可忽略 SRM 直接分析指标——SRM 意味着随机化被破坏，任何因果推断的基础都不存在。"
                   },
                   {
                     "type": "text",
@@ -2331,7 +2840,7 @@
               "id": "var-estimation",
               "name": "方差估计",
               "nameEn": "Variance Estimation",
-              "desc": "方差估计是 A/B 实验统计推断的基础。在实验中，我们关心的核心问题之一是处理效应估计量的<a href='https://baike.baidu.com/item/%E6%A0%87%E5%87%86%E8%AF%AF%E5%B7%AE' target='_blank'>标准误</a>（Standard Error），它决定了<a href='https://baike.baidu.com/item/%E7%BD%AE%E4%BF%A1%E5%8C%BA%E9%97%B4' target='_blank'>置信区间</a>的宽度和<a href='https://baike.baidu.com/item/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C' target='_blank'>假设检验</a>的功效。常见方法包括解析公式法（基于 CLT 的渐近方差）和 <a href='https://en.wikipedia.org/wiki/Delta_method' target='_blank'>Delta Method</a>（用于比率指标等非线性变换），在指标为均值类时直接使用样本方差公式，在指标为比率或复合指标时需要 Delta Method 进行方差近似。",
+              "desc": "方差估计是 A/B 实验统计推断的基础。在实验中，我们关心的核心问题之一是处理效应估计量的标准误（Standard Error），它决定了置信区间的宽度和假设检验的功效。常见方法包括解析公式法（基于 CLT 的渐近方差）和 Delta Method（用于比率指标等非线性变换），在指标为均值类时直接使用样本方差公式，在指标为比率或复合指标时需要 Delta Method 进行方差近似。",
               "when": "适用于所有 A/B 实验中对 ATE 进行假设检验和置信区间估计的场景，是计算 p 值和构建置信区间的前提。特别是当指标为比率型（如转化率 = 转化数/UV）时，不能简单用均值方差公式，需要 Delta Method。核心优势是理论严谨、计算高效；局限是依赖大样本近似（CLT），对小样本或重尾分布可能不准确，此时需要 Bootstrap 等非参数方法辅助。",
               "tags": [
                 {
@@ -2348,6 +2857,10 @@
                   {
                     "type": "text",
                     "content": "在 A/B 实验中，ATE 估计量 τ̂ = Ȳ_T - Ȳ_C 的方差决定了检验的灵敏度。对于均值类指标，可直接用样本方差公式；对于比率类或复合指标，需要 Delta Method 做近似。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：识别指标类型</b>　A/B 实验中的指标分为三类：① 均值类指标（如人均观看时长、人均消费金额）：每个用户有一个独立观测值，直接用两样本方差公式；② 比率类指标（如转化率 = 转化人数/总人数、客单价 = GMV/下单人数）：是两个随机变量的比值，需要 Delta Method；③ 复合指标（如 ARPU、留存率等）：可能涉及更复杂的函数变换，也需要 Delta Method 或 Bootstrap。"
                   },
                   {
                     "type": "formula",
@@ -2367,6 +2880,10 @@
                         "desc": "两组的样本量"
                       }
                     ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：Delta Method（比率/复合指标）</b>　当指标是随机变量的函数 g(X̄) 时（如比率 g(a,b) = a/b），用 Delta Method 近似其方差：Var(g(X̄)) ≈ ∇g(μ)ᵀ Σ ∇g(μ) / n。步骤：① 计算 g 在样本均值处的梯度向量 ∇g；② 估计 X 的协方差矩阵 Σ；③ 代入公式计算方差。对于比率 a/b：∇g = (1/b, -a/b²)ᵀ，代入两个指标的样本均值和协方差矩阵即可。"
                   },
                   {
                     "type": "formula",
@@ -2393,6 +2910,10 @@
                   },
                   {
                     "type": "text",
+                    "content": "<b>Step 3：构建置信区间与假设检验</b>　有了方差估计后：SE = √Var(τ̂)，z = τ̂ / SE，p = 2(1 - Φ(|z|))。95% 置信区间 = τ̂ ± 1.96·SE。当样本量较小（< 100 per group）或指标分布严重偏态时，Delta Method 的渐近近似可能不够准确——此时应使用 Bootstrap 验证。对于聚类实验（如按城市分流），方差需要用聚类标准误修正。"
+                  },
+                  {
+                    "type": "text",
                     "content": "💡 举例：某电商平台 A/B 实验的核心指标是「客单价 = GMV / 下单用户数」。GMV 和下单用户数分别是随机变量，客单价是它们的比率。直接对客单价做均值方差估计会有偏差。用 Delta Method：令 g(a,b) = a/b，∇g = (1/b, -a/b²)⊤，代入两个指标的样本均值和协方差矩阵即可得到客单价的标准误，进而做正确的假设检验。"
                   }
                 ]
@@ -2416,7 +2937,7 @@
               "id": "nonparametric-test",
               "name": "非参数检验",
               "nameEn": "Nonparametric Tests",
-              "desc": "非参数检验是不依赖数据分布假设的统计检验方法，在 A/B 实验中作为 t 检验的补充。当实验指标严重<a href='https://baike.baidu.com/item/%E5%81%8F%E6%80%81%E5%88%86%E5%B8%83' target='_blank'>偏态</a>（如收入、消费金额的长尾分布）、存在<a href='https://baike.baidu.com/item/%E5%BC%82%E5%B8%B8%E5%80%BC' target='_blank'>异常值</a>、或样本量较小导致<a href='https://baike.baidu.com/item/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86' target='_blank'>中心极限定理</a>不适用时，<a href='https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test' target='_blank'>Mann-Whitney U 检验</a>（又称 Wilcoxon 秩和检验）等非参数方法更为稳健。它们基于数据的秩（排名）而非原始值进行检验，对异常值和非正态分布具有天然的抗性。",
+              "desc": "非参数检验是不依赖数据分布假设的统计检验方法，在 A/B 实验中作为 t 检验的补充。当实验指标严重偏态（如收入、消费金额的长尾分布）、存在异常值、或样本量较小导致中心极限定理不适用时，Mann-Whitney U 检验（又称 Wilcoxon 秩和检验）等非参数方法更为稳健。它们基于数据的秩（排名）而非原始值进行检验，对异常值和非正态分布具有天然的抗性。",
               "when": "适用于 A/B 实验中指标分布严重偏态（如 ARPU、LTV 等长尾指标）、存在大量异常值、或样本量较小（< 30 per group）的场景。核心优势是不依赖正态分布假设，对异常值非常稳健，在偏态数据中比 t 检验更有统计功效。局限是当正态假设成立时功效略低于 t 检验，且检验的假设是分布差异（随机优势）而非均值差异，解释因果效应时需注意语义转换。",
               "tags": [
                 {
@@ -2433,6 +2954,18 @@
                   {
                     "type": "text",
                     "content": "Mann-Whitney U 检验的核心思想是：将两组数据混合后按大小排序，如果处理效应为零，则两组的秩应该均匀混合。U 统计量衡量的是一组数据系统性地大于另一组的程度。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：判断何时使用非参数检验</b>　非参数检验适用于以下场景：① 指标严重偏态（如 ARPU、LTV、消费金额等长尾分布）——t 检验依赖均值的方差估计，极端值会严重膨胀方差，降低检验功效；② 样本量较小（< 30 per group）——中心极限定理不够好用，t 检验的正态近似不可靠；③ 指标含有大量零值或存在自然截断（如活跃天数、付费次数）——分布形态远离正态。此外，如果主要关心「处理是否让结果系统性变大」而非「均值差了多少」，非参数检验在语义上更贴切。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：秩变换——将原始值转为排名</b>　Mann-Whitney U 的第一步是将两组数据混合后统一排序（从小到大），用秩（排名）替代原始值。秩变换的关键作用：① 消除量纲和异常值的影响——鲸鱼用户消费 100,000 元和 1,000 元在秩上可能只差几个名次；② 将任意分布映射到「均匀」结构——无论原始数据什么形状，秩总是 1 到 N 的整数。遇到相同值（ties）时，使用平均秩（mid-rank）。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：计算 U 统计量与 Z 值</b>　U 统计量的直观含义是：从 Treatment 和 Control 各取一个样本，Treatment 更大的次数。等价公式：U = R_T - n_T(n_T+1)/2，其中 R_T 是 Treatment 组的秩和。当样本量足够大（n_T, n_C ≥ 20），U 近似正态分布，可用 Z 值做检验。小样本时应使用精确分布（scipy 默认自动切换）。"
                   },
                   {
                     "type": "formula",
@@ -2474,6 +3007,10 @@
                   },
                   {
                     "type": "text",
+                    "content": "<b>Step 4：解读结果与效应量</b>　p 值告诉我们差异是否显著，但还需要效应量来衡量差异大小。非参数检验的效应量是 P(T > C) = U / (n_T × n_C)——即「随机取一个 Treatment 用户和一个 Control 用户，Treatment 更大的概率」（也称 Common Language Effect Size）。P(T>C) = 0.5 表示完全无效应，> 0.5 表示正效应。例如 P(T>C) = 0.62 意味着 Treatment 用户有 62% 的概率优于 Control 用户。此外，建议同时报告 t 检验结果作为对比——如果两种检验结论一致，增强信心；如果不一致，需深入探查数据分布。"
+                  },
+                  {
+                    "type": "text",
                     "content": "💡 举例：某游戏 A/B 实验的付费金额指标严重右偏（大量 0 元用户 + 少数鲸鱼用户）。t 检验 p = 0.12（不显著），但 Mann-Whitney U 检验 p = 0.003（显著）。原因是少数鲸鱼用户的极端消费额拉大了均值的方差，掩盖了真实效应。秩检验忽略了金额的绝对大小，只关注「谁比谁大」，因此更灵敏。"
                   }
                 ]
@@ -2497,7 +3034,7 @@
               "id": "bootstrap",
               "name": "自助法",
               "nameEn": "Bootstrap",
-              "desc": "Bootstrap（自助法）由统计学家 <a href='https://en.wikipedia.org/wiki/Bradley_Efron' target='_blank'>Bradley Efron</a>（1979）提出，是一种通过<a href='https://baike.baidu.com/item/%E6%9C%89%E6%94%BE%E5%9B%9E%E6%8A%BD%E6%A0%B7' target='_blank'>有放回重抽样</a>来估计统计量分布的通用方法。在 A/B 实验中，当指标的解析方差公式难以推导（如分位数、百分位差异、复杂复合指标）或者大样本近似不够准确时，Bootstrap 通过模拟「重复实验」来直接估计 ATE 的<a href='https://baike.baidu.com/item/%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83' target='_blank'>抽样分布</a>，从而构建置信区间和计算 p 值。",
+              "desc": "Bootstrap（自助法）由统计学家 Bradley Efron（1979）提出，是一种通过有放回重抽样来估计统计量分布的通用方法。在 A/B 实验中，当指标的解析方差公式难以推导（如分位数、百分位差异、复杂复合指标）或者大样本近似不够准确时，Bootstrap 通过模拟「重复实验」来直接估计 ATE 的抽样分布，从而构建置信区间和计算 p 值。",
               "when": "适用于指标的方差没有简洁解析公式的场景，如分位数指标（P50、P90 延迟）、比率的比率、复合业务指标等。也适用于小样本或非正态分布下作为解析方法的验证手段。核心优势是通用性极强——只要能计算统计量就能 Bootstrap，不需要推导任何分布理论。局限是计算成本较高（通常需要 1000-10000 次重抽样），且在极端小样本（< 20）下覆盖率可能不理想，此时需要 BCa（偏差校正加速）等改进方法。",
               "tags": [
                 {
@@ -2514,6 +3051,18 @@
                   {
                     "type": "text",
                     "content": "Bootstrap 的核心思想是「用样本模拟总体」：将观测数据视为总体的代表，通过有放回抽样反复生成新的「虚拟样本」，计算每个虚拟样本上的统计量，用这些统计量的分布来近似真实的抽样分布。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：设定重抽样框架</b>　确定需要估计的统计量 θ̂（如 ATE = Ȳ_T - Ȳ_C、分位数差 ΔP95、比率差等），以及重抽样策略。在 A/B 实验中，标准做法是对 Treatment 和 Control 分别独立进行有放回抽样（两组各自保持原始样本量），这样保持了组间独立性。确定 Bootstrap 次数 B——通常 B = 1000 足以估计标准误，B = 5000-10000 更适合构建精确的置信区间。如果是聚类实验（如按城市分流），应采用 Cluster Bootstrap——以聚类为单位抽样，而非个体。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：生成 Bootstrap 分布</b>　重复 B 次：① 从 Treatment 组有放回抽取 n_T 个样本，从 Control 组有放回抽取 n_C 个样本；② 在每对 Bootstrap 样本上计算统计量 θ̂*_b。最终得到 B 个统计量值 {θ̂*_1, ..., θ̂*_B}，这就是 Bootstrap 分布。它近似了 θ̂ 的真实抽样分布——关键前提是原始样本足够代表总体。Bootstrap 的美妙之处在于它完全不依赖分布假设——只要你能算出统计量，就能 Bootstrap。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 3：构建置信区间</b>　基于 Bootstrap 分布有三种主要的 CI 构建方法：① 百分位法（最简单）：直接取 Bootstrap 分布的 α/2 和 1-α/2 分位数；② 正态法：用 Bootstrap 标准差作为 SE，θ̂ ± z_{α/2}·SE_boot；③ BCa 法（偏差校正加速法，推荐）：校正了 Bootstrap 分布的偏度和加速度，在小样本和偏态分布下覆盖率更优。对于大多数 A/B 实验，百分位法和 BCa 法结果接近；小样本或偏态严重时应优先使用 BCa。"
                   },
                   {
                     "type": "formula",
@@ -2555,6 +3104,10 @@
                   },
                   {
                     "type": "text",
+                    "content": "<b>Step 4：验证与改进</b>　使用 Bootstrap 后需要检查：① 收敛性——增加 B 后结果是否稳定（CI 端点不再波动）；② 对比解析方法——如果有解析公式（如均值差的 t 检验），Bootstrap 结果应与之接近，大的偏差说明有问题；③ 特殊情况处理——对于边界统计量（如恰好等于 0 的比例）、离散数据、或非常小的样本（< 20），简单 Bootstrap 可能不足，应使用 BCa 法或参数 Bootstrap（假设特定分布后再抽样）。在工业实践中，Bootstrap 常作为主检验的「第二意见」：解析方法作为主判据，Bootstrap 作为稳健性验证。"
+                  },
+                  {
+                    "type": "text",
                     "content": "💡 举例：某视频平台要检验新算法对 P95 加载延迟的影响。P95 的解析标准误很难推导。用 Bootstrap：(1) 将 Treatment 和 Control 各自有放回抽样 5000 次；(2) 每次计算 ΔP95 = P95_T - P95_C；(3) 得到 5000 个 ΔP95 值，其 2.5% 和 97.5% 分位数就是 95% 置信区间。如果 CI 不包含 0，说明新算法显著影响了 P95 延迟。"
                   }
                 ]
@@ -2578,7 +3131,7 @@
               "id": "permutation-test",
               "name": "置换检验",
               "nameEn": "Permutation Test",
-              "desc": "置换检验（Permutation Test，也称随机化检验）由 <a href='https://en.wikipedia.org/wiki/Ronald_Fisher' target='_blank'>R.A. Fisher</a> 在 1935 年提出，是假设检验的「原始形态」——它直接利用随机化原理，通过穷举或随机打乱处理标签来构建零分布。在 A/B 实验中，其逻辑特别自然：如果 Treatment 真的没有效果，那么把用户的组别标签随机重新分配后，组间差异应该和原始差异差不多大。置换检验的 p 值就是「在所有可能的标签排列中，差异至少和观测值一样极端的比例」。",
+              "desc": "置换检验（Permutation Test，也称随机化检验）由 R.A. Fisher 在 1935 年提出，是假设检验的「原始形态」——它直接利用随机化原理，通过穷举或随机打乱处理标签来构建零分布。在 A/B 实验中，其逻辑特别自然：如果 Treatment 真的没有效果，那么把用户的组别标签随机重新分配后，组间差异应该和原始差异差不多大。置换检验的 p 值就是「在所有可能的标签排列中，差异至少和观测值一样极端的比例」。",
               "when": "适用于需要精确检验（Exact Test）而不依赖任何分布假设的场景，特别是小样本实验、非标准指标、或者需要验证参数检验结果稳健性时。核心优势是检验水平（Type I Error）精确控制在 α，不需要任何分布假设，逻辑上直接对应随机化实验的设计原理。局限是计算量随样本增大而剧增（完全穷举 C(n,n_T) 种排列），实践中通常用随机置换近似（Monte Carlo Permutation Test）。",
               "tags": [
                 {
@@ -2595,6 +3148,14 @@
                   {
                     "type": "text",
                     "content": "置换检验的逻辑完美对应 A/B 实验的随机化设计：如果处理效应为零（H₀：Fisher Sharp Null），那么观测到的结果与组别标签无关，任何一种标签排列都同样可能。通过枚举所有排列（或大量随机打乱），我们可以构建零分布。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 1：定义零假设与检验统计量</b>　置换检验检验的是 Fisher Sharp Null：H₀ 下每个个体的处理效应恰好为零（即 Yᵢ(1) = Yᵢ(0) for all i）。这比通常 t 检验的「ATE = 0」更强——Sharp Null 意味着不仅平均效应为零，而且每个人的效应都为零。选择检验统计量 T：最常见的是两组均值差 T = Ȳ_T - Ȳ_C，也可以用中位数差、t 统计量、或其他反映处理效应的统计量——置换检验对统计量的选择完全灵活。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 2：打乱标签构建零分布</b>　将所有 N = n_T + n_C 个样本的组别标签随机重新打乱（保持 n_T 和 n_C 不变），在每种打乱方式下重新计算统计量 T(π)。理论上需要枚举所有 C(N, n_T) 种排列（精确置换检验），但当 N 较大时排列数天文般大——实践中用 Monte Carlo 近似：随机抽取 M 次排列（通常 M = 10,000）。所有 T(π) 值构成零分布——它告诉我们「在没有效应时，纯粹由随机分配产生的统计量会有多大」。"
                   },
                   {
                     "type": "formula",
@@ -2621,7 +3182,11 @@
                   },
                   {
                     "type": "text",
-                    "content": "与 Bootstrap 的关键区别：Bootstrap 是有放回抽样来估计统计量的抽样分布（可以构建 CI），置换检验是无放回打乱标签来模拟零分布（专注于 p 值）。置换检验直接检验 Fisher Sharp Null（每个个体的处理效应为零），而不仅仅是 ATE = 0。"
+                    "content": "<b>Step 3：计算 p 值</b>　p 值 = 零分布中 |T(π)| ≥ |T_obs| 的比例。这个 p 值的含义极为直观：「如果处理完全没有效果，仅靠随机分组就能产生至少和观测值一样极端的差异的概率是多少？」。当 M 足够大时，Monte Carlo 置换检验的 p 值精度约为 1/M（如 M=10,000 时精度到 0.0001）。注意：置换检验的 p 值在有限样本下是精确的（不依赖渐近近似），这是它相对于 t 检验的核心优势。"
+                  },
+                  {
+                    "type": "text",
+                    "content": "<b>Step 4：解读结果与方法对比</b>　置换检验给出的是精确 p 值，但不直接提供效应量的置信区间——如果需要 CI，应配合 Bootstrap 使用。与 Bootstrap 的关键区别：Bootstrap 是有放回抽样来估计统计量的抽样分布（可以构建 CI），置换检验是无放回打乱标签来模拟零分布（专注于 p 值）。与 t 检验的关系：当样本量大且分布接近正态时，置换检验的 p 值与 t 检验几乎一致；但在小样本或非正态分布下，置换检验更可靠。实际工作中的最佳实践是「三角验证」——同时报告 t 检验、置换检验和 Bootstrap CI，三者一致则结论稳固。"
                   },
                   {
                     "type": "text",

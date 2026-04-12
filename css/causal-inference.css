@@ -6,19 +6,63 @@
   font-weight: 600;
 }
 
-/* --- Main Layout --- */
+/* --- Main Layout: Three-column --- */
 .ci-main {
   padding: 0 0 80px;
   background: #f8fafc;
 }
 
-.ci-main-inner {
+.ci-main-inner.ci-three-col {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  gap: 32px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 230px 1fr 200px;
+  gap: 24px;
   align-items: flex-start;
+  position: relative;
+}
+
+/* ===== Left Sidebar ===== */
+.ci-left-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+}
+
+.ci-left-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ci-left-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ci-left-sidebar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.ci-left-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+/* Right TOC scrollbar */
+.ci-right-toc::-webkit-scrollbar {
+  width: 3px;
+}
+
+.ci-right-toc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ci-right-toc::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 3px;
 }
 
 /* --- Content Area --- */
@@ -27,79 +71,36 @@
   min-width: 0;
 }
 
-/* --- Sidebar Navigation --- */
-.papers-sidebar {
-  position: sticky;
-  top: 80px;
-  width: 220px;
-  min-width: 220px;
-  flex-shrink: 0;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #e8ecf1;
-  padding: 16px;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-}
-
+/* --- Left Sidebar Navigation --- */
 .sidebar-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e8ecf1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  display: none;
 }
 
 .sidebar-expand-all {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  background: #f8fafc;
-  color: #94a3b8;
-  cursor: pointer;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-
-.sidebar-expand-all:hover {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-  color: #3b82f6;
-}
-
-.sidebar-expand-all.active {
-  background: #eff6ff;
-  border-color: #93c5fd;
-  color: #3b82f6;
+  display: none;
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px 7px 14px;
-  border-radius: 8px;
+  gap: 0;
+  padding: 6px 8px 6px 12px;
+  border-radius: 6px;
+  border-left: none;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  color: #64748b;
-  transition: all 0.2s;
+  color: #475569;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+  transition: all 0.15s;
   cursor: pointer;
+  margin: 1px 4px;
 }
 
 .sidebar-link:hover {
@@ -108,91 +109,61 @@
 }
 
 .sidebar-link.active {
-  background: transparent;
   color: #2563eb;
   font-weight: 600;
 }
 
 .sidebar-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  display: none;
 }
 
 .sidebar-count {
-  margin-left: auto;
-  font-size: 11px;
-  color: #94a3b8;
-  font-weight: 400;
+  display: none;
 }
 
-.sidebar-link.active .sidebar-count {
-  color: #93c5fd;
+.sidebar-chevron {
+  display: none;
 }
 
-/* --- Sidebar Level 3: Collapsible Operator Sub-items --- */
+/* --- Sidebar Level 3: Operator Sub-items (always visible) --- */
 .sidebar-section-group {
   position: relative;
 }
 
-.sidebar-chevron {
-  margin-left: 4px;
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-  opacity: 0.4;
-  cursor: pointer;
-  border-radius: 4px;
-  padding: 1px;
-}
-
-.sidebar-chevron:hover {
-  opacity: 0.8;
-}
-
-.sidebar-section-group.expanded .sidebar-chevron {
-  transform: rotate(180deg);
-  opacity: 0.7;
-}
-
 .sidebar-sub-items {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding-left: 22px;
-}
-
-.sidebar-section-group.expanded .sidebar-sub-items {
-  max-height: 500px;
+  max-height: none;
+  overflow: visible;
+  padding-left: 12px;
 }
 
 .sidebar-sub-link {
   display: block;
-  padding: 4px 10px;
-  margin-left: 2px;
-  font-size: 11.5px;
+  padding: 4px 8px 4px 12px;
+  font-size: 12.5px;
   font-weight: 400;
   color: #94a3b8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
   text-decoration: none;
-  border-radius: 0 6px 6px 0;
   border-left: 2px solid transparent;
-  transition: all 0.2s;
+  border-radius: 0 5px 5px 0;
+  transition: all 0.15s;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 1px 4px;
 }
 
 .sidebar-sub-link:hover {
   color: #475569;
-  border-left-color: #cbd5e1;
+  background: #f8fafc;
 }
 
 .sidebar-sub-link.active {
-  color: #3b82f6;
-  border-left-color: #3b82f6;
+  color: #2563eb;
+  background: rgba(37,99,235,0.06);
   font-weight: 500;
-  background: transparent;
+  border-left-color: #2563eb;
 }
 
 /* --- Section Header --- */
@@ -201,7 +172,7 @@
 }
 
 .ci-operator-card {
-  scroll-margin-top: 150px;
+  scroll-margin-top: 80px;
 }
 
 .section-header {
@@ -211,10 +182,6 @@
   margin-bottom: 20px;
   padding: 16px 0 16px;
   border-bottom: 2px solid #f1f5f9;
-  position: sticky;
-  top: 64px;
-  background: #f8fafc;
-  z-index: 10;
 }
 
 .section-icon {
@@ -235,10 +202,11 @@
 }
 
 .section-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
 }
 
 .section-subtitle {
@@ -309,30 +277,71 @@
   background: #ecfdf5;
 }
 
-/* --- Sidebar Extras --- */
+/* --- Sidebar Module Group (collapsible) --- */
+.sidebar-module-group {
+  margin-top: 4px;
+}
+.sidebar-module-group:first-child {
+  margin-top: 0;
+}
+
 .sidebar-module-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #334155;
-  letter-spacing: 0.01em;
-  padding: 12px 10px 6px;
-  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+  padding: 10px 10px 10px 12px;
+  margin: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  border-top: 1px solid #e2e8f0;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  user-select: none;
 }
 
-.sidebar-module-title svg {
-  width: 15px;
-  height: 15px;
+.sidebar-module-title:hover {
+  color: #2563eb;
+  background: #f1f5f9;
+}
+
+.sidebar-module-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-module-chevron {
   flex-shrink: 0;
-  opacity: 0.7;
+  transition: transform 0.25s ease;
+  opacity: 0.5;
 }
 
-.sidebar-module-title:first-child {
-  margin-top: 0;
-  border-top: none;
+.sidebar-module-group.expanded .sidebar-module-chevron {
+  transform: rotate(0deg);
+}
+.sidebar-module-group:not(.expanded) .sidebar-module-chevron {
+  transform: rotate(-90deg);
+}
+
+.sidebar-module-children {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.sidebar-module-group.expanded .sidebar-module-children {
+  max-height: 2000px;
+  opacity: 1;
+}
+.sidebar-module-group:not(.expanded) .sidebar-module-children {
+  max-height: 0;
+  opacity: 0;
+}
+
+.sidebar-module-group:first-child .sidebar-module-title {
+  padding-top: 4px;
 }
 
 .sidebar-coming {
@@ -360,6 +369,144 @@
   padding: 1px 6px;
   border-radius: 4px;
   white-space: nowrap;
+}
+
+/* ===== Right TOC (本页目录) ===== */
+.ci-right-toc {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 0;
+}
+
+.ci-toc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e8ecf1;
+}
+
+.ci-toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 1.5px solid #e8ecf1;
+  padding-left: 0;
+}
+
+.ci-toc-section {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  padding: 5px 0 5px 14px;
+  margin-left: -1.5px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.ci-toc-section:hover {
+  color: #2563eb;
+}
+
+.ci-toc-section.active {
+  color: #2563eb;
+  border-left-color: #2563eb;
+  font-weight: 700;
+}
+
+.ci-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #94a3b8;
+  padding: 3.5px 0 3.5px 12px;
+  margin-left: -1.5px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.ci-toc-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.ci-toc-icon {
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.ci-toc-icon-emoji {
+  flex-shrink: 0;
+  font-size: 10px;
+  line-height: 1;
+}
+
+/* Step 类型的目录项：作为子项缩进 */
+.ci-toc-type-step {
+  font-weight: 400;
+  color: #64748b;
+  padding-left: 22px;
+  font-size: 11px;
+}
+
+/* 公式类型：作为子项缩进 */
+.ci-toc-type-formula {
+  color: #94a3b8;
+  padding-left: 22px;
+  font-size: 11px;
+}
+
+/* keypoint 类型：作为子项缩进 */
+.ci-toc-type-keypoint {
+  color: #94a3b8;
+  padding-left: 22px;
+  font-size: 11px;
+}
+
+/* 主标题（定义、场景、原理、举例、延展） */
+.ci-toc-type-desc,
+.ci-toc-type-when {
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.ci-toc-type-example,
+.ci-toc-type-vs {
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.ci-toc-item:hover {
+  color: #475569;
+}
+
+.ci-toc-item.active {
+  color: #2563eb;
+  border-left-color: #2563eb;
+  font-weight: 500;
+}
+
+.ci-toc-empty {
+  display: block;
+  font-size: 11px;
+  color: #cbd5e1;
+  padding: 8px 12px;
+  font-style: italic;
 }
 
 /* --- Mobile TOC --- */
@@ -551,7 +698,7 @@
 .ci-operator-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0;
   margin-bottom: 56px;
 }
 
@@ -560,16 +707,21 @@
 }
 
 .ci-operator-card {
-  background: #fff;
-  border: 1px solid #e8ecf1;
-  border-radius: 14px;
-  padding: 24px;
-  transition: all 0.25s;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 24px 0;
+  border-bottom: 1px solid #e8ecf1;
+  transition: none;
+}
+
+.ci-operator-card:last-child {
+  border-bottom: none;
 }
 
 .ci-operator-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-color: #e8ecf1;
+  box-shadow: none;
 }
 
 .ci-op-header {
@@ -579,6 +731,12 @@
   gap: 12px;
   margin-bottom: 12px;
   flex-wrap: wrap;
+  position: sticky;
+  top: 64px;
+  background: #f8fafc;
+  z-index: 10;
+  padding: 12px 0;
+  margin-top: -12px;
 }
 
 .ci-op-titles {
@@ -589,10 +747,11 @@
 }
 
 .ci-op-name {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   color: #0f172a;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
 }
 
 .ci-op-name-en {
@@ -623,9 +782,81 @@
 .ci-op-body {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
 }
 
+/* 正文段落（无标签的自然段落流） */
+.ci-body-text {
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.8;
+  margin: 0 0 12px;
+}
+
+.ci-body-text:last-child {
+  margin-bottom: 0;
+}
+
+/* 带标题的段落容器 */
+.ci-labeled-section {
+  margin: 0 0 20px;
+}
+
+.ci-labeled-section:last-child {
+  margin-bottom: 0;
+}
+
+.ci-labeled-section .ci-body-text {
+  margin-bottom: 0;
+}
+
+/* 段落小标题 */
+.ci-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #f1f5f9;
+  letter-spacing: 0.02em;
+}
+
+.ci-sh-icon {
+  flex-shrink: 0;
+  color: #6366f1;
+  opacity: 0.7;
+}
+
+.ci-sh-icon-emoji {
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* 示例标题颜色 */
+.ci-sh-example {
+  color: #d97706;
+}
+
+/* 延展标题颜色 */
+.ci-sh-vs {
+  color: #64748b;
+}
+
+.ci-sh-vs .ci-sh-icon {
+  color: #94a3b8;
+}
+
+/* 延展段落的样式（与正文保持一致） */
+.ci-body-vs {
+  color: #475569;
+  font-size: 13.5px;
+}
+
+/* 保留 ci-section-block 兼容旧结构 */
 .ci-section-block {
   display: flex;
   gap: 10px;
@@ -655,7 +886,8 @@
 
 /* Inline reference links (superscript style) */
 .ci-section-text a,
-.ci-op-desc a {
+.ci-op-desc a,
+.ci-body-text a {
   color: #6366f1;
   text-decoration: none;
   border-bottom: 1px dashed rgba(99, 102, 241, 0.35);
@@ -664,14 +896,16 @@
 }
 
 .ci-section-text a:hover,
-.ci-op-desc a:hover {
+.ci-op-desc a:hover,
+.ci-body-text a:hover {
   color: #4f46e5;
   border-bottom-color: #4f46e5;
   border-bottom-style: solid;
 }
 
 .ci-section-text a::after,
-.ci-op-desc a::after {
+.ci-op-desc a::after,
+.ci-body-text a::after {
   content: none;
 }
 
@@ -926,6 +1160,7 @@
 
 .ci-formula-expr {
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 4px 0;
   text-align: center;
@@ -1116,26 +1351,35 @@
 .ci-collapse-body .py-builtin { color: #0891b2; }
 
 /* --- Responsive --- */
-@media (max-width: 1100px) {
-  .papers-sidebar {
+/* 隐藏右栏 + 中等屏幕 */
+@media (max-width: 1200px) {
+  .ci-right-toc {
     display: none;
+  }
+  .ci-main-inner.ci-three-col {
+    grid-template-columns: 230px 1fr;
+  }
+}
+
+/* 隐藏左栏 + 显示移动端 TOC */
+@media (max-width: 900px) {
+  .ci-left-sidebar {
+    display: none;
+  }
+  .ci-main-inner.ci-three-col {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
   }
   .mobile-toc-fab, .mobile-toc-overlay, .mobile-toc-panel {
     display: flex;
   }
-  .ci-main-inner {
-    max-width: 1200px;
-  }
-}
-
-@media (max-width: 900px) {
   .ci-op-header {
     flex-direction: column;
     gap: 8px;
   }
 
   .section-title {
-    font-size: 17px;
+    font-size: 20px;
   }
 }
 
@@ -1145,7 +1389,7 @@
   }
 
   .ci-operator-card {
-    padding: 16px;
+    padding: 16px 0;
   }
 
   .ci-op-name {
