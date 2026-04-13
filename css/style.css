@@ -1722,6 +1722,25 @@ a {
 }
 
 /* ===== Responsive ===== */
+
+/* 中等屏幕：压缩导航栏确保社交图标可见 */
+@media (max-width: 1200px) {
+  .nav-links {
+    gap: 12px;
+    margin-left: 16px;
+  }
+  .nav-link {
+    font-size: 13px;
+  }
+  .nav-search {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .navbar-inner {
+    padding: 0 16px;
+  }
+}
+
 @media (max-width: 900px) {
   .hero-title {
     font-size: 42px;
