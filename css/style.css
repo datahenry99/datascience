@@ -927,17 +927,6 @@ a {
   margin-left: 4px;
 }
 
-.new-badge-nav {
-  position: relative;
-  top: -1px;
-  right: auto;
-  z-index: 2;
-  margin-left: 2px;
-  vertical-align: super;
-  font-size: 9px;
-  padding: 2px 5px;
-  border-radius: 20px;
-}
 
 /* --- 更新日志 --- */
 .home-changelog-scroll {
