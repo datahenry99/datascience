@@ -36,7 +36,7 @@ a {
   height: 64px;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .logo {
@@ -88,11 +88,11 @@ a {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   margin-left: 16px;
   flex-shrink: 1;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .nav-link {
@@ -129,14 +129,15 @@ a {
   font-size: 13px;
   color: #888;
   background: #f3f4f6;
-  padding: 7px 14px;
+  padding: 7px 12px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
   margin-left: auto;
   min-width: 0;
   white-space: nowrap;
-  flex-shrink: 1;
+  flex-shrink: 2;
+  overflow: hidden;
 }
 
 .nav-search:hover {
@@ -927,12 +928,12 @@ a {
 }
 
 .new-badge-nav {
-  position: absolute;
-  top: -8px;
-  right: -22px;
+  position: relative;
+  top: -1px;
+  right: auto;
   z-index: 2;
-  margin-left: 0;
-  vertical-align: baseline;
+  margin-left: 2px;
+  vertical-align: super;
   font-size: 9px;
   padding: 2px 5px;
   border-radius: 20px;
@@ -1728,8 +1729,8 @@ a {
 /* 中等屏幕：压缩导航栏确保社交图标可见 */
 @media (max-width: 1200px) {
   .nav-links {
-    gap: 12px;
-    margin-left: 16px;
+    gap: 8px;
+    margin-left: 12px;
   }
   .nav-link {
     font-size: 13px;
@@ -1740,6 +1741,34 @@ a {
   }
   .navbar-inner {
     padding: 0 16px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .nav-links {
+    gap: 6px;
+    margin-left: 10px;
+  }
+  .nav-link {
+    font-size: 12.5px;
+  }
+  .nav-search {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .nav-changelog {
+    width: 28px;
+    height: 28px;
+    margin-left: 2px;
+  }
+  .nav-github,
+  .nav-xiaohongshu {
+    width: 28px;
+    height: 28px;
+  }
+  .nav-social {
+    gap: 1px;
+    margin-left: 2px;
   }
 }
 
